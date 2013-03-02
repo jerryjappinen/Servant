@@ -2,39 +2,54 @@
 
 class ServantMain extends ServantObject {
 
-	// Children
-	protected $propertyAvailable 	= null;
-	protected $propertyFormat 		= null;
-	protected $propertyInput 		= null;
-	protected $propertyPaths 		= null;
-	protected $propertyRender 		= null;
-	protected $propertySettings 	= null;
-	protected $propertySite 		= null;
+
+
+	// Running Servant
 
 	// Override default construction method
 	public function __construct () {
 		return $this;
 	}
 
-	// Custom launch method
-	public function initialize ($paths, $settings, $input) {
-		$this->setInput($input);
+	// Paths are absolutely needed
+	public function initialize ($paths, $settings) {
 		$this->setPaths($paths);
 		$this->setSettings($settings);
 		return $this;
 	}
 
+	// Select where to be
+	public function select ($site, $article) {
+		$this->setSite($site, $article);
+		return $this;
+	}
 
+	// Create output via templates
+	public function run () {
+		$files = rglob_files($this->paths()->templates('server'), $this->settings()->templateLanguages());
+		foreach ($files as $path) {
+			echo $this->render()->file($path);
+		}
+	}
+
+
+
+	// Children
+
+	// Properties
+	protected $propertyAvailable 	= null;
+	protected $propertyFormat 		= null;
+	protected $propertyPaths 		= null;
+	protected $propertyRender 		= null;
+	protected $propertySettings 	= null;
+	protected $propertySite 		= null;
 
 	// Public getters for children
-	public function input () {
-		return $this->get('input');
-	}
 	public function paths () {
 		return $this->get('paths');
 	}
 	public function settings () {
-		return $this->get('settings');
+		return $this->getAndSet('settings');
 	}
 
 	public function available () {
@@ -53,13 +68,10 @@ class ServantMain extends ServantObject {
 
 
 	// Setters for children
-	protected function setInput ($input) {
-		return $this->set('input', new ServantInput($this, $input));
-	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', new ServantPaths($this, $paths));
 	}
-	protected function setSettings ($settings) {
+	protected function setSettings ($settings = array()) {
 		return $this->set('settings', new ServantSettings($this, $settings));
 	}
 
@@ -79,28 +91,5 @@ class ServantMain extends ServantObject {
 
 
 }
-
-// // Current guide
-// if (isset($_GET['category']) and array_key_exists($_GET['category'], $guides)) {
-// 	$category = $_GET['category'];
-	
-// 	// Valid ID
-// 	if (isset($_GET['id']) and array_key_exists($_GET['id'], $guides[$_GET['category']])) {
-// 		$guide = $_GET['id'];
-		
-// 	// Category default
-// 	} else {
-// 		$temp = array_keys($guides[$category]);
-// 		$guide = $temp[0];
-// 	}
-
-// // Fall back to readme
-// } else {
-// 	$category = $categoryorder[0];
-// 	$temp = array_keys($guides[$category]);
-// 	$guide = $temp[0];
-// 	unset($temp);
-// }
-// $file = $guides[$category][$guide];
 
 ?>

@@ -1,0 +1,29 @@
+
+# Settings
+
+# Disable directory listings
+# Options -Indexes
+
+# Allow URL rewrites (uncomment the next line if needed on your server)
+# Options +FollowSymLinks
+RewriteEngine on
+
+# Might be required for CORS (uncomment if needed on your server)
+# Header set Access-Control-Allow-Origin *
+
+
+
+# Endpoints
+
+# Forward to default app
+# RewriteRule ^$ %{REQUEST_URI}proot/ [R=301,L]
+
+# Load index.php at root
+DirectoryIndex backend/index.php
+
+# Respect natural paths
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Access the web client of an app directly
+RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?site=$1&dir1=$2&dir2=$3&dir3=$4&dir4=$5&dir5=$6&dir6=$7&dir7=$8&dir8=$9

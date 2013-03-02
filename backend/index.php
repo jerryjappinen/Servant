@@ -62,15 +62,21 @@ unset($path);
 
 
 // Take input
-$input = array();
-foreach (array('site', 'dir1', 'dir2', 'dir3', 'dir4', 'dir5', 'dir6', 'dir7', 'dir8') as $key) {
-	if (isset($_GET[$key]) and is_string($_GET[$key]) or is_int($_GET[$key])) {
-		$input[$key] = strval($_GET[$key]);
-	} else {
-		$input[$key] = '';
-	}
+$site = '';
+if (isset($_GET['site']) and (is_string($_GET['site']) or is_int($_GET['site']))) {
+	$site = $_GET['site'];
 }
-unset($key);
+$article = array();
+$i=0;
+foreach (array('dir1', 'dir2', 'dir3', 'dir4', 'dir5', 'dir6', 'dir7', 'dir8') as $key) {
+	if (isset($_GET[$key]) and (is_string($_GET[$key]) or is_int($_GET[$key]))) {
+		$article[$i] = strval($_GET[$key]);
+	} else {
+		break;
+	}
+	$i++;
+}
+unset($i, $key);
 
 
 
@@ -81,14 +87,16 @@ try {
 
 	// Launch it
 	$servant = new ServantMain();
-	$servant->initialize($paths, $settings, $input);
 
-	// Print output via templates
-	foreach (rglob_files($servant->paths()->templates('server'), array('php')) as $path) {
-		echo $servant->render()->file($path);
-	}
-	// echo $servant->render()->file('debug.php');
-	
+	// Set up things
+	$servant->initialize($paths, $settings)->select($site, $article);
+	unset($paths, $settings, $site, $article);
+
+	// Run it
+	$servant->run();
+	// echo 'debug.php';
+
+
 } catch (Exception $e) {
 
 	echo '
