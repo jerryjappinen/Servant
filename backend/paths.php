@@ -9,14 +9,14 @@ $paths = array(
 
 	// Relative to root path
 	'sites' 		=> 'sites/',
+	'themes' 		=> 'themes/',
+	'templates' 	=> 'templates/',
 
 	// Backend
 	'index' 		=> 'backend/',
 	'classes' 		=> 'backend/classes/',
 	'helpers' 		=> 'backend/helpers/',
 	'settings' 		=> 'backend/settings/',
-	'templates' 	=> 'backend/templates/',
-	'themes' 		=> 'backend/themes/',
 	'utilities' 	=> 'backend/utilities/',
 
 );

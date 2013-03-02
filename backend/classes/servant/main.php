@@ -49,6 +49,7 @@ class ServantMain extends ServantObject {
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
 	protected $propertyTemplate 	= null;
+	protected $propertyTheme 		= null;
 
 	// Public getters for children
 	public function available () {
@@ -71,6 +72,9 @@ class ServantMain extends ServantObject {
 	}
 	public function template () {
 		return $this->getAndSet('template');
+	}
+	public function theme () {
+		return $this->getAndSet('theme');
 	}
 
 
@@ -97,8 +101,22 @@ class ServantMain extends ServantObject {
 	protected function setTemplate ($id = null) {
 		return $this->set('template', new ServantTemplate($this, $id));
 	}
+	protected function setTheme ($id = null) {
+		return $this->set('theme', new ServantTheme($this, $id));
+	}
 
 
+
+	// Debug info
+	public function debug () {
+		$whatToPrint = array(
+			// 'available' => $this->dev()->available(),
+			// 'paths' => $this->dev()->paths(),
+			'theme' => $this->theme()->files(),
+		);
+		echo htmlDump($whatToPrint);
+		return $this;
+	}
 
 	// Built-in debugger
 	protected $propertyDev = null;
@@ -107,14 +125,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setDev () {
 		return $this->set('dev', new ServantDev($this));
-	}
-
-
-
-	// Debug info
-	public function debug () {
-		echo htmlDump($this->dev()->paths());
-		return $this;
 	}
 
 }

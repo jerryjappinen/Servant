@@ -1,6 +1,6 @@
 <?php
 
-class ServantTemplate extends ServantObject {
+class ServantTheme extends ServantObject {
 
 	// Properties
 	protected $propertyFiles 	= null;
@@ -48,7 +48,7 @@ class ServantTemplate extends ServantObject {
 		$files = array();
 		$dir = $this->path('server');
 		if (is_dir($dir)) {
-			foreach (rglob_files($dir, $this->servant()->settings()->templateFiles()) as $key => $path) {
+			foreach (rglob_files($dir, $this->servant()->settings()->stylesheetFiles()) as $key => $path) {
 				$files[$key] = $this->servant()->format()->path($path, false, 'server');
 			}
 		}
@@ -60,14 +60,14 @@ class ServantTemplate extends ServantObject {
 		// Silently fall back to default
 		// FLAG shouldn't be done here
 		if (!$this->servant()->available()->template($id)) {
-			$id = $this->servant()->available()->templates(0);
+			$id = $this->servant()->available()->themes(0);
 		}
 
 		return $this->set('id', $id);
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->templates('plain').$this->id().'/');
+		return $this->set('path', $this->servant()->paths()->themes('plain').$this->id().'/');
 	}
 
 }

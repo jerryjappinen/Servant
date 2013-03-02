@@ -4,14 +4,18 @@ class ServantSettings extends ServantObject {
 
 	// Properties
 	protected $propertyNamingConvention = null;
-	protected $propertyTemplateLanguages = null;
+	protected $propertyStylesheetFiles = null;
+	protected $propertyTemplateFiles = null;
 
 	// Public getters
 	public function namingConvention () {
 		return $this->getAndSet('namingConvention', func_get_args());
 	}
-	public function templateLanguages () {
-		return $this->getAndSet('templateLanguages', func_get_args());
+	public function stylesheetFiles () {
+		return $this->getAndSet('stylesheetFiles', func_get_args());
+	}
+	public function templateFiles () {
+		return $this->getAndSet('templateFiles', func_get_args());
 	}
 
 
@@ -36,10 +40,13 @@ class ServantSettings extends ServantObject {
 
 	// Setters
 	protected function setNamingConvention ($value = array()) {
-		return $this->set('namingConvention', to_array($value));
+		return $this->set('namingConvention', array_flatten(to_array($value)));
 	}
-	protected function setTemplateLanguages ($value = array()) {
-		return $this->set('templateLanguages', to_array($value));
+	protected function setStylesheetFiles ($value = array()) {
+		return $this->set('stylesheetFiles', array_flatten(to_array($value)));
+	}
+	protected function setTemplateFiles ($value = array()) {
+		return $this->set('templateFiles', array_flatten(to_array($value)));
 	}
 
 
@@ -50,7 +57,8 @@ class ServantSettings extends ServantObject {
 	private function properties () {
 		return array(
 			'namingConvention',
-			'templateLanguages',
+			'stylesheetFiles',
+			'templateFiles',
 		);
 	}
 

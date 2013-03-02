@@ -6,7 +6,7 @@ class ServantDev extends ServantObject {
 	// All paths in all formats
 	public function paths () {
 		$results = array();
-		$keys = array(
+		$methods = array(
 			'documentRoot',
 			'root',
 			'sites',
@@ -18,12 +18,26 @@ class ServantDev extends ServantObject {
 			'themes',
 			'utilities',
 		);
-		foreach ($keys as $key => $method) {
+		foreach ($methods as $method) {
 			$results[$method] = array(
 				'plain' => $this->servant()->paths()->$method(),
 				'domain' => $this->servant()->paths()->$method('domain'),
 				'server' => $this->servant()->paths()->$method('server'),
 			);
+		}
+		return $results;
+	}
+
+	// All things available
+	public function available () {
+		$results = array();
+		$methods = array(
+			'sites',
+			'templates',
+			'themes',
+		);
+		foreach ($methods as $method) {
+			$results[$method] = $this->servant()->available()->$method();
 		}
 		return $results;
 	}

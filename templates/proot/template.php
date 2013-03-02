@@ -14,6 +14,11 @@ $output = '
 		<meta name="application-name" content="Proot guides">
 		
 		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+		';
+
+		// Stylesheets
+
+		$output .= '
 		<link rel="stylesheet" href="'.$servant->paths()->root('domain').'assets/layers.css" media="screen">
 		<link rel="stylesheet" href="'.$servant->paths()->root('domain').'assets/layers_responsive.css" media="screen">
 		<link rel="stylesheet" href="'.$servant->paths()->root('domain').'assets/prism.css" media="screen">

@@ -50,7 +50,7 @@ class ServantSite extends ServantObject {
 	// Setters
 
 	protected function setArticles () {
-		$results = $this->findArticles($this->path('server'), $this->servant()->settings()->templateLanguages());
+		$results = $this->findArticles($this->path('server'), $this->servant()->settings()->templateFiles());
 		ksort($results);
 		return $this->set('articles', $results);
 	}

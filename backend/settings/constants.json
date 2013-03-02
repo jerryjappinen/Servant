@@ -27,6 +27,7 @@
 		"js ": "JS "
 	},
 
-	"templateLanguages": ["md", "txt", "html", "htm", "xhtml", "php"]
+	"templateFiles": ["md", "txt", "html", "htm", "xhtml", "php"],
+	"stylesheetFiles": ["css", "less"]
 
 }
