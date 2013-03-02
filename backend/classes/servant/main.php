@@ -2,16 +2,21 @@
 
 class ServantMain extends ServantObject {
 
+	// Shorthand for full execution
+	public function run ($paths, $settings, $site = false, $selectedArticle = false) {
+		return $this->initialize($paths, $settings)->select($site, $selectedArticle)->templates();
+	}
 
 
-	// Running Servant
+
+	// The Servant process
 
 	// Override default construction method
 	public function __construct () {
 		return $this;
 	}
 
-	// Paths are absolutely needed
+	// Paths and settings are needed
 	public function initialize ($paths, $settings) {
 		$this->setPaths($paths);
 		$this->setSettings($settings);
@@ -19,17 +24,18 @@ class ServantMain extends ServantObject {
 	}
 
 	// Select where to be
-	public function select ($site, $article) {
-		$this->setSite($site, $article);
+	public function select ($site, $selectedArticle) {
+		$this->setSite($site, $selectedArticle);
 		return $this;
 	}
 
 	// Create output via templates
-	public function run () {
+	public function templates () {
 		$files = rglob_files($this->paths()->templates('server'), $this->settings()->templateLanguages());
 		foreach ($files as $path) {
 			echo $this->render()->file($path);
 		}
+		return $this;
 	}
 
 

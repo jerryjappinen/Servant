@@ -9,10 +9,15 @@ class ServantSite extends ServantObject {
 	protected $propertyPath 	= null;
 	protected $propertySelected = null;
 
-	// Initialize with an ID
-	protected function initialize ($id = '', $selected = array()) {
-		$this->setId($id);
-		$this->setSelected($selected);
+	// Initialize with ID and selection
+	protected function initialize ($id = false, $selected = false) {
+		if ($id) {
+			$this->setId($id);
+		}
+		if ($selected) {
+			$this->setSelected($selected);
+		}
+		return $this;
 	}
 
 

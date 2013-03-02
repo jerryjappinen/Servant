@@ -2,6 +2,8 @@
 
 class ServantRender extends ServantObject {
 
+
+
 	// Read file and try to output
 	public function file ($path, $type = '') {
 
