@@ -34,9 +34,12 @@ class ServantSite extends ServantObject {
 	public function name () {
 		return $this->getAndSet('name');
 	}
-	// FLAG path is not being set here
 	public function path ($format = false) {
-		return $this->servant()->paths()->sites($format).$this->id();
+		$path = $this->getAndSet('path');
+		if ($format) {
+			$path = $this->servant()->format()->path($path, $format);
+		}
+		return $path;
 	}
 	public function selected () {
 		return $this->getAndSet('selected', func_get_args());

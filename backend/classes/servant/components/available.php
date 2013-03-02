@@ -5,6 +5,7 @@ class ServantAvailable extends ServantObject {
 	// Properties
 	protected $propertySites 		= null;
 	protected $propertyTemplates 	= null;
+	protected $propertyThemes 		= null;
 
 	// Public getters
 	public function site () {
@@ -19,29 +20,39 @@ class ServantAvailable extends ServantObject {
 	public function templates () {
 		return $this->getAndSet('templates', func_get_args());
 	}
+	public function theme () {
+		return $this->assert('themes', func_num_args());
+	}
+	public function themes () {
+		return $this->getAndSet('themes', func_get_args());
+	}
 
 
 
 	// Setters
 
-	// Sites are directories
+	// Sites, templates and themes are all just directories
 	protected function setSites () {
-		$sites = array();
-		$dirs = glob_dir($this->servant()->paths()->sites('server'));
-		foreach ($dirs as $value) {
-			$sites[] = basename($value);
-		}
-		return $this->set('sites', $sites);
+		return $this->set('sites', $this->findDirectories('sites'));
+	}
+	protected function setTemplates () {
+		return $this->set('templates', $this->findDirectories('templates'));
+	}
+	protected function setThemes () {
+		return $this->set('themes', $this->findDirectories('themes'));
 	}
 
-	// Templates are directories
-	protected function setTemplates () {
-		$templates = array();
-		$dirs = glob_dir($this->servant()->paths()->templates('server'));
-		foreach ($dirs as $value) {
-			$templates[] = basename($value);
+
+
+	// Private helpers
+
+	private function findDirectories ($dir) {
+		$items = array();
+		$dirs = glob_dir($this->servant()->paths()->$dir('server'));
+		foreach ($dirs as $path) {
+			$items[] = basename($path);
 		}
-		return $this->set('templates', $templates);
+		return $items;
 	}
 
 }

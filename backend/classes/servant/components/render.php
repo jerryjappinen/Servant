@@ -1,10 +1,8 @@
 <?php
 
-class ServantRender extends ServantObject {
+class ServantExtract extends ServantObject {
 
-
-
-	// Read file and try to output
+	// Open and get file contents in a renderable format
 	public function file ($path, $type = '') {
 
 		// Auto file type detection
@@ -12,11 +10,11 @@ class ServantRender extends ServantObject {
 			$type = detect($path, 'extension');
 		}
 
-		// Type-specific rendering
+		// Type-specific methods
 		if (method_exists($this, $type.'File')) {
 			return call_user_func(array($this, $type.'File'), $path);
 
-		// Fallback
+		// Generic fallback
 		} else {
 			return file_get_contents($path);
 		}
@@ -24,15 +22,15 @@ class ServantRender extends ServantObject {
 
 
 
-	// Type-specific rendering functions
+	// Private helpers
 
-	// Convert to HTML from Markdown
-	public function mdFile ($path) {
+	// Markdown converts to HTML
+	private function mdFile ($path) {
 		return Markdown(file_get_contents($path));
 	}
 
-	// Include a PHP file
-	public function phpFile () {
+	// PHP file is included elaborately
+	private function phpFile () {
 
 		// Helper shorthand
 		$servant = $this->servant();
@@ -47,8 +45,8 @@ class ServantRender extends ServantObject {
 		return $output;
 	}
 
-	// Assume Markdown
-	public function txtFile ($path) {
+	// Text is assumed to be Markdown
+	private function txtFile ($path) {
 		return $this->mdFile($path);
 	}
 

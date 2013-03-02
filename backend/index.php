@@ -88,7 +88,6 @@ try {
 	// Run Servant
 	create(new ServantMain)->run($paths, $settings, $site, $article);
 	unset($paths, $settings, $site, $article);
-	// echo 'debug.php';
 
 
 

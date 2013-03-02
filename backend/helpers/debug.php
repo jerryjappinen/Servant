@@ -1,9 +1,14 @@
 <?php
 // Development helpers
 
-// Dump stuff into log
+// Dump values
 function dump ($value) {
 	return "\n\n".var_export($value, true)."\n\n\n";
+}
+
+// Dump values into HTML tags
+function htmlDump ($value) {
+	return '<pre>'.dump($value).'</pre>';
 }
 
 // Silently log to error log

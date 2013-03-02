@@ -117,7 +117,6 @@ $output = '
 						<tr>
 							<td class="third">Download</td>
 							<td><a href="https://bitbucket.org/Eiskis/proot/downloads/proot.zip" target="_blank">Latest release from Bitbucket</a></td>
-							<td><a href="https://bitbucket.org/Eiskis/proot/get/default.zip" target="_blank">Development snapshot (includes all sample apps)</a></td>
 						</tr>
 						<tr>
 							<td class="third">Licensed under</td>

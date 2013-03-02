@@ -20,16 +20,24 @@ class ServantTemplate extends ServantObject {
 
 
 	// Public getters
-	// FLAG add formatting support
-	public function files () {
-		return $this->getAndSet('files');
+	public function files ($format = false) {
+		$files = $this->getAndSet('files');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
 	}
 	public function id () {
 		return $this->getAndSet('id');
 	}
-	// FLAG path is not being set here
 	public function path ($format = false) {
-		return $this->servant()->paths()->templates($format).$this->id();
+		$path = $this->getAndSet('path');
+		if ($format) {
+			$path = $this->servant()->format()->path($path, $format);
+		}
+		return $path;
 	}
 
 
@@ -37,7 +45,11 @@ class ServantTemplate extends ServantObject {
 	// Setters
 
 	protected function setFiles () {
-		return $this->set('files', rglob_files($this->path('server'), $this->servant()->settings()->templateLanguages()));
+		$files = array();
+		foreach (rglob_files($this->path('server'), $this->servant()->settings()->templateLanguages()) as $key => $path) {
+			$files[$key] = $this->servant()->format()->path($path, false, 'server');
+		}
+		return $this->set('files', $files);
 	}
 
 	protected function setId ($id = '') {

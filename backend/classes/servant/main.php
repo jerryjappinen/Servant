@@ -4,7 +4,7 @@ class ServantMain extends ServantObject {
 
 	// Shorthand for full execution
 	public function run ($paths, $settings, $site = false, $selectedArticle = false) {
-		return $this->initialize($paths, $settings)->select($site, $selectedArticle)->templates();
+		return $this->initialize($paths, $settings)->select($site, $selectedArticle)->render()->debug();
 	}
 
 
@@ -30,9 +30,9 @@ class ServantMain extends ServantObject {
 	}
 
 	// Create output via templates
-	public function templates () {
-		foreach ($this->template()->files() as $path) {
-			echo $this->render()->file($path);
+	public function render () {
+		foreach ($this->template()->files('server') as $path) {
+			echo $this->extract()->file($path);
 		}
 		return $this;
 	}
@@ -43,9 +43,9 @@ class ServantMain extends ServantObject {
 
 	// Properties
 	protected $propertyAvailable 	= null;
+	protected $propertyExtract 		= null;
 	protected $propertyFormat 		= null;
 	protected $propertyPaths 		= null;
-	protected $propertyRender 		= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
 	protected $propertyTemplate 	= null;
@@ -54,14 +54,14 @@ class ServantMain extends ServantObject {
 	public function available () {
 		return $this->getAndSet('available');
 	}
+	public function extract () {
+		return $this->getAndSet('extract');
+	}
 	public function format () {
 		return $this->getAndSet('format');
 	}
 	public function paths () {
 		return $this->get('paths');
-	}
-	public function render () {
-		return $this->getAndSet('render');
 	}
 	public function settings () {
 		return $this->getAndSet('settings');
@@ -79,14 +79,14 @@ class ServantMain extends ServantObject {
 	protected function setAvailable () {
 		return $this->set('available', new ServantAvailable($this));
 	}
+	protected function setExtract () {
+		return $this->set('extract', new ServantExtract($this));
+	}
 	protected function setFormat () {
 		return $this->set('format', new ServantFormat($this));
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', new ServantPaths($this, $paths));
-	}
-	protected function setRender () {
-		return $this->set('render', new ServantRender($this));
 	}
 	protected function setSettings ($settings = array()) {
 		return $this->set('settings', new ServantSettings($this, $settings));
@@ -99,6 +99,23 @@ class ServantMain extends ServantObject {
 	}
 
 
+
+	// Built-in debugger
+	protected $propertyDev = null;
+	public function dev () {
+		return $this->getAndSet('dev');
+	}
+	protected function setDev () {
+		return $this->set('dev', new ServantDev($this));
+	}
+
+
+
+	// Debug info
+	public function debug () {
+		echo htmlDump($this->dev()->paths());
+		return $this;
+	}
 
 }
 

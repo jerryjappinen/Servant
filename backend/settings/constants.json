@@ -17,6 +17,16 @@
 		"setter": "set"
 	},
 
+	"namingConvention": {
+		"-": " ",
+		"_": " ",
+		" and ": " &amp; ",
+		"+": " &amp; ",
+		"url": "URL",
+		"jquery": "jQuery",
+		"js ": "JS "
+	},
+
 	"templateLanguages": ["md", "txt", "html", "htm", "xhtml", "php"]
 
 }

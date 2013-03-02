@@ -16,6 +16,7 @@ $paths = array(
 	'helpers' 		=> 'backend/helpers/',
 	'settings' 		=> 'backend/settings/',
 	'templates' 	=> 'backend/templates/',
+	'themes' 		=> 'backend/themes/',
 	'utilities' 	=> 'backend/utilities/',
 
 );

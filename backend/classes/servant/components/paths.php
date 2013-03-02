@@ -11,13 +11,17 @@ class ServantPaths extends ServantObject {
 	protected $propertyHelpers 		= null;
 	protected $propertySettings 	= null;
 	protected $propertyTemplates 	= null;
+	protected $propertyThemes 		= null;
 	protected $propertyUtilities 	= null;
 
 
 	// Public getters
+
+	// Root paths are a little special
 	public function documentRoot () {
 		return $this->get('documentRoot');
 	}
+
 	public function root ($format = false) {
 		if (!$format) {
 			return $this->get('root');
@@ -25,6 +29,8 @@ class ServantPaths extends ServantObject {
 			return $this->servant()->format()->path('', $format);
 		}
 	}
+
+	// Others 
 	public function sites ($format = false) {
 		return $this->servant()->format()->path($this->get('sites'), $format);
 	}
@@ -43,6 +49,9 @@ class ServantPaths extends ServantObject {
 	public function templates ($format = false) {
 		return $this->servant()->format()->path($this->get('templates'), $format);
 	}
+	public function themes ($format = false) {
+		return $this->servant()->format()->path($this->get('themes'), $format);
+	}
 	public function utilities ($format = false) {
 		return $this->servant()->format()->path($this->get('utilities'), $format);
 	}
@@ -53,21 +62,8 @@ class ServantPaths extends ServantObject {
 	protected function initialize ($paths) {
 		$results = array();
 
-		// This is what we need
-		$keys = array(
-			'documentRoot',
-			'root',
-			'sites',
-			'index',
-			'classes',
-			'helpers',
-			'settings',
-			'templates',
-			'utilities',
-		);
-
-		// Check against given paths
-		foreach ($keys as $key) {
+		// Check required paths against against what's given
+		foreach ($this->properties() as $key) {
 			if (isset($paths[$key]) and !empty($paths[$key])) {
 				$this->set($key, $paths[$key]);
 			} else {
@@ -76,6 +72,26 @@ class ServantPaths extends ServantObject {
 		}
 
 		return $this;
+	}
+
+
+
+	// Private helpers
+
+	// Settable properties
+	private function properties () {
+		return array(
+			'documentRoot',
+			'root',
+			'sites',
+			'index',
+			'classes',
+			'helpers',
+			'settings',
+			'templates',
+			'themes',
+			'utilities',
+		);
 	}
 
 }

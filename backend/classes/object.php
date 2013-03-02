@@ -116,10 +116,10 @@ class ServantObject {
 	// Private helpers
 
 	// Naming convention helpers
-	protected function propertyName ($id) {
+	private function propertyName ($id) {
 		return 'property'.ucfirst($id);
 	}
-	protected function setterName ($id) {
+	private function setterName ($id) {
 		return 'set'.ucfirst($id);
 	}
 
