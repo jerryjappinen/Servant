@@ -31,7 +31,7 @@ class ServantMain extends ServantObject {
 
 	// Create output via templates
 	public function templates () {
-		foreach (rglob_files($this->template()->path('server'), $this->settings()->templateLanguages()) as $path) {
+		foreach ($this->template()->files() as $path) {
 			echo $this->render()->file($path);
 		}
 		return $this;

@@ -3,7 +3,7 @@
 class ServantTemplate extends ServantObject {
 
 	// Properties
-	// protected $propertyFiles 	= null;
+	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
 	protected $propertyPath 	= null;
 
@@ -20,6 +20,10 @@ class ServantTemplate extends ServantObject {
 
 
 	// Public getters
+	// FLAG add formatting support
+	public function files () {
+		return $this->getAndSet('files');
+	}
 	public function id () {
 		return $this->getAndSet('id');
 	}
@@ -31,6 +35,10 @@ class ServantTemplate extends ServantObject {
 
 
 	// Setters
+
+	protected function setFiles () {
+		return $this->set('files', rglob_files($this->path('server'), $this->servant()->settings()->templateLanguages()));
+	}
 
 	protected function setId ($id = '') {
 
