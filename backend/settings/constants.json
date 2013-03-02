@@ -1,0 +1,22 @@
+{
+
+	"objectNames": {
+		"servantGlobal": "servant"
+	},
+
+	"classNames": {
+		"base": "ServantObject",
+		"servant": "Servant",
+		"formatter": "ServantFormatter",
+		"renderer": "ServantRenderer",
+		"site": "ServantSite"
+	},
+
+	"prefixes": {
+		"property": "property",
+		"setter": "set"
+	},
+
+	"templateLanguages": ["md", "txt", "html", "htm", "xhtml", "php"]
+
+}
