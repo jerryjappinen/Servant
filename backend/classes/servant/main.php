@@ -24,15 +24,14 @@ class ServantMain extends ServantObject {
 	}
 
 	// Select where to be
-	public function select ($site, $selectedArticle) {
-		$this->setSite($site, $selectedArticle);
+	public function select ($site, $selection) {
+		$this->setSite($site, $selection);
 		return $this;
 	}
 
 	// Create output via templates
 	public function templates () {
-		$files = rglob_files($this->paths()->templates('server'), $this->settings()->templateLanguages());
-		foreach ($files as $path) {
+		foreach (rglob_files($this->template()->path('server'), $this->settings()->templateLanguages()) as $path) {
 			echo $this->render()->file($path);
 		}
 		return $this;
@@ -49,49 +48,54 @@ class ServantMain extends ServantObject {
 	protected $propertyRender 		= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
+	protected $propertyTemplate 	= null;
 
 	// Public getters for children
-	public function paths () {
-		return $this->get('paths');
-	}
-	public function settings () {
-		return $this->getAndSet('settings');
-	}
-
 	public function available () {
 		return $this->getAndSet('available');
 	}
 	public function format () {
 		return $this->getAndSet('format');
 	}
+	public function paths () {
+		return $this->get('paths');
+	}
 	public function render () {
 		return $this->getAndSet('render');
 	}
+	public function settings () {
+		return $this->getAndSet('settings');
+	}
 	public function site () {
 		return $this->getAndSet('site');
+	}
+	public function template () {
+		return $this->getAndSet('template');
 	}
 
 
 
 	// Setters for children
-	protected function setPaths ($paths) {
-		return $this->set('paths', new ServantPaths($this, $paths));
-	}
-	protected function setSettings ($settings = array()) {
-		return $this->set('settings', new ServantSettings($this, $settings));
-	}
-
 	protected function setAvailable () {
 		return $this->set('available', new ServantAvailable($this));
 	}
 	protected function setFormat () {
 		return $this->set('format', new ServantFormat($this));
 	}
+	protected function setPaths ($paths) {
+		return $this->set('paths', new ServantPaths($this, $paths));
+	}
 	protected function setRender () {
 		return $this->set('render', new ServantRender($this));
 	}
-	protected function setSite () {
-		return $this->set('site', new ServantSite($this));
+	protected function setSettings ($settings = array()) {
+		return $this->set('settings', new ServantSettings($this, $settings));
+	}
+	protected function setSite ($id = null, $selection = null) {
+		return $this->set('site', new ServantSite($this, $id, $selection));
+	}
+	protected function setTemplate ($id = null) {
+		return $this->set('template', new ServantTemplate($this, $id));
 	}
 
 

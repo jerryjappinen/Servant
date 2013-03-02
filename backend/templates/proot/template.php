@@ -91,7 +91,7 @@ $output = '
 				
 				<h1>'.$servant->site()->name().'</h1>
 
-				<pre>'.dump($servant->site()->articles()).'</pre>
+				<pre>'.dump($servant->available()->templates()).'</pre>
 
 				<div class="clear"></div>
 			</div>

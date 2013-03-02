@@ -9,7 +9,9 @@ class ServantSite extends ServantObject {
 	protected $propertyPath 	= null;
 	protected $propertySelected = null;
 
-	// Initialize with ID and selection
+
+
+	// Select ID and article while initializing
 	protected function initialize ($id = false, $selected = false) {
 		if ($id) {
 			$this->setId($id);
@@ -32,8 +34,9 @@ class ServantSite extends ServantObject {
 	public function name () {
 		return $this->getAndSet('name');
 	}
+	// FLAG path is not being set here
 	public function path ($format = false) {
-		return $this->servant()->format()->path($this->servant()->paths()->sites().$this->id(), $format);
+		return $this->servant()->paths()->sites($format).$this->id();
 	}
 	public function selected () {
 		return $this->getAndSet('selected', func_get_args());
@@ -51,7 +54,7 @@ class ServantSite extends ServantObject {
 
 	protected function setId ($id = '') {
 
-		// Silently fall back to default site
+		// Silently fall back to default
 		if (!$this->servant()->available()->site($id)) {
 			$id = $this->servant()->available()->sites(0);
 		}
@@ -64,7 +67,7 @@ class ServantSite extends ServantObject {
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->servant()->format()->path($this->servant()->paths()->sites().$this->id().'/', 'plain'));
+		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
 	}
 
 	protected function setSelected () {

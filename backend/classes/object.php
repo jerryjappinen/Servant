@@ -17,7 +17,7 @@ class ServantObject {
 		if (get_class($main) === 'ServantMain') {
 			$this->set('main', $main);
 
-			// Optionally call custom initialization method
+			// Optionally call class-specific initialization method
 			if (method_exists($this, 'initialize')) {
 				$temp = func_get_args();
 				array_shift($temp);
@@ -25,7 +25,7 @@ class ServantObject {
 			}
 
 		} else {
-			$this->fail('Objects must be created with a main instance');
+			return $this->fail('New objects need a main Servant instance');
 		}
 
 		return $this;
@@ -33,15 +33,7 @@ class ServantObject {
 
 
 
-	// Naming convention helpers
-	protected function propertyName ($id) {
-		return 'property'.ucfirst($id);
-	}
-	protected function setterName ($id) {
-		return 'set'.ucfirst($id);
-	}
-
-
+	// Generic functionality
 
 	// Generic getter with traversing options
 	protected function get ($id, $tree = false) {
@@ -57,79 +49,78 @@ class ServantObject {
 	protected function set ($id, $value) {
 		$propertyName = $this->propertyName($id);
 		if ($value === null) {
-			throw new Exception('Cannot set null as property values', 500);
+			return $this->fail('Properties cannot be null');
 		} else {
 			$this->$propertyName = $value;
 		}
 		return $this;
 	}
 
-	// Throw error
+	// Report failure, throw an error
 	protected function fail ($message, $code = 500) {
 		throw new Exception($message, $code);
-		return $message;
+		return $this;
 	}
 
 
 
-	// Special getter functionality
+	// Wrapper functionality
 
-	// Get if values are not provided, but forward to setting if they are
-	protected function getOrSet ($id, $arguments = null) {
+	// Return true if key exists within property value, false if it doesn't
+	protected function assert ($id, $tree = false) {
+		return $this->get($id, $tree) === null ? false : true;
+	}
 
-		// Get
-		if (empty($arguments)) {
-			return $this->get($id);
+	// Call a property-specific setter
+	protected function callSetter ($id, $arguments = array()) {
+		$setterName = $this->setterName($id);
+		if (method_exists($this, $setterName)) {
+			return call_user_func_array(array($this, $setterName), $arguments);
 		} else {
-
-			// Custom setters exists, pass values on
-			$setterName = $this->setterName($id);
-			if (method_exists($this, $setterName)) {
-				return call_user_func_array(array($this, $setterName), $arguments);
-
-			// No custom setter, store values as it was given
-			} else {
-				return $this->set($id, count($arguments) > 1 ? $arguments : $arguments[0]);
-			}
-
+			return $this->fail(get_class($this).' property "'.$id.'" is missing a setter');
 		}
 	}
 
-	// Getter with a transparent call to (auto) setter if needed
+
+
+	// Special getters
+
+	// Getter that calls (auto) setter when needed
 	protected function getAndSet ($id, $tree = false) {
-
-		// Need to set for the first time
 		if ($this->get($id) === null) {
-
-			// Custom setters exists
-			$setterName = $this->setterName($id);
-			if (method_exists($this, $setterName)) {
-				call_user_func(array($this, $setterName))->get($id);
-
-			// Can't set
-			} else {
-				throw new Exception('The '.get_class($this).' property "'.$id.'" is missing a setter method', 500);
-			}
-
+			$this->callSetter($id);
 		}
-
-		// Get
 		return $this->get($id, $tree);
 	}
 
-	// Getter that can check if a key exists
-	protected function getOrAssert ($id, $assertableTree = false) {
-
-		// Get
-		if (empty($assertableTree)) {
+	// Get if values are not provided, but forward to setting if they are
+	protected function getOrSet ($id, $arguments = null) {
+		if (empty($arguments)) {
 			return $this->get($id);
-
-		// Return true if key exists, false if it doesn't
 		} else {
-			$search = $this->get($id, $assertableTree);
-			return $search === null ? false : true;
+			return $this->callSetter($id, $arguments);
 		}
+	}
 
+	// Getter that can check if a key exists
+	protected function getOrAssert ($id, $tree = false) {
+		if (empty($tree)) {
+			return $this->get($id);
+		} else {
+			return $this->assert($id, $tree);
+		}
+	}
+
+
+
+	// Private helpers
+
+	// Naming convention helpers
+	protected function propertyName ($id) {
+		return 'property'.ucfirst($id);
+	}
+	protected function setterName ($id) {
+		return 'set'.ucfirst($id);
 	}
 
 }
