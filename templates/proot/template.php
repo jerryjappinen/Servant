@@ -17,12 +17,11 @@ $output = '
 		';
 
 		// Stylesheets
+		foreach ($servant->theme()->files('domain') as $value) {
+			$output .= '<link rel="stylesheet" href="'.$value.'" media="screen">';
+		}
 
 		$output .= '
-		<link rel="stylesheet" href="'.$servant->paths()->root('domain').'assets/layers.css" media="screen">
-		<link rel="stylesheet" href="'.$servant->paths()->root('domain').'assets/layers_responsive.css" media="screen">
-		<link rel="stylesheet" href="'.$servant->paths()->root('domain').'assets/prism.css" media="screen">
-		<link rel="stylesheet" href="'.$servant->paths()->root('domain').'assets/guides.css" media="screen">
 
 	</head>
 

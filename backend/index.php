@@ -103,7 +103,7 @@ try {
 			<title>Server error :(</title>
 			<style type="text/css">
 				body {
-					background-color: #111;
+					background-color: #0d0d0d;
 					color: #fafafa;
 					font-family: sans-serif;
 					padding: 5%;
