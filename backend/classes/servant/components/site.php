@@ -111,6 +111,7 @@ class ServantSite extends ServantObject {
 		return $results;
 	}
 
+	// FLAG should be in article class
 	private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
 
 		// No preference or preferred item doesn't exist: auto select
