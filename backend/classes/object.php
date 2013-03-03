@@ -36,7 +36,7 @@ class ServantObject {
 	// Generic functionality
 
 	// Generic getter with traversing options
-	protected function get ($id, $tree = false) {
+	protected function get ($id, $tree = null) {
 		$propertyName = $this->propertyName($id);
 		$value = $this->$propertyName;
 		if (is_array($value) and !empty($tree)) {
@@ -66,9 +66,16 @@ class ServantObject {
 
 	// Wrapper functionality
 
-	// Return true if key exists within property value, false if it doesn't
-	protected function assert ($id, $tree = false) {
-		return $this->get($id, $tree) === null ? false : true;
+	// Return true if key exists within property, false if it doesn't
+	protected function assert ($id, $tree = null, $target = null) {
+		$value = $this->get($id, $tree);
+		if ($value === null) {
+			return false;
+		} else if (isset($target) and $value !== $target) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	// Call a property-specific setter
@@ -86,7 +93,7 @@ class ServantObject {
 	// Special methods
 
 	// Getter that calls (auto) setter when needed
-	protected function getAndSet ($id, $tree = false) {
+	protected function getAndSet ($id, $tree = null) {
 		if ($this->get($id) === null) {
 			$this->callSetter($id);
 		}
@@ -94,7 +101,7 @@ class ServantObject {
 	}
 
 	// Getter that calls (auto) setter when needed
-	protected function assertAndSet ($id, $tree = false) {
+	protected function assertAndSet ($id, $tree = null, $target = null) {
 		if ($this->get($id) === null) {
 			$this->callSetter($id);
 		}
@@ -111,7 +118,7 @@ class ServantObject {
 	}
 
 	// Getter that can check if a key exists
-	protected function getOrAssert ($id, $tree = false) {
+	protected function getOrAssert ($id, $tree = null) {
 		if (empty($tree)) {
 			return $this->get($id);
 		} else {

@@ -12,7 +12,7 @@ class ServantSite extends ServantObject {
 
 
 	// Select ID and article while initializing
-	protected function initialize ($id = false, $selected = false) {
+	protected function initialize ($id = null, $selected = null) {
 		if ($id) {
 			$this->setId($id);
 		}
@@ -73,8 +73,16 @@ class ServantSite extends ServantObject {
 		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
 	}
 
-	protected function setSelected () {
-		return $this->set('selected', array());
+	protected function setSelected ($values = null) {
+		$selected = array();
+
+		// Select specified article if it exists
+		// FLAG all or nothing
+		if (!empty($values) and $this->assertAndSet('articles', $values)) {
+			$selected = $values;
+		}
+
+		return $this->set('selected', $selected);
 	}
 
 
@@ -91,6 +99,19 @@ class ServantSite extends ServantObject {
 			$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findArticles($subdir);
 		}
 		return $results;
+	}
+
+	private function assertArticle ($articles, $tree) {
+		foreach ($tree as $key => $value) {
+			if (isset($articles[$value])) {
+				if (isset($tree[1]) and $articles['children']) {
+
+				}
+				array_shift($tree);
+				return $this->assertArticle($articles['children'], $tree);
+			}
+		}
+		return $result;
 	}
 
 }

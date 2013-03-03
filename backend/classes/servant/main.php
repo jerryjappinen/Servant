@@ -24,8 +24,8 @@ class ServantMain extends ServantObject {
 	}
 
 	// Select where to be
-	public function select ($site, $selection) {
-		$this->setSite($site, $selection);
+	public function select ($site, $selected) {
+		$this->setSite($site, $selected);
 		return $this;
 	}
 
@@ -95,8 +95,8 @@ class ServantMain extends ServantObject {
 	protected function setSettings ($settings = array()) {
 		return $this->set('settings', new ServantSettings($this, $settings));
 	}
-	protected function setSite ($id = null, $selection = null) {
-		return $this->set('site', new ServantSite($this, $id, $selection));
+	protected function setSite ($id = null, $selected = null) {
+		return $this->set('site', new ServantSite($this, $id, $selected));
 	}
 	protected function setTemplate ($id = null) {
 		return $this->set('template', new ServantTemplate($this, $id));

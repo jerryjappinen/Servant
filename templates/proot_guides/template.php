@@ -37,12 +37,14 @@ $output = '
 					<ol class="plain push-left block reset">
 					';
 
-					// // List all categories
-					// foreach ($servant->site()->articles() as $id => $value) {
-					// 	if (is_string($value)) {
-					// 		$output .= '<li class="reset'.($servant->site()->selected(0) === $id ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$value.'">'.$servant->format()->name($id).'</a></li>';
-					// 	}
-					// }
+					// Level 1 menu
+					$level1 = $servant->site()->articles();
+					if (!empty($level1)) {
+						foreach ($level1 as $key => $value) {
+							$output .= '<li class="reset'.($servant->site()->selected(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+						}
+					}
+					unset($level1, $key, $value);
 
 					$output .= '
 					</ol>
@@ -61,12 +63,14 @@ $output = '
 					<ol class="plain push-left block reset">
 					';
 
-					// // List all categories
-					// foreach ($servant->site()->articles() as $id => $value) {
-					// 	if (is_string($value)) {
-					// 		$output .= '<li class="reset'.($servant->site()->selected(0) === $id ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$value.'">'.$servant->format()->name($id).'</a></li>';
-					// 	}
-					// }
+					// Level 2 menu
+					$level2 = $servant->site()->articles($servant->site()->selected(0));
+					if (!empty($level2) and is_array($level2)) {
+						foreach ($level2 as $key => $value) {
+							$output .= '<li class="reset'.($servant->site()->selected(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->site()->selected(0).'/'.$key.'">'.$servant->format()->name($key).'</a></li>';
+						}
+					}
+					unset($level2, $key, $value);
 
 					$output .= '
 					</ol>
@@ -96,7 +100,7 @@ $output = '
 				
 				<h1>'.$servant->site()->name().'</h1>
 
-				<pre>'.dump($servant->available()->templates()).'</pre>
+				<pre>'.dump($servant->site()->selected()).'</pre>
 
 				<div class="clear"></div>
 			</div>

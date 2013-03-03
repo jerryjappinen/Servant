@@ -68,7 +68,7 @@ try {
 	$article = array();
 	$i=0;
 	foreach (array('dir1', 'dir2', 'dir3', 'dir4', 'dir5', 'dir6', 'dir7', 'dir8') as $key) {
-		if (isset($_GET[$key]) and (is_string($_GET[$key]) or is_int($_GET[$key]))) {
+		if (isset($_GET[$key]) and (is_string($_GET[$key]) or is_int($_GET[$key])) and !empty($_GET[$key])) {
 			$article[$i] = strval($_GET[$key]);
 		} else {
 			break;
