@@ -84,5 +84,5 @@ $output .= '
 
 
 $output = Markdown($output);
-
+echo $output;
 ?>

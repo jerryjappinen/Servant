@@ -16,7 +16,7 @@ class ServantExtract extends ServantObject {
 
 		// Generic fallback
 		} else {
-			return file_get_contents($path);
+			return '<pre>'.file_get_contents($path).'</pre>';
 		}
 	}
 

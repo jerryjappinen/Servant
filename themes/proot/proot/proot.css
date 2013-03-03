@@ -206,11 +206,11 @@ pre {
 
 
 
-/*Menu*/
-#menu {
+/*Menus*/
+#menu, #submenu {
 	box-shadow: 0 1px 2px #c3cacb;
 }
-#menu a {
+#menu a, #submenu a {
 	color: inherit;
 	display: block;
 	text-decoration: none;
@@ -221,12 +221,14 @@ pre {
 	#menu .first a {
 		text-transform: uppercase;
 	}
-	#menu .first a:hover {
+	#menu .first a:hover, #submenu a:hover {
 		background-color: #374040;
 	}
 
-	/*Submenu*/
+	/*Second-level menu*/
 	#menu .second {
+		border-bottom-width: 0.4em;
+		border-bottom-color: #212626;
 	}
 	#menu .second a {
 		padding: 0.7em 0.8em 0.3em 0.8em;
@@ -259,6 +261,12 @@ pre {
 	}
 	.backend #menu .first .selected a, .backend #menu .second {
 		background-color: #b3245f;
+	}
+
+	/*Second-level menu*/
+	#submenu {
+		color: #f3f2f2;
+		background-color: #212626;
 	}
 
 	/*Dropdown*/

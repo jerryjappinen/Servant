@@ -1,0 +1,22 @@
+{
+
+	"defaults": {
+		"site": "servant",
+		"template": "default",
+		"theme": "default"
+	},
+
+	"namingConvention": {
+		"-": " ",
+		"_": " ",
+		" and ": " &amp; ",
+		"+": " &amp; ",
+		"url": "URL",
+		"jquery": "jQuery",
+		"js ": "JS "
+	},
+
+	"templateFiles": ["md", "txt", "html", "htm", "xhtml", "php", "json"],
+	"stylesheetFiles": ["css", "less"]
+
+}

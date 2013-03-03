@@ -3,6 +3,7 @@
 class ServantSite extends ServantObject {
 
 	// Properties
+	protected $propertyArticle 	= null;
 	protected $propertyArticles = null;
 	protected $propertyId 		= null;
 	protected $propertyName 	= null;
@@ -25,6 +26,9 @@ class ServantSite extends ServantObject {
 
 
 	// Public getters
+	public function article ($format = null) {
+		return $this->servant()->format()->path($this->getAndSet('article'), $format);
+	}
 	public function articles () {
 		return $this->getAndSet('articles', func_get_args());
 	}
@@ -34,7 +38,7 @@ class ServantSite extends ServantObject {
 	public function name () {
 		return $this->getAndSet('name');
 	}
-	public function path ($format = false) {
+	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->format()->path($path, $format);
@@ -49,9 +53,12 @@ class ServantSite extends ServantObject {
 
 	// Setters
 
+	protected function setArticle () {
+		return $this->set('article', call_user_func_array(array($this, 'articles'), $this->selected()));
+	}
+
 	protected function setArticles () {
 		$results = $this->findArticles($this->path('server'), $this->servant()->settings()->templateFiles());
-		ksort($results);
 		return $this->set('articles', $results);
 	}
 
@@ -87,7 +94,7 @@ class ServantSite extends ServantObject {
 
 		// Files on this level
 		foreach (glob_files($path, $filetypes) as $file) {
-			$results[pathinfo($file, PATHINFO_FILENAME)] = basename($file);
+			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->format()->path($file, 'plain', 'server');
 		}
 
 		// Non-empty child directories
@@ -97,6 +104,9 @@ class ServantSite extends ServantObject {
 				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findArticles($subdir);
 			}
 		}
+
+		// Sort alphabetically
+		ksort($results);
 
 		return $results;
 	}

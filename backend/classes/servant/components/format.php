@@ -9,7 +9,7 @@ class ServantFormat extends ServantObject {
 	}
 
 	// Convert a plain path into any format
-	public function path ($path, $resultFormat = false, $originalFormat = false) {
+	public function path ($path, $resultFormat = null, $originalFormat = null) {
 
 		// Don't do anything if it doesn't make sense
 		if ($resultFormat != $originalFormat) {

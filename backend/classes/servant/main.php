@@ -37,6 +37,16 @@ class ServantMain extends ServantObject {
 		return $this;
 	}
 
+	// Store output into a file
+	public function store ($filepath) {
+		$output = '';
+		foreach ($this->template()->files('server') as $path) {
+			$output .=  $this->extract()->file($path);
+		}
+		file_put_contents($filepath, $output);
+		return $this;
+	}
+
 
 
 	// Children
@@ -106,12 +116,6 @@ class ServantMain extends ServantObject {
 	}
 
 
-
-	// Debug info
-	public function debug () {
-		echo htmlDump(func_get_args());
-		return $this;
-	}
 
 	// Built-in debugger
 	protected $propertyDev = null;
