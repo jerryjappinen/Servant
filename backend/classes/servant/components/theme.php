@@ -3,9 +3,9 @@
 class ServantTheme extends ServantObject {
 
 	// Properties
-	protected $propertyFiles 	= null;
-	protected $propertyId 		= null;
-	protected $propertyPath 	= null;
+	protected $propertyStylesheetFiles 	= null;
+	protected $propertyId 				= null;
+	protected $propertyPath 			= null;
 
 
 
@@ -20,8 +20,8 @@ class ServantTheme extends ServantObject {
 
 
 	// Public getters
-	public function files ($format = false) {
-		$files = $this->getAndSet('files');
+	public function stylesheetFiles ($format = false) {
+		$files = $this->getAndSet('stylesheetFiles');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
 				$files[$key] = $this->servant()->format()->path($filepath, $format);
@@ -44,7 +44,7 @@ class ServantTheme extends ServantObject {
 
 	// Setters
 
-	protected function setFiles () {
+	protected function setStylesheetFiles () {
 		$files = array();
 		$dir = $this->path('server');
 		if (is_dir($dir)) {
@@ -52,15 +52,25 @@ class ServantTheme extends ServantObject {
 				$files[$key] = $this->servant()->format()->path($path, false, 'server');
 			}
 		}
-		return $this->set('files', $files);
+		return $this->set('stylesheetFiles', $files);
 	}
 
-	protected function setId ($id = '') {
+	protected function setId ($id = false) {
 
-		// Silently fall back to default
-		// FLAG shouldn't be done here
-		if (!$this->servant()->available()->template($id)) {
-			$id = $this->servant()->available()->themes(0);
+		// Silent fallback
+		if (!$this->servant()->available()->theme($id)) {
+
+			// Site's own theme
+			if ($this->servant()->available()->theme($this->servant()->site()->id())) {
+				$id = $this->servant()->site()->id();
+
+			// Global default, whatever's available
+			} else {
+				$id = $this->servant()->available()->themes(0);
+				if ($id === null) {
+					$this->fail('No themes available');
+				}
+			}
 		}
 
 		return $this->set('id', $id);

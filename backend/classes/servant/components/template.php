@@ -55,12 +55,22 @@ class ServantTemplate extends ServantObject {
 		return $this->set('files', $files);
 	}
 
-	protected function setId ($id = '') {
+	protected function setId ($id = false) {
 
-		// Silently fall back to default
-		// FLAG shouldn't be done here
+		// Silent fallback
 		if (!$this->servant()->available()->template($id)) {
-			$id = $this->servant()->available()->templates(0);
+
+			// Site's own template
+			if ($this->servant()->available()->template($this->servant()->site()->id())) {
+				$id = $this->servant()->site()->id();
+
+			// Global default, whatever's available
+			} else {
+				$id = $this->servant()->available()->templates(0);
+				if ($id === null) {
+					$this->fail('No templates available');
+				}
+			}
 		}
 
 		return $this->set('id', $id);

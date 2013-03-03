@@ -83,7 +83,7 @@ class ServantObject {
 
 
 
-	// Special getters
+	// Special methods
 
 	// Getter that calls (auto) setter when needed
 	protected function getAndSet ($id, $tree = false) {
@@ -91,6 +91,14 @@ class ServantObject {
 			$this->callSetter($id);
 		}
 		return $this->get($id, $tree);
+	}
+
+	// Getter that calls (auto) setter when needed
+	protected function assertAndSet ($id, $tree = false) {
+		if ($this->get($id) === null) {
+			$this->callSetter($id);
+		}
+		return $this->assert($id, $tree);
 	}
 
 	// Get if values are not provided, but forward to setting if they are

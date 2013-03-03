@@ -58,7 +58,6 @@ class ServantSite extends ServantObject {
 	protected function setId ($id = '') {
 
 		// Silently fall back to default
-		// FLAG shouldn't be done here
 		if (!$this->servant()->available()->site($id)) {
 			$id = $this->servant()->available()->sites(0);
 		}

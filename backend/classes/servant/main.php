@@ -4,7 +4,7 @@ class ServantMain extends ServantObject {
 
 	// Shorthand for full execution
 	public function run ($paths, $settings, $site = false, $selectedArticle = false) {
-		return $this->initialize($paths, $settings)->select($site, $selectedArticle)->render()->debug();
+		return $this->initialize($paths, $settings)->select($site, $selectedArticle)->render();
 	}
 
 
@@ -109,12 +109,7 @@ class ServantMain extends ServantObject {
 
 	// Debug info
 	public function debug () {
-		$whatToPrint = array(
-			// 'available' => $this->dev()->available(),
-			// 'paths' => $this->dev()->paths(),
-			'theme' => $this->theme()->files(),
-		);
-		echo htmlDump($whatToPrint);
+		echo htmlDump(func_get_args());
 		return $this;
 	}
 

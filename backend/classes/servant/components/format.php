@@ -4,7 +4,8 @@ class ServantFormat extends ServantObject {
 
 	// Create human-readable title from something like a filename
 	public function name ($string) {
-		return ucfirst(str_ireplace(array_keys($this->servant()->settings()->namingConvention()), array_values($this->servant()->settings()->namingConvention()), $string));
+		$conversions = $this->servant()->settings()->namingConvention();
+		return ucfirst(str_ireplace(array_keys($conversions), array_values($conversions), $string));
 	}
 
 	// Convert a plain path into any format
@@ -12,6 +13,7 @@ class ServantFormat extends ServantObject {
 
 		// Don't do anything if it doesn't make sense
 		if ($resultFormat != $originalFormat) {
+
 			// Prefixes
 			$root = $this->servant()->paths()->root();
 			$documentRoot = $this->servant()->paths()->documentRoot();

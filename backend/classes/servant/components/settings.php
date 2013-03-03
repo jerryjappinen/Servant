@@ -40,7 +40,7 @@ class ServantSettings extends ServantObject {
 
 	// Setters
 	protected function setNamingConvention ($value = array()) {
-		return $this->set('namingConvention', array_flatten(to_array($value)));
+		return $this->set('namingConvention', array_flatten(to_array($value), true, true));
 	}
 	protected function setStylesheetFiles ($value = array()) {
 		return $this->set('stylesheetFiles', array_flatten(to_array($value)));

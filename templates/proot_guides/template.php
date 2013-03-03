@@ -9,23 +9,24 @@ $output = '
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<style type="text/css">@-ms-viewport{width: device-width;}</style>
 
-		<title>'.$servant->site()->name().'</title>
-		<meta name="author" content="Eiskis">
-		<meta name="application-name" content="Proot guides">
-		
-		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+		<title>'.$servant->site()->name().' via Servant</title>
 		';
 
+		// Use a favicon if there is one
+		foreach (rglob_files($servant->theme()->path('server'), 'ico') as $path) {
+			$output .= '<link rel="shortcut icon" href="'.$servant->format()->path($path, 'domain', 'server').'" type="image/x-icon">';
+			break;
+		}
+
 		// Stylesheets
-		foreach ($servant->theme()->files('domain') as $value) {
-			$output .= '<link rel="stylesheet" href="'.$value.'" media="screen">';
+		foreach ($servant->theme()->stylesheetFiles('domain') as $path) {
+			$output .= '<link rel="stylesheet" href="'.$path.'" media="screen">';
 		}
 
 		$output .= '
-
 	</head>
 
-	<body class="language-javascript '.implode(' ', $servant->site()->selected()).'">
+	<body class="'.implode(' ', $servant->site()->selected()).'">
 
 
 
@@ -162,12 +163,15 @@ $output = '
 				<div class="clear"></div>
 			</div>
 		</div>
+		';
 
+		// // Scripts
+		// $output .= '
+		// <script src="assets/prism.js"></script>
+		// <script src="assets/respond.min.js"></script>
+		// ';
 
-
-		<script src="assets/prism.js"></script>
-		<script src="assets/respond.min.js"></script>
-
+		$output .= '
 	</body>
 </html>
 ';

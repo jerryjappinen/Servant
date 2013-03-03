@@ -8,20 +8,20 @@ class ServantAvailable extends ServantObject {
 	protected $propertyThemes 		= null;
 
 	// Public getters
-	public function site () {
-		return $this->assert('sites', func_num_args());
+	public function site ($id) {
+		return in_array($id, $this->sites());
 	}
 	public function sites () {
 		return $this->getAndSet('sites', func_get_args());
 	}
-	public function template () {
-		return $this->assert('templates', func_num_args());
+	public function template ($id) {
+		return in_array($id, $this->templates());
 	}
 	public function templates () {
 		return $this->getAndSet('templates', func_get_args());
 	}
-	public function theme () {
-		return $this->assert('themes', func_num_args());
+	public function theme ($id) {
+		return in_array($id, $this->themes());
 	}
 	public function themes () {
 		return $this->getAndSet('themes', func_get_args());

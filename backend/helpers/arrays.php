@@ -33,18 +33,26 @@ function array_traverse ($values, $tree) {
 
 }
 
-// Flatten an array (ditches keys)
-function array_flatten ($array) {
+// Flattens an array, either with or without the content in child arrays
+function array_flatten ($array, $removeChildren = false, $preserveKeys = false) {
 	$result = array();
+	foreach ($array as $key => $value) {
+		if (!is_array($value)) {
 
-	foreach ($array as $value) {
-		if (is_array($value)) {
+			// If children are removed, we can preseve keys
+			if ($removeChildren and $preserveKeys) {
+				$result[$key] = $value;
+
+			// Otherwise we ditch them
+			} else {
+				$result[] = $value;
+			}
+
+		// FLatten child arrays if they're kept
+		} else if (!$removeChildren) {
 			$result = array_merge($result, array_flatten($value));
-		} else {
-			$result[] = $value;
 		}
 	}
-
 	return $result;
 }
 
