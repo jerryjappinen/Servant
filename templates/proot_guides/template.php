@@ -78,11 +78,15 @@ $output = '
 					<select class="hidden" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')">
 					';
 
-					// // Alternative dropdown menu
-					// foreach ($servant->site()->articles() as $id => $value) {
-					// 	$output .= '<optgroup label="'.$servant->format()->name($value).'">';
-					// 	$output .= '</optgroup>';
-					// }
+					// Level 1 menu
+					$level1 = $servant->site()->articles();
+					if (!empty($level1)) {
+						foreach ($level1 as $key => $value) {
+							$output .= '<optgroup label="'.$servant->format()->name($key).'">';
+							$output .= '</optgroup>';
+						}
+					}
+					unset($level1, $key, $value);
 
 					$output .= '
 					</select>

@@ -73,16 +73,8 @@ class ServantSite extends ServantObject {
 		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
 	}
 
-	protected function setSelected ($values = null) {
-		$selected = array();
-
-		// Select specified article if it exists
-		// FLAG all or nothing
-		if (!empty($values) and $this->assertAndSet('articles', $values)) {
-			$selected = $values;
-		}
-
-		return $this->set('selected', $selected);
+	protected function setSelected ($tree = null) {
+		return $this->set('selected', $this->selectArticle($this->articles(), to_array($tree)));
 	}
 
 
@@ -92,26 +84,46 @@ class ServantSite extends ServantObject {
 	// List available articles recursively
 	private function findArticles ($path, $filetypes = array()) {
 		$results = array();
+
+		// Files on this level
 		foreach (glob_files($path, $filetypes) as $file) {
 			$results[pathinfo($file, PATHINFO_FILENAME)] = basename($file);
 		}
+
+		// Non-empty child directories
 		foreach (glob_dir($path) as $subdir) {
-			$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findArticles($subdir);
+			$value = $this->findArticles($subdir);
+			if (!empty($value)) {
+				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findArticles($subdir);
+			}
 		}
+
 		return $results;
 	}
 
-	private function assertArticle ($articles, $tree) {
-		foreach ($tree as $key => $value) {
-			if (isset($articles[$value])) {
-				if (isset($tree[1]) and $articles['children']) {
+	private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
 
-				}
-				array_shift($tree);
-				return $this->assertArticle($articles['children'], $tree);
-			}
+		// No preference or preferred item doesn't exist: auto select
+		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $articlesOnThisLevel)) {
+
+			// Cut out the rest of the preferred items
+			$tree = array_slice($tree, 0, $level);
+
+			// Auto select first item on this level
+			$keys = array_keys($articlesOnThisLevel);
+			$tree[] = $keys[0];
+
 		}
-		return $result;
+
+		// We need to go deeper
+		if (is_array($articlesOnThisLevel[$tree[$level]])) {
+			return $this->selectArticle($articlesOnThisLevel[$tree[$level]], $tree, $level+1);
+
+		// That was it
+		} else {
+			return $tree;
+		}
+
 	}
 
 }
