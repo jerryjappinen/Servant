@@ -3,6 +3,7 @@
 class ServantArticle extends ServantObject {
 
 	// Properties
+	protected $propertyExtract 	= null;
 	protected $propertyId 		= null;
 	protected $propertyIndex 	= null;
 	protected $propertyLevel 	= null;
@@ -35,6 +36,9 @@ class ServantArticle extends ServantObject {
 	}
 	public function index () {
 		return $this->getAndSet('index');
+	}
+	public function extract () {
+		return $this->getAndSet('extract');
 	}
 	public function level () {
 		return $this->getAndSet('level');
@@ -69,6 +73,10 @@ class ServantArticle extends ServantObject {
 
 	// Setters
 	// NOTE site and tree determine most of these
+
+	protected function setExtract () {
+		return $this->set('extract', $this->servant()->extract()->file($this->path('server')));
+	}
 
 	protected function setId () {
 		$tree = $this->tree();

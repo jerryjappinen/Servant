@@ -31,9 +31,7 @@ class ServantMain extends ServantObject {
 
 	// Create output via templates
 	public function render () {
-		foreach ($this->template()->files('server') as $path) {
-			echo $this->extract()->file($path);
-		}
+		echo $this->template()->extract();
 		return $this;
 	}
 
