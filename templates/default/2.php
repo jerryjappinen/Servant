@@ -1,7 +1,7 @@
 <?php
 
 $output = '
-	<body class="'.implode(' ', $servant->site()->selected()).'">
+	<body class="'.implode(' ', $servant->article()->tree()).'">
 
 		<div class="dark" id="menu">
 
@@ -14,7 +14,7 @@ $output = '
 					$level1 = $servant->site()->articles();
 					if (!empty($level1)) {
 						foreach ($level1 as $key => $value) {
-							$output .= '<li class="reset'.($servant->site()->selected(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="reset'.($servant->article()->tree(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}
 					}
 					unset($level1, $key, $value);
@@ -37,10 +37,10 @@ $output = '
 					';
 
 					// Level 2 menu
-					$level2 = $servant->site()->articles($servant->site()->selected(0));
+					$level2 = $servant->site()->articles($servant->article()->tree(0));
 					if (!empty($level2) and is_array($level2)) {
 						foreach ($level2 as $key => $value) {
-							$output .= '<li class="reset'.($servant->site()->selected(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->site()->selected(0).'/'.$key.'">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="reset'.($servant->article()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}
 					}
 					unset($level2, $key, $value);
@@ -78,17 +78,27 @@ $output = '
 				';
 
 				// One-column layout
-				if (count($servant->site()->selected()) <= 2) {
+				$current = count($servant->article()->tree())-1;
+				if ($current < 2) {
+
+					// Generate category or article title
+					// FLAG really need article object: check for categories, first title is category name
+					if (false) {
+						$title = $servant->format()->name($servant->article()->tree($current-1));
+					} else {
+						$title = $servant->article()->name();
+					}
+
 					$output .= '
-					<h1>'.$servant->format()->name(pathinfo($servant->site()->article(), PATHINFO_FILENAME)).'</h1>
-					'.$servant->extract()->file($servant->site()->article('server'));
+					<h1>'.$title.'</h1>
+					'.$servant->extract()->file($servant->site()->article()->path('server'));
 
 				// Two-column layout
 				} else {
 					$output .= '
 					<div class="column first nine">
-						<h1>'.$servant->format()->name(pathinfo($servant->site()->article(), PATHINFO_FILENAME)).'</h1>
-						'.$servant->extract()->file($servant->site()->article('server')).'
+						<h1>'.$servant->format()->name($servant->article()->tree($current-1)).': '.$servant->article()->name().'</h1>
+						'.$servant->extract()->file($servant->site()->article()->path('server')).'
 					</div>
 					<div class="column last three" id="submenu">
 
@@ -97,10 +107,10 @@ $output = '
 							';
 
 							// Level 3 menu
-							$level3 = $servant->site()->articles($servant->site()->selected(0), $servant->site()->selected(1));
+							$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
 							if (!empty($level3) and is_array($level3)) {
 								foreach ($level3 as $key => $value) {
-									$output .= '<li class="reset'.($servant->site()->selected(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->site()->selected(0).'/'.$key.'">'.$servant->format()->name($key).'</a></li>';
+									$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 								}
 							}
 							unset($level3, $key, $value);
@@ -116,7 +126,7 @@ $output = '
 
 				$output .= '
 				<h4><strong>Developer stuff</strong></h4>
-				'.htmlDump($servant->site()->selected()).'
+				'.htmlDump($servant->article()->tree()).'
 				<div class="clear"></div>
 			</div>
 		</div>

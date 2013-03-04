@@ -1,6 +1,4 @@
 
-# Creating views
-
 Proot is view-oriented, and Proot apps consist of *views*. You can write separate templates, styles and behavior for each view, and Proot will apply them when the views are used in the app.
 
 You should always begin writing an app by breaking your design down to collections of views. What kind of view types does your app have? Think pages, modal dialogs, notifications, sidebars and so on. Within those types, you can still create multiple different views with their own templates, scripts and styles.

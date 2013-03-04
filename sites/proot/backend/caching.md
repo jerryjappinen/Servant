@@ -1,6 +1,4 @@
 
-# Caching
-
 Proot's backend takes care of creating cache files, cleaning them up, sending them to browsers and setting cache headers. This is done globally for all backend actions based on just a couple of settings.
 
 Proot's caching system is very robust. Instead of scheduled jobs creating and destroying cache items in the background, generated responses from actions are saved as they are used, and also overwritten with newer versions automatically. If cache items are deleted for any reason, they are simply recreated while the action is used. If a cache item is unavailable or caching is broken for any reason, actions will still generate and output a response for the client.

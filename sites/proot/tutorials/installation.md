@@ -1,8 +1,4 @@
 
-# Setup walkthrough
-
-
-
 ## 1. Access to a server
 
 Proot runs on a web hosting service or a local development environment. The list of requirements is very short:

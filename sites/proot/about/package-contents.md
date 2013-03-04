@@ -1,6 +1,4 @@
 
-# What is included
-
 Here's a quick tour of what's included in the Proot download so you get an idea of how things work.
 
 

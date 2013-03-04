@@ -1,6 +1,4 @@
 
-# Backend variables
-
 The backend code is a little peculiar in the sense that almost all information is stored in global variables. This cheatsheet tells you what they include at a glance.
 
 The backend is [run in phases](?category=backend&id=basics), to which these global variables roughly correspong. They are listed here in order of availability. In addition to these, we have a global `$errors` array.

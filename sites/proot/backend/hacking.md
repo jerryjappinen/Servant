@@ -1,6 +1,4 @@
 
-# Hacking
-
 Let's face it, if you have a reason to go mess with the core codebase, you are going to implement a dirty hack to get the program to do what you want. Proot doesn't stand in the way of doing something you need to do to make a specific installation serve its purpose better for some ideological reasons. Proot is not there to make your life harder. I'll also try to keep Proot running on PHP 5.2, which means I can't use all the new bells and whistles.
 
 Logic is not buried under complex class hierarchies, and you won't see any structures you haven't seen in your most basic PHP tutorials. For experienced programmers this might seem ugly, but for us normal people the code is less frightening and more predictable. Some actions will implement more complex logic in more mature ways, but those are not part of the core.

@@ -1,8 +1,4 @@
 
-# Input
-
-
-
 ## Using validated input
 
 The actual user input is available in the global variable `$input`. It has passed both basic validation and your custom validations in `action.php` and `output.php`.

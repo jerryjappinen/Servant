@@ -1,6 +1,4 @@
 
-# Actions
-
 *Actions* are PHP scripts that expose some data or functionality from the backend to the outside world. They answer to HTTP requests, which means loading their URL in a browser or sending an AJAX request. They are **shared by all apps**, and readily usable via a lightweight API, so it's very effortless to reuse existing functionality in multiple apps without having to touch backend code.
 
 A good example of a backend action is outputting a file from an app package, where input parameters select the file &ndash; this type of behavior is very commonly required, and in Proot is provided in all apps.

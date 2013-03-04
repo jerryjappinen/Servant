@@ -1,6 +1,4 @@
 
-# Shared code
-
 The view lifecycle is what determined what happens during different stages of the lifetime of your application. You will, however, want to share code between views and view methods.
 
 You can add JavaScript files to `shared/` in your app package. These files will be converted to JS and included in your app object. So, anything there is available in any of your view methods, throughout the application (the shorthand `shared` is also available).

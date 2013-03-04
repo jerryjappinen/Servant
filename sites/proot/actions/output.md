@@ -1,6 +1,4 @@
 
-# Output
-
 In most cases you'll just want to have a `$action['output']` include your output by the end of your script. If you set an array or other types of data as the output, Proot will do deliver this output as a sensible response based on the content type you set.
 
 

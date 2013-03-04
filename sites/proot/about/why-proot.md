@@ -1,8 +1,4 @@
 
-# Why Proot?
-
-
-
 ### Build client software, from user perspective
 
 - Move beyond web sites: create living, handcrafted interfaces

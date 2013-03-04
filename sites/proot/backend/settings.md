@@ -1,6 +1,4 @@
 
-# Settings
-
 This page guides you to the most important settings you may want to touch when installing Proot on your server. The defaults are fine for most cases, but you can change these at your will.
 
 #### <strong>Always override defaults in `backend/hacks/` instead of changing *anything* in `backend/core/`. Override individual values only, not complete arrays.</strong>

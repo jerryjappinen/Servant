@@ -16,7 +16,10 @@
 		"js ": "JS "
 	},
 
-	"templateFiles": ["md", "txt", "html", "htm", "xhtml", "php", "json"],
-	"stylesheetFiles": ["css", "less"]
+	"formats": {
+		"templates": ["md", "txt", "html", "htm", "xhtml", "php", "json"],
+		"stylesheets": ["css", "less"],
+		"scripts": ["js", "json"]
+	}
 
 }

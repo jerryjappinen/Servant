@@ -1,6 +1,4 @@
 
-# Using backend
-
 Proot's backend functionality is available in bite-sized *actions*. Showing an image, uploading a file, sending an email or reading something from the database are some examples. You use the actions with AJAX requests.
 
 - [Cheatsheet of available actions](?category=cheatsheets&id=actions)

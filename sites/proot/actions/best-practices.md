@@ -1,6 +1,4 @@
 
-# Best practices
-
 ### Actions are *not* app-specific
 
 While there's nothing that prevents you from writing actions tailored to a specific app, you should aim to write generic scripts that can serve multiple client application. Many web apps do more or less the same things behind the scenes, and writing generic backend code in Proot lets you share code between your client applications.

@@ -1,6 +1,4 @@
 
-# Proot is a web app platform
-
 It's lightweight, easy to set up and doesn't give you bullshit. Proot is ideal for writing prototypes fast, and then gradually extending them into full-featured, modern single-page web apps, especially for existing services with APIs.
 
 Proot has one shared backend for your apps: you have to write *zero lines of server-side code* while creating a new site or app. It comes with goodies like asset pipeline, robust caching, and JS view + state handling. One app is one directory, all code is visible in file system, and there are no magical terminal commands to learn.

@@ -11,11 +11,8 @@ class ServantAvailable extends ServantObject {
 	// Public getters
 
 	// Articles are dependent on current site
-	public function article ($tree = null) {
-		if ($tree and !is_array($tree)) {
-			$tree = func_get_args();
-		}
-		return $this->assert('articles', $tree);
+	public function article () {
+		return $this->assert('articles', func_get_args());
 	}
 	public function articles () {
 		return call_user_func_array(array($this->servant()->site(), 'articles'), func_get_args());

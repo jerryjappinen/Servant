@@ -1,6 +1,4 @@
 
-# Write your first web app
-
 #### **Continue only when you [have Proot up and running](?category=tutorials&id=setup-walkthrough).**
 
 So: Proot takes an *app package*, which is a directory under `apps/` and delivers its contents to a browser. App package contains HTML, CSS and JS files, and other assets like images, like any web app. So that's what we're going to create!

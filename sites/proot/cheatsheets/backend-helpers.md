@@ -1,6 +1,4 @@
 
-# Backend helpers
-
 These PHP helpers are available when writing actions. They are declared in `backend/helpers/`.
 
 

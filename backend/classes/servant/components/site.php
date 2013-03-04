@@ -8,17 +8,16 @@ class ServantSite extends ServantObject {
 	protected $propertyId 		= null;
 	protected $propertyName 	= null;
 	protected $propertyPath 	= null;
-	protected $propertySelected = null;
 
 
 
 	// Select ID and article while initializing
-	protected function initialize ($id = null, $selected = null) {
+	protected function initialize ($id = null, $selectedArticle = null) {
 		if ($id) {
 			$this->setId($id);
 		}
-		if ($selected) {
-			$this->setSelected($selected);
+		if ($selectedArticle) {
+			$this->setArticle($selectedArticle);
 		}
 		return $this;
 	}
@@ -26,8 +25,8 @@ class ServantSite extends ServantObject {
 
 
 	// Public getters
-	public function article ($format = null) {
-		return $this->servant()->format()->path($this->getAndSet('article'), $format);
+	public function article () {
+		return $this->getAndSet('article');
 	}
 	public function articles () {
 		return $this->getAndSet('articles', func_get_args());
@@ -45,20 +44,17 @@ class ServantSite extends ServantObject {
 		}
 		return $path;
 	}
-	public function selected () {
-		return $this->getAndSet('selected', func_get_args());
-	}
 
 
 
 	// Setters
 
-	protected function setArticle () {
-		return $this->set('article', call_user_func_array(array($this, 'articles'), $this->selected()));
+	protected function setArticle ($selectedArticle = null) {
+		return $this->set('article', new ServantArticle($this->servant(), $this, $selectedArticle));
 	}
 
 	protected function setArticles () {
-		$results = $this->findArticles($this->path('server'), $this->servant()->settings()->templateFiles());
+		$results = $this->findArticles($this->path('server'), $this->servant()->settings()->formats('templates'));
 		return $this->set('articles', $results);
 	}
 
@@ -78,10 +74,6 @@ class ServantSite extends ServantObject {
 
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
-	}
-
-	protected function setSelected ($tree = null) {
-		return $this->set('selected', $this->selectArticle($this->articles(), to_array($tree)));
 	}
 
 
@@ -111,31 +103,30 @@ class ServantSite extends ServantObject {
 		return $results;
 	}
 
-	// FLAG should be in article class
-	private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
+	// private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
 
-		// No preference or preferred item doesn't exist: auto select
-		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $articlesOnThisLevel)) {
+	// 	// No preference or preferred item doesn't exist: auto select
+	// 	if (!isset($tree[$level]) or !array_key_exists($tree[$level], $articlesOnThisLevel)) {
 
-			// Cut out the rest of the preferred items
-			$tree = array_slice($tree, 0, $level);
+	// 		// Cut out the rest of the preferred items
+	// 		$tree = array_slice($tree, 0, $level);
 
-			// Auto select first item on this level
-			$keys = array_keys($articlesOnThisLevel);
-			$tree[] = $keys[0];
+	// 		// Auto select first item on this level
+	// 		$keys = array_keys($articlesOnThisLevel);
+	// 		$tree[] = $keys[0];
 
-		}
+	// 	}
 
-		// We need to go deeper
-		if (is_array($articlesOnThisLevel[$tree[$level]])) {
-			return $this->selectArticle($articlesOnThisLevel[$tree[$level]], $tree, $level+1);
+	// 	// We need to go deeper
+	// 	if (is_array($articlesOnThisLevel[$tree[$level]])) {
+	// 		return $this->selectArticle($articlesOnThisLevel[$tree[$level]], $tree, $level+1);
 
-		// That was it
-		} else {
-			return $tree;
-		}
+	// 	// That was it
+	// 	} else {
+	// 		return $tree;
+	// 	}
 
-	}
+	// }
 
 }
 

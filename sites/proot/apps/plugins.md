@@ -1,6 +1,4 @@
 
-# Plugins
-
 You can include JS libraries, predefined CSS style packages, jQuery plugins etc. in your app by just adding them to the manifest file. You can include anything that you have in `tools/`. You can also use files from CDNs by using external URLs in the manifest.
 
 These shared tools are available in all apps. Also, any files from the `tools/` folder in your app package are included automatically.

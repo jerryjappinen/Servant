@@ -1,6 +1,4 @@
 
-# URLs & paths
-
 When working with a framework, you often wonder where your final assets end up when you try to access them in your browser or static files. Fortunately, things are relatively simple with Proot: all natural paths work as expected, and there are a handful of other paths configured in `.htaccess`.
 
 Here is a list of the default paths in Proot (try using these URLs in your browser):

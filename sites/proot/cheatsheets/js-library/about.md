@@ -1,65 +1,7 @@
 
-# Proot JS library
-
 This library is the heart of any Proot-style JavaScript app. It includes view and state handling, sane DOM manipulation and more. Include it in your [app manifest](?category=apps&id=manifest) and you're all set to use it in your app's script files.
 
 The library is split into understandable namespaces (each in their own files). It's possible to include only the namespaces you need, as long as internal dependencies are satisfied.
-
-
-
-
-
-
-
-## p.actions
-
-Exposed backend functionality. These functions are used for things concerning [backend actions](?category=cheatsheets&id=actions).
-
-
-
-#### `contact(parent, action, parameters)`
-
-Call an action with arbitrary parameters. This sends a POST request and is used for shorthands.
-
-Returns a *jQuery promise object*.
-
-
-
-#### `get(parent, action, input)`
-
-Call an action with a GET AJAX request. Remember that Proot actions behave the same way regardless of the HTTP method used.
-
-Returns a *jQuery promise object*.
-
-
-
-#### `link(parent, action, inputs)`
-
-Output a URL that targets an action. These URLs are in domain-relative format. E.g.
-
-	p.actions.link('images', 'show', ['logos/large.png', 240])
-	// "/path/to/proot/use/appname/images/show/logos%252Flarge.png/240"
-
-
-
-#### `map()`
-
-Returns available actions for the current app. Returns a hash with all actions sorted by their parent, e.g.
-
-	p.actions.link('images', 'show', ['logos/large.png', 240])
-
-	// {
-	//	images: ["list", "show"],
-	//	web: ["client", "style"]
-	// }
-
-
-
-#### `post(parent, action, input)`
-
-Call an action with a POST AJAX request. Remember that Proot actions behave the same way regardless of the HTTP method used.
-
-Returns a *jQuery promise object*.
 
 
 

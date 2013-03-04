@@ -1,6 +1,4 @@
 
-# App packages
-
 Apps are packages of frontend code that Proot can compile for a web browser to run. Apps are written in plain JavaScript, HTML, CSS and JS. **Basically, you create a new app by making a new directory to the `apps/` folder**.
 
 Everything in an app package optional, to the point that even an empty directory is a valid app package and will run. Browse the included sample apps and templates to get the idea of how things can be done.

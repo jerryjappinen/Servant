@@ -48,7 +48,7 @@ class ServantTemplate extends ServantObject {
 		$files = array();
 		$dir = $this->path('server');
 		if (is_dir($dir)) {
-			foreach (rglob_files($dir, $this->servant()->settings()->templateFiles()) as $key => $path) {
+			foreach (rglob_files($dir, $this->servant()->settings()->formats('templates')) as $key => $path) {
 				$files[$key] = $this->servant()->format()->path($path, false, 'server');
 			}
 		}

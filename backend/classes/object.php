@@ -40,7 +40,7 @@ class ServantObject {
 		$propertyName = $this->propertyName($id);
 		$value = $this->$propertyName;
 		if (is_array($value) and !empty($tree)) {
-			return array_traverse($value, $tree);
+			return array_traverse($value, array_flatten($tree));
 		}
 		return $value;
 	}

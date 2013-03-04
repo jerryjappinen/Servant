@@ -221,7 +221,7 @@ pre {
 	#menu .first a {
 		text-transform: uppercase;
 	}
-	#menu .first a:hover, #submenu a:hover {
+	#menu .first a:hover, #submenu a:hover, #submenu .selected a {
 		background-color: #374040;
 	}
 

@@ -1,12 +1,14 @@
 <?php
 
-// FLAG only works for primary site, not any site
-	// protected $propertySite 			= null;
+// protected $propertyLevel 		= null;
+// protected $propertyCategory 		= null;
+// protected $propertySiblings 		= null;
 class ServantArticle extends ServantObject {
 
 	// Properties
 	protected $propertyId 				= null;
 	protected $propertyName 			= null;
+	protected $propertySite 			= null;
 	protected $propertyTree 			= null;
 	protected $propertyType 			= null;
 	protected $propertyPath 			= null;
@@ -14,7 +16,10 @@ class ServantArticle extends ServantObject {
 
 
 	// Select ID when initializing
-	protected function initialize ($tree = null) {
+	protected function initialize ($site = null, $tree = null) {
+		if ($site) {
+			$this->setSite($site);
+		}
 		if ($tree) {
 			$this->setTree($tree);
 		}
@@ -30,11 +35,14 @@ class ServantArticle extends ServantObject {
 	public function name () {
 		return $this->getAndSet('name');
 	}
+	public function site () {
+		return $this->getAndSet('site');
+	}
 	public function tree () {
-		return $this->getAndSet('name', func_get_args());
+		return $this->getAndSet('tree', func_get_args());
 	}
 	public function type () {
-		return $this->getAndSet('name');
+		return $this->getAndSet('type');
 	}
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
@@ -47,31 +55,66 @@ class ServantArticle extends ServantObject {
 
 
 	// Setters
+	// NOTE site and tree determine most of these
 
 	protected function setId () {
-		$keys = array_keys($this->tree());
-		return $this->set('id', $keys[count($this->tree)-1]);
+		$tree = $this->tree();
+		return $this->set('id', end($tree));
 	}
 
 	protected function setName () {
 		return $this->set('name', $this->servant()->format()->name($this->id()));
 	}
 
-	// Others are generated from tree
-	// FLAG site class has this stuff
-	protected function setTree ($tree = null) {
-		if (!$this->servant()->available()->article($tree)) {
-			$tree = array();
+	protected function setSite ($site = null) {
+
+		// Fall back to primary site
+		if (!$site or get_class($site) !== 'ServantSite') {
+			$site = $this->servant()->site();
 		}
-		return $this->set('tree', $tree);
+
+		return $this->set('site', $site);
+	}
+
+	protected function setTree ($tree = null) {
+		return $this->set('tree', $this->selectArticle($this->site()->articles(), to_array($tree)));
 	}
 
 	protected function setType () {
-		return $this->set('path', detect($this->path(), 'extension'));
+		return $this->set('type', detect($this->path(), 'extension'));
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->servant()->site()->path('plain').implode('/', $this->tree()).'/');
+		return $this->set('path', $this->site()->articles($this->tree()));
+	}
+
+
+
+	// Private helpers
+
+	private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
+ 
+		// No preference or preferred item doesn't exist: auto select
+		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $articlesOnThisLevel)) {
+
+			// Cut out the rest of the preferred items
+			$tree = array_slice($tree, 0, $level);
+
+			// Auto select first item on this level
+			$keys = array_keys($articlesOnThisLevel);
+			$tree[] = $keys[0];
+
+		}
+
+		// We need to go deeper
+		if (is_array($articlesOnThisLevel[$tree[$level]])) {
+			return $this->selectArticle($articlesOnThisLevel[$tree[$level]], $tree, $level+1);
+
+		// That was it
+		} else {
+			return $tree;
+		}
+
 	}
 
 }

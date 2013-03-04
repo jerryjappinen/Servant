@@ -1,6 +1,4 @@
 
-# Backend
-
 With normal web sites that consist of static pages and forms, the response for every HTTP request is a complete HTML document - a complete page view, with meta information and menus. This doesn't really make sense, since the user is loading the same stuff multiple times per session.
 
 The user should really have to load the base application only once, and load new views, content or functionality only when it's needed. Proot is not naturally skewed towards serving complete pages, but rather bite-sized, lightweight responses for clients. Proot's *backend actions* are great for AJAX applications that don't have to refresh page all the time.

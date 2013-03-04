@@ -1,11 +1,13 @@
 <?php
 
+// FLAG replication with scripts & stylesheets
 class ServantTheme extends ServantObject {
 
 	// Properties
-	protected $propertyStylesheetFiles 	= null;
 	protected $propertyId 				= null;
 	protected $propertyPath 			= null;
+	protected $propertyScripts 			= null;
+	protected $propertyStylesheets 		= null;
 
 
 
@@ -20,18 +22,10 @@ class ServantTheme extends ServantObject {
 
 
 	// Public getters
-	public function stylesheetFiles ($format = false) {
-		$files = $this->getAndSet('stylesheetFiles');
-		if ($format) {
-			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
-			}
-		}
-		return $files;
-	}
 	public function id () {
 		return $this->getAndSet('id');
 	}
+
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -40,20 +34,29 @@ class ServantTheme extends ServantObject {
 		return $path;
 	}
 
+	public function scripts ($format = false) {
+		$files = $this->getAndSet('stylesheets');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
+	}
+
+	public function stylesheets ($format = false) {
+		$files = $this->getAndSet('stylesheets');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
+	}
+
 
 
 	// Setters
-
-	protected function setStylesheetFiles () {
-		$files = array();
-		$dir = $this->path('server');
-		if (is_dir($dir)) {
-			foreach (rglob_files($dir, $this->servant()->settings()->stylesheetFiles()) as $key => $path) {
-				$files[$key] = $this->servant()->format()->path($path, false, 'server');
-			}
-		}
-		return $this->set('stylesheetFiles', $files);
-	}
 
 	protected function setId ($id = false) {
 
@@ -78,6 +81,28 @@ class ServantTheme extends ServantObject {
 
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->themes('plain').$this->id().'/');
+	}
+
+	protected function setStylesheets () {
+		$files = array();
+		$dir = $this->path('server');
+		if (is_dir($dir)) {
+			foreach (rglob_files($dir, $this->servant()->settings()->formats('stylesheets')) as $key => $path) {
+				$files[$key] = $this->servant()->format()->path($path, false, 'server');
+			}
+		}
+		return $this->set('stylesheets', $files);
+	}
+
+	protected function setScripts () {
+		$files = array();
+		$dir = $this->path('server');
+		if (is_dir($dir)) {
+			foreach (rglob_files($dir, $this->servant()->settings()->formats('scripts')) as $key => $path) {
+				$files[$key] = $this->servant()->format()->path($path, false, 'server');
+			}
+		}
+		return $this->set('scripts', $files);
 	}
 
 }

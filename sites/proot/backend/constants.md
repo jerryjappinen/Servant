@@ -1,6 +1,4 @@
 
-# Constants
-
 Proot's backend is extensively controlled by global variables. `$constants` includes almost all sets of accepted values, filenames, content types etc.
 
 #### <strong>Always override defaults in `backend/hacks/` instead of changing *anything* in `backend/core/`. Override individual values only, not complete arrays.</strong>

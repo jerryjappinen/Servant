@@ -1,7 +1,4 @@
 
-# Get started
-
-
 ## How Proot works
 
 Proot is one PHP backend that serves one or more *app packages*. An app package is a directory under `apps/` and everything in it: HTML, CSS and JS files, plus other assets like images.

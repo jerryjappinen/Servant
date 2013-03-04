@@ -1,8 +1,6 @@
 <?php
 
 $output = '
-# Proot jQuery plugin
-
 This optional plugin adds shorthand functions for working with Proot like you\'re used to in jQuery. These jQuery functions map to the [Proot JS library](?category=cheatsheets&id=js-library). Remember to include the plugin in your `app.json` to use it:
 
 #### `app.json`

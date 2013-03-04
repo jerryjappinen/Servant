@@ -4,18 +4,14 @@ class ServantSettings extends ServantObject {
 
 	// Properties
 	protected $propertyNamingConvention = null;
-	protected $propertyStylesheetFiles = null;
-	protected $propertyTemplateFiles = null;
+	protected $propertyFormats 			= null;
 
 	// Public getters
 	public function namingConvention () {
 		return $this->getAndSet('namingConvention', func_get_args());
 	}
-	public function stylesheetFiles () {
-		return $this->getAndSet('stylesheetFiles', func_get_args());
-	}
-	public function templateFiles () {
-		return $this->getAndSet('templateFiles', func_get_args());
+	public function formats () {
+		return $this->getAndSet('formats', func_get_args());
 	}
 
 
@@ -42,11 +38,26 @@ class ServantSettings extends ServantObject {
 	protected function setNamingConvention ($value = array()) {
 		return $this->set('namingConvention', array_flatten(to_array($value), true, true));
 	}
-	protected function setStylesheetFiles ($value = array()) {
-		return $this->set('stylesheetFiles', array_flatten(to_array($value)));
-	}
-	protected function setTemplateFiles ($value = array()) {
-		return $this->set('templateFiles', array_flatten(to_array($value)));
+
+	protected function setFormats ($formats = null) {
+
+		// Base format
+		$results = array(
+			'templates' => array(),
+			'stylesheets' => array(),
+			'scripts' => array()
+		);
+
+		// Pick settings into properly formatted array
+		if ($formats and is_array($formats)) {
+			foreach ($results as $key => $value) {
+				if (isset($formats[$key])) {
+					$results[$key] = array_flatten(to_array($value));
+				}
+			}
+		}
+
+		return $this->set('formats', $results);
 	}
 
 
@@ -57,8 +68,7 @@ class ServantSettings extends ServantObject {
 	private function properties () {
 		return array(
 			'namingConvention',
-			'stylesheetFiles',
-			'templateFiles',
+			'formats',
 		);
 	}
 

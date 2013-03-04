@@ -63,9 +63,9 @@ $output = '
 		';
 
 		// Scripts
-		// foreach ($servant->theme()->scripts('domain') as $path) {
-		// 	$output .= '<script src="'.$path.'"></script>';
-		// }
+		foreach ($servant->theme()->scripts('domain') as $path) {
+			$output .= '<script src="'.$path.'"></script>';
+		}
 
 		$output .= '
 	</body>

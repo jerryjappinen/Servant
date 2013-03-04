@@ -1,6 +1,4 @@
 
-# Troubleshooting
-
 #### **Always use the developer tools at `dev/` to get more information of your system. Dev tools spot common problems and usually give a better idea on how to fix them.**
 
 

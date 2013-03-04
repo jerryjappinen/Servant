@@ -24,8 +24,8 @@ class ServantMain extends ServantObject {
 	}
 
 	// Select where to be
-	public function select ($site, $selected) {
-		$this->setSite($site, $selected);
+	public function select ($site, $selectedArticle) {
+		$this->setSite($site, $selectedArticle);
 		return $this;
 	}
 
@@ -62,6 +62,9 @@ class ServantMain extends ServantObject {
 	protected $propertyTheme 		= null;
 
 	// Public getters for children
+	public function article () {
+		return call_user_func_array(array($this->site(), 'article'), func_get_args());
+	}
 	public function available () {
 		return $this->getAndSet('available');
 	}
@@ -105,8 +108,8 @@ class ServantMain extends ServantObject {
 	protected function setSettings ($settings = array()) {
 		return $this->set('settings', new ServantSettings($this, $settings));
 	}
-	protected function setSite ($id = null, $selected = null) {
-		return $this->set('site', new ServantSite($this, $id, $selected));
+	protected function setSite ($id = null, $selectedArticle = null) {
+		return $this->set('site', new ServantSite($this, $id, $selectedArticle));
 	}
 	protected function setTemplate ($id = null) {
 		return $this->set('template', new ServantTemplate($this, $id));
