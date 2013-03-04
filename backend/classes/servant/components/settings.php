@@ -52,7 +52,7 @@ class ServantSettings extends ServantObject {
 		if ($formats and is_array($formats)) {
 			foreach ($results as $key => $value) {
 				if (isset($formats[$key])) {
-					$results[$key] = array_flatten(to_array($value));
+					$results[$key] = array_flatten(to_array($formats[$key]));
 				}
 			}
 		}

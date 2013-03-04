@@ -1,7 +1,7 @@
 <?php
 
 $output = '
-	<body class="'.implode(' ', $servant->article()->tree()).'">
+	<body class="language-javascript '.implode(' ', $servant->article()->tree()).'">
 
 		<div class="dark" id="menu">
 
@@ -126,7 +126,7 @@ $output = '
 
 				$output .= '
 				<h4><strong>Developer stuff</strong></h4>
-				'.htmlDump($servant->article()->tree()).'
+				'.htmlDump($servant->settings()->formats()).'
 				<div class="clear"></div>
 			</div>
 		</div>

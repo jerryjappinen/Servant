@@ -3,7 +3,7 @@
 class ServantMain extends ServantObject {
 
 	// Shorthand for full execution
-	public function run ($paths, $settings, $site = false, $selectedArticle = false) {
+	public function run ($paths, $settings, $site = null, $selectedArticle = null) {
 		return $this->initialize($paths, $settings)->select($site, $selectedArticle)->render();
 	}
 

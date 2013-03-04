@@ -35,7 +35,7 @@ class ServantTheme extends ServantObject {
 	}
 
 	public function scripts ($format = false) {
-		$files = $this->getAndSet('stylesheets');
+		$files = $this->getAndSet('scripts');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
 				$files[$key] = $this->servant()->format()->path($filepath, $format);

@@ -1,17 +1,18 @@
 <?php
 
-// protected $propertyLevel 		= null;
-// protected $propertyCategory 		= null;
-// protected $propertySiblings 		= null;
 class ServantArticle extends ServantObject {
 
 	// Properties
-	protected $propertyId 				= null;
-	protected $propertyName 			= null;
-	protected $propertySite 			= null;
-	protected $propertyTree 			= null;
-	protected $propertyType 			= null;
-	protected $propertyPath 			= null;
+	protected $propertyId 		= null;
+	protected $propertyIndex 	= null;
+	protected $propertyLevel 	= null;
+	protected $propertyName 	= null;
+	protected $propertyParents 	= null;
+	protected $propertySiblings = null;
+	protected $propertySite 	= null;
+	protected $propertyTree 	= null;
+	protected $propertyType 	= null;
+	protected $propertyPath 	= null;
 
 
 
@@ -32,8 +33,20 @@ class ServantArticle extends ServantObject {
 	public function id () {
 		return $this->getAndSet('id');
 	}
+	public function index () {
+		return $this->getAndSet('index');
+	}
+	public function level () {
+		return $this->getAndSet('level');
+	}
 	public function name () {
 		return $this->getAndSet('name');
+	}
+	public function parents () {
+		return $this->getAndSet('parents', func_get_args());
+	}
+	public function siblings () {
+		return $this->getAndSet('siblings', func_get_args());
 	}
 	public function site () {
 		return $this->getAndSet('site');
@@ -62,8 +75,27 @@ class ServantArticle extends ServantObject {
 		return $this->set('id', end($tree));
 	}
 
+	protected function setIndex () {
+		$siblings = array_flip($this->siblings());
+		return $this->set('index', $siblings[$this->id()]);
+	}
+
+	protected function setLevel () {
+		return $this->set('level', count($this->tree()));
+	}
+
 	protected function setName () {
 		return $this->set('name', $this->servant()->format()->name($this->id()));
+	}
+
+	protected function setParents () {
+		$parents = array_reverse($this->tree());
+		array_shift($parents);
+		return $this->set('parents', $parents);
+	}
+
+	protected function setSiblings () {
+		return $this->set('siblings', array_keys($this->site()->articles(array_reverse($this->parents()))));
 	}
 
 	protected function setSite ($site = null) {
