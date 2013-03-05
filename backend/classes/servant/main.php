@@ -29,9 +29,12 @@ class ServantMain extends ServantObject {
 		return $this;
 	}
 
-	// Create output via templates
+	// Send output
 	public function render () {
-		echo $this->template()->extract();
+		foreach ($this->response()->headers() as $value) {
+			header($value);
+		}
+		echo $this->response()->body();
 		return $this;
 	}
 
@@ -54,6 +57,7 @@ class ServantMain extends ServantObject {
 	protected $propertyExtract 		= null;
 	protected $propertyFormat 		= null;
 	protected $propertyPaths 		= null;
+	protected $propertyResponse 	= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
 	protected $propertyTemplate 	= null;
@@ -73,7 +77,10 @@ class ServantMain extends ServantObject {
 		return $this->getAndSet('format');
 	}
 	public function paths () {
-		return $this->get('paths');
+		return $this->getAndSet('paths');
+	}
+	public function response () {
+		return $this->getAndSet('response');
 	}
 	public function settings () {
 		return $this->getAndSet('settings');
@@ -102,6 +109,9 @@ class ServantMain extends ServantObject {
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', new ServantPaths($this, $paths));
+	}
+	protected function setResponse () {
+		return $this->set('response', new ServantResponse($this));
 	}
 	protected function setSettings ($settings = array()) {
 		return $this->set('settings', new ServantSettings($this, $settings));

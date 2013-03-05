@@ -16,7 +16,7 @@ RewriteEngine on
 # Endpoints
 
 # Forward to default app
-RewriteRule ^$ %{REQUEST_URI}proot/ [R=301,L]
+RewriteRule ^$ %{REQUEST_URI}home/ [R=301,L]
 
 # Load index.php at root
 DirectoryIndex backend/index.php

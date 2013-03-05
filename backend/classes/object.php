@@ -118,11 +118,11 @@ class ServantObject {
 	}
 
 	// Getter that can check if a key exists
-	protected function getOrAssert ($id, $tree = null) {
+	protected function getOrAssert ($id, $tree = null, $target = null) {
 		if (empty($tree)) {
 			return $this->get($id);
 		} else {
-			return $this->assert($id, $tree);
+			return $this->assert($id, $tree, $target);
 		}
 	}
 

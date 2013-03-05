@@ -1,5 +1,9 @@
 {
 
+	"cache": {
+		"browser": 0
+	},
+
 	"defaults": {
 		"site": "home",
 		"template": "default",

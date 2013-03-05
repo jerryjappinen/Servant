@@ -3,11 +3,15 @@
 class ServantSettings extends ServantObject {
 
 	// Properties
+	protected $propertyCache 			= null;
 	protected $propertyDefaults 		= null;
 	protected $propertyFormats 			= null;
 	protected $propertyNamingConvention = null;
 
 	// Public getters
+	public function cache () {
+		return $this->getAndSet('cache', func_get_args());
+	}
 	public function defaults () {
 		return $this->getAndSet('defaults', func_get_args());
 	}
@@ -22,10 +26,17 @@ class ServantSettings extends ServantObject {
 
 	// Take original settings in during initialization
 	public function initialize ($settings) {
-		$results = array();
+
+		// This is what we can set
+		$properties = array(
+			'cache',
+			'defaults',
+			'formats',
+			'namingConvention',
+		);
 
 		// Run setters if values are given
-		foreach ($this->properties() as $key) {
+		foreach ($properties as $key) {
 			$parameters = array();
 			if (isset($settings[$key]) and !empty($settings[$key])) {
 				$parameters[] = $settings[$key];
@@ -40,8 +51,33 @@ class ServantSettings extends ServantObject {
 
 	// Setters
 
+	// Cache'related items
+	protected function setCache ($cache = null) {
+
+		// Base format, with defaults
+		$results = array(
+			'browser' => 0,
+		);
+
+		// Pick cache settings into properly formatted array
+		if ($cache and is_array($cache)) {
+			foreach ($results as $key => $value) {
+				if (isset($cache[$key])) {
+
+					// Don't accept just anything
+					if (is_int($cache[$key]) and $cache[$key] > 0) {
+						$results[$key] = strval($cache[$key]);
+					}
+
+				}
+			}
+		}
+
+		return $this->set('cache', $results);
+	}
+
 	// Default preferences for guiding how to choose between available items
-	// NOTE default items are not necessarily available in the system
+	// NOTE default items are not necessarily available in the system, they're just dumb preferences
 	protected function setDefaults ($defaults = null) {
 
 		// Base format
@@ -73,7 +109,7 @@ class ServantSettings extends ServantObject {
 
 	protected function setFormats ($formats = null) {
 
-		// Base format
+		// Base format with defaults
 		$results = array(
 			'templates' => array(),
 			'stylesheets' => array(),
@@ -97,17 +133,6 @@ class ServantSettings extends ServantObject {
 	}
 
 
-
-	// Private helpers
-
-	// Settable properties
-	private function properties () {
-		return array(
-			'defaults',
-			'formats',
-			'namingConvention',
-		);
-	}
 
 }
 
