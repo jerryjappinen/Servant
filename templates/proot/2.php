@@ -1,7 +1,7 @@
 <?php
 
 $output = '
-	<body class="'.implode(' ', $servant->article()->tree()).'">
+	<body class="language-javascript '.implode(' ', $servant->article()->tree()).'">
 
 		<div class="dark" id="menu">
 

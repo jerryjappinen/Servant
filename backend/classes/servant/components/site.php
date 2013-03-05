@@ -58,11 +58,26 @@ class ServantSite extends ServantObject {
 		return $this->set('articles', $results);
 	}
 
-	protected function setId ($id = '') {
+	protected function setId ($id = null) {
 
-		// Silently fall back to default
-		if (!$this->servant()->available()->site($id)) {
-			$id = $this->servant()->available()->sites(0);
+		// Given ID is invalid
+		if (!$id or !$this->servant()->available()->site($id)) {
+
+			// Silently fall back to default
+			$default = $this->servant()->settings()->defaults('site');
+			$first = $this->servant()->available()->sites(0);
+			if ($this->servant()->available()->site($default)) {
+				$id = $default;
+
+			// ... or the first site available
+			} else if (isset($first)) {
+				$id = $first;
+
+			// No sites
+			} else {
+				$this->fail('No sites available');
+			}
+
 		}
 
 		return $this->set('id', $id);

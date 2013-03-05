@@ -1,7 +1,7 @@
 {
 
 	"defaults": {
-		"site": "servant",
+		"site": "home",
 		"template": "default",
 		"theme": "default"
 	},
