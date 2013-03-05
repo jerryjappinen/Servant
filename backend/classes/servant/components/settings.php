@@ -3,15 +3,19 @@
 class ServantSettings extends ServantObject {
 
 	// Properties
-	protected $propertyNamingConvention = null;
+	protected $propertyDefaults 		= null;
 	protected $propertyFormats 			= null;
+	protected $propertyNamingConvention = null;
 
 	// Public getters
-	public function namingConvention () {
-		return $this->getAndSet('namingConvention', func_get_args());
+	public function defaults () {
+		return $this->getAndSet('defaults', func_get_args());
 	}
 	public function formats () {
 		return $this->getAndSet('formats', func_get_args());
+	}
+	public function namingConvention () {
+		return $this->getAndSet('namingConvention', func_get_args());
 	}
 
 
@@ -35,8 +39,36 @@ class ServantSettings extends ServantObject {
 
 
 	// Setters
-	protected function setNamingConvention ($value = array()) {
-		return $this->set('namingConvention', array_flatten(to_array($value), true, true));
+
+	// Default preferences for guiding how to choose between available items
+	// NOTE default items are not necessarily available in the system
+	protected function setDefaults ($defaults = null) {
+
+		// Base format
+		$results = array(
+			'site' => null,
+			'template' => null,
+			'theme' => null,
+		);
+
+		// Pick defaults into properly formatted array
+		if ($defaults and is_array($defaults)) {
+			foreach ($results as $key => $value) {
+				if (isset($defaults[$key])) {
+
+					// Normalize subarray
+					if (is_array($defaults[$key])) {
+						$keys = array_keys($defaults[$key]);
+						$defaults[$key] = $defaults[$key][$keys[0]];
+					}
+
+					// Set default
+					$results[$key] = strval($defaults[$key]);
+				}
+			}
+		}
+
+		return $this->set('defaults', $results);
 	}
 
 	protected function setFormats ($formats = null) {
@@ -45,7 +77,7 @@ class ServantSettings extends ServantObject {
 		$results = array(
 			'templates' => array(),
 			'stylesheets' => array(),
-			'scripts' => array()
+			'scripts' => array(),
 		);
 
 		// Pick settings into properly formatted array
@@ -60,6 +92,10 @@ class ServantSettings extends ServantObject {
 		return $this->set('formats', $results);
 	}
 
+	protected function setNamingConvention ($value = array()) {
+		return $this->set('namingConvention', array_flatten(to_array($value), true, true));
+	}
+
 
 
 	// Private helpers
@@ -67,8 +103,9 @@ class ServantSettings extends ServantObject {
 	// Settable properties
 	private function properties () {
 		return array(
-			'namingConvention',
+			'defaults',
 			'formats',
+			'namingConvention',
 		);
 	}
 

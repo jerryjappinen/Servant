@@ -126,7 +126,7 @@ $output = '
 
 				$output .= '
 				<h4><strong>Developer stuff</strong></h4>
-				'.htmlDump($servant->settings()->formats()).'
+				'.htmlDump($servant->settings()->defaults()).'
 				<div class="clear"></div>
 			</div>
 		</div>

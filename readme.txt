@@ -14,24 +14,16 @@ Servant
 
 
 
-Requirements
-------------
-
-- PHP version 5.2+
-- Apache with the `mod_rewrite` module (or `rewrite_module`)
-
-
-
 Setup
 -----
 
 1. Download Servant
-2. Unzip the download on your server
-3. Make sure `mod_rewrite` or `rewrite_module` is enabled on your server.
+2. Unzip the download on a server with PHP 5.2
+3. Make sure `mod_rewrite` or `rewrite_module` is enabled the server.
 
-Things should work out-of-the-box, and you should see the demo site when you point your browser to where you put Servant.
+Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at http://eiskis.net/servant/setup/troubleshooting/ if you encounter any problems.
+Consult troubleshooting guide at [nothing here] if you encounter any problems.
 
 
 
@@ -50,3 +42,8 @@ General TODO notes
 
 - Stop hardcoding class names when validating object type
 	- e.g. in ServantArticle, ServantObject
+- Add caching
+- Set some headers
+- Detect localhost to go into debug mode
+	- caching disabled
+	- debug log visible

@@ -103,31 +103,6 @@ class ServantSite extends ServantObject {
 		return $results;
 	}
 
-	// private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
-
-	// 	// No preference or preferred item doesn't exist: auto select
-	// 	if (!isset($tree[$level]) or !array_key_exists($tree[$level], $articlesOnThisLevel)) {
-
-	// 		// Cut out the rest of the preferred items
-	// 		$tree = array_slice($tree, 0, $level);
-
-	// 		// Auto select first item on this level
-	// 		$keys = array_keys($articlesOnThisLevel);
-	// 		$tree[] = $keys[0];
-
-	// 	}
-
-	// 	// We need to go deeper
-	// 	if (is_array($articlesOnThisLevel[$tree[$level]])) {
-	// 		return $this->selectArticle($articlesOnThisLevel[$tree[$level]], $tree, $level+1);
-
-	// 	// That was it
-	// 	} else {
-	// 		return $tree;
-	// 	}
-
-	// }
-
 }
 
 ?>
