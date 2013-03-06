@@ -80,7 +80,6 @@ $output = '
 				// One-column layout
 				$current = count($servant->article()->tree())-1;
 				if ($current < 2) {
-
 					// Generate category or article title
 					// FLAG really need article object: check for categories, first title is category name
 					if (false) {
@@ -91,14 +90,14 @@ $output = '
 
 					$output .= '
 					<h1>'.$title.'</h1>
-					'.$servant->extract()->file($servant->site()->article()->path('server'));
+					'.$servant->article()->extract();
 
 				// Two-column layout
 				} else {
 					$output .= '
 					<div class="column first nine">
 						<h1>'.$servant->format()->name($servant->article()->tree($current-1)).': '.$servant->article()->name().'</h1>
-						'.$servant->extract()->file($servant->site()->article()->path('server')).'
+						'.$servant->article()->extract().'
 					</div>
 					<div class="column last three" id="submenu">
 

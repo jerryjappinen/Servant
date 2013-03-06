@@ -83,7 +83,7 @@ Proot has one shared backend for your apps: you have to write *zero lines of ser
 	</tr>
 	<tr>
 		<td>Licensed under</td>
-		<td><a href="../lgpl.txt" target="_blank">GNU Lesser General Public License</a></td>
+		<td><a href="lgpl.txt" target="_blank">GNU Lesser General Public License</a></td>
 	</tr>
 	<tr>
 		<td>By Jerry Jäppinen</td>
