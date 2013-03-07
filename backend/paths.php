@@ -11,6 +11,7 @@ $paths = array(
 	'sites' 		=> 'sites/',
 	'themes' 		=> 'themes/',
 	'templates' 	=> 'templates/',
+	'cache' 		=> 'cache/',
 
 	// Backend
 	'index' 		=> 'backend/',

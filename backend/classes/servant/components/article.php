@@ -75,7 +75,11 @@ class ServantArticle extends ServantObject {
 	// NOTE site and tree determine most of these
 
 	protected function setExtract () {
-		return $this->set('extract', manipulateHtmlUrls($this->servant()->extract()->file($this->path('server')), $this->site()->path('domain'), implode('/', $this->tree()).'/' ));
+		$relativeUrl = implode('/', array_reverse($this->parents()));
+		if (!empty($relativeUrl)) {
+			$relativeUrl .= '/';
+		}
+		return $this->set('extract', manipulateHtmlUrls($this->servant()->extract()->file($this->path('server')), $this->site()->path('domain'), $relativeUrl));
 	}
 
 	protected function setId () {

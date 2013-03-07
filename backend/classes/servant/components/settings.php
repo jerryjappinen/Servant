@@ -57,6 +57,7 @@ class ServantSettings extends ServantObject {
 		// Base format, with defaults
 		$results = array(
 			'browser' => 0,
+			'server' => 0,
 		);
 
 		// Pick cache settings into properly formatted array

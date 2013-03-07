@@ -1,0 +1,27 @@
+
+/*Defaults*/
+body {
+	background-color: #edf1f2;
+	color: #24292d;
+}
+
+
+
+/*Main menu*/
+#mainmenu {
+	background-color: #24292d;
+	color: #edf1f2;
+}
+
+#mainmenu a, #submenu a {
+	color: inherit;
+}
+
+
+
+/*Images*/
+#content img {
+	border-radius: 0.15em;
+	box-shadow: 0 0.05em 0.2em rgba(36, 41, 45, 0.2);
+	border: 0.05em solid rgba(36, 41, 45, 0.2);
+}

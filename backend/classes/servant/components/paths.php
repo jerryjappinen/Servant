@@ -5,8 +5,10 @@ class ServantPaths extends ServantObject {
 	// Properties
 	protected $propertyDocumentRoot = null;
 	protected $propertyRoot 		= null;
+
 	protected $propertySites 		= null;
 	protected $propertyIndex 		= null;
+	protected $propertyCache 		= null;
 	protected $propertyClasses 		= null;
 	protected $propertyHelpers 		= null;
 	protected $propertySettings 	= null;
@@ -30,12 +32,9 @@ class ServantPaths extends ServantObject {
 		}
 	}
 
-	// Others 
-	public function sites ($format = false) {
-		return $this->servant()->format()->path($this->get('sites'), $format);
-	}
-	public function index ($format = false) {
-		return $this->servant()->format()->path($this->get('index'), $format);
+	// Others
+	public function cache ($format = false) {
+		return $this->servant()->format()->path($this->get('cache'), $format);
 	}
 	public function classes ($format = false) {
 		return $this->servant()->format()->path($this->get('classes'), $format);
@@ -43,8 +42,14 @@ class ServantPaths extends ServantObject {
 	public function helpers ($format = false) {
 		return $this->servant()->format()->path($this->get('helpers'), $format);
 	}
+	public function index ($format = false) {
+		return $this->servant()->format()->path($this->get('index'), $format);
+	}
 	public function settings ($format = false) {
 		return $this->servant()->format()->path($this->get('settings'), $format);
+	}
+	public function sites ($format = false) {
+		return $this->servant()->format()->path($this->get('sites'), $format);
 	}
 	public function templates ($format = false) {
 		return $this->servant()->format()->path($this->get('templates'), $format);
@@ -83,11 +88,12 @@ class ServantPaths extends ServantObject {
 		return array(
 			'documentRoot',
 			'root',
-			'sites',
-			'index',
+			'cache',
 			'classes',
 			'helpers',
+			'index',
 			'settings',
+			'sites',
 			'templates',
 			'themes',
 			'utilities',

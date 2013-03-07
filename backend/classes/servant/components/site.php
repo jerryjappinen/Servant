@@ -54,7 +54,7 @@ class ServantSite extends ServantObject {
 	}
 
 	protected function setArticles () {
-		$results = $this->findArticles($this->path('server'), $this->servant()->settings()->formats('templates'));
+		$results = $this->findFiles($this->path('server'), $this->servant()->settings()->formats('templates'));
 		return $this->set('articles', $results);
 	}
 
@@ -96,7 +96,7 @@ class ServantSite extends ServantObject {
 	// Private helpers
 
 	// List available articles recursively
-	private function findArticles ($path, $filetypes = array()) {
+	private function findFiles ($path, $filetypes = array()) {
 		$results = array();
 
 		// Files on this level
@@ -106,9 +106,9 @@ class ServantSite extends ServantObject {
 
 		// Non-empty child directories
 		foreach (glob_dir($path) as $subdir) {
-			$value = $this->findArticles($subdir);
+			$value = $this->findFiles($subdir);
 			if (!empty($value)) {
-				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findArticles($subdir);
+				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findFiles($subdir);
 			}
 		}
 

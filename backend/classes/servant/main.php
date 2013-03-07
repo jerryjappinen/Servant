@@ -2,19 +2,25 @@
 
 class ServantMain extends ServantObject {
 
+	// Override default construction method
+	public function __construct () {
+		return $this;
+	}
+
+
+
 	// Shorthand for full execution
 	public function run ($paths, $settings, $site = null, $selectedArticle = null) {
-		return $this->initialize($paths, $settings)->select($site, $selectedArticle)->render();
+		$this->initialize($paths, $settings)->select($site, $selectedArticle);
+		if ($this->settings()->cache('server') > 0) {
+			$this->cache();	
+		}
+		return $this->render();
 	}
 
 
 
 	// The Servant process
-
-	// Override default construction method
-	public function __construct () {
-		return $this;
-	}
 
 	// Paths and settings are needed
 	public function initialize ($paths, $settings) {
@@ -29,22 +35,25 @@ class ServantMain extends ServantObject {
 		return $this;
 	}
 
-	// Send output
-	public function render () {
-		foreach ($this->response()->headers() as $value) {
-			header($value);
+	// Store output into a file
+	public function cache () {
+		if (!$this->response()->exists()) {
+			$this->response()->store();
 		}
-		echo $this->response()->body();
 		return $this;
 	}
 
-	// Store output into a file
-	public function store ($filepath) {
-		$output = '';
-		foreach ($this->template()->files('server') as $path) {
-			$output .=  $this->extract()->file($path);
+	// Send output
+	public function render () {
+
+		// Send headers
+		foreach ($this->response()->headers() as $value) {
+			header($value);
 		}
-		file_put_contents($filepath, $output);
+
+		// Output body content
+		echo $this->response()->body();
+
 		return $this;
 	}
 

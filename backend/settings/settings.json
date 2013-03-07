@@ -1,7 +1,8 @@
 {
 
 	"cache": {
-		"browser": 0
+		"browser": 0,
+		"server": 0
 	},
 
 	"defaults": {
@@ -18,12 +19,6 @@
 		"url": "URL",
 		"jquery": "jQuery",
 		"js ": "JS "
-	},
-
-	"formats": {
-		"templates": ["md", "txt", "html", "htm", "xhtml", "php", "json"],
-		"stylesheets": ["css", "less"],
-		"scripts": ["js", "json"]
 	}
 
 }
