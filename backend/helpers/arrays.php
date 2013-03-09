@@ -39,11 +39,15 @@ function array_flatten ($array, $removeChildren = false, $preserveKeys = false) 
 	foreach ($array as $key => $value) {
 		if (!is_array($value)) {
 
-			// If children are removed, we can preseve keys
-			if ($removeChildren and $preserveKeys) {
-				$result[$key] = $value;
+			// Preseve keys
+			if ($preserveKeys) {
 
-			// Otherwise we ditch them
+				// ...but treat overlapping keys right
+				if ($removeChildren or !isset($result[$key])) {
+					$result[$key] = $value;
+				}
+
+			// Ditch keys
 			} else {
 				$result[] = $value;
 			}

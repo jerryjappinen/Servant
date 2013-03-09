@@ -5,18 +5,9 @@ body {
 	color: #24292d;
 }
 
-
-
-/*Main menu*/
-#mainmenu {
-	background-color: #24292d;
-	color: #edf1f2;
+a {
+	color: #00aacc;
 }
-
-#mainmenu a, #submenu a {
-	color: inherit;
-}
-
 
 
 /*Images*/

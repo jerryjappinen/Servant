@@ -67,7 +67,15 @@ class ServantTheme extends ServantObject {
 			if ($this->servant()->available()->theme($this->servant()->site()->id())) {
 				$id = $this->servant()->site()->id();
 
-			// Global default, whatever's available
+			// Template's theme
+			} else if ($this->servant()->available()->theme($this->servant()->template()->id())) {
+				$id = $this->servant()->template()->id();
+
+			// Global default
+			} else if ($this->servant()->available()->theme($this->servant()->settings()->defaults('theme'))) {
+				$id = $this->servant()->settings()->defaults('theme');
+
+			// Whatever's available
 			} else {
 				$id = $this->servant()->available()->themes(0);
 				if ($id === null) {

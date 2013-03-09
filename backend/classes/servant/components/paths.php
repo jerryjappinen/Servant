@@ -6,12 +6,12 @@ class ServantPaths extends ServantObject {
 	protected $propertyDocumentRoot = null;
 	protected $propertyRoot 		= null;
 
-	protected $propertySites 		= null;
-	protected $propertyIndex 		= null;
 	protected $propertyCache 		= null;
 	protected $propertyClasses 		= null;
 	protected $propertyHelpers 		= null;
+	protected $propertyIndex 		= null;
 	protected $propertySettings 	= null;
+	protected $propertySites 		= null;
 	protected $propertyTemplates 	= null;
 	protected $propertyThemes 		= null;
 	protected $propertyUtilities 	= null;

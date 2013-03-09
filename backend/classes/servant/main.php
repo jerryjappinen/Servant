@@ -65,6 +65,7 @@ class ServantMain extends ServantObject {
 	protected $propertyAvailable 	= null;
 	protected $propertyExtract 		= null;
 	protected $propertyFormat 		= null;
+	protected $propertyHttpHeaders 	= null;
 	protected $propertyPaths 		= null;
 	protected $propertyResponse 	= null;
 	protected $propertySettings 	= null;
@@ -84,6 +85,9 @@ class ServantMain extends ServantObject {
 	}
 	public function format () {
 		return $this->getAndSet('format');
+	}
+	public function httpHeaders () {
+		return $this->getAndSet('httpHeaders');
 	}
 	public function paths () {
 		return $this->getAndSet('paths');
@@ -115,6 +119,9 @@ class ServantMain extends ServantObject {
 	}
 	protected function setFormat () {
 		return $this->set('format', new ServantFormat($this));
+	}
+	protected function setHttpHeaders () {
+		return $this->set('httpHeaders', new ServantHttpHeaders($this));
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', new ServantPaths($this, $paths));

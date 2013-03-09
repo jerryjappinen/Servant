@@ -88,16 +88,15 @@ class ServantResponse extends ServantObject {
 	// Setters
 
 	public function setBrowserCacheTime () {
-		$setting = $this->servant()->settings()->cache('browser');
-		return $this->set('browserCacheTime', 'Cache-Control: '.($setting > 0 ? 'max-age='.($setting*60) : 'no-store'));
+		return $this->set('browserCacheTime', $this->servant()->settings()->cache('browser')*60);
 	}
 
 	public function setContentType () {
-		return $this->set('contentType', 'Content-Type: text/html; charset=utf-8');
+		return $this->set('contentType', $this->servant()->settings()->contentTypes('html'));
 	}
 
 	public function setCors () {
-		return $this->set('cors', 'Access-Control-Allow-Origin: *');
+		return $this->set('cors', true);
 	}
 
 	public function setExists () {
@@ -117,14 +116,14 @@ class ServantResponse extends ServantObject {
 
 		// Run internal methods for getting the headers
 		foreach ($headers as $key => $value) {
-			$headers[$key] = $this->$key();
+			$headers[$key] = $this->servant()->httpHeaders()->$key();
 		}
 
 		return $this->set('headers', $headers);
 	}
 
 	public function setStatus () {
-		return $this->set('status', 'HTTP/1.1 200 OK');
+		return $this->set('status', 200);
 	}
 
 	public function setPath () {
