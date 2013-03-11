@@ -3,9 +3,9 @@
 class ServantTemplate extends ServantObject {
 
 	// Properties
-	protected $propertyExtract 	= null;
 	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
+	protected $propertyOutput 	= null;
 	protected $propertyPath 	= null;
 
 
@@ -21,9 +21,7 @@ class ServantTemplate extends ServantObject {
 
 
 	// Public getters
-	public function extract () {
-		return $this->getAndSet('extract');
-	}
+
 	public function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
@@ -33,9 +31,15 @@ class ServantTemplate extends ServantObject {
 		}
 		return $files;
 	}
+
 	public function id () {
 		return $this->getAndSet('id');
 	}
+
+	public function output () {
+		return $this->getAndSet('output');
+	}
+
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -47,14 +51,6 @@ class ServantTemplate extends ServantObject {
 
 
 	// Setters
-
-	protected function setExtract () {
-		$result = '';
-		foreach ($this->files('server') as $path) {
-			$result .= $this->servant()->extract()->file($path);
-		}
-		return $this->set('extract', $result);
-	}
 
 	protected function setFiles () {
 		$files = array();
@@ -90,6 +86,14 @@ class ServantTemplate extends ServantObject {
 		}
 
 		return $this->set('id', $id);
+	}
+
+	protected function setOutput () {
+		$result = '';
+		foreach ($this->files('server') as $path) {
+			$result .= $this->servant()->extract()->file($path);
+		}
+		return $this->set('output', $result);
 	}
 
 	protected function setPath () {

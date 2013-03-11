@@ -95,7 +95,7 @@ class ServantAction extends ServantObject {
 	}
 
 	protected function setOutput () {
-		return $this->set('output', $this->servant()->template()->extract());
+		return $this->set('output', $this->servant()->template()->output());
 	}
 
 	protected function setPath () {

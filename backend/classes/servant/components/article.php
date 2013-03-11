@@ -3,7 +3,6 @@
 class ServantArticle extends ServantObject {
 
 	// Properties
-	protected $propertyExtract 	= null;
 	protected $propertyId 		= null;
 	protected $propertyIndex 	= null;
 	protected $propertyLevel 	= null;
@@ -13,6 +12,7 @@ class ServantArticle extends ServantObject {
 	protected $propertySite 	= null;
 	protected $propertyTree 	= null;
 	protected $propertyType 	= null;
+	protected $propertyOutput 	= null;
 	protected $propertyPath 	= null;
 
 
@@ -37,14 +37,14 @@ class ServantArticle extends ServantObject {
 	public function index () {
 		return $this->getAndSet('index');
 	}
-	public function extract () {
-		return $this->getAndSet('extract');
-	}
 	public function level () {
 		return $this->getAndSet('level');
 	}
 	public function name () {
 		return $this->getAndSet('name');
+	}
+	public function output () {
+		return $this->getAndSet('output');
 	}
 	public function parents () {
 		return $this->getAndSet('parents', func_get_args());
@@ -74,14 +74,6 @@ class ServantArticle extends ServantObject {
 	// Setters
 	// NOTE site and tree determine most of these
 
-	protected function setExtract () {
-		$relativeUrl = implode('/', array_reverse($this->parents()));
-		if (!empty($relativeUrl)) {
-			$relativeUrl .= '/';
-		}
-		return $this->set('extract', manipulateHtmlUrls($this->servant()->extract()->file($this->path('server')), $this->site()->path('domain'), $relativeUrl));
-	}
-
 	protected function setId () {
 		$tree = $this->tree();
 		return $this->set('id', end($tree));
@@ -98,6 +90,14 @@ class ServantArticle extends ServantObject {
 
 	protected function setName () {
 		return $this->set('name', $this->servant()->format()->name($this->id()));
+	}
+
+	protected function setOutput () {
+		$relativeUrl = implode('/', array_reverse($this->parents()));
+		if (!empty($relativeUrl)) {
+			$relativeUrl .= '/';
+		}
+		return $this->set('output', manipulateHtmlUrls($this->servant()->extract()->file($this->path('server')), $this->site()->path('domain'), $relativeUrl));
 	}
 
 	protected function setParents () {

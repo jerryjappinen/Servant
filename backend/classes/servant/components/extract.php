@@ -1,5 +1,6 @@
 <?php
 
+// This is a helper class, doesn't include properties
 class ServantExtract extends ServantObject {
 
 	// Open and get file contents in a renderable format

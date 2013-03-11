@@ -16,11 +16,11 @@ $output = '
 
 						// Selected
 						if ($servant->article()->tree(0) === $key) {
-							$output .= '<li class="selected"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$key.'/"><strong>'.$servant->format()->name($key).'</strong></a></li>';
+							$output .= '<li class="selected"><a href="'.$servant->paths()->root('domain').$servant->action()->id().'/'.$servant->site()->id().'/'.$key.'/"><strong>'.$servant->format()->name($key).'</strong></a></li>';
 
 						// Normal link
 						} else {
-							$output .= '<li class="reset"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="reset"><a href="'.$servant->paths()->root('domain').$servant->action()->id().'/'.$servant->site()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}
 
 					}
@@ -54,7 +54,7 @@ $output = '
 
 				// List items
 				foreach ($level2 as $key => $value) {
-					$output .= '<li class="reset'.($servant->article()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+					$output .= '<li class="reset'.($servant->article()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->action()->id().'/'.$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 				}
 
 				// List ends
@@ -90,14 +90,14 @@ $output = '
 
 					$output .= '
 					<h1>'.$title.'</h1>
-					'.$servant->article()->extract();
+					'.$servant->article()->output();
 
 				// Two-column layout
 				} else {
 					$output .= '
 					<div class="column first nine">
 						<h1>'.$servant->format()->name($servant->article()->tree($currentLevel-1)).': '.$servant->article()->name().'</h1>
-						'.$servant->article()->extract().'
+						'.$servant->article()->output().'
 					</div>
 					<div class="column last three" id="submenu">
 
@@ -108,7 +108,7 @@ $output = '
 						$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
 						if (!empty($level3) and is_array($level3)) {
 							foreach ($level3 as $key => $value) {
-								$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+								$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->action()->id().'/'.$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 							}
 						}
 						unset($level3, $key, $value);
