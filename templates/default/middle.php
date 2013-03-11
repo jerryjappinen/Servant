@@ -123,7 +123,7 @@ $output = '
 
 				$output .= '
 				<h4><strong>Developer stuff</strong></h4>
-				'.htmlDump($servant->response()->headers()).'
+				'.htmlDump($servant->dev()->available()).'
 				<div class="clear"></div>
 			</div>
 		</div>

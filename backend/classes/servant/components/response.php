@@ -51,11 +51,13 @@ class ServantResponse extends ServantObject {
 
 
 
+	//
 	// Setters
+	//
 
 	// Max browser cache time in seconds
 	// FLAG read from cache file if it's available
-	public function setBrowserCacheTime () {
+	protected function setBrowserCacheTime () {
 		$time = 0;
 
 		// Combination of global and action-specific settings
@@ -80,7 +82,7 @@ class ServantResponse extends ServantObject {
 
 	// Get content type from action
 	// FLAG read from cache file if it's available
-	public function setContentType () {
+	protected function setContentType () {
 		$contentType = $this->servant()->action()->contentType();
 
 		// Invalid
@@ -94,11 +96,11 @@ class ServantResponse extends ServantObject {
 	}
 
 	// CORS is always on
-	public function setCors () {
+	protected function setCors () {
 		return $this->set('cors', true);
 	}
 
-	public function setExists () {
+	protected function setExists () {
 		return $this->set('exists', is_file($this->path('server')) and filemtime($this->path('server')) < time()+($this->servant()->settings()->cache('server')*60));
 	}
 
@@ -123,7 +125,7 @@ class ServantResponse extends ServantObject {
 
 	// Status comes from action
 	// FLAG read from cache file if it's available
-	public function setStatusCode () {
+	protected function setStatusCode () {
 		$status = $this->servant()->action()->status();
 
 		// Invalid status
@@ -136,7 +138,7 @@ class ServantResponse extends ServantObject {
 		}
 	}
 
-	public function setPath () {
+	protected function setPath () {
 		$relativePath = implode('/', array_reverse($this->servant()->site()->article()->parents()));
 		if (!empty($relativePath)) {
 			$relativePath .= '/';

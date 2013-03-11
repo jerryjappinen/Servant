@@ -9,6 +9,7 @@ class ServantDev extends ServantObject {
 		$methods = array(
 			'documentRoot',
 			'root',
+			'actions',
 			'cache',
 			'classes',
 			'helpers',
@@ -34,7 +35,10 @@ class ServantDev extends ServantObject {
 		$results = array();
 		$methods = array(
 			'articles',
+			'contentTypes',
+			'patterns',
 			'sites',
+			'statusCodes',
 			'templates',
 			'themes',
 		);

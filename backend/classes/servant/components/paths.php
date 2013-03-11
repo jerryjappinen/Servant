@@ -6,6 +6,7 @@ class ServantPaths extends ServantObject {
 	protected $propertyDocumentRoot = null;
 	protected $propertyRoot 		= null;
 
+	protected $propertyActions 		= null;
 	protected $propertyCache 		= null;
 	protected $propertyClasses 		= null;
 	protected $propertyHelpers 		= null;
@@ -33,6 +34,9 @@ class ServantPaths extends ServantObject {
 	}
 
 	// Others
+	public function actions ($format = false) {
+		return $this->servant()->format()->path($this->get('actions'), $format);
+	}
 	public function cache ($format = false) {
 		return $this->servant()->format()->path($this->get('cache'), $format);
 	}
@@ -88,6 +92,7 @@ class ServantPaths extends ServantObject {
 		return array(
 			'documentRoot',
 			'root',
+			'actions',
 			'cache',
 			'classes',
 			'helpers',

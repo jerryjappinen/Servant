@@ -32,12 +32,12 @@ class ServantHttpHeaders extends ServantObject {
 
 	// Setters
 
-	public function setBrowserCacheTime () {
+	protected function setBrowserCacheTime () {
 		$time = $this->servant()->response()->browserCacheTime();
 		return $this->set('browserCacheTime', 'Cache-Control: '.($time > 0 ? 'max-age='.$time : 'no-store'));
 	}
 
-	public function setContentType () {
+	protected function setContentType () {
 		$contentType = $this->servant()->response()->contentType();
 		$headerString = 'Content-Type: '.$contentType;
 
@@ -49,11 +49,11 @@ class ServantHttpHeaders extends ServantObject {
 		return $this->set('contentType', $headerString);
 	}
 
-	public function setCors () {
+	protected function setCors () {
 		return $this->set('cors', ($this->servant()->response()->cors() ? 'Access-Control-Allow-Origin: *' : ''));
 	}
 
-	public function setStatusCode () {
+	protected function setStatusCode () {
 		return $this->set('statusCode', 'HTTP/1.1 '.$this->servant()->response()->statusCode());
 	}
 

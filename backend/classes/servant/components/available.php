@@ -5,6 +5,7 @@ class ServantAvailable extends ServantObject {
 	// Properties
 	protected $propertyArticles 	= null;
 	protected $propertyContentTypes = null;
+	protected $propertyPatterns 	= null;
 	protected $propertySites 		= null;
 	protected $propertyStatusCodes 	= null;
 	protected $propertyTemplates 	= null;
@@ -28,6 +29,12 @@ class ServantAvailable extends ServantObject {
 	}
 	public function contentTypes () {
 		return $this->getAndSet('contentTypes', func_get_args());
+	}
+	public function pattern ($id) {
+		return in_array($id, $this->patterns());
+	}
+	public function patterns () {
+		return $this->getAndSet('patterns', func_get_args());
 	}
 	public function site ($id) {
 		return in_array($id, $this->sites());
@@ -61,6 +68,9 @@ class ServantAvailable extends ServantObject {
 	// Sites, templates and themes are all just directories
 	protected function setContentTypes () {
 		return $this->set('contentTypes', array_keys($this->servant()->settings()->contentTypes()));
+	}
+	protected function setPatterns () {
+		return $this->set('patterns', array_keys($this->servant()->settings()->patterns()));
 	}
 	protected function setSites () {
 		return $this->set('sites', $this->findDirectories('sites'));

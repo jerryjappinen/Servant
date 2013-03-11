@@ -6,6 +6,7 @@
 	},
 
 	"defaults": {
+		"action": "read",
 		"site": "home",
 		"template": "default",
 		"theme": "default"

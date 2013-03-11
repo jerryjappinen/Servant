@@ -107,6 +107,7 @@ class ServantSettings extends ServantObject {
 
 		// Base format
 		$results = array(
+			'action' => null,
 			'site' => null,
 			'template' => null,
 			'theme' => null,
