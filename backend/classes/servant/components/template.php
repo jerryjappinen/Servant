@@ -91,7 +91,7 @@ class ServantTemplate extends ServantObject {
 	protected function setOutput () {
 		$result = '';
 		foreach ($this->files('server') as $path) {
-			$result .= $this->servant()->extract()->file($path);
+			$result .= $this->servant()->run()->file($path);
 		}
 		return $this->set('output', $result);
 	}

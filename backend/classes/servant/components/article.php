@@ -97,7 +97,7 @@ class ServantArticle extends ServantObject {
 		if (!empty($relativeUrl)) {
 			$relativeUrl .= '/';
 		}
-		return $this->set('output', manipulateHtmlUrls($this->servant()->extract()->file($this->path('server')), $this->site()->path('domain'), $relativeUrl));
+		return $this->set('output', manipulateHtmlUrls($this->servant()->run()->file($this->path('server')), $this->site()->path('domain'), $relativeUrl));
 	}
 
 	protected function setParents () {

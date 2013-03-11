@@ -95,7 +95,7 @@ try {
 
 
 	// Run Servant
-	create(new ServantMain)->run($paths, $settings, $action, $site, $article);
+	create(new ServantMain)->execute($paths, $settings, $action, $site, $article);
 	unset($paths, $settings, $action, $site, $article);
 
 

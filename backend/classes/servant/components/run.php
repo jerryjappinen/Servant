@@ -1,7 +1,6 @@
 <?php
 
-// This is a helper class, doesn't include properties
-class ServantExtract extends ServantObject {
+class ServantRun extends ServantObject {
 
 	// Open and get file contents in a renderable format
 	public function file ($path, $type = '') {
