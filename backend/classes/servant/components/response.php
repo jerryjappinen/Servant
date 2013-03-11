@@ -10,7 +10,7 @@ class ServantResponse extends ServantObject {
 	protected $propertyExists 			= null;
 	protected $propertyHeaders 			= null;
 	protected $propertyPath 			= null;
-	protected $propertyStatusCode 		= null;
+	protected $propertyStatus 			= null;
 	protected $propertyStore 			= null;
 
 
@@ -98,8 +98,8 @@ class ServantResponse extends ServantObject {
 		return $path;
 	}
 
-	public function statusCode () {
-		return $this->getAndSet('statusCode');
+	public function status () {
+		return $this->getAndSet('status');
 	}
 
 
@@ -144,7 +144,7 @@ class ServantResponse extends ServantObject {
 
 		// Valid
 		} else {
-			return $this->set('contentType', $this->servant()->settings()->contentTypes($contentType));
+			return $this->set('contentType', $contentType);
 		}
 	}
 
@@ -165,7 +165,7 @@ class ServantResponse extends ServantObject {
 			'browserCacheTime' => '',
 			'contentType' => '',
 			'cors' => '',
-			'statusCode' => '',
+			'status' => '',
 		);
 
 		// Run internal methods for getting valid strings
@@ -178,16 +178,16 @@ class ServantResponse extends ServantObject {
 
 	// Status comes from action
 	// FLAG read from cache file if it's available
-	protected function setStatusCode () {
+	protected function setStatus () {
 		$status = $this->servant()->action()->status();
 
 		// Invalid status
-		if (!$this->servant()->available()->statusCode($status)) {
+		if (!$this->servant()->available()->status($status)) {
 			$this->fail('No valid status code determined');
 
 		// Valid status
 		} else {
-			return $this->set('statusCode', $this->servant()->settings()->statusCodes($status));
+			return $this->set('status', $status);
 		}
 	}
 
@@ -196,7 +196,7 @@ class ServantResponse extends ServantObject {
 		if (!empty($relativePath)) {
 			$relativePath .= '/';
 		}
-		return $this->set('path', $this->servant()->paths()->cache().$this->servant()->site()->id().'/'.$relativePath.$this->servant()->article()->id().'.html');
+		return $this->set('path', $this->servant()->paths()->cache().$this->servant()->action()->id().'/'.$this->servant()->site()->id().'/'.$relativePath.$this->servant()->article()->id().'.'.$this->contentType());
 	}
 
 
@@ -215,17 +215,17 @@ class ServantResponse extends ServantObject {
 	private function storeImage ($resource, $filepath, $contentType) {
 
 		// JPG
-		if ($contentType == 'image/jpeg') {
+		if ($contentType == 'jpg') {
 			imagejpeg($resource, $filepath, 95);
 
 		// PNG
-		} else if ($contentType == 'image/png') {
+		} else if ($contentType == 'png') {
 			imagealphablending($resource, false);
 			imagesavealpha($resource, true);
 			imagepng($resource, $filepath, 0);
 
 		// GIF
-		} else if ($contentType == 'image/gif') {
+		} else if ($contentType == 'gif') {
 			imagegif($resource, $filepath);
 		}
 

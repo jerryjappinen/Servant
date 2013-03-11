@@ -39,7 +39,7 @@ class ServantDev extends ServantObject {
 			'contentTypes',
 			'patterns',
 			'sites',
-			'statusCodes',
+			'statuses',
 			'templates',
 			'themes',
 		);

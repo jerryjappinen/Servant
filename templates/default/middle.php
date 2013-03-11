@@ -80,6 +80,7 @@ $output = '
 				// One-column layout
 				$currentLevel = count($servant->article()->tree())-1;
 				if ($currentLevel < 2) {
+
 					// Generate category or article title
 					// FLAG really need article object: check for categories, first title is category name
 					if (false) {
@@ -123,7 +124,7 @@ $output = '
 
 				$output .= '
 				<h4><strong>Developer stuff</strong></h4>
-				'.htmlDump($servant->dev()->available()).'
+				'.htmlDump($servant->response()->headers()).'
 				<div class="clear"></div>
 			</div>
 		</div>

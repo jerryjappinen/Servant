@@ -9,7 +9,7 @@ class ServantSettings extends ServantObject {
 	protected $propertyFormats 			= null;
 	protected $propertyNamingConvention = null;
 	protected $propertyPatterns 		= null;
-	protected $propertyStatusCodes 		= null;
+	protected $propertyStatuses 		= null;
 
 	// Public getters
 	public function cache () {
@@ -30,8 +30,8 @@ class ServantSettings extends ServantObject {
 	public function patterns () {
 		return $this->getAndSet('patterns', func_get_args());
 	}
-	public function statusCodes () {
-		return $this->getAndSet('statusCodes', func_get_args());
+	public function statuses () {
+		return $this->getAndSet('statuses', func_get_args());
 	}
 
 
@@ -47,7 +47,7 @@ class ServantSettings extends ServantObject {
 			'formats',
 			'namingConvention',
 			'patterns',
-			'statusCodes',
+			'statuses',
 		);
 
 		// Run setters if values are given
@@ -170,8 +170,8 @@ class ServantSettings extends ServantObject {
 
 
 
-	protected function setStatusCodes ($input = null) {
-		return $this->set('statusCodes', $this->takeInFlattenedArray($input, true));
+	protected function setStatuses ($input = null) {
+		return $this->set('statuses', $this->takeInFlattenedArray($input, true));
 	}
 
 

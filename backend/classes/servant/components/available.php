@@ -8,7 +8,7 @@ class ServantAvailable extends ServantObject {
 	protected $propertyContentTypes = null;
 	protected $propertyPatterns 	= null;
 	protected $propertySites 		= null;
-	protected $propertyStatusCodes 	= null;
+	protected $propertyStatuses 	= null;
 	protected $propertyTemplates 	= null;
 	protected $propertyThemes 		= null;
 
@@ -49,11 +49,11 @@ class ServantAvailable extends ServantObject {
 	public function sites () {
 		return $this->getAndSet('sites', func_get_args());
 	}
-	public function statusCode ($id) {
-		return in_array($id, $this->statusCodes());
+	public function status ($id) {
+		return in_array($id, $this->statuses());
 	}
-	public function statusCodes () {
-		return $this->getAndSet('statusCodes', func_get_args());
+	public function statuses () {
+		return $this->getAndSet('statuses', func_get_args());
 	}
 	public function template ($id) {
 		return in_array($id, $this->templates());
@@ -85,8 +85,8 @@ class ServantAvailable extends ServantObject {
 	protected function setSites () {
 		return $this->set('sites', $this->findDirectories('sites'));
 	}
-	protected function setStatusCodes () {
-		return $this->set('statusCodes', array_keys($this->servant()->settings()->statusCodes()));
+	protected function setStatuses () {
+		return $this->set('statuses', array_keys($this->servant()->settings()->statuses()));
 	}
 	protected function setTemplates () {
 		return $this->set('templates', $this->findDirectories('templates'));

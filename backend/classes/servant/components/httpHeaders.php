@@ -6,7 +6,7 @@ class ServantHttpHeaders extends ServantObject {
 	protected $propertyBrowserCacheTime = null;
 	protected $propertyContentType 		= null;
 	protected $propertyCors 			= null;
-	protected $propertyStatusCode 		= null;
+	protected $propertyStatus 			= null;
 
 
 
@@ -24,8 +24,8 @@ class ServantHttpHeaders extends ServantObject {
 		return $this->getAndSet('cors');
 	}
 
-	public function statusCode () {
-		return $this->getAndSet('statusCode');
+	public function status () {
+		return $this->getAndSet('status');
 	}
 
 
@@ -38,7 +38,7 @@ class ServantHttpHeaders extends ServantObject {
 	}
 
 	protected function setContentType () {
-		$contentType = $this->servant()->response()->contentType();
+		$contentType = $this->servant()->settings()->contentTypes($this->servant()->response()->contentType());
 		$headerString = 'Content-Type: '.$contentType;
 
 		// Add character set if needed
@@ -53,8 +53,8 @@ class ServantHttpHeaders extends ServantObject {
 		return $this->set('cors', ($this->servant()->response()->cors() ? 'Access-Control-Allow-Origin: *' : ''));
 	}
 
-	protected function setStatusCode () {
-		return $this->set('statusCode', 'HTTP/1.1 '.$this->servant()->response()->statusCode());
+	protected function setStatus () {
+		return $this->set('status', 'HTTP/1.1 '.$this->servant()->settings()->statuses($this->servant()->response()->status()));
 	}
 
 }
