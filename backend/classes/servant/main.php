@@ -9,39 +9,19 @@ class ServantMain extends ServantObject {
 
 
 
-	// Shorthand for full execution
+	// Full execution
 	public function execute ($paths, $settings, $action = null, $site = null, $selectedArticle = null) {
-		$this->initialize($paths, $settings)->select($action, $site, $selectedArticle);
-		if ($this->settings()->cache('server') > 0) {
-			$this->cache();	
-		}
-		return $this->render();
-	}
 
+		// We initialize and select things
+		$this->setPaths($paths)->setSettings($settings)->setAction($action)->setSite($site, $selectedArticle);
 
-
-	// The Servant process
-
-	// Paths and settings are needed
-	public function initialize ($paths, $settings) {
-		$this->setPaths($paths);
-		$this->setSettings($settings);
-		return $this;
-	}
-
-	// Select where to be
-	public function select ($action, $site, $selectedArticle) {
-		$this->setAction($action);
-		$this->setSite($site, $selectedArticle);
-		return $this;
-	}
-
-	// Store output into a file
-	public function cache () {
-		if (!$this->response()->exists()) {
+		// Sometimes we store our response
+		if ($this->settings()->cache('server') > 0 and !$this->response()->exists()) {
 			$this->response()->store();
 		}
-		return $this;
+
+		// And then we output things
+		return $this->render();
 	}
 
 	// Send output
