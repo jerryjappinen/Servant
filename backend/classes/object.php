@@ -57,7 +57,7 @@ class ServantObject {
 	}
 
 	// Report failure, throw an error
-	protected function fail ($message, $code = 500) {
+	protected function fail ($message = null, $code = 500) {
 		throw new Exception($message, $code);
 		return $this;
 	}

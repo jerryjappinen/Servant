@@ -196,7 +196,7 @@ class ServantResponse extends ServantObject {
 		if (!empty($relativePath)) {
 			$relativePath .= '/';
 		}
-		return $this->set('path', $this->servant()->paths()->cache().$this->servant()->action()->id().'/'.$this->servant()->site()->id().'/'.$relativePath.$this->servant()->article()->id().'.'.$this->contentType());
+		return $this->set('path', $this->servant()->paths()->cache().$this->servant()->action()->id().'/'.$this->servant()->site()->id().'/'.$relativePath.$this->servant()->article()->id().'.'.$this->status().'.'.$this->contentType());
 	}
 
 

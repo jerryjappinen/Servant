@@ -22,7 +22,6 @@ class ServantMain extends ServantObject {
 
 		// And then we send a response
 		$this->response()->send();
-
 		return $this;
 	}
 
