@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<style type="text/css">@-ms-viewport{width: device-width;}</style>
+
+		<title>Servant</title>
+		<link rel="shortcut icon" href="/servant/themes/default/servant.ico" type="image/x-icon"><link rel="stylesheet" href="/servant/themes/default/_reset.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/defaults.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/look.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/mainmenu.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/text.css" media="screen">
+	</head>
+
+	<body class="templates basics">
+
+		<div id="mainmenu">
+
+			<div class="first">
+				<ol class="plain push-left block reset"><li class="reset"><a href="/servant/read/servant/about/">About</a></li><li class="reset"><a href="/servant/read/servant/backend/">Backend</a></li><li class="reset"><a href="/servant/read/servant/get-started/">Get started</a></li><li class="reset"><a href="/servant/read/servant/sites/">Sites</a></li><li class="selected"><a href="/servant/read/servant/templates/"><strong>Templates</strong></a></li><li class="reset"><a href="/servant/read/servant/themes/">Themes</a></li><li class="reset"><a href="/servant/read/servant/tutorials/">Tutorials</a></li></ol><select class="hidden" onchange="window.open(this.options[this.selectedIndex].value,'_top')"><optgroup label="About"></optgroup><optgroup label="Backend"></optgroup><optgroup label="Get started"></optgroup><optgroup label="Sites"></optgroup><optgroup label="Templates"></optgroup><optgroup label="Themes"></optgroup><optgroup label="Tutorials"></optgroup></select>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		
+		<div class="buffer" id="content">
+			<div class="contentarea">
+				
+					<h1>Basics</h1>
+					<p>With normal web sites that consist of static pages and forms, the response for every HTTP request is a complete HTML document - a complete page view, with meta information and menus. This doesn't really make sense, since the user is loading the same stuff multiple times per session.</p>
+
+<p>The user should really have to load the base application only once, and load new views, content or functionality only when it's needed. Proot is not naturally skewed towards serving complete pages, but rather bite-sized, lightweight responses for clients. Proot's <em>backend actions</em> are great for AJAX applications that don't have to refresh page all the time.</p>
+
+<h2>Operation</h2>
+
+<p>Proot's backend takes in HTTP requests, interprets them and then sends back a response. Proot will save you a lot of trouble when you want to handle stuff like input validation, content negotiation, HTTP status codes and output headers properly.</p>
+
+<p>Each time a request comes in, it will be targeted to one and only one <em>app</em> and one <em>backend action</em>. This is important to keep in mind.</p>
+
+<p>Proot works in a pretty simple manner: When a request comes in, <code>index.php</code> is run. Each phase of the overall process is run consecutively. If there are any errors, the processing will halt, and forward to error output. Simple enough.</p>
+
+<h2>Core</h2>
+
+<p>After including <code>paths.php</code>, <code>index.php</code> will include the following files in order. There are <a href="/servant/sites/servant/templates/?category=cheatsheets&amp;id=backend-variables">global variables</a> that roughly correspond to each.</p>
+
+<table>
+
+    <tr>
+        <td class="key"><code>constants.php</code></td>
+        <td>Important values, names for and lists of things.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>settings.php</code></td>
+        <td>System settings, commonly vary across environments.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>available.php</code></td>
+        <td>Lists of available resources in the system.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>request.php</code></td>
+        <td>Digging for and normalizing all the necessary info from the original request (accept headers, language, time, HTTP method etc.).</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>choices.php</code></td>
+        <td>Choosing app and action based on input parameters.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>input.php</code></td>
+        <td>Validating, normalizing and prioritizing user input.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>app.php</code></td>
+        <td>Extract the selected app from the app package, and find out what we need about it.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>action.php</code></td>
+        <td>Run the selected backend action.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>response.php</code></td>
+        <td>Prepare the response based on action and state.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>headers.php</code></td>
+        <td>Compose HTTP header strings based on response contents.</td>
+    </tr>
+
+    <tr>
+        <td class="key"><code>output.php</code></td>
+        <td>Compose valid body content.</td>
+    </tr>
+</table>
+
+				<h4><strong>Developer stuff</strong></h4>
+				<pre>
+
+array (
+  'actions' => 
+  array (
+    0 => 'read',
+  ),
+  'articles' => 
+  array (
+    'about' => 'sites/servant/about.md',
+    'backend' => 
+    array (
+      'caching' => 'sites/servant/backend/caching.md',
+      'classes' => 'sites/servant/backend/classes.md',
+      'settings' => 'sites/servant/backend/settings.md',
+    ),
+    'get-started' => 'sites/servant/get-started.md',
+    'sites' => 
+    array (
+      'app-packages' => 'sites/servant/sites/app-packages.md',
+      'manifest-example' => 'sites/servant/sites/manifest-example.json',
+      'urls' => 'sites/servant/sites/urls.md',
+      'using-backend' => 'sites/servant/sites/using-backend.md',
+    ),
+    'templates' => 
+    array (
+      'basics' => 'sites/servant/templates/basics.md',
+    ),
+    'themes' => 
+    array (
+      'scripts' => 'sites/servant/themes/scripts.md',
+      'stylesheets' => 'sites/servant/themes/stylesheets.php',
+    ),
+    'tutorials' => 
+    array (
+      'customization' => 'sites/servant/tutorials/customization.md',
+      'first-site' => 'sites/servant/tutorials/first-site.md',
+      'installation' => 'sites/servant/tutorials/installation.md',
+    ),
+  ),
+  'contentTypes' => 
+  array (
+    0 => 'txt',
+    1 => 'html',
+    2 => 'xhtml',
+    3 => 'json',
+    4 => 'csv',
+    5 => 'js',
+    6 => 'css',
+    7 => 'xml',
+    8 => 'rss',
+    9 => 'pdf',
+    10 => 'zip',
+    11 => 'gif',
+    12 => 'jpg',
+    13 => 'png',
+    14 => 'svg',
+    15 => 'tif',
+    16 => 'mpg',
+    17 => 'eot',
+    18 => 'otf',
+    19 => 'ttf',
+    20 => 'woff',
+  ),
+  'patterns' => 
+  array (
+    0 => 'base64',
+    1 => 'contentType',
+    2 => 'safename',
+    3 => 'filename',
+    4 => 'path',
+    5 => 'filepath',
+    6 => 'url',
+    7 => 'email',
+    8 => 'ip',
+  ),
+  'sites' => 
+  array (
+    0 => 'home',
+    1 => 'proot',
+    2 => 'servant',
+  ),
+  'statusCodes' => 
+  array (
+    0 => 100,
+    1 => 101,
+    2 => 102,
+    3 => 200,
+    4 => 202,
+    5 => 203,
+    6 => 204,
+    7 => 205,
+    8 => 206,
+    9 => 207,
+    10 => 208,
+    11 => 250,
+    12 => 226,
+    13 => 300,
+    14 => 301,
+    15 => 302,
+    16 => 303,
+    17 => 304,
+    18 => 305,
+    19 => 306,
+    20 => 307,
+    21 => 308,
+    22 => 400,
+    23 => 401,
+    24 => 402,
+    25 => 403,
+    26 => 404,
+    27 => 405,
+    28 => 406,
+    29 => 407,
+    30 => 408,
+    31 => 409,
+    32 => 410,
+    33 => 411,
+    34 => 412,
+    35 => 413,
+    36 => 414,
+    37 => 415,
+    38 => 416,
+    39 => 417,
+    40 => 418,
+    41 => 420,
+    42 => 422,
+    43 => 423,
+    44 => 424,
+    45 => 425,
+    46 => 426,
+    47 => 428,
+    48 => 429,
+    49 => 431,
+    50 => 444,
+    51 => 449,
+    52 => 450,
+    53 => 451,
+    54 => 452,
+    55 => 453,
+    56 => 454,
+    57 => 455,
+    58 => 456,
+    59 => 457,
+    60 => 458,
+    61 => 459,
+    62 => 460,
+    63 => 461,
+    64 => 462,
+    65 => 494,
+    66 => 495,
+    67 => 496,
+    68 => 497,
+    69 => 499,
+    70 => 500,
+    71 => 501,
+    72 => 502,
+    73 => 503,
+    74 => 504,
+    75 => 505,
+    76 => 506,
+    77 => 507,
+    78 => 508,
+    79 => 509,
+    80 => 510,
+    81 => 511,
+    82 => 551,
+    83 => 598,
+    84 => 599,
+  ),
+  'templates' => 
+  array (
+    0 => 'default',
+    1 => 'proot',
+  ),
+  'themes' => 
+  array (
+    0 => 'default',
+    1 => 'proot',
+  ),
+)
+
+
+</pre>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<style type="text/css">@-ms-viewport{width: device-width;}</style>
+
+		<title>Servant</title>
+		<link rel="shortcut icon" href="/servant/themes/default/servant.ico" type="image/x-icon"><link rel="stylesheet" href="/servant/themes/default/_reset.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/defaults.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/look.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/mainmenu.css" media="screen"><link rel="stylesheet" href="/servant/themes/default/text.css" media="screen">
+	</head>
+
+	<body class="about">
+
+		<div id="mainmenu">
+
+			<div class="first">
+				<ol class="plain push-left block reset"><li class="selected"><a href="/servant/read/servant/about/"><strong>About</strong></a></li><li class="reset"><a href="/servant/read/servant/backend/">Backend</a></li><li class="reset"><a href="/servant/read/servant/get-started/">Get started</a></li><li class="reset"><a href="/servant/read/servant/sites/">Sites</a></li><li class="reset"><a href="/servant/read/servant/templates/">Templates</a></li><li class="reset"><a href="/servant/read/servant/themes/">Themes</a></li><li class="reset"><a href="/servant/read/servant/tutorials/">Tutorials</a></li></ol><select class="hidden" onchange="window.open(this.options[this.selectedIndex].value,'_top')"><optgroup label="About"></optgroup><optgroup label="Backend"></optgroup><optgroup label="Get started"></optgroup><optgroup label="Sites"></optgroup><optgroup label="Templates"></optgroup><optgroup label="Themes"></optgroup><optgroup label="Tutorials"></optgroup></select>
+				<div class="clear"></div>
+			</div>
+			
+			<div class="clear"></div>
+		</div>
+		
+		<div class="buffer" id="content">
+			<div class="contentarea">
+				
+					<h1>About</h1>
+					<p>It's lightweight, easy to set up and doesn't give you bullshit. Proot is ideal for writing prototypes fast, and then gradually extending them into full-featured, modern single-page web apps, especially for existing services with APIs.</p>
+
+<p>Proot has one shared backend for your apps: you have to write <em>zero lines of server-side code</em> while creating a new site or app. It comes with goodies like asset pipeline, robust caching, and JS view + state handling. One app is one directory, all code is visible in file system, and there are no magical terminal commands to learn.</p>
+
+<p><em>Web apps aren’t server apps. Let’s get this right.</em></p>
+
+<h4><a href="https://bitbucket.org/Eiskis/proot/downloads/proot.zip">Download latest version from Bitbucket</a></h4>
+
+<table>
+
+    <!-- Proot resources -->
+    <tr>
+        <th colspan="2">Proot resources</th>
+    </tr>
+    <tr>
+        <td>Proot home</td>
+        <td><a href="http://eiskis.net/proot/" target="_blank">eiskis.net/proot</a></td>
+    </tr>
+    <tr>
+        <td>Documentation &amp; guides (this document)</td>
+        <td>
+            <ul class="plain close">
+                <li><a href="http://eiskis.net/proot/guides/" target="_blank">eiskis.net/proot/guides</a></li>
+                <li>Also included in download</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Download</td>
+        <td><a href="https://bitbucket.org/Eiskis/proot/downloads/proot.zip" target="_blank">Latest release from Bitbucket</a></td>
+        <td><a href="https://bitbucket.org/Eiskis/proot/get/default.zip" target="_blank">Development snapshot (includes all sample apps)</a></td>
+    </tr>
+    <tr>
+        <td>Development @ Bitbucket</td>
+        <td>
+            <ul class="plain close">
+                <li><a href="https://bitbucket.org/Eiskis/proot/" target="_blank">Project overview</a></li>
+                <li><a href="https://bitbucket.org/Eiskis/proot/src" target="_blank">Source code</a></li>
+                <li><a href="https://bitbucket.org/Eiskis/proot/issues?status=new&amp;status=open" target="_blank">Issue management</a></li>
+            </ul>
+        </td>
+    </tr>
+
+
+
+    <!-- Requirements -->
+    <tr>
+        <th colspan="2">Requirements</th>
+    </tr>
+    <tr>
+        <td>PHP</td>
+        <td>
+            <ul class="plain close">
+                <li>Version 5.2+</li>
+                <li>Custom actions might require a newer version</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Apache</td>
+        <td>
+            <ul class="plain close">
+                <li>With the module <em>mod_rewrite</em> or <em>rewrite_module</em></li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Database (optional)</td>
+        <td>
+            <ul class="plain close">
+                <li>Included backend actions: MySQL and other RDBs via <a href="http://www.redbeanphp.com/manual/compatible" target="_blank">RedBeanPHP</a></li>
+                <li>Custom actions: no limitations</li>
+            </ul>
+        </td>
+    </tr>
+
+    
+
+    <!-- About -->
+    <tr>
+        <th colspan="2">About</th>
+    </tr>
+    <tr>
+        <td>Licensed under</td>
+        <td><a href="/servant/sites/servant/../lgpl.txt" target="_blank">GNU Lesser General Public License</a></td>
+    </tr>
+    <tr>
+        <td>By Jerry Jäppinen</td>
+        <td>
+            <ul class="plain close">
+                <li><a href="https://twitter.com/Eiskis" target="_blank">@Eiskis</a></li>
+                <li><a href="http://eiskis.net/" target="_blank">eiskis.net</a></li>
+                <li><a href="mailto:eiskis@gmail.com" target="_blank">eiskis@gmail.com</a></li>
+                <li><a href="tel:+358407188776">+358 40 7188776</a></li>
+            </ul>
+        </td>
+    </tr>
+
+</table>
+
+				<h4><strong>Developer stuff</strong></h4>
+				<pre>
+
+array (
+  'actions' => 
+  array (
+    0 => 'read',
+  ),
+  'articles' => 
+  array (
+    'about' => 'sites/servant/about.md',
+    'backend' => 
+    array (
+      'caching' => 'sites/servant/backend/caching.md',
+      'classes' => 'sites/servant/backend/classes.md',
+      'settings' => 'sites/servant/backend/settings.md',
+    ),
+    'get-started' => 'sites/servant/get-started.md',
+    'sites' => 
+    array (
+      'app-packages' => 'sites/servant/sites/app-packages.md',
+      'manifest-example' => 'sites/servant/sites/manifest-example.json',
+      'urls' => 'sites/servant/sites/urls.md',
+      'using-backend' => 'sites/servant/sites/using-backend.md',
+    ),
+    'templates' => 
+    array (
+      'basics' => 'sites/servant/templates/basics.md',
+    ),
+    'themes' => 
+    array (
+      'scripts' => 'sites/servant/themes/scripts.md',
+      'stylesheets' => 'sites/servant/themes/stylesheets.php',
+    ),
+    'tutorials' => 
+    array (
+      'customization' => 'sites/servant/tutorials/customization.md',
+      'first-site' => 'sites/servant/tutorials/first-site.md',
+      'installation' => 'sites/servant/tutorials/installation.md',
+    ),
+  ),
+  'contentTypes' => 
+  array (
+    0 => 'txt',
+    1 => 'html',
+    2 => 'xhtml',
+    3 => 'json',
+    4 => 'csv',
+    5 => 'js',
+    6 => 'css',
+    7 => 'xml',
+    8 => 'rss',
+    9 => 'pdf',
+    10 => 'zip',
+    11 => 'gif',
+    12 => 'jpg',
+    13 => 'png',
+    14 => 'svg',
+    15 => 'tif',
+    16 => 'mpg',
+    17 => 'eot',
+    18 => 'otf',
+    19 => 'ttf',
+    20 => 'woff',
+  ),
+  'patterns' => 
+  array (
+    0 => 'base64',
+    1 => 'contentType',
+    2 => 'safename',
+    3 => 'filename',
+    4 => 'path',
+    5 => 'filepath',
+    6 => 'url',
+    7 => 'email',
+    8 => 'ip',
+  ),
+  'sites' => 
+  array (
+    0 => 'home',
+    1 => 'proot',
+    2 => 'servant',
+  ),
+  'statusCodes' => 
+  array (
+    0 => 100,
+    1 => 101,
+    2 => 102,
+    3 => 200,
+    4 => 202,
+    5 => 203,
+    6 => 204,
+    7 => 205,
+    8 => 206,
+    9 => 207,
+    10 => 208,
+    11 => 250,
+    12 => 226,
+    13 => 300,
+    14 => 301,
+    15 => 302,
+    16 => 303,
+    17 => 304,
+    18 => 305,
+    19 => 306,
+    20 => 307,
+    21 => 308,
+    22 => 400,
+    23 => 401,
+    24 => 402,
+    25 => 403,
+    26 => 404,
+    27 => 405,
+    28 => 406,
+    29 => 407,
+    30 => 408,
+    31 => 409,
+    32 => 410,
+    33 => 411,
+    34 => 412,
+    35 => 413,
+    36 => 414,
+    37 => 415,
+    38 => 416,
+    39 => 417,
+    40 => 418,
+    41 => 420,
+    42 => 422,
+    43 => 423,
+    44 => 424,
+    45 => 425,
+    46 => 426,
+    47 => 428,
+    48 => 429,
+    49 => 431,
+    50 => 444,
+    51 => 449,
+    52 => 450,
+    53 => 451,
+    54 => 452,
+    55 => 453,
+    56 => 454,
+    57 => 455,
+    58 => 456,
+    59 => 457,
+    60 => 458,
+    61 => 459,
+    62 => 460,
+    63 => 461,
+    64 => 462,
+    65 => 494,
+    66 => 495,
+    67 => 496,
+    68 => 497,
+    69 => 499,
+    70 => 500,
+    71 => 501,
+    72 => 502,
+    73 => 503,
+    74 => 504,
+    75 => 505,
+    76 => 506,
+    77 => 507,
+    78 => 508,
+    79 => 509,
+    80 => 510,
+    81 => 511,
+    82 => 551,
+    83 => 598,
+    84 => 599,
+  ),
+  'templates' => 
+  array (
+    0 => 'default',
+    1 => 'proot',
+  ),
+  'themes' => 
+  array (
+    0 => 'default',
+    1 => 'proot',
+  ),
+)
+
+
+</pre>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+	</body>
+</html>

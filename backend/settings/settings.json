@@ -2,7 +2,7 @@
 
 	"cache": {
 		"browser": 0,
-		"server": 0
+		"server": 5
 	},
 
 	"defaults": {

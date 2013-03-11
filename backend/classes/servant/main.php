@@ -20,20 +20,8 @@ class ServantMain extends ServantObject {
 			$this->response()->store();
 		}
 
-		// And then we output things
-		return $this->render();
-	}
-
-	// Send output
-	public function render () {
-
-		// Send headers
-		foreach ($this->response()->headers() as $value) {
-			header($value);
-		}
-
-		// Output body content
-		echo $this->response()->body();
+		// And then we send a response
+		$this->response()->send();
 
 		return $this;
 	}
@@ -45,7 +33,7 @@ class ServantMain extends ServantObject {
 	// Properties
 	protected $propertyAction 		= null;
 	protected $propertyAvailable 	= null;
-	protected $propertyRun 		= null;
+	protected $propertyRun 			= null;
 	protected $propertyFormat 		= null;
 	protected $propertyHttpHeaders 	= null;
 	protected $propertyPaths 		= null;
