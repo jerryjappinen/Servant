@@ -62,6 +62,7 @@ class ServantMain extends ServantObject {
 	// Children
 
 	// Properties
+	protected $propertyAction 		= null;
 	protected $propertyAvailable 	= null;
 	protected $propertyExtract 		= null;
 	protected $propertyFormat 		= null;
@@ -74,6 +75,9 @@ class ServantMain extends ServantObject {
 	protected $propertyTheme 		= null;
 
 	// Public getters for children
+	public function action () {
+		return $this->getAndSet('action');
+	}
 	public function article () {
 		return call_user_func_array(array($this->site(), 'article'), func_get_args());
 	}
@@ -111,6 +115,9 @@ class ServantMain extends ServantObject {
 
 
 	// Setters for children
+	protected function setAction () {
+		return $this->set('action', new ServantAction($this));
+	}
 	protected function setAvailable () {
 		return $this->set('available', new ServantAvailable($this));
 	}

@@ -37,13 +37,6 @@ $output = '
 				$output .= '</select>';
 				unset($key, $value);
 
-				// Additional menu items
-				$output .= '
-				<ul class="plain push-right block reset">
-					<li><a href="http://eiskis.net/proot/">Servant</a></li>
-				</ul>
-				';
-
 				$output .= '
 				<div class="clear"></div>
 			</div>

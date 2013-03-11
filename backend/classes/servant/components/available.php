@@ -4,9 +4,13 @@ class ServantAvailable extends ServantObject {
 
 	// Properties
 	protected $propertyArticles 	= null;
+	protected $propertyContentTypes = null;
 	protected $propertySites 		= null;
+	protected $propertyStatusCodes 	= null;
 	protected $propertyTemplates 	= null;
 	protected $propertyThemes 		= null;
+
+
 
 	// Public getters
 
@@ -19,11 +23,23 @@ class ServantAvailable extends ServantObject {
 	}
 
 	// Others are pretty standard
+	public function contentType ($id) {
+		return in_array($id, $this->contentTypes());
+	}
+	public function contentTypes () {
+		return $this->getAndSet('contentTypes', func_get_args());
+	}
 	public function site ($id) {
 		return in_array($id, $this->sites());
 	}
 	public function sites () {
 		return $this->getAndSet('sites', func_get_args());
+	}
+	public function statusCode ($id) {
+		return in_array($id, $this->statusCodes());
+	}
+	public function statusCodes () {
+		return $this->getAndSet('statusCodes', func_get_args());
 	}
 	public function template ($id) {
 		return in_array($id, $this->templates());
@@ -43,8 +59,14 @@ class ServantAvailable extends ServantObject {
 	// Setters
 
 	// Sites, templates and themes are all just directories
+	protected function setContentTypes () {
+		return $this->set('contentTypes', array_keys($this->servant()->settings()->contentTypes()));
+	}
 	protected function setSites () {
 		return $this->set('sites', $this->findDirectories('sites'));
+	}
+	protected function setStatusCodes () {
+		return $this->set('statusCodes', array_keys($this->servant()->settings()->statusCodes()));
 	}
 	protected function setTemplates () {
 		return $this->set('templates', $this->findDirectories('templates'));

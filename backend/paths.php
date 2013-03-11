@@ -15,6 +15,7 @@ $paths = array(
 
 	// Backend
 	'index' 		=> 'backend/',
+	'actions' 		=> 'backend/actions/',
 	'classes' 		=> 'backend/classes/',
 	'helpers' 		=> 'backend/helpers/',
 	'settings' 		=> 'backend/settings/',
