@@ -12,7 +12,10 @@ class ServantAction extends ServantObject {
 
 
 	// Defaults on
-	public function initialize () {
+	public function initialize ($id = null) {
+		if ($id) {
+			$this->setId($id);
+		}
 		return $this->browserCache(true)->contentType('html')->status(200);
 	}
 
@@ -70,12 +73,33 @@ class ServantAction extends ServantObject {
 		return $this->set('contentType', $contentType);
 	}
 
+	protected function setId ($id = null) {
+
+		// Silent fallback
+		if (!$this->servant()->available()->action($id)) {
+
+			// Global default
+			if ($this->servant()->available()->action($this->servant()->settings()->defaults('action'))) {
+				$id = $this->servant()->settings()->defaults('action');
+
+			// Whatever's available
+			} else {
+				$id = $this->servant()->available()->actions(0);
+				if ($id === null) {
+					$this->fail('No actions available');
+				}
+			}
+		}
+
+		return $this->set('id', $id);
+	}
+
 	protected function setOutput () {
 		return $this->set('output', $this->servant()->template()->extract());
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->templates('plain').$this->id().'/');
+		return $this->set('path', $this->servant()->paths()->actions('plain').$this->id().'/');
 	}
 
 	protected function setStatus ($status) {

@@ -63,13 +63,15 @@ class ServantSite extends ServantObject {
 		// Given ID is invalid
 		if (!$id or !$this->servant()->available()->site($id)) {
 
-			// Silently fall back to default
+			// Other options
 			$default = $this->servant()->settings()->defaults('site');
 			$first = $this->servant()->available()->sites(0);
+
+			// Global default
 			if ($this->servant()->available()->site($default)) {
 				$id = $default;
 
-			// ... or the first site available
+			// Whatever's available
 			} else if (isset($first)) {
 				$id = $first;
 

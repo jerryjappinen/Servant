@@ -26,4 +26,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Access the web client of an app directly
-RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?site=$1&dir1=$2&dir2=$3&dir3=$4&dir4=$5&dir5=$6&dir6=$7&dir7=$8&dir8=$9
+RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?action=$1&site=$2&dir1=$3&dir2=$4&dir3=$5&dir4=$6&dir5=$7&dir6=$8&dir7=$9

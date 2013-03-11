@@ -34,6 +34,7 @@ class ServantDev extends ServantObject {
 	public function available () {
 		$results = array();
 		$methods = array(
+			'actions',
 			'articles',
 			'contentTypes',
 			'patterns',

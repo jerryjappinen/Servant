@@ -58,7 +58,7 @@ class ServantTheme extends ServantObject {
 
 	// Setters
 
-	protected function setId ($id = false) {
+	protected function setId ($id = null) {
 
 		// Silent fallback
 		if (!$this->servant()->available()->theme($id)) {

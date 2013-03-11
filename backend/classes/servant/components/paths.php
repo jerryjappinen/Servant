@@ -72,24 +72,7 @@ class ServantPaths extends ServantObject {
 		$results = array();
 
 		// Check required paths against against what's given
-		foreach ($this->properties() as $key) {
-			if (isset($paths[$key]) and !empty($paths[$key])) {
-				$this->set($key, $paths[$key]);
-			} else {
-				fail('Need a proper path for '.$key);
-			}
-		}
-
-		return $this;
-	}
-
-
-
-	// Private helpers
-
-	// Settable properties
-	private function properties () {
-		return array(
+		foreach (array(
 			'documentRoot',
 			'root',
 			'actions',
@@ -102,7 +85,17 @@ class ServantPaths extends ServantObject {
 			'templates',
 			'themes',
 			'utilities',
-		);
+		) as $key) {
+
+			// Meaningful values can be used
+			if (isset($paths[$key]) and !empty($paths[$key])) {
+				$this->set($key, $paths[$key]);
+			} else {
+				fail('Need a proper path for '.$key);
+			}
+		}
+
+		return $this;
 	}
 
 }

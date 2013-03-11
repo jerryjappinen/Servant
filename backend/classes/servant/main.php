@@ -10,8 +10,8 @@ class ServantMain extends ServantObject {
 
 
 	// Shorthand for full execution
-	public function run ($paths, $settings, $site = null, $selectedArticle = null) {
-		$this->initialize($paths, $settings)->select($site, $selectedArticle);
+	public function run ($paths, $settings, $action = null, $site = null, $selectedArticle = null) {
+		$this->initialize($paths, $settings)->select($action, $site, $selectedArticle);
 		if ($this->settings()->cache('server') > 0) {
 			$this->cache();	
 		}
@@ -30,7 +30,8 @@ class ServantMain extends ServantObject {
 	}
 
 	// Select where to be
-	public function select ($site, $selectedArticle) {
+	public function select ($action, $site, $selectedArticle) {
+		$this->setAction($action);
 		$this->setSite($site, $selectedArticle);
 		return $this;
 	}
@@ -115,8 +116,8 @@ class ServantMain extends ServantObject {
 
 
 	// Setters for children
-	protected function setAction () {
-		return $this->set('action', new ServantAction($this));
+	protected function setAction ($id = null) {
+		return $this->set('action', new ServantAction($this, $id));
 	}
 	protected function setAvailable () {
 		return $this->set('available', new ServantAvailable($this));

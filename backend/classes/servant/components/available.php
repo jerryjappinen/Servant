@@ -3,6 +3,7 @@
 class ServantAvailable extends ServantObject {
 
 	// Properties
+	protected $propertyActions 		= null;
 	protected $propertyArticles 	= null;
 	protected $propertyContentTypes = null;
 	protected $propertyPatterns 	= null;
@@ -24,6 +25,12 @@ class ServantAvailable extends ServantObject {
 	}
 
 	// Others are pretty standard
+	public function action ($id) {
+		return in_array($id, $this->actions());
+	}
+	public function actions () {
+		return $this->getAndSet('actions', func_get_args());
+	}
 	public function contentType ($id) {
 		return in_array($id, $this->contentTypes());
 	}
@@ -66,6 +73,9 @@ class ServantAvailable extends ServantObject {
 	// Setters
 
 	// Sites, templates and themes are all just directories
+	protected function setActions () {
+		return $this->set('actions', $this->findDirectories('actions'));
+	}
 	protected function setContentTypes () {
 		return $this->set('contentTypes', array_keys($this->servant()->settings()->contentTypes()));
 	}

@@ -61,13 +61,23 @@ try {
 
 
 	// Take input
+
+	// Site
+	$action = '';
+	if (isset($_GET['action']) and (is_string($_GET['action']) or is_int($_GET['action']))) {
+		$action = $_GET['action'];
+	}
+
+	// Site
 	$site = '';
 	if (isset($_GET['site']) and (is_string($_GET['site']) or is_int($_GET['site']))) {
 		$site = $_GET['site'];
 	}
+
+	// Article
 	$article = array();
 	$i=0;
-	foreach (array('dir1', 'dir2', 'dir3', 'dir4', 'dir5', 'dir6', 'dir7', 'dir8') as $key) {
+	foreach (array('dir1', 'dir2', 'dir3', 'dir4', 'dir5', 'dir6', 'dir7') as $key) {
 		if (isset($_GET[$key]) and (is_string($_GET[$key]) or is_int($_GET[$key])) and !empty($_GET[$key])) {
 			$article[$i] = strval($_GET[$key]);
 		} else {
@@ -85,8 +95,8 @@ try {
 
 
 	// Run Servant
-	create(new ServantMain)->run($paths, $settings, $site, $article);
-	unset($paths, $settings, $site, $article);
+	create(new ServantMain)->run($paths, $settings, $action, $site, $article);
+	unset($paths, $settings, $action, $site, $article);
 
 
 

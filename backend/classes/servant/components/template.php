@@ -11,7 +11,7 @@ class ServantTemplate extends ServantObject {
 
 
 	// Select ID when initializing
-	protected function initialize ($id = false) {
+	protected function initialize ($id = null) {
 		if ($id) {
 			$this->setId($id);
 		}
@@ -67,7 +67,7 @@ class ServantTemplate extends ServantObject {
 		return $this->set('files', $files);
 	}
 
-	protected function setId ($id = false) {
+	protected function setId ($id = null) {
 
 		// Silent fallback
 		if (!$this->servant()->available()->template($id)) {
@@ -76,7 +76,11 @@ class ServantTemplate extends ServantObject {
 			if ($this->servant()->available()->template($this->servant()->site()->id())) {
 				$id = $this->servant()->site()->id();
 
-			// Global default, whatever's available
+			// Global default
+			} else if ($this->servant()->available()->template($this->servant()->settings()->defaults('template'))) {
+				$id = $this->servant()->settings()->defaults('template');
+
+			// Whatever's available
 			} else {
 				$id = $this->servant()->available()->templates(0);
 				if ($id === null) {
