@@ -1,0 +1,38 @@
+
+/*Header*/
+
+#header {
+	background-color: #24292d;
+	color: #fff;
+}
+
+
+
+/*Page title*/
+
+#header h1 {
+	font-size: 1.5em;
+	line-height: 1em;
+	font-weight: 100;
+}
+
+
+
+/*Menu items*/
+
+#header a {
+	color: #fff;
+	text-decoration: none;
+}
+
+	#header li a {
+		padding: 0.3em 0.7em 0.4em 0.7em;
+		border-radius: 0.25em;
+		font-weight: 200;
+	}
+
+	#header strong a {
+		background-color: #2acfc4;
+		box-shadow: 0 0.05em 0.2em #000, inset 0 -0.05em 0.1em 0.1em rgba(255, 255, 255, 0.4);
+		border: 0.05em solid rgba(36, 41, 45, 0.2);
+	}

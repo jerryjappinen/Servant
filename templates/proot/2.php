@@ -1,8 +1,21 @@
 <?php
 
-$output = '
-	<body class="language-javascript '.implode(' ', $servant->article()->tree()).'">
+// Create classes for body class
+$i = 1;
+$classes = array();
+$tree = $servant->article()->tree();
+foreach ($tree as $value) {
+	$classes[] = 'article-'.implode('-', array_slice($tree, 0, $i));
+	$i++;
+}
+unset($tree, $i);
 
+$output = '
+	<body class="language-javascript '.implode(' ', $classes).'">
+		';
+		unset($classes);
+
+		$output .= '
 		<div class="dark" id="menu">
 
 			<div class="buffer first">

@@ -125,3 +125,7 @@ button, input, select {
 	vertical-align: baseline;
 	*vertical-align: middle;
 }
+
+.clear {
+	clear: both;
+}
