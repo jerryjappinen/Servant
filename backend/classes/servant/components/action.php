@@ -73,7 +73,13 @@ class ServantAction extends ServantObject {
 		return $this->set('browserCache', $result);
 	}
 
-	protected function setContent ($content) {
+	// This is what action outputs, optionally via a template
+	protected function setContent () {
+
+		// Article title + content
+		$content = '<h1 class="title-article">'.$this->servant()->article()->name().'</h1>
+		'.$this->servant()->article()->output();
+
 		return $this->set('content', $content);
 	}
 
@@ -102,6 +108,7 @@ class ServantAction extends ServantObject {
 		return $this->set('id', $id);
 	}
 
+	// Output structure via template
 	protected function setOutput () {
 		return $this->set('output', $this->servant()->template()->output());
 	}

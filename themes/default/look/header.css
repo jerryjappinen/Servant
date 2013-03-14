@@ -29,10 +29,10 @@
 		padding: 0.3em 0.7em 0.4em 0.7em;
 		border-radius: 0.25em;
 		font-weight: 200;
+		border-color: transparent;
 	}
 
-	#header strong a {
+	#header li strong a {
 		background-color: #2acfc4;
 		box-shadow: 0 0.05em 0.2em #000, inset 0 -0.05em 0.1em 0.1em rgba(255, 255, 255, 0.4);
-		border: 0.05em solid rgba(36, 41, 45, 0.2);
 	}

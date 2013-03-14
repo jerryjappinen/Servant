@@ -27,7 +27,7 @@ $output = '
 					$level1 = $servant->site()->articles();
 					if (!empty($level1)) {
 						foreach ($level1 as $key => $value) {
-							$output .= '<li class="reset'.($servant->article()->tree(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->action()->id().'/'.$servant->site()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="reset'.($servant->article()->tree(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}
 					}
 					unset($level1, $key, $value);
@@ -53,30 +53,41 @@ $output = '
 					$level2 = $servant->site()->articles($servant->article()->tree(0));
 					if (!empty($level2) and is_array($level2)) {
 						foreach ($level2 as $key => $value) {
-							$output .= '<li class="reset'.($servant->article()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->action()->id().'/'.$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="reset'.($servant->article()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}
 					}
 					unset($level2, $key, $value);
 
 					$output .= '
 					</ol>
-
-					<select class="hidden" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')">
 					';
 
-					// Full dropdown menu
-					$level1 = $servant->site()->articles();
-					if (!empty($level1)) {
-						foreach ($level1 as $key => $value) {
+					// Two-level dropdown menu
+					$output .= '<select class="menu-1 menu-2 menu-1-2" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')">';
+					foreach ($servant->site()->articles() as $key => $value) {
+
+						// First-level article
+						if (is_string($value) or is_array($value) and count($value) === 1) {
+							$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</option>';
+
+						// Nested
+						} else if (is_array($value)) {
+
+							// Wrap in optgroup
 							$output .= '<optgroup label="'.$servant->format()->name($key).'">';
+							foreach ($value as $key2 => $value2) {
+								$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</option>';
+							}
 							$output .= '</optgroup>';
+
 						}
+
 					}
-					unset($level1, $key, $value);
+					$output .= '</select>';
+					unset($key, $value);
+					$output .= '<div class="clear"></div>';
 
 					$output .= '
-					</select>
-
 					<div class="clear"></div>
 				</div>
 			</div>
@@ -93,25 +104,13 @@ $output = '
 				// One-column layout
 				$current = count($servant->article()->tree())-1;
 				if ($current < 2) {
-
-					// Generate category or article title
-					// FLAG really need article object: check for categories, first title is category name
-					if (false) {
-						$title = $servant->format()->name($servant->article()->tree($current-1));
-					} else {
-						$title = $servant->article()->name();
-					}
-
-					$output .= '
-					<h1>'.$title.'</h1>
-					'.$servant->article()->output();
+					$output .= $servant->action()->content();
 
 				// Two-column layout
 				} else {
 					$output .= '
 					<div class="column first nine">
-						<h1>'.$servant->format()->name($servant->article()->tree($current-1)).': '.$servant->article()->name().'</h1>
-						'.$servant->article()->output().'
+						'.$servant->action()->content().'
 					</div>
 					<div class="column last three" id="submenu">
 
@@ -123,7 +122,7 @@ $output = '
 							$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
 							if (!empty($level3) and is_array($level3)) {
 								foreach ($level3 as $key => $value) {
-									$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->action()->id().'/'.$servant->site()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+									$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 								}
 							}
 							unset($level3, $key, $value);

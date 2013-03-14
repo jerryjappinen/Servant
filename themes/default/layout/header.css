@@ -7,7 +7,7 @@
 }
 
 /*First-level menu*/
-#header ol.menu-1 {
+#header ul.menu-1, #header ol.menu-1 {
 	margin: 0;
 	float: right;
 	clear: none;
