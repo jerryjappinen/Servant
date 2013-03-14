@@ -4,6 +4,7 @@ class ServantAction extends ServantObject {
 
 	// Properties
 	protected $propertyBrowserCache = null;
+	protected $propertyContent 		= null;
 	protected $propertyContentType 	= null;
 	protected $propertyId 			= null;
 	protected $propertyOutput 		= null;
@@ -26,6 +27,9 @@ class ServantAction extends ServantObject {
 	// Get or set
 	public function browserCache () {
 		return $this->getOrSet('browserCache', func_get_args());
+	}
+	public function content () {
+		return $this->getAndSet('content');
 	}
 	public function contentType () {
 		return $this->getOrSet('contentType', func_get_args());
@@ -67,6 +71,10 @@ class ServantAction extends ServantObject {
 		}
 
 		return $this->set('browserCache', $result);
+	}
+
+	protected function setContent ($content) {
+		return $this->set('content', $content);
 	}
 
 	protected function setContentType ($contentType) {

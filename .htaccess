@@ -15,9 +15,8 @@ RewriteEngine on
 
 # Endpoints
 
-# Forward to default action and site
-RewriteRule ^$ %{REQUEST_URI}read/ [R=301,L]
-RewriteRule ^read/$ %{REQUEST_URI}home/ [R=301,L]
+# Forward to default site and action
+RewriteRule ^$ %{REQUEST_URI}home/read/ [R=301,L]
 
 # Load index.php at root
 DirectoryIndex backend/index.php
@@ -27,4 +26,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Access actions of a site
-RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?action=$1&site=$2&dir1=$3&dir2=$4&dir3=$5&dir4=$6&dir5=$7&dir6=$8&dir7=$9
+RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?site=$1&action=$2&dir1=$3&dir2=$4&dir3=$5&dir4=$6&dir5=$7&dir6=$8&dir7=$9
