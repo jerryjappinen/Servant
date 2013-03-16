@@ -6,8 +6,6 @@
 	list-style: none;
 	padding-left: 0;
 	margin-top: 0;
-	border-bottom-width: 0.15em;
-	border-color: #24292d;
 }
 
 #body .menu-2 li {
@@ -19,14 +17,16 @@
 	display: block;
 }
 
+#body .menu-2 li {
+	margin-right: 2em;
+}
 #body .menu-2 li a {
-	padding: 0.2em 0.5em;
 	font-size: 2.2em;
 	font-weight: 200;
 	text-decoration: none;
 	color: #84919C;
 }
-	#body .menu-2 li strong a {
+	#body .menu-2 li a:hover, #body .menu-2 li strong a {
 		color: #24292d;
 	}
 

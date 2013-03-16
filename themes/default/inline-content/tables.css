@@ -1,0 +1,26 @@
+
+/*Tables*/
+td {
+	padding: 0.7em;
+}
+th {
+	padding: 0.9em 0.5em 0.3em 0.5em;
+	vertical-align: baseline;
+	font-weight: normal;
+}
+	th small {
+		font-size: 1em;
+		font-weight: bold;
+	}
+	tr:first-child th {
+		padding-top: 0.3em;
+	}
+td {
+	border-top-width: 1px;
+}
+	tr:first-child td {
+		border-top-width: 0;
+	}
+table table td {
+	padding: 0.35em 0.7em;
+}

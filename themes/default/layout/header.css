@@ -1,20 +1,27 @@
 
+/*Single line*/
+#header li {
+	width: auto;
+	display: inline;
+}
+#header a, #header strong {
+	display: inline-block;
+}
+
 /*Page title*/
 #header h1 {
-	margin-top: 0.2em;
-	margin-bottom: 0;
-	float: left;
+	margin-top: 0;
+	margin-bottom: 0.6em;
 }
 
 /*First-level menu*/
 #header ul.menu-1, #header ol.menu-1 {
 	margin: 0;
-	float: right;
-	clear: none;
 }
 
 /*Switch between lists and dropdown menus*/
 #header select {
+	width: 100%;
 	display: none;
 }
 @media handheld, only screen and (max-width: 45em){
@@ -32,13 +39,4 @@
 #header ol, #header ul {
 	padding-left: 0;
 	list-style: none;
-}
-
-	#header li {
-		float: left;
-		clear: none;
-	}
-
-#header li a, #header li strong {
-	display: block;
 }

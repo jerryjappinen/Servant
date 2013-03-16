@@ -6,30 +6,47 @@ class ServantAction extends ServantObject {
 	protected $propertyBrowserCache = null;
 	protected $propertyContent 		= null;
 	protected $propertyContentType 	= null;
+	protected $propertyFiles 		= null;
 	protected $propertyId 			= null;
 	protected $propertyOutput 		= null;
 	protected $propertyStatus 		= null;
 
 
 
-	// Defaults on
+	// Initialization
 	public function initialize ($id = null) {
 		if ($id) {
 			$this->setId($id);
 		}
-		return $this->browserCache(true)->contentType('html')->status(200);
+
+		// Set defaults
+		return $this->browserCache(true)->content('')->contentType('html')->status(200);
+	}
+
+	public function run () {
+
+		// Prepare shorthands
+		$action = $this;
+		$servant = $this->servant();
+
+		// Include action's code
+		ob_start();
+		foreach ($this->files('server') as $value) {
+			include $value;
+		}
+		ob_end_clean();
+
+		return $this;
 	}
 
 
 
-	// Public getters
-
-	// Get or set
+	// Public getters/setters
 	public function browserCache () {
 		return $this->getOrSet('browserCache', func_get_args());
 	}
 	public function content () {
-		return $this->getAndSet('content');
+		return $this->getOrSet('content', func_get_args());
 	}
 	public function contentType () {
 		return $this->getOrSet('contentType', func_get_args());
@@ -37,14 +54,27 @@ class ServantAction extends ServantObject {
 	public function status () {
 		return $this->getOrSet('status', func_get_args());
 	}
+	public function output () {
+		return $this->getOrSet('output', func_get_args());
+	}
 
-	// Autosetters
+	// Getters with autosetters
+
+	// File list in any format
+	public function files ($format = false) {
+		$files = $this->getAndSet('files');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
+	}
+
 	public function id () {
 		return $this->getAndSet('id');
 	}
-	public function output () {
-		return $this->getAndSet('output');
-	}
+
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -74,17 +104,24 @@ class ServantAction extends ServantObject {
 	}
 
 	// This is what action outputs, optionally via a template
-	protected function setContent () {
-
-		// Article title + content
-		$content = '<h1 class="title-article">'.$this->servant()->article()->name().'</h1>
-		'.$this->servant()->article()->output();
-
+	protected function setContent ($content) {
 		return $this->set('content', $content);
 	}
 
 	protected function setContentType ($contentType) {
 		return $this->set('contentType', $contentType);
+	}
+
+	// All files within action
+	protected function setFiles () {
+		$files = array();
+		$dir = $this->path('server');
+		if (is_dir($dir)) {
+			foreach (rglob_files($dir, 'php') as $key => $path) {
+				$files[$key] = $this->servant()->format()->path($path, false, 'server');
+			}
+		}
+		return $this->set('files', $files);
 	}
 
 	protected function setId ($id = null) {
@@ -109,8 +146,8 @@ class ServantAction extends ServantObject {
 	}
 
 	// Output structure via template
-	protected function setOutput () {
-		return $this->set('output', $this->servant()->template()->output());
+	protected function setOutput ($output) {
+		return $this->set('output', $output);
 	}
 
 	protected function setPath () {

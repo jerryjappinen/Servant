@@ -15,6 +15,9 @@ class ServantMain extends ServantObject {
 		// We initialize and select things
 		$this->setPaths($paths)->setSettings($settings)->setAction($action)->setSite($site, $selectedArticle);
 
+		// We run action
+		$this->action()->run();
+
 		// Sometimes we store our response
 		if ($this->settings()->cache('server') > 0 and !$this->response()->exists()) {
 			$this->response()->store();

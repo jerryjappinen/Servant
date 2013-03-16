@@ -1,3 +1,4 @@
+
 /*Overall rhythm*/
 body {
 	word-break: break-word;
@@ -14,6 +15,9 @@ input[type="text"], input[type="password"], input[type="email"], input[type="url
 /*Font families*/
 html {
 	font-family: "Helvetica Neue", "Helvetica", "Segoe UI", "Lucida Grande", "Ubuntu", "Roboto", "Arial", sans-serif;
+}
+html {
+	font-size: 0.9em;
 }
 blockquote, q {
 	font-family: "Droid Serif", "Georgia", serif;
@@ -50,4 +54,16 @@ big {
 }
 small {
 	font-size: 0.8em;
+}
+
+/*Colors*/
+body {
+	background-color: #edf1f2;
+	color: #24292d;
+}
+a {
+	color: #00aacc;
+}
+h1, h2, h3, pre, code, table, th, td, a, ul, ol, li {
+	border-color: #c9d6d6;
 }

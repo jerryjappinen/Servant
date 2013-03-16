@@ -29,7 +29,6 @@ Proot has one shared backend for your apps: you have to write *zero lines of ser
 	<tr>
 		<td>Download</td>
 		<td><a href="https://bitbucket.org/Eiskis/proot/downloads/proot.zip" target="_blank">Latest release from Bitbucket</a></td>
-		<td><a href="https://bitbucket.org/Eiskis/proot/get/default.zip" target="_blank">Development snapshot (includes all sample apps)</a></td>
 	</tr>
 	<tr>
 		<td>Development @ Bitbucket</td>
