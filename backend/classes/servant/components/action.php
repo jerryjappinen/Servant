@@ -8,6 +8,7 @@ class ServantAction extends ServantObject {
 	protected $propertyContentType 	= null;
 	protected $propertyFiles 		= null;
 	protected $propertyId 			= null;
+	protected $propertyPath 		= null;
 	protected $propertyOutput 		= null;
 	protected $propertyStatus 		= null;
 
@@ -25,16 +26,10 @@ class ServantAction extends ServantObject {
 
 	public function run () {
 
-		// Prepare shorthands
-		$action = $this;
-		$servant = $this->servant();
-
 		// Include action's code
-		ob_start();
-		foreach ($this->files('server') as $value) {
-			include $value;
+		foreach ($this->files('server') as $path) {
+			$this->servant()->files()->run($path);
 		}
-		ob_end_clean();
 
 		return $this;
 	}
@@ -42,20 +37,39 @@ class ServantAction extends ServantObject {
 
 
 	// Public getters/setters
+
+	// Whether or not to allow browsers to cache response
 	public function browserCache () {
 		return $this->getOrSet('browserCache', func_get_args());
 	}
+
+	// Content can be embedded into templates
 	public function content () {
 		return $this->getOrSet('content', func_get_args());
 	}
+
+	// Content type is a short extension (from settings) that marks the type of output
 	public function contentType () {
 		return $this->getOrSet('contentType', func_get_args());
 	}
+
+	// Output is the complete body content given for response
+	public function output () {
+
+		// Output defaults to content
+		if ($this->get('output') === null and func_num_args() === 0) {
+			return $this->content();
+
+		// ...but can also live its own life
+		} else {
+			return $this->getOrSet('output', func_get_args());
+		}
+
+	}
+
+	// Status is a numerical HTTP status code (from settings) that indicates what happened in action 
 	public function status () {
 		return $this->getOrSet('status', func_get_args());
-	}
-	public function output () {
-		return $this->getOrSet('output', func_get_args());
 	}
 
 	// Getters with autosetters

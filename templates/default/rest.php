@@ -1,10 +1,9 @@
 <?php
 
 // Scripts
-foreach ($servant->theme()->scripts('domain') as $path) {
-	echo '<script src="'.$path.'"></script>';
-}
+echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.'"></script>';
 
+// End it all
 echo '
 	</body>
 </html>

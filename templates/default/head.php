@@ -19,9 +19,7 @@ echo '
 		}
 
 		// Stylesheets
-		foreach ($servant->theme()->stylesheets('domain') as $path) {
-			echo '<link rel="stylesheet" href="'.$path.'" media="screen">';
-		}
+		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.'" media="screen">';
 
 		echo '
 	</head>

@@ -28,7 +28,7 @@ $output = '
 
 					// Selected
 					if ($servant->article()->tree(0) === $key) {
-						$output .= '<li class="selected"><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+						$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 
 					// Normal link
 					} else {
@@ -88,7 +88,7 @@ $output = '
 
 							// Selected
 							if ($servant->article()->tree(1) === $key) {
-								$output .= '<li class="selected"><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+								$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 
 							// Normal link
 							} else {
@@ -106,28 +106,22 @@ $output = '
 			}
 			unset($level2, $key, $value);
 
-			// One-column layout
-			$currentLevel = count($servant->article()->tree())-1;
-			if ($currentLevel < 2) {
-				$output .= $servant->action()->content();
+			// Body content
+			$output .= $servant->action()->content();
 
-			// Two-column layout
-			} else {
+			// Sidebar if needed
+			if (count($servant->article()->tree())-1 >= 2) {
 				$output .= '
-				<div class="column first nine">
-					'.$servant->action()->content().'
-				</div>
+				<div id="sidebar">
 
-				<div class="column last three" id="submenu">
-
-					<ol class="reset">
+					<ol>
 					';
 
 					// Level 3 menu
 					$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
 					if (!empty($level3) and is_array($level3)) {
 						foreach ($level3 as $key => $value) {
-							$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}
 					}
 					unset($level3, $key, $value);

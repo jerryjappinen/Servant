@@ -35,7 +35,7 @@ class ServantMain extends ServantObject {
 	// Properties
 	protected $propertyAction 		= null;
 	protected $propertyAvailable 	= null;
-	protected $propertyRun 			= null;
+	protected $propertyFiles 		= null;
 	protected $propertyFormat 		= null;
 	protected $propertyHttpHeaders 	= null;
 	protected $propertyPaths 		= null;
@@ -55,6 +55,9 @@ class ServantMain extends ServantObject {
 	public function available () {
 		return $this->getAndSet('available');
 	}
+	public function files () {
+		return $this->getAndSet('files');
+	}
 	public function format () {
 		return $this->getAndSet('format');
 	}
@@ -66,9 +69,6 @@ class ServantMain extends ServantObject {
 	}
 	public function response () {
 		return $this->getAndSet('response');
-	}
-	public function run () {
-		return $this->getAndSet('run');
 	}
 	public function settings () {
 		return $this->getAndSet('settings');
@@ -92,6 +92,9 @@ class ServantMain extends ServantObject {
 	protected function setAvailable () {
 		return $this->set('available', new ServantAvailable($this));
 	}
+	protected function setFiles () {
+		return $this->set('files', new ServantFiles($this));
+	}
 	protected function setFormat () {
 		return $this->set('format', new ServantFormat($this));
 	}
@@ -103,9 +106,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setResponse () {
 		return $this->set('response', new ServantResponse($this));
-	}
-	protected function setRun () {
-		return $this->set('run', new ServantRun($this));
 	}
 	protected function setSettings ($settings = array()) {
 		return $this->set('settings', new ServantSettings($this, $settings));

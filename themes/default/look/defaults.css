@@ -64,6 +64,9 @@ body {
 a {
 	color: #00aacc;
 }
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	text-decoration: none;
+}
 h1, h2, h3, pre, code, table, th, td, a, ul, ol, li {
 	border-color: #c9d6d6;
 }
