@@ -1,9 +1,4 @@
 
-/*Single line*/
-#header {
-	padding: 3% 5%;
-}
-
 /*Page title*/
 #header h1 {
 	margin-top: 0;
@@ -19,16 +14,26 @@
 	width: 100%;
 	display: none;
 }
-@media handheld, only screen and (max-width: 45em){
+@media handheld, only screen and (max-width: @bb-header-dropdown){
 	#header {
-		padding-top: 5%;
+		padding-top: 3%;
 		padding-bottom: 5%;
 	}
 	#header h1 {
 		float: none;
 		clear: both;
 		text-align: center;
-		margin-bottom: 5%;
+		margin-top: 0;
+		margin-bottom: 3%;
+	}
+	#header h1 a {
+		display: block;
+		width: 100%;
+		line-height: 1;
+		padding-top: 0.4em;
+		padding-right: 0;
+		padding-bottom: 0.4em;
+		padding-left: 0;
 	}
 	#header select {
 		display: block;

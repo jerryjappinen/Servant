@@ -1,4 +1,27 @@
 
-#body, #sidebar, #footer {
-	padding: 3% 5%;
+/*Defaults*/
+#header, #body, #footer {
+	margin: 0 auto;
+	padding-right: 8%;
+	padding-left: 8%;
+}
+#body, #footer {
+	margin: 0 auto;
+	padding-top: 3%;
+	padding-bottom: 3%;
+}
+
+/*Adjust paddings on various screen sizes*/
+@media handheld, only screen and (min-width: 80em){
+	#header, #body, #footer {
+		padding-right: 12%;
+		padding-left: 12%;
+	}
+}
+
+@media handheld, only screen and (min-width: 100em){
+	#header, #body, #footer {
+		padding-right: 18%;
+		padding-left: 18%;
+	}
 }

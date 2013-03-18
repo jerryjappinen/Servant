@@ -17,26 +17,26 @@ $output = '
 
 		$output .= '
 		<div id="header">
-			<h1><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.'">'.$servant->site()->name().'</a></h1>
+			<h1><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.'">'.$servant->site()->name().'</a></h1>
 			';
 
 			// Level 1 menu
 			$level1 = $servant->site()->articles();
 			if (count($level1) > 1) {
-				$output .= '<ol class="menu-1">';
+				$output .= '<ul class="menu-1">';
 				foreach ($level1 as $key => $value) {
 
 					// Selected
 					if ($servant->article()->tree(0) === $key) {
-						$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+						$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 
 					// Normal link
 					} else {
-						$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+						$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 					}
 
 				}
-				$output .= '</ol>';
+				$output .= '</ul>';
 			}
 			unset($level1, $key, $value);
 
@@ -46,7 +46,7 @@ $output = '
 
 				// First-level article
 				if (is_string($value) or is_array($value) and count($value) === 1) {
-					$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</option>';
+					$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</option>';
 
 				// Nested
 				} else if (is_array($value)) {
@@ -54,7 +54,7 @@ $output = '
 					// Wrap in optgroup
 					$output .= '<optgroup label="'.$servant->format()->name($key).'">';
 					foreach ($value as $key2 => $value2) {
-						$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</option>';
+						$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</option>';
 					}
 					$output .= '</optgroup>';
 
@@ -80,7 +80,7 @@ $output = '
 
 				// List
 				$output .= '
-					<ol class="menu-2">
+					<ul class="menu-2">
 					';
 
 						// List items
@@ -88,18 +88,18 @@ $output = '
 
 							// Selected
 							if ($servant->article()->tree(1) === $key) {
-								$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+								$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 
 							// Normal link
 							} else {
-								$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+								$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 							}
 
 						}
 
 					// List ends
 					$output .= '
-					</ol>
+					</ul>
 					<div class="clear"></div>
 				';
 
@@ -114,20 +114,20 @@ $output = '
 				$output .= '
 				<div id="sidebar">
 
-					<ol>
+					<ul>
 					';
 
 					// Level 3 menu
 					$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
 					if (!empty($level3) and is_array($level3)) {
 						foreach ($level3 as $key => $value) {
-							$output .= '<li class="'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}
 					}
 					unset($level3, $key, $value);
 
 					$output .= '
-					</ol>
+					</ul>
 
 				</div>
 				<div class="clear"></div>
@@ -135,9 +135,6 @@ $output = '
 			}
 
 			$output .= '
-			<h4><strong>Developer stuff</strong></h4>
-			'.htmlDump($servant->response()->headers()).'
-			<div class="clear"></div>
 		</div>
 ';
 

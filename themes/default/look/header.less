@@ -1,0 +1,50 @@
+
+#header {
+
+	// Base look
+	background-color: #24292d;
+	color: #fff;
+
+	// Links
+	a {
+		font-size: 1.2em;
+		text-decoration: none;
+		color: #00ace6;
+		@media handheld, only screen and (max-width: @bb-header-accommodate){
+			font-size: 1em;
+		}
+	}
+	h1 a, li a {
+		padding: 1em 0.8em;
+	}
+
+
+
+	// Page title
+	h1 {
+		font-size: 1em;
+		font-weight: 200;
+		text-transform: uppercase;
+		margin-left: -0.8em;
+		a {
+			color: #fff;
+			@media handheld, only screen and (max-width: @bb-header-dropdown){
+				font-size: 2em;
+				letter-spacing: 0.6em;
+				font-weight: 100;
+			}
+		}
+	}
+
+	// Menu items
+	li {
+		a {
+			font-weight: 200;
+			color: #84919C;
+		}
+		strong a, a:hover {
+			color: #fff;
+		}
+	}
+
+}

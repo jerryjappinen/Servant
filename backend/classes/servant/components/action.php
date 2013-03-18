@@ -24,6 +24,7 @@ class ServantAction extends ServantObject {
 		return $this->browserCache(true)->content('')->contentType('html')->status(200);
 	}
 
+	// Run custom scripts in action
 	public function run () {
 
 		// Include action's code
@@ -129,12 +130,19 @@ class ServantAction extends ServantObject {
 	// All files within action
 	protected function setFiles () {
 		$files = array();
-		$dir = $this->path('server');
-		if (is_dir($dir)) {
-			foreach (rglob_files($dir, 'php') as $key => $path) {
-				$files[$key] = $this->servant()->format()->path($path, false, 'server');
+		$path = $this->path('server');
+
+		// Individual file
+		if (is_file($path)) {
+			$files[] = $this->path('plain');
+
+		// All files in directory
+		} else if (is_dir($path)) {
+			foreach (rglob_files($path, 'php') as $file) {
+				$files[] = $this->servant()->format()->path($file, false, 'server');
 			}
 		}
+
 		return $this->set('files', $files);
 	}
 
@@ -165,7 +173,19 @@ class ServantAction extends ServantObject {
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->actions('plain').$this->id().'/');
+		$path = $this->servant()->paths()->actions('plain').$this->id();
+		$serverPath = $this->servant()->paths()->actions('server').$this->id();
+
+		// One PHP file
+		if (is_file($serverPath.'.php')) {
+			$path .= '.php';
+
+		// Directory
+		} else if (is_dir($serverPath.'/')) {
+			$path .= '/';
+		}
+
+		return $this->set('path', $path);
 	}
 
 	protected function setStatus ($status) {

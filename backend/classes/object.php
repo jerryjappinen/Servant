@@ -10,6 +10,10 @@ class ServantObject {
 		return $this->get('main');
 	}
 
+
+
+	// Magic methods
+
 	// Generic constructor
 	public function __construct ($main) {
 
@@ -29,6 +33,14 @@ class ServantObject {
 		}
 
 		return $this;
+	}
+
+	public function __toString() {
+		if (method_exists($this, 'id')) {
+			return get_class($this).': '.$this->id();
+		} else {
+			return get_class($this);
+		}
 	}
 
 

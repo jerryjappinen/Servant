@@ -72,9 +72,9 @@ class ServantAvailable extends ServantObject {
 
 	// Setters
 
-	// Sites, templates and themes are all just directories
+	// Sites, templates and themes are all just files and/or directories
 	protected function setActions () {
-		return $this->set('actions', $this->findDirectories('actions'));
+		return $this->set('actions', array_merge($this->findFiles('actions', 'php'), $this->findDirectories('actions')));
 	}
 	protected function setContentTypes () {
 		return $this->set('contentTypes', array_keys($this->servant()->settings()->contentTypes()));
@@ -98,6 +98,15 @@ class ServantAvailable extends ServantObject {
 
 
 	// Private helpers
+
+	private function findFiles ($dir, $types) {
+		$items = array();
+		$files = glob_files($this->servant()->paths()->$dir('server'), to_array($types));
+		foreach ($files as $path) {
+			$items[] = pathinfo($path, PATHINFO_FILENAME);
+		}
+		return $items;
+	}
 
 	private function findDirectories ($dir) {
 		$items = array();
