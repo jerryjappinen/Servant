@@ -23,57 +23,57 @@ After including `paths.php`, `index.php` will include the following files in ord
 <table>
 
 	<tr>
-		<td class="key"><code>constants.php</code></td>
+		<th scope="row"><code>constants.php</code></td>
 		<td>Important values, names for and lists of things.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>settings.php</code></td>
+		<th scope="row"><code>settings.php</code></td>
 		<td>System settings, commonly vary across environments.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>available.php</code></td>
+		<th scope="row"><code>available.php</code></td>
 		<td>Lists of available resources in the system.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>request.php</code></td>
+		<th scope="row"><code>request.php</code></td>
 		<td>Digging for and normalizing all the necessary info from the original request (accept headers, language, time, HTTP method etc.).</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>choices.php</code></td>
+		<th scope="row"><code>choices.php</code></td>
 		<td>Choosing app and action based on input parameters.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>input.php</code></td>
+		<th scope="row"><code>input.php</code></td>
 		<td>Validating, normalizing and prioritizing user input.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>app.php</code></td>
+		<th scope="row"><code>app.php</code></td>
 		<td>Extract the selected app from the app package, and find out what we need about it.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>action.php</code></td>
+		<th scope="row"><code>action.php</code></td>
 		<td>Run the selected backend action.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>response.php</code></td>
+		<th scope="row"><code>response.php</code></td>
 		<td>Prepare the response based on action and state.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>headers.php</code></td>
+		<th scope="row"><code>headers.php</code></td>
 		<td>Compose HTTP header strings based on response contents.</td>
 	</tr>
 
 	<tr>
-		<td class="key"><code>output.php</code></td>
+		<th scope="row"><code>output.php</code></td>
 		<td>Compose valid body content.</td>
 	</tr>
 </table>

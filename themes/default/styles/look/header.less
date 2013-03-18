@@ -2,14 +2,14 @@
 #header {
 
 	// Base look
-	background-color: #24292d;
-	color: #fff;
+	background-color: @c-grey-6;
+	color: @c-white;
 
 	// Links
 	a {
 		font-size: 1.2em;
 		text-decoration: none;
-		color: #00ace6;
+		color: @c-white;
 		@media handheld, only screen and (max-width: @bb-header-accommodate){
 			font-size: 1em;
 		}
@@ -34,7 +34,7 @@
 		text-transform: uppercase;
 		margin-left: -0.8em;
 		a {
-			color: #fff;
+			color: @c-white;
 			@media handheld, only screen and (max-width: @bb-header-dropdown){
 				font-size: 2em;
 				letter-spacing: 0.6em;
@@ -43,17 +43,19 @@
 		}
 	}
 
+
+
 	// Menu items
 	li {
 		strong a, a:hover {
-			color: #fff;
-				background-color: #2f353b;
+			color: @c-white;
+				background-color: @c-grey-5;
 		}
 		a {
 			font-weight: 200;
 		}
 		a, a:active {
-			color: #8c9aa6;
+			color: @c-grey-4;
 		}
 	}
 
