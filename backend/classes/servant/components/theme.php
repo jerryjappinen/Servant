@@ -21,9 +21,8 @@ class ServantTheme extends ServantObject {
 
 
 
-	// Public getters
+	// Public getters for paths
 
-	// Paths can be fetched in any format
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {

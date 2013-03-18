@@ -55,9 +55,9 @@ class ServantTemplate extends ServantObject {
 		if (is_file($path)) {
 			$files[] = $this->path('plain');
 
-		// All files in directory
+		// All template files in directory
 		} else if (is_dir($path)) {
-			foreach (rglob_files($path, 'php') as $file) {
+			foreach (rglob_files($path, $this->servant()->settings()->formats('templates')) as $file) {
 				$files[] = $this->servant()->format()->path($file, false, 'server');
 			}
 		}
@@ -108,16 +108,29 @@ class ServantTemplate extends ServantObject {
 
 	// Template is either a file or a folder within the templates directory
 	protected function setPath () {
-		$path = $this->servant()->paths()->templates('plain').$this->id();
+		$path = '';
 		$serverPath = $this->servant()->paths()->templates('server').$this->id();
 
-		// One PHP file
-		if (is_file($serverPath.'.php')) {
-			$path .= '.php';
+		// Search for a directory
+		if (is_dir($serverPath.'/')) {
+			$path = '/';
 
-		// Directory
-		} else if (is_dir($serverPath.'/')) {
-			$path .= '/';
+		// Search for one file
+		} else {
+
+			// Go through acceptable types, break when we find a match
+			foreach ($this->servant()->settings()->formats('templates') as $format) {
+				if (is_file($serverPath.'.'.$format)) {
+					$path = '.'.$format;
+					break;
+				}
+			}
+
+		}
+
+		// Make sure we found a proper path
+		if (!empty($path)) {
+			$path = $this->servant()->paths()->templates('plain').$this->id().$path;
 		}
 
 		return $this->set('path', $path);

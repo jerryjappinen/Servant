@@ -74,39 +74,48 @@ $output = '
 		<div id="body">
 			';
 
+
+
 			// Level 2 menu
-			$output .= '<ul class="menu-2">';
+			$homePage = array_keys($servant->site()->articles());
+			$homePage = $homePage[0];
 			$level2 = $servant->site()->articles($servant->article()->tree(0));
+			if ((is_array($level2) and count($level2) > 1) or true) {
 
-			// Menu items
-			if (is_array($level2) and count($level2) > 1) {
+				// Menu items
+				if (is_array($level2) and count($level2) > 1) {
 
-				// List items
-				foreach ($level2 as $key => $value) {
+					// List
+					$output .= '<ul class="menu-2">';
+					foreach ($level2 as $key => $value) {
 
-					// Selected
-					if ($servant->article()->tree(1) === $key) {
-						$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+						// Selected
+						if ($servant->article()->tree(1) === $key) {
+							$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 
-					// Normal link
-					} else {
-						$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+						// Normal link
+						} else {
+							$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+						}
+
 					}
+					$output .= '</ul><div class="clear"></div>';
 
+				// Show current article if we're not on the home page
+				} else if (!in_array($homePage, array($servant->article()->id(), $servant->article()->tree(0)))) {
+					$key = $servant->article()->tree(0);
+					$output .= '<ul class="menu-2"><li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/">'.$servant->format()->name($key).'</a></strong></li></ul><div class="clear"></div>';
 				}
 
-			// Only current article
-			} else {
-				$key = $servant->article()->tree(0);
-				$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 			}
-
-			// List ends
-			$output .= '</ul><div class="clear"></div>';
 			unset($level2, $key, $value);
+
+
 
 			// Body content
 			$output .= $servant->action()->content();
+
+
 
 			// Sidebar if needed
 			if (count($servant->article()->tree())-1 >= 2) {

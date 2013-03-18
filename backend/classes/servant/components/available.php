@@ -69,9 +69,12 @@ class ServantAvailable extends ServantObject {
 	protected function setStatuses () {
 		return $this->set('statuses', array_keys($this->servant()->settings()->statuses()));
 	}
+
+	// Templates are template files or directories
 	protected function setTemplates () {
-		return $this->set('templates', array_merge($this->findFiles('templates', 'php'), $this->findDirectories('templates')));
+		return $this->set('templates', array_merge($this->findFiles('templates', $this->servant()->settings()->formats('templates')), $this->findDirectories('templates')));
 	}
+
 	protected function setThemes () {
 		return $this->set('themes', $this->findDirectories('themes'));
 	}

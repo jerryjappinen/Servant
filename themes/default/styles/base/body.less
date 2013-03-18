@@ -3,14 +3,21 @@
 	background-color: @c-grey-1;
 
 	// Second-level menu
+	ul.menu-2, ol.menu-2 {
+		border-bottom-width: 1px;
+		padding-bottom: 1em;
+	}
 	.menu-2 li {
 
 		// Links
 		a {
-			font-size: 2.6em;
+			font-size: 2.2em;
 			font-weight: 200;
 			text-decoration: none;
 			color: #84919C;
+			@media handheld, only screen and (max-width: @bb-header-accommodate){
+				font-size: 1.8em;
+			}
 		}
 
 		// Emphasized links

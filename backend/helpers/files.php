@@ -11,6 +11,7 @@ function glob_dir ($path = '') {
 	foreach ($temp as $key => $value) {
 		$temp[$key] = str_replace('\\', '/', $value);
 	}
+	natcasesort($temp);
 	return $temp;
 }
 
@@ -36,6 +37,7 @@ function glob_files ($path = '', $filetypes = array()) {
 			$result[] = $value;
 		}
 	}
+	natcasesort($result);
 	return $result;
 }
 
