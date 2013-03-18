@@ -11,36 +11,6 @@ class ServantSettings extends ServantObject {
 	protected $propertyPatterns 		= null;
 	protected $propertyStatuses 		= null;
 
-	// Public getters
-	// public function cache () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('cache', $arguments);
-	// }
-	// public function contentTypes () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('contentTypes', $arguments);
-	// }
-	// public function defaults () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('defaults', $arguments);
-	// }
-	// public function formats () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('formats', $arguments);
-	// }
-	// public function namingConvention () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('namingConvention', $arguments);
-	// }
-	// public function patterns () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('patterns', $arguments);
-	// }
-	// public function statuses () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('statuses', $arguments);
-	// }
-
 
 
 	// Take original settings in during initialization

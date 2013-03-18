@@ -91,10 +91,6 @@ class ServantAction extends ServantObject {
 		return $files;
 	}
 
-	// public function id () {
-	// 	return $this->getAndSet('id');
-	// }
-
 	// Allow formatting path when getting
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');

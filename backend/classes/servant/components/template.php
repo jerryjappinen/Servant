@@ -22,6 +22,7 @@ class ServantTemplate extends ServantObject {
 
 	// Public getters
 
+	// Files can be fetched with their paths in any format
 	public function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
@@ -32,14 +33,7 @@ class ServantTemplate extends ServantObject {
 		return $files;
 	}
 
-	// public function id () {
-	// 	return $this->getAndSet('id');
-	// }
-
-	// public function output () {
-	// 	return $this->getAndSet('output');
-	// }
-
+	// Paths can be fetched in any format
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {

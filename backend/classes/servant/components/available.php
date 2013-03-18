@@ -26,56 +26,28 @@ class ServantAvailable extends ServantObject {
 		return call_user_func_array(array($this->servant()->site(), 'articles'), $arguments);
 	}
 
-	// Others are pretty standard
+	// Others just get extra assertion methods
 	public function action ($id) {
 		return in_array($id, $this->actions());
 	}
-	// public function actions () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('actions', $arguments);
-	// }
 	public function contentType ($id) {
 		return in_array($id, $this->contentTypes());
 	}
-	// public function contentTypes () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('contentTypes', $arguments);
-	// }
 	public function pattern ($id) {
 		return in_array($id, $this->patterns());
 	}
-	// public function patterns () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('patterns', $arguments);
-	// }
 	public function site ($id) {
 		return in_array($id, $this->sites());
 	}
-	// public function sites () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('sites', $arguments);
-	// }
 	public function status ($id) {
 		return in_array($id, $this->statuses());
 	}
-	// public function statuses () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('statuses', $arguments);
-	// }
 	public function template ($id) {
 		return in_array($id, $this->templates());
 	}
-	// public function templates () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('templates', $arguments);
-	// }
 	public function theme ($id) {
 		return in_array($id, $this->themes());
 	}
-	// public function themes () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('themes', $arguments);
-	// }
 
 
 

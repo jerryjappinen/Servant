@@ -22,10 +22,8 @@ class ServantTheme extends ServantObject {
 
 
 	// Public getters
-	// public function id () {
-	// 	return $this->getAndSet('id');
-	// }
 
+	// Paths can be fetched in any format
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {

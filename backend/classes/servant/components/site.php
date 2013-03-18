@@ -25,19 +25,8 @@ class ServantSite extends ServantObject {
 
 
 	// Public getters
-	// public function article () {
-	// 	return $this->getAndSet('article');
-	// }
-	// public function articles () {
-	// 	$arguments = func_get_args();
-	// 	return $this->getAndSet('articles', $arguments);
-	// }
-	// public function id () {
-	// 	return $this->getAndSet('id');
-	// }
-	// public function name () {
-	// 	return $this->getAndSet('name');
-	// }
+
+	// Paths can be fetched in any format
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {

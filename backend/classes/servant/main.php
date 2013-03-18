@@ -46,43 +46,10 @@ class ServantMain extends ServantObject {
 	protected $propertyTheme 		= null;
 
 	// Public getters for children
-	// public function action () {
-	// 	return $this->getAndSet('action');
-	// }
 	public function article () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->site(), 'article'), $arguments);
 	}
-	// public function available () {
-	// 	return $this->getAndSet('available');
-	// }
-	// public function files () {
-	// 	return $this->getAndSet('files');
-	// }
-	// public function format () {
-	// 	return $this->getAndSet('format');
-	// }
-	// public function httpHeaders () {
-	// 	return $this->getAndSet('httpHeaders');
-	// }
-	// public function paths () {
-	// 	return $this->getAndSet('paths');
-	// }
-	// public function response () {
-	// 	return $this->getAndSet('response');
-	// }
-	// public function settings () {
-	// 	return $this->getAndSet('settings');
-	// }
-	// public function site () {
-	// 	return $this->getAndSet('site');
-	// }
-	// public function template () {
-	// 	return $this->getAndSet('template');
-	// }
-	// public function theme () {
-	// 	return $this->getAndSet('theme');
-	// }
 
 
 
@@ -125,9 +92,6 @@ class ServantMain extends ServantObject {
 
 	// Built-in debugger
 	protected $propertyDev = null;
-	public function dev () {
-		return $this->getAndSet('dev');
-	}
 	protected function setDev () {
 		return $this->set('dev', new ServantDev($this));
 	}
