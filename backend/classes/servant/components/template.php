@@ -32,13 +32,13 @@ class ServantTemplate extends ServantObject {
 		return $files;
 	}
 
-	public function id () {
-		return $this->getAndSet('id');
-	}
+	// public function id () {
+	// 	return $this->getAndSet('id');
+	// }
 
-	public function output () {
-		return $this->getAndSet('output');
-	}
+	// public function output () {
+	// 	return $this->getAndSet('output');
+	// }
 
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
@@ -96,6 +96,7 @@ class ServantTemplate extends ServantObject {
 		return $this->set('output', $result);
 	}
 
+	// FLAG support only one file
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->templates('plain').$this->id().'/');
 	}

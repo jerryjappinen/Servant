@@ -14,8 +14,15 @@
 			font-size: 1em;
 		}
 	}
-	h1 a, li a {
+	h1 a {
 		padding: 1em 0.8em;
+	}
+	li a {
+		padding: 1em 1.2em;
+		@media handheld, only screen and (max-width: @bb-header-accommodate){
+			padding-right: 0.8em;
+			padding-left: 0.8em;
+		}
 	}
 
 
@@ -38,12 +45,15 @@
 
 	// Menu items
 	li {
-		a {
-			font-weight: 200;
-			color: #84919C;
-		}
 		strong a, a:hover {
 			color: #fff;
+				background-color: #2f353b;
+		}
+		a {
+			font-weight: 200;
+		}
+		a, a:active {
+			color: #8c9aa6;
 		}
 	}
 

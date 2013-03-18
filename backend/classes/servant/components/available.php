@@ -18,55 +18,64 @@ class ServantAvailable extends ServantObject {
 
 	// Articles are dependent on current site
 	public function article () {
-		return $this->assert('articles', func_get_args());
+		$arguments = func_get_args();
+		return $this->assert('articles', $arguments);
 	}
 	public function articles () {
-		return call_user_func_array(array($this->servant()->site(), 'articles'), func_get_args());
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->servant()->site(), 'articles'), $arguments);
 	}
 
 	// Others are pretty standard
 	public function action ($id) {
 		return in_array($id, $this->actions());
 	}
-	public function actions () {
-		return $this->getAndSet('actions', func_get_args());
-	}
+	// public function actions () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('actions', $arguments);
+	// }
 	public function contentType ($id) {
 		return in_array($id, $this->contentTypes());
 	}
-	public function contentTypes () {
-		return $this->getAndSet('contentTypes', func_get_args());
-	}
+	// public function contentTypes () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('contentTypes', $arguments);
+	// }
 	public function pattern ($id) {
 		return in_array($id, $this->patterns());
 	}
-	public function patterns () {
-		return $this->getAndSet('patterns', func_get_args());
-	}
+	// public function patterns () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('patterns', $arguments);
+	// }
 	public function site ($id) {
 		return in_array($id, $this->sites());
 	}
-	public function sites () {
-		return $this->getAndSet('sites', func_get_args());
-	}
+	// public function sites () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('sites', $arguments);
+	// }
 	public function status ($id) {
 		return in_array($id, $this->statuses());
 	}
-	public function statuses () {
-		return $this->getAndSet('statuses', func_get_args());
-	}
+	// public function statuses () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('statuses', $arguments);
+	// }
 	public function template ($id) {
 		return in_array($id, $this->templates());
 	}
-	public function templates () {
-		return $this->getAndSet('templates', func_get_args());
-	}
+	// public function templates () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('templates', $arguments);
+	// }
 	public function theme ($id) {
 		return in_array($id, $this->themes());
 	}
-	public function themes () {
-		return $this->getAndSet('themes', func_get_args());
-	}
+	// public function themes () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('themes', $arguments);
+	// }
 
 
 

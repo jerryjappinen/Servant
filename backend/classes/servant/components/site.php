@@ -25,18 +25,19 @@ class ServantSite extends ServantObject {
 
 
 	// Public getters
-	public function article () {
-		return $this->getAndSet('article');
-	}
-	public function articles () {
-		return $this->getAndSet('articles', func_get_args());
-	}
-	public function id () {
-		return $this->getAndSet('id');
-	}
-	public function name () {
-		return $this->getAndSet('name');
-	}
+	// public function article () {
+	// 	return $this->getAndSet('article');
+	// }
+	// public function articles () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('articles', $arguments);
+	// }
+	// public function id () {
+	// 	return $this->getAndSet('id');
+	// }
+	// public function name () {
+	// 	return $this->getAndSet('name');
+	// }
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -54,8 +55,7 @@ class ServantSite extends ServantObject {
 	}
 
 	protected function setArticles () {
-		$results = $this->findFiles($this->path('server'), $this->servant()->settings()->formats('templates'));
-		return $this->set('articles', $results);
+		return $this->set('articles', $this->findFiles($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
 	protected function setId ($id = null) {
@@ -110,7 +110,7 @@ class ServantSite extends ServantObject {
 		foreach (glob_dir($path) as $subdir) {
 			$value = $this->findFiles($subdir);
 			if (!empty($value)) {
-				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findFiles($subdir);
+				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findFiles($subdir, $filetypes);
 			}
 		}
 

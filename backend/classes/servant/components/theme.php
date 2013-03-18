@@ -22,9 +22,9 @@ class ServantTheme extends ServantObject {
 
 
 	// Public getters
-	public function id () {
-		return $this->getAndSet('id');
-	}
+	// public function id () {
+	// 	return $this->getAndSet('id');
+	// }
 
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');

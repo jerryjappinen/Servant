@@ -12,27 +12,34 @@ class ServantSettings extends ServantObject {
 	protected $propertyStatuses 		= null;
 
 	// Public getters
-	public function cache () {
-		return $this->getAndSet('cache', func_get_args());
-	}
-	public function contentTypes () {
-		return $this->getAndSet('contentTypes', func_get_args());
-	}
-	public function defaults () {
-		return $this->getAndSet('defaults', func_get_args());
-	}
-	public function formats () {
-		return $this->getAndSet('formats', func_get_args());
-	}
-	public function namingConvention () {
-		return $this->getAndSet('namingConvention', func_get_args());
-	}
-	public function patterns () {
-		return $this->getAndSet('patterns', func_get_args());
-	}
-	public function statuses () {
-		return $this->getAndSet('statuses', func_get_args());
-	}
+	// public function cache () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('cache', $arguments);
+	// }
+	// public function contentTypes () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('contentTypes', $arguments);
+	// }
+	// public function defaults () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('defaults', $arguments);
+	// }
+	// public function formats () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('formats', $arguments);
+	// }
+	// public function namingConvention () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('namingConvention', $arguments);
+	// }
+	// public function patterns () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('patterns', $arguments);
+	// }
+	// public function statuses () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('statuses', $arguments);
+	// }
 
 
 

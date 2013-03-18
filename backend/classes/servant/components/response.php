@@ -70,25 +70,25 @@ class ServantResponse extends ServantObject {
 
 	// Public getters
 
-	public function browserCacheTime () {
-		return $this->getAndSet('browserCacheTime');
-	}
-
-	public function contentType () {
-		return $this->getAndSet('contentType');
-	}
-
-	public function cors () {
-		return $this->getAndSet('cors');
-	}
-
-	public function exists () {
-		return $this->getAndSet('exists');
-	}
-
-	public function headers () {
-		return $this->getAndSet('headers', func_get_args());
-	}
+	// public function browserCacheTime () {
+	// 	return $this->getAndSet('browserCacheTime');
+	// }
+	// public function contentType () {
+	// 	return $this->getAndSet('contentType');
+	// }
+	// public function cors () {
+	// 	return $this->getAndSet('cors');
+	// }
+	// public function exists () {
+	// 	return $this->getAndSet('exists');
+	// }
+	// public function headers () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('headers', $arguments);
+	// }
+	// public function status () {
+	// 	return $this->getAndSet('status');
+	// }
 
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
@@ -98,9 +98,6 @@ class ServantResponse extends ServantObject {
 		return $path;
 	}
 
-	public function status () {
-		return $this->getAndSet('status');
-	}
 
 
 

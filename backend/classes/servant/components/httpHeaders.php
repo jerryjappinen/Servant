@@ -11,22 +11,18 @@ class ServantHttpHeaders extends ServantObject {
 
 
 	// Public getters
-
-	public function browserCacheTime () {
-		return $this->getAndSet('browserCacheTime');
-	}
-
-	public function contentType () {
-		return $this->getAndSet('contentType');
-	}
-
-	public function cors () {
-		return $this->getAndSet('cors');
-	}
-
-	public function status () {
-		return $this->getAndSet('status');
-	}
+	// public function browserCacheTime () {
+	// 	return $this->getAndSet('browserCacheTime');
+	// }
+	// public function contentType () {
+	// 	return $this->getAndSet('contentType');
+	// }
+	// public function cors () {
+	// 	return $this->getAndSet('cors');
+	// }
+	// public function status () {
+	// 	return $this->getAndSet('status');
+	// }
 
 
 

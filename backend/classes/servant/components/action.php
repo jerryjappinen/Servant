@@ -41,17 +41,20 @@ class ServantAction extends ServantObject {
 
 	// Whether or not to allow browsers to cache response
 	public function browserCache () {
-		return $this->getOrSet('browserCache', func_get_args());
+		$arguments = func_get_args();
+		return $this->getOrSet('browserCache', $arguments);
 	}
 
 	// Content can be embedded into templates
 	public function content () {
-		return $this->getOrSet('content', func_get_args());
+		$arguments = func_get_args();
+		return $this->getOrSet('content', $arguments);
 	}
 
 	// Content type is a short extension (from settings) that marks the type of output
 	public function contentType () {
-		return $this->getOrSet('contentType', func_get_args());
+		$arguments = func_get_args();
+		return $this->getOrSet('contentType', $arguments);
 	}
 
 	// Output is the complete body content given for response
@@ -63,14 +66,16 @@ class ServantAction extends ServantObject {
 
 		// ...but can also live its own life
 		} else {
-			return $this->getOrSet('output', func_get_args());
+		$arguments = func_get_args();
+			return $this->getOrSet('output', $arguments);
 		}
 
 	}
 
 	// Status is a numerical HTTP status code (from settings) that indicates what happened in action 
 	public function status () {
-		return $this->getOrSet('status', func_get_args());
+		$arguments = func_get_args();
+		return $this->getOrSet('status', $arguments);
 	}
 
 	// Getters with autosetters
@@ -86,10 +91,11 @@ class ServantAction extends ServantObject {
 		return $files;
 	}
 
-	public function id () {
-		return $this->getAndSet('id');
-	}
+	// public function id () {
+	// 	return $this->getAndSet('id');
+	// }
 
+	// Allow formatting path when getting
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {

@@ -35,9 +35,16 @@ class ServantObject {
 		return $this;
 	}
 
-	public function __toString() {
+	// Default behavior when calling inaccessible method is getAndSet
+	public function __call ($id, $arguments) {
+		return $this->getAndSet($id, $arguments);
+	}
+
+	// When object is used as string, return a name
+	public function __toString () {
 		if (method_exists($this, 'id')) {
-			return get_class($this).': '.$this->id();
+			$name = $this->id();
+			return get_class($this).(empty($name) ? '' : ': '.$name);
 		} else {
 			return get_class($this);
 		}

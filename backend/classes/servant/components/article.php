@@ -31,36 +31,39 @@ class ServantArticle extends ServantObject {
 
 
 	// Public getters
-	public function id () {
-		return $this->getAndSet('id');
-	}
-	public function index () {
-		return $this->getAndSet('index');
-	}
-	public function level () {
-		return $this->getAndSet('level');
-	}
-	public function name () {
-		return $this->getAndSet('name');
-	}
-	public function output () {
-		return $this->getAndSet('output');
-	}
-	public function parents () {
-		return $this->getAndSet('parents', func_get_args());
-	}
-	public function siblings () {
-		return $this->getAndSet('siblings', func_get_args());
-	}
-	public function site () {
-		return $this->getAndSet('site');
-	}
-	public function tree () {
-		return $this->getAndSet('tree', func_get_args());
-	}
-	public function type () {
-		return $this->getAndSet('type');
-	}
+	// public function id () {
+	// 	return $this->getAndSet('id');
+	// }
+	// public function index () {
+	// 	return $this->getAndSet('index');
+	// }
+	// public function level () {
+	// 	return $this->getAndSet('level');
+	// }
+	// public function name () {
+	// 	return $this->getAndSet('name');
+	// }
+	// public function output () {
+	// 	return $this->getAndSet('output');
+	// }
+	// public function parents () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('parents', $arguments);
+	// }
+	// public function siblings () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('siblings', $arguments);
+	// }
+	// public function site () {
+	// 	return $this->getAndSet('site');
+	// }
+	// public function tree () {
+	// 	$arguments = func_get_args();
+	// 	return $this->getAndSet('tree', $arguments);
+	// }
+	// public function type () {
+	// 	return $this->getAndSet('type');
+	// }
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
