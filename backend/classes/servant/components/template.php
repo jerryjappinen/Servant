@@ -46,17 +46,28 @@ class ServantTemplate extends ServantObject {
 
 	// Setters
 
+	// All files of the template
 	protected function setFiles () {
 		$files = array();
-		$dir = $this->path('server');
-		if (is_dir($dir)) {
-			foreach (rglob_files($dir, $this->servant()->settings()->formats('templates')) as $key => $path) {
-				$files[$key] = $this->servant()->format()->path($path, false, 'server');
+		$path = $this->path('server');
+
+		// Individual file
+		if (is_file($path)) {
+			$files[] = $this->path('plain');
+
+		// All files in directory
+		} else if (is_dir($path)) {
+			foreach (rglob_files($path, 'php') as $file) {
+				$files[] = $this->servant()->format()->path($file, false, 'server');
 			}
 		}
+
 		return $this->set('files', $files);
 	}
 
+
+
+	// Name of the template (file or folder in the templates directory)
 	protected function setId ($id = null) {
 
 		// Silent fallback
@@ -82,6 +93,9 @@ class ServantTemplate extends ServantObject {
 		return $this->set('id', $id);
 	}
 
+
+
+	// Output content
 	protected function setOutput () {
 		$result = '';
 		foreach ($this->files('server') as $path) {
@@ -90,9 +104,23 @@ class ServantTemplate extends ServantObject {
 		return $this->set('output', $result);
 	}
 
-	// FLAG support only one file
+
+
+	// Template is either a file or a folder within the templates directory
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->templates('plain').$this->id().'/');
+		$path = $this->servant()->paths()->templates('plain').$this->id();
+		$serverPath = $this->servant()->paths()->templates('server').$this->id();
+
+		// One PHP file
+		if (is_file($serverPath.'.php')) {
+			$path .= '.php';
+
+		// Directory
+		} else if (is_dir($serverPath.'/')) {
+			$path .= '/';
+		}
+
+		return $this->set('path', $path);
 	}
 
 }

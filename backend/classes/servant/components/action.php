@@ -104,7 +104,7 @@ class ServantAction extends ServantObject {
 
 	// Setters
 
-	// Set max time in minutes
+	// Set max time in minutes, or allow/disallow
 	protected function setBrowserCache ($time) {
 		$result = 0;
 
@@ -120,16 +120,23 @@ class ServantAction extends ServantObject {
 		return $this->set('browserCache', $result);
 	}
 
+
+
 	// This is what action outputs, optionally via a template
 	protected function setContent ($content) {
 		return $this->set('content', $content);
 	}
 
+
+
+	// A code for content type, available in settings
 	protected function setContentType ($contentType) {
 		return $this->set('contentType', $contentType);
 	}
 
-	// All files within action
+
+
+	// All files of the action
 	protected function setFiles () {
 		$files = array();
 		$path = $this->path('server');
@@ -148,6 +155,9 @@ class ServantAction extends ServantObject {
 		return $this->set('files', $files);
 	}
 
+
+
+	// Name of the action (file or folder in actions dir)
 	protected function setId ($id = null) {
 
 		// Silent fallback
@@ -161,7 +171,7 @@ class ServantAction extends ServantObject {
 			} else {
 				$id = $this->servant()->available()->actions(0);
 				if ($id === null) {
-					$this->fail('No actions available');
+					$this->fail('No actions available, this installation is broken');
 				}
 			}
 		}
@@ -169,11 +179,16 @@ class ServantAction extends ServantObject {
 		return $this->set('id', $id);
 	}
 
+
+
 	// Output structure via template
 	protected function setOutput ($output) {
 		return $this->set('output', $output);
 	}
 
+
+
+	// Action is either a file or a folder within the actions directory
 	protected function setPath () {
 		$path = $this->servant()->paths()->actions('plain').$this->id();
 		$serverPath = $this->servant()->paths()->actions('server').$this->id();
@@ -190,6 +205,9 @@ class ServantAction extends ServantObject {
 		return $this->set('path', $path);
 	}
 
+
+
+	// Output status (three-digit code)
 	protected function setStatus ($status) {
 		return $this->set('status', $status);
 	}

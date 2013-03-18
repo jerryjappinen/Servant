@@ -70,7 +70,7 @@ class ServantAvailable extends ServantObject {
 		return $this->set('statuses', array_keys($this->servant()->settings()->statuses()));
 	}
 	protected function setTemplates () {
-		return $this->set('templates', $this->findDirectories('templates'));
+		return $this->set('templates', array_merge($this->findFiles('templates', 'php'), $this->findDirectories('templates')));
 	}
 	protected function setThemes () {
 		return $this->set('themes', $this->findDirectories('themes'));

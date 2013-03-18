@@ -3,7 +3,7 @@
 echo '
 	<div id="footer">
 		<h4><strong>Developer stuff</strong></h4>
-		'.htmlDump($servant->site()->articles()).'
+		'.htmlDump($servant->template()->files()).'
 	</div>
 ';
 

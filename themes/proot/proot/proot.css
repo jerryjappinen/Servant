@@ -31,12 +31,15 @@ body {
 
 
 /*Small screens*/
+#menu select {
+	display: none;
+}
 @media handheld, only screen and (max-width: 45em){
 	#menu .buffer {
 		padding-top: 1em;
 		padding-bottom: 1em;
 	}
-	#menu select.hidden {
+	#menu select {
 		display: block;
 	}
 	#menu .first, #menu ul, #menu ol {
