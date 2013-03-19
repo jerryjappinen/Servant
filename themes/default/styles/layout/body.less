@@ -3,7 +3,6 @@
 
 	// Second-level menu
 	ul.menu-2, ol.menu-2 {
-		float: left;
 		width: 100%;
 		list-style: none;
 		padding-left: 0;
@@ -11,13 +10,18 @@
 	}
 
 	.menu-2 li {
-		float: left;
-		clear: none;
+		display: inline;
 		margin-right: 2em;
 
 		// List item contents
 		a, strong {
+			display: inline-block;
+		}
+
+		// Centered, stacked items on small screens
+		@media handheld, only screen and (max-width: @bb-header-dropdown){
 			display: block;
+			text-align: center;
 		}
 
 	}

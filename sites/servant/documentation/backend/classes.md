@@ -1,0 +1,4 @@
+
+# Class structure
+
+## ServantObject

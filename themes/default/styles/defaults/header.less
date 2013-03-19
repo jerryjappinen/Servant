@@ -16,12 +16,15 @@
 	}
 	h1 a {
 		padding: 1em 0.8em;
+		@media handheld, only screen and (max-width: @bb-header-accommodate){
+			padding-top: 0.8em;
+			padding-bottom: 0.8em;
+		}
 	}
 	li a {
 		padding: 1em 1.2em;
 		@media handheld, only screen and (max-width: @bb-header-accommodate){
-			padding-right: 0.8em;
-			padding-left: 0.8em;
+			padding: 0.8em;
 		}
 	}
 
@@ -49,13 +52,19 @@
 	li {
 		strong a, a:hover {
 			color: @c-white;
-				background-color: @c-grey-5;
+		}
+		a:hover {
+			background-color: @c-grey-5;
+		}
+		strong a, strong a:hover {
+			background-color: @c-blue-3;
 		}
 		a {
 			font-weight: 200;
 		}
-		a, a:active {
-			color: @c-grey-4;
+		// a,
+		a:active {
+			color: @c-grey-3;
 		}
 	}
 

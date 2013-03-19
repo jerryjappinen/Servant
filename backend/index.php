@@ -8,7 +8,7 @@ date_default_timezone_set('UTC');
 
 // Custom error handling functions
 // set_error_handler('handleFubarError');
-// set_exception_handler('handleFubarException');
+set_exception_handler('handleFubarException');
 function handleFubarError ($errno, $errstr) {
 	return handleFubar($errno);
 }
@@ -16,7 +16,7 @@ function handleFubarException ($exception) {
 	return handleFubar($exception->getCode(), $exception->getMessage());
 }
 function handleFubar ($code = 500, $message = '') {
-	header('HTTP/1.1 '.$code.' Internal Server Error');
+	header('HTTP/1.1 500 Internal Server Error');
 	header('Content-Type: text/html; charset=utf-8');
 	echo '
 	<html>
@@ -48,7 +48,7 @@ function handleFubar ($code = 500, $message = '') {
 
 
 
-// Treat paths
+// Set and treat paths
 require 'paths.php';
 
 // Auto setect document root

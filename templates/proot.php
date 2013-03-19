@@ -14,9 +14,11 @@ $output = '
 		';
 
 		// Use a favicon if there is one
-		foreach (rglob_files($servant->theme()->path('server'), 'ico') as $path) {
-			$output .= '<link rel="shortcut icon" href="'.$servant->format()->path($path, 'domain', 'server').'" type="image/x-icon">';
-			break;
+		if (is_dir($servant->theme()->path('server'))) {
+			foreach (rglob_files($servant->theme()->path('server'), 'ico') as $path) {
+				$output .= '<link rel="shortcut icon" href="'.$servant->format()->path($path, 'domain', 'server').'" type="image/x-icon">';
+				break;
+			}
 		}
 
 		// Stylesheets
@@ -134,13 +136,13 @@ $output .= '
 				// One-column layout
 				$current = count($servant->article()->tree())-1;
 				if ($current < 2) {
-					$output .= $servant->action()->content();
+					$output .= $servant->template()->content();
 
 				// Two-column layout
 				} else {
 					$output .= '
 					<div class="column first nine">
-						'.$servant->action()->content().'
+						'.$servant->template()->content().'
 					</div>
 					<div class="column last three" id="submenu">
 

@@ -90,7 +90,7 @@ class ServantFiles extends ServantObject {
 
 	// Text is assumed to be Markdown
 	private function readTxtFile ($path) {
-		return $this->mdFile($path);
+		return $this->readMdFile($path);
 	}
 
 }

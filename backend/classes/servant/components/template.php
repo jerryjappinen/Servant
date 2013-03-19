@@ -5,6 +5,7 @@ class ServantTemplate extends ServantObject {
 	// Properties
 	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
+	protected $propertyContent 	= null;
 	protected $propertyOutput 	= null;
 	protected $propertyPath 	= null;
 
@@ -21,6 +22,11 @@ class ServantTemplate extends ServantObject {
 
 
 	// Public getters
+
+	public function content () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->servant()->action(), 'output'), $arguments);
+	}
 
 	// Files can be fetched with their paths in any format
 	public function files ($format = false) {

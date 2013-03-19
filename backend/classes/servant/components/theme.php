@@ -55,6 +55,8 @@ class ServantTheme extends ServantObject {
 
 	// Setters
 
+	// Theme identity
+	// FLAG I don't want to double get everything, but don't want to get everything either - what's the best way to do this?
 	protected function setId ($id = null) {
 
 		// Silent fallback
@@ -75,39 +77,80 @@ class ServantTheme extends ServantObject {
 			// Whatever's available
 			} else {
 				$id = $this->servant()->available()->themes(0);
+
 				if ($id === null) {
 					$this->fail('No themes available');
 				}
 			}
 		}
-
 		return $this->set('id', $id);
 	}
 
+
+
+	// Theme is either a file or a folder within the themes directory
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->themes('plain').$this->id().'/');
+		$path = '';
+		$serverPath = $this->servant()->paths()->themes('server').$this->id();
+
+		// Search for a directory
+		if (is_dir($serverPath.'/')) {
+			$path = '/';
+
+		// Search for one file
+		} else {
+
+			// Go through acceptable types, break when we find a match
+			$formats = array_merge($this->servant()->settings()->formats('stylesheets'), $this->servant()->settings()->formats('scripts'));
+			foreach ($formats as $format) {
+				if (is_file($serverPath.'.'.$format)) {
+					$path = '.'.$format;
+					break;
+				}
+			}
+
+		}
+
+		// Make sure we found a proper path
+		if (!empty($path)) {
+			$path = $this->servant()->paths()->themes('plain').$this->id().$path;
+		}
+
+		return $this->set('path', $path);
 	}
 
+
+
+	// Files
+
+	// Stylesheet files
 	protected function setStylesheets () {
-		$files = array();
-		$dir = $this->path('server');
-		if (is_dir($dir)) {
-			foreach (rglob_files($dir, $this->servant()->settings()->formats('stylesheets')) as $key => $path) {
-				$files[$key] = $this->servant()->format()->path($path, false, 'server');
-			}
-		}
-		return $this->set('stylesheets', $files);
+		return $this->set('stylesheets', $this->findFiles('stylesheets'));
 	}
 
+	// Script files
 	protected function setScripts () {
+		return $this->set('scripts', $this->findFiles('scripts'));
+	}
+
+
+	// Helper to find files
+	private function findFiles ($formatsType) {
 		$files = array();
-		$dir = $this->path('server');
-		if (is_dir($dir)) {
-			foreach (rglob_files($dir, $this->servant()->settings()->formats('scripts')) as $key => $path) {
-				$files[$key] = $this->servant()->format()->path($path, false, 'server');
+		$path = $this->path('server');
+
+		// Individual file
+		if (is_file($path)) {
+			$files[] = $this->path('plain');
+
+		// All template files in directory
+		} else if (is_dir($path)) {
+			foreach (rglob_files($path, $this->servant()->settings()->formats($formatsType)) as $file) {
+				$files[] = $this->servant()->format()->path($file, false, 'server');
 			}
 		}
-		return $this->set('scripts', $files);
+
+		return $files;
 	}
 
 }

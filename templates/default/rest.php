@@ -3,12 +3,16 @@
 echo '
 	<div id="footer">
 		<h4><strong>Developer stuff</strong></h4>
-		'.htmlDump($servant->template()->files()).'
+		'.htmlDump($servant->available()->themes()).'
 	</div>
 ';
 
 // Scripts
-echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.'"></script>';
+$scripts = $servant->theme()->scripts();
+if (!empty($scripts)) {
+	echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.'"></script>';
+}
+unset($scripts);
 
 // End it all
 echo '

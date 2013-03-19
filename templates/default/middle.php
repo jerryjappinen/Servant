@@ -113,7 +113,7 @@ $output = '
 
 
 			// Body content
-			$output .= $servant->action()->content();
+			$output .= $servant->template()->content();
 
 
 
@@ -127,7 +127,7 @@ $output = '
 
 					// Level 3 menu
 					$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
-					if (!empty($level3) and is_array($level3)) {
+					if (is_array($level3) and count($level3) > 1) {
 						foreach ($level3 as $key => $value) {
 							$output .= '<li class="'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
 						}

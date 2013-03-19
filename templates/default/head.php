@@ -13,9 +13,11 @@ echo '
 		';
 
 		// Use a favicon if there is one
-		foreach (rglob_files($servant->theme()->path('server'), 'ico') as $path) {
-			echo '<link rel="shortcut icon" href="'.$servant->format()->path($path, 'domain', 'server').'" type="image/x-icon">';
-			break;
+		if (is_dir($servant->theme()->path('server'))) {
+			foreach (rglob_files($servant->theme()->path('server'), 'ico') as $path) {
+				echo '<link rel="shortcut icon" href="'.$servant->format()->path($path, 'domain', 'server').'" type="image/x-icon">';
+				break;
+			}
 		}
 
 		// Stylesheets

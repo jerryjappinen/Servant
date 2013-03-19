@@ -97,7 +97,7 @@ class ServantSite extends ServantObject {
 
 		// Non-empty child directories
 		foreach (glob_dir($path) as $subdir) {
-			$value = $this->findFiles($subdir);
+			$value = $this->findFiles($subdir, $filetypes);
 			if (!empty($value)) {
 				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findFiles($subdir, $filetypes);
 			}
