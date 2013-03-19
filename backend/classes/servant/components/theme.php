@@ -133,7 +133,6 @@ class ServantTheme extends ServantObject {
 		return $this->set('scripts', $this->findFiles('scripts'));
 	}
 
-
 	// Helper to find files
 	private function findFiles ($formatsType) {
 		$files = array();

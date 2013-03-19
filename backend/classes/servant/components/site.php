@@ -3,11 +3,13 @@
 class ServantSite extends ServantObject {
 
 	// Properties
-	protected $propertyArticle 	= null;
-	protected $propertyArticles = null;
-	protected $propertyId 		= null;
-	protected $propertyName 	= null;
-	protected $propertyPath 	= null;
+	protected $propertyArticle 		= null;
+	protected $propertyArticles 	= null;
+	protected $propertyId 			= null;
+	protected $propertyName 		= null;
+	protected $propertyPath 		= null;
+	protected $propertyStylesheets 	= null;
+	protected $propertyScripts 		= null;
 
 
 
@@ -26,13 +28,32 @@ class ServantSite extends ServantObject {
 
 	// Public getters
 
-	// Paths can be fetched in any format
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->format()->path($path, $format);
 		}
 		return $path;
+	}
+
+	public function scripts ($format = false) {
+		$files = $this->getAndSet('scripts');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
+	}
+
+	public function stylesheets ($format = false) {
+		$files = $this->getAndSet('stylesheets');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
 	}
 
 
@@ -44,7 +65,7 @@ class ServantSite extends ServantObject {
 	}
 
 	protected function setArticles () {
-		return $this->set('articles', $this->findFiles($this->path('server'), $this->servant()->settings()->formats('templates')));
+		return $this->set('articles', $this->findArticles($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
 	protected function setId ($id = null) {
@@ -82,12 +103,22 @@ class ServantSite extends ServantObject {
 		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
 	}
 
+	// Stylesheet files
+	protected function setStylesheets () {
+		return $this->set('stylesheets', $this->findFiles('stylesheets'));
+	}
+
+	// Script files
+	protected function setScripts () {
+		return $this->set('scripts', $this->findFiles('scripts'));
+	}
+
 
 
 	// Private helpers
 
 	// List available articles recursively
-	private function findFiles ($path, $filetypes = array()) {
+	private function findArticles ($path, $filetypes = array()) {
 		$results = array();
 
 		// Files on this level
@@ -97,16 +128,35 @@ class ServantSite extends ServantObject {
 
 		// Non-empty child directories
 		foreach (glob_dir($path) as $subdir) {
-			$value = $this->findFiles($subdir, $filetypes);
+			$value = $this->findArticles($subdir, $filetypes);
 			if (!empty($value)) {
-				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $this->findFiles($subdir, $filetypes);
+				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $value;
 			}
 		}
 
-		// Sort alphabetically
+		// Mix sort directories and files
 		ksort($results);
 
 		return $results;
+	}
+
+	// Helper to find any files, returns them uncategorized
+	private function findFiles ($formatsType) {
+		$files = array();
+		$path = $this->path('server');
+
+		// Individual file
+		if (is_file($path)) {
+			$files[] = $this->path('plain');
+
+		// All template files in directory
+		} else if (is_dir($path)) {
+			foreach (rglob_files($path, $this->servant()->settings()->formats($formatsType)) as $file) {
+				$files[] = $this->servant()->format()->path($file, false, 'server');
+			}
+		}
+
+		return $files;
 	}
 
 }
