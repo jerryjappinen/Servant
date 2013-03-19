@@ -60,6 +60,11 @@ class ServantFiles extends ServantObject {
 
 	// Private helpers
 
+	// HTML is already HTML
+	private function readHtmlFile ($path) {
+		return file_get_contents($path);
+	}
+
 	// Markdown converts to HTML
 	private function readMdFile ($path) {
 		return Markdown(file_get_contents($path));

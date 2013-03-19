@@ -4,17 +4,39 @@
 @bb-header-accommodate: 60em;
 
 // Colors
-@c-white: #fff;
+@white: #fff;
 
-@c-blue-1: #66d9ff;
-@c-blue-2: #00bfff;
-@c-blue-3: #00aacc;
-@c-blue-4: #007ca6;
-@c-blue-5: #006080;
+@blue-1: #66d9ff;
+@blue-2: #00bfff;
+@blue-3: #00aacc;
+@blue-4: #007ca6;
+@blue-5: #006080;
 
-@c-grey-1: #f5f5f5;
-@c-grey-2: #e6e7e8;
-@c-grey-3: #cdd2d6;
-@c-grey-4: #959ea6;
-@c-grey-5: #373f45;
-@c-grey-6: #24292d;
+@grey-1: #f5f5f5;
+@grey-2: #e6e7e8;
+@grey-3: #cdd2d6;
+@grey-4: #959ea6;
+@grey-5: #373f45;
+@grey-6: #24292d;
+
+// Mixins
+.shadows {
+	.box-shadow(0 0.05em 0.1em @grey-4);
+}
+
+// Border mixins
+.thick-border {
+	border-width: 0.5em;
+}
+	.thick-border-top {
+		border-top-width: 0.5em;
+	}
+	.thick-border-right {
+		border-right-width: 0.5em;
+	}
+	.thick-border-bottom {
+		border-bottom-width: 0.5em;
+	}
+	.thick-border-left {
+		border-left-width: 0.5em;
+	}

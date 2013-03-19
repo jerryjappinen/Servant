@@ -1,15 +1,15 @@
 
 /*Tables*/
 table {
-	background-color: @c-white;
-	.box-shadow(0 0.05em 0.1em @c-grey-4);
+	background-color: @white;
+	.shadows();
 }
 th {
 	vertical-align: baseline;
 	font-weight: normal;
-	background-color: @c-grey-6;
-	border-color: @c-grey-6;
-	color: @c-white;
+	background-color: @grey-6;
+	border-color: @grey-6;
+	color: @white;
 }
 	th[scope="row"] {
 		background-color: transparent;
@@ -20,7 +20,7 @@ th {
 // Rows
 td, th[scope="row"] {
 	border-bottom-width: 1px;
-	border-color: @c-grey-2;
+	border-color: @grey-2;
 }
 	tr:last-child td, tr:last-child th[scope="row"] {
 		border-bottom-width: 0;

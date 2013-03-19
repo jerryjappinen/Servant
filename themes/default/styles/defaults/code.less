@@ -4,17 +4,17 @@ code {
 	display: inline-block;
 	padding: 0.1em 0.4em 0 0.4em;
 	.border-radius(0.3em);
-	background-color: @c-grey-1;
-	border-color: @c-grey-2;
+	background-color: @grey-1;
+	border-color: @grey-2;
 	border-width: 1px;
 	font-weight: normal;
 }
 pre {
 	padding: 1.34em;
-	background-color: @c-white;
-	border-color: @c-blue-3;
-	border-left-width: 0.5em;
-	.box-shadow(0 0.1em 0.1em @c-grey-4);
+	background-color: @white;
+	border-color: @blue-3;
+	.thick-border-left();
+	.shadows();
 }
 	pre code, th code, h1 code, h2 code {
 		display: inline;

@@ -1,16 +1,63 @@
 
 // Home page
-body.article-about-home #body {
-	
-	h1 {
-		color: dodgerblue;
-		font-size: 4em;
-		font-weight: 100;
+body.article-about-home {
+
+	#body {
+		text-align: center;
+		font-weight: 200;
+		padding-bottom: 10%;
+
+		h1 {
+			font-size: 4em;
+			font-weight: 100;
+			margin-top: 0.2em;
+			margin-bottom: 0;
+			color: @blue-3;
+		}
+
+		.intro {
+			margin-bottom: 2.4em;
+			font-size: 1.4em;
+		}
+
+		// White thingies
+		.column .buffer {
+			background-color: @white;
+			border-color: @blue-3;
+			.shadows();
+			.thick-border-top();
+
+			// Numbers
+			h3 {
+
+			}
+			.count {
+				display: inline-block;
+				.border-radius(9999em);
+
+				font-size: 2em;
+				line-height: 3em;
+				width: 3em;
+				height: 3em;
+
+				font-weight: 100;
+				font-style: normal;
+				background-color: @blue-3;
+				color: @white;
+			}
+		}
+
 	}
 
-	.center img {
-		border-radius: 9999em;
-		max-width: 16em;
+	.details {
+		text-align: left;
+		font-size: 1.1em;
 	}
-	
+
+	// Hide footer
+	background-color: @grey-1;
+	#footer {
+		display: none;
+	}
+
 }

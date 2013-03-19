@@ -2,12 +2,12 @@
 #header {
 
 	// Base look
-	background-color: @c-grey-6;
-	color: @c-white;
+	background-color: @grey-6;
+	color: @white;
 
 	// Links
 	a {
-		color: @c-white;
+		color: @white;
 		font-size: 1.2em;
 		text-decoration: none;
 		font-weight: 200;
@@ -26,8 +26,8 @@
 		a {
 			padding: 1em 0.8em;
 			font-weight: 700;
-			color: @c-white;
-			.text-shadow(0 0 0.8em @c-grey-4);
+			color: @white;
+			.text-shadow(0 0 0.8em @grey-4);
 			@media handheld, only screen and (max-width: @bb-header-accommodate){
 				padding-top: 0.8em;
 				padding-bottom: 0.8em;
@@ -74,16 +74,16 @@
 
 		// Text color
 		a, strong a:active {
-			color: @c-white;
+			color: @white;
 		}
 
 		// Effects
 		a:hover {
-			.text-shadow(0 0 1.2em @c-white);
+			.text-shadow(0 0 1.2em @white);
 		}
 		a:active {
-			color: @c-grey-3;
-			.text-shadow(0 0 1.8em @c-white);
+			color: @grey-3;
+			.text-shadow(0 0 1.8em @white);
 		}
 
 		// Selected
@@ -91,9 +91,9 @@
 			.text-shadow(none);
 		}
 		strong a, strong a:hover {
-			background-color: @c-blue-3;
-			.gradient(@c-blue-3, @c-blue-2, @c-blue-3);
-			.box-shadow(inset 0 0 0.15em 0.05em @c-blue-1);
+			background-color: @blue-3;
+			.gradient(@blue-3, @blue-2, @blue-3);
+			.box-shadow(inset 0 0 0.15em 0.05em @blue-1);
 		}
 
 	}

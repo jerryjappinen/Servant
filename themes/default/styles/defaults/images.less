@@ -1,13 +1,8 @@
 
 /*Images*/
-img {
-	border: 0.05em solid rgba(36, 41, 45, 0.2);
-	.box-shadow(0 0.1em 0.1em @c-grey-4);
+img.styled {
+	border-color: rgba(36, 41, 45, 0.2);
 	.border-radius(0.3em);
-
-	.reset {
-		border-width: 0;
-		.box-shadow(0);
-		.border-radius(0);
-	}
+	.shadows();
+	.thick-border();
 }
