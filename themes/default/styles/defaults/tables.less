@@ -2,19 +2,35 @@
 /*Tables*/
 table {
 	background-color: @c-white;
-	.box-shadow(0 0.05em 0.2em @c-grey-3);
-	.border-radius(0.3em);
+	.box-shadow(0 0.05em 0.1em @c-grey-4);
 }
 th {
 	vertical-align: baseline;
-	background-color: @c-blue-3;
-	border-color: @c-blue-3;
-	color: @c-white;
 	font-weight: normal;
+	background-color: @c-grey-6;
+	border-color: @c-grey-6;
+	color: @c-white;
 }
+	th[scope="row"] {
+		background-color: transparent;
+		color: inherit;
+		font-weight: bold;
+	}
+
+// Rows
+td, th[scope="row"] {
+	border-bottom-width: 1px;
+	border-color: @c-grey-2;
+}
+	tr:last-child td, tr:last-child th[scope="row"] {
+		border-bottom-width: 0;
+	}
 th, td {
-	border-width: 1px;
+	border-left-width: 1px;
 }
+	th:first-of-type, td:first-of-type {
+		border-left-width: 0;
+	}
 table table td {
 	padding: 0.335em 0.67em;
 }

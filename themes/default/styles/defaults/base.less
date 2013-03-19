@@ -11,7 +11,7 @@ body {
 // Colors
 body {
 	background-color: @c-grey-2;
-	color: @c-grey-6;
+	color: @c-grey-5;
 }
 a {
 	color: @c-blue-3;
@@ -24,15 +24,24 @@ h1, h2, h3, pre, code, table, th, td, a, ul, ol, li {
 }
 
 // Headings
+h1, h2, h3 {
+	margin-top: 2.505em;
+}
 h1, h2 {
 	font-weight: 200;
 }
 h2 {
-	font-size: 2em;
+	font-size: 1.8em;
 }
 h3 {
 	font-weight: normal;
 	font-size: 1.4em;
+	color: @c-grey-4;
+}
+
+// Monospaced
+pre,code,kbd,samp {
+	font-size: 0.85em;
 }
 
 // Tools

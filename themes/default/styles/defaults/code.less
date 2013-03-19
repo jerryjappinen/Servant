@@ -4,22 +4,23 @@ code {
 	display: inline-block;
 	padding: 0.1em 0.4em 0 0.4em;
 	.border-radius(0.3em);
-	background-color: @c-grey-2;
+	background-color: @c-grey-1;
+	border-color: @c-grey-2;
+	border-width: 1px;
+	font-weight: normal;
 }
 pre {
 	padding: 1.34em;
-	background-color: @c-grey-6;
-	color: @c-grey-1;
-	.box-shadow(0 0.05em 0.2em @c-grey-4);
-	.border-radius(0.3em);
+	background-color: @c-white;
+	border-color: @c-blue-3;
+	border-left-width: 0.5em;
+	.box-shadow(0 0.1em 0.1em @c-grey-4);
 }
-	pre code, th code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+	pre code, th code, h1 code, h2 code {
 		display: inline;
 		background-color: transparent;
 		padding: 0;
+		font-weight: inherit;
+		border-width: 0;
 		.border-radius(0);
-	}
-	h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
-		font-size: 1em;
-		font-family: inherit;
 	}
