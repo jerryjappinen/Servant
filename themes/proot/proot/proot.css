@@ -249,20 +249,20 @@ pre {
 	#menu .first .selected a, #menu .second {
 		background-color: #00adbd;
 	}
-	.tutorials #menu .first .selected a, .tutorials #menu .second {
+	.article-tutorials #menu .first .selected a, .article-tutorials #menu .second {
 		background-color: #11bdbd;
 	}
-	.cheatsheets #menu .first .selected a, .cheatsheets #menu .second {
+	.article-cheatsheets #menu .first .selected a, .article-cheatsheets #menu .second {
 		background-color: #1ebab0;
 	}
 
-	.apps #menu .first .selected a, .apps #menu .second {
+	.article-apps #menu .first .selected a, .article-apps #menu .second {
 		background-color: #95b300;
 	}
-	.actions #menu .first .selected a, .actions #menu .second {
+	.article-actions #menu .first .selected a, .article-actions #menu .second {
 		background-color: #e68600;
 	}
-	.backend #menu .first .selected a, .backend #menu .second {
+	.article-backend #menu .first .selected a, .article-backend #menu .second {
 		background-color: #b3245f;
 	}
 
@@ -299,11 +299,7 @@ a, input, td, th {
 /*Pages*/
 
 /*JS library cheatsheet*/
-.cheatsheets_js-library h2 {
-	margin-top: 3em;
-	margin-bottom: 0;
-}
-.cheatsheets_js-library h4 {
-	margin-top: 4.2em;
+.article-cheatsheets-js-library h2 {
+	margin-top: 2em;
 	margin-bottom: 0;
 }
