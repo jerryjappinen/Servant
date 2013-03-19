@@ -1,11 +1,11 @@
 
 <style type="text/css">
-	h1 {
+	#body h1 {
 		color: dodgerblue;
 		font-size: 4em;
 		font-weight: 100;
 	}
-	.center img {
+	#body .center img {
 		border-radius: 9999em;
 		max-width: 16em;
 	}

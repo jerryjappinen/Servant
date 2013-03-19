@@ -13,9 +13,7 @@ class ServantMain extends ServantObject {
 	public function execute ($paths, $settings, $action = null, $site = null, $selectedArticle = null) {
 
 		// We initialize and select things
-		$this->setPaths($paths)->setSettings($settings)->setAction($action);
-		$this->setSite($site, $selectedArticle);
-debug($this->site()->articles());
+		$this->setPaths($paths)->setSettings($settings)->setAction($action)->setSite($site, $selectedArticle);
 
 		// We run action
 		$this->action()->run();

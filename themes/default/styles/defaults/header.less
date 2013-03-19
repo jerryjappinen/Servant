@@ -7,24 +7,11 @@
 
 	// Links
 	a {
+		color: @c-white;
 		font-size: 1.2em;
 		text-decoration: none;
-		color: @c-white;
 		@media handheld, only screen and (max-width: @bb-header-accommodate){
 			font-size: 1em;
-		}
-	}
-	h1 a {
-		padding: 1em 0.8em;
-		@media handheld, only screen and (max-width: @bb-header-accommodate){
-			padding-top: 0.8em;
-			padding-bottom: 0.8em;
-		}
-	}
-	li a {
-		padding: 1em 1.2em;
-		@media handheld, only screen and (max-width: @bb-header-accommodate){
-			padding: 0.8em;
 		}
 	}
 
@@ -37,10 +24,15 @@
 		text-transform: uppercase;
 		margin-left: -0.8em;
 		a {
+			padding: 1em 0.8em;
 			color: @c-white;
+			@media handheld, only screen and (max-width: @bb-header-accommodate){
+				padding-top: 0.8em;
+				padding-bottom: 0.8em;
+			}
 			@media handheld, only screen and (max-width: @bb-header-dropdown){
-				font-size: 2em;
 				letter-spacing: 0.6em;
+				font-size: 2em;
 				font-weight: 100;
 			}
 		}
@@ -50,22 +42,56 @@
 
 	// Menu items
 	li {
-		strong a, a:hover {
-			color: @c-white;
-		}
-		a:hover {
-			background-color: @c-grey-5;
-		}
-		strong a, strong a:hover {
-			background-color: @c-blue-3;
-		}
+
+		// Links
 		a {
 			font-weight: 200;
+			padding: 1em 1.2em;
+			@media handheld, only screen and (max-width: @bb-header-accommodate){
+				padding: 0.8em;
+			}
 		}
-		// a,
+
+		// Selected links
+		strong {
+			padding-top: 0.7em;
+			padding-bottom: 0.7em;
+			a {
+				padding-top: 0.3em;
+				padding-bottom: 0.3em;
+				.border-radius(0.2em);
+			}
+			@media handheld, only screen and (max-width: @bb-header-accommodate){
+				padding-top: 0.4em;
+				padding-bottom: 0.4em;
+				a {
+					padding-top: 0.4em;
+					padding-bottom: 0.4em;
+				}
+			}
+		}
+
+		// Text color
+		a, strong a:active {
+			color: @c-white;
+		}
 		a:active {
 			color: @c-grey-3;
 		}
+
+		// Background color
+		a:hover {
+			background-color: @c-grey-5;
+			.box-shadow(inset 0 0 0.8em 0.8em @c-grey-6);
+		}
+		strong a:hover {
+			.box-shadow(none);
+		}
+		strong a, strong a:hover {
+			background-color: @c-blue-3;
+			.gradient(@c-blue-3, @c-blue-2, @c-blue-3);
+		}
+
 	}
 
 }
