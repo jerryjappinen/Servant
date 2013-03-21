@@ -63,7 +63,7 @@ class ServantArticle extends ServantObject {
 	}
 
 	protected function setOutput () {
-		$relativeUrl = implode('/', array_reverse($this->parents()));
+		$relativeUrl = substr(pathinfo($this->path('plain'), PATHINFO_DIRNAME), strlen($this->site()->path('plain')));
 		if (!empty($relativeUrl)) {
 			$relativeUrl .= '/';
 		}
@@ -77,7 +77,8 @@ class ServantArticle extends ServantObject {
 	}
 
 	protected function setSiblings () {
-		return $this->set('siblings', array_keys($this->site()->articles(array_reverse($this->parents()))));
+		$siblings = array_keys($this->site()->articles(array_reverse($this->parents())));
+		return $this->set('siblings', empty($siblings) ? array() : $siblings);
 	}
 
 	protected function setSite ($site = null) {

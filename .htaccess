@@ -16,7 +16,7 @@ RewriteEngine on
 # Endpoints
 
 # Forward to default site and action
-RewriteRule ^$ %{REQUEST_URI}demo/ [R=301,L]
+RewriteRule ^$ %{REQUEST_URI}servant/ [R=301,L]
 
 # Load index.php at root
 DirectoryIndex backend/index.php

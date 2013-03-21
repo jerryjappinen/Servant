@@ -7,7 +7,7 @@ echo '
 			<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></li>
 		</ul>
 		'.
-		// htmlDump($servant->site()->stylesheets()).
+		htmlDump($servant->article()->tree()).
 		'
 	</div>
 ';

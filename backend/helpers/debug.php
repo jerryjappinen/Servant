@@ -3,7 +3,7 @@
 
 // Dump values
 function dump ($value) {
-	return "\n\n".var_export($value, true)."\n\n\n";
+	return var_export($value, true);
 }
 
 // Dump values into HTML tags
@@ -15,7 +15,7 @@ function htmlDump ($value) {
 function debug ($value) {
 	$displayErrors = ini_get('display_errors');
 	ini_set('display_errors', '0');
-	error_log(dump($value), 0);
+	error_log("\n\n\n".dump($value), 0)."\n\n";
 	ini_set('display_errors', $displayErrors);
 }
 ?>

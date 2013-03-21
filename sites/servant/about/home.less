@@ -1,6 +1,6 @@
 
 // Home page
-body.article-about-home {
+body.article-about {
 
 	#body {
 		text-align: center;
@@ -12,43 +12,76 @@ body.article-about-home {
 			font-weight: 100;
 			margin-top: 0.2em;
 			margin-bottom: 0;
-			color: @blue-3;
+			color: @magenta-3;
 		}
 
 		.intro {
 			margin-bottom: 2.4em;
-			font-size: 1.4em;
+			p {
+				max-width: 50em;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			.button {
+				margin: 0.5em;
+			}
 		}
 
 		// White thingies
-		.column .buffer {
-			background-color: @white;
-			border-color: @blue-3;
-			.shadows();
-			.thick-border-top();
+		.column.step {
+			margin-top: 2em;
+			margin-bottom: 0em;
 
-			// Numbers
-			h3 {
+			.box {
+
+				// Numbers
+				h3 {
+
+				}
+				.count {
+					display: inline-block;
+					.border-radius(9999em);
+
+					font-size: 2em;
+					line-height: 3em;
+					width: 3em;
+					height: 3em;
+
+					font-weight: 100;
+					font-style: normal;
+					background-color: @blue-3;
+					color: @white;
+				}
+
+				// Alternate colors
+				&.green .count {
+					background-color: @green-3;
+				}
+				&.magenta .count {
+					background-color: @magenta-3;
+				}
 
 			}
-			.count {
-				display: inline-block;
-				.border-radius(9999em);
 
-				font-size: 2em;
-				line-height: 3em;
-				width: 3em;
-				height: 3em;
-
-				font-weight: 100;
-				font-style: normal;
-				background-color: @blue-3;
-				color: @white;
-			}
 		}
 
 	}
 
+	// Splash intro
+	.showoff {
+		
+	}
+
+	// Call to action
+	.call-to-action {
+		h2 {
+			a {
+				font-size: 0.8em;
+			}
+		}
+	}
+
+	// Details
 	.details {
 		text-align: left;
 		font-size: 1.1em;

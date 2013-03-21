@@ -130,6 +130,14 @@ class ServantSite extends ServantObject {
 		foreach (glob_dir($path) as $subdir) {
 			$value = $this->findArticles($subdir, $filetypes);
 			if (!empty($value)) {
+
+				// Normalize arrays with only one item
+				// NOTE the directory name is used as the key
+				if (count($value) < 2) {
+					$keys = array_keys($value);
+					$value = $value[$keys[0]];
+				}
+
 				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $value;
 			}
 		}

@@ -20,6 +20,8 @@ $output = '
 			<h1><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.'">'.$servant->site()->name().'</a></h1>
 			';
 
+
+
 			// Level 1 menu
 			$level1 = $servant->site()->articles();
 			if (count($level1) > 1) {
@@ -40,37 +42,41 @@ $output = '
 			}
 			unset($level1, $key, $value);
 
+
+
 			// Two-level dropdown menu
 			$output .= '<select class="menu-1 menu-2 menu-1-2" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')">';
 			foreach ($servant->site()->articles() as $key => $value) {
 
 				// First-level article
-				if (is_string($value) or (is_array($value) and count($value) === 1)) {
-					$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</option>';
+				$output .= '<option value="'.
+				$servant->paths()->root('domain').$servant->site()->id().
+				'/read/'.$key.'/"'.
+				($key === $servant->article()->tree(0) ? ' selected' : '').
+				'>'.$servant->format()->name($key).'</option>';
 
 				// Nested
-				} else if (is_array($value)) {
+				// } else if (is_array($value)) {
 
-					// Wrap in optgroup
-					$output .= '<optgroup label="'.$servant->format()->name($key).'">';
-					foreach ($value as $key2 => $value2) {
-						$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</option>';
-					}
-					$output .= '</optgroup>';
+				// 	// Wrap in optgroup
+				// 	$output .= '<optgroup label="'.$servant->format()->name($key).'">';
+				// 	foreach ($value as $key2 => $value2) {
+				// 		$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/'.$key2.'/"'.($key == $servant->article()->parents(0) and $key2 == $servant->article()->id() ? '' : ' selected').'>'.$servant->format()->name($key2).'</option>';
+				// 	}
+				// 	$output .= '</optgroup>';
 
-				}
+				// }
 
 			}
 			$output .= '</select>';
 			unset($key, $value);
 			$output .= '<div class="clear"></div>';
 
-			$output .= '
-		</div>
-		';
 
-		// Body content
+
+			// Body content
 		$output .= '
+		</div>
 		<div id="body">
 			';
 
@@ -102,9 +108,9 @@ $output = '
 					$output .= '</ul><div class="clear"></div>';
 
 				// Show current article if we're not on the home page
-				} else if (!in_array($homePage, array($servant->article()->id(), $servant->article()->tree(0)))) {
-					$key = $servant->article()->tree(0);
-					$output .= '<ul class="menu-2"><li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/">'.$servant->format()->name($key).'</a></strong></li></ul><div class="clear"></div>';
+				// } else if (!in_array($homePage, array($servant->article()->id(), $servant->article()->tree(0)))) {
+				// 	$key = $servant->article()->tree(0);
+				// 	$output .= '<ul class="menu-2"><li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/">'.$servant->format()->name($key).'</a></strong></li></ul><div class="clear"></div>';
 				}
 
 			}

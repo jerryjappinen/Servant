@@ -5,7 +5,7 @@ $paths = array(
 
 	// Uncomment to override auto detection of root paths
 	// 'documentRoot' 	=> '/Users/jjappinen/Documents/Development/',
-	// 'root' 			=> 'backend/',
+	// 'root' 			=> 'eiskis.net/www/',
 
 	// Relative to root path
 	'sites' 		=> 'sites/',
@@ -18,7 +18,7 @@ $paths = array(
 	'actions' 		=> 'backend/actions/',
 	'classes' 		=> 'backend/classes/',
 	'helpers' 		=> 'backend/helpers/',
-	'settings' 		=> 'backend/settings/',
+	'settings' 		=> 'settings/',
 	'utilities' 	=> 'backend/utilities/',
 
 );

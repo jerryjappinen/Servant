@@ -1,0 +1,50 @@
+
+// Limit widths
+.intro {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	max-width: 50em;
+}
+
+// Boxes
+.box {
+	background-color: @white;
+	border-color: @blue-4;
+	.shadows();
+	.thick-border-top();
+
+	// Alternate colors
+	&.green {
+		border-color: @green-4;
+	}
+	&.magenta {
+		border-color: @magenta-4;
+	}
+}
+
+
+// Buttons
+.button {
+	font-size: 1.2em;
+	display: inline-block;
+	padding: 0.3em 0.8em;
+	border-top-width: 0.1em;
+	border-bottom-width: 0.2em;
+	.border-radius(0.1em);
+	color: @white;
+	text-decoration: none;
+	background-color: @blue-3;
+	border-color: @blue-4;
+	border-top-color: @blue-2;
+	&.green {
+		background-color: @green-3;
+		border-color: @green-4;
+		border-top-color: @green-2;
+	}
+	&.magenta {
+		background-color: @magenta-3;
+		border-color: @magenta-4;
+		border-top-color: @magenta-2;
+	}
+}

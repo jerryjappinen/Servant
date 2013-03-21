@@ -13,6 +13,16 @@ function from_camelcase ($string) {
 
 
 
+// Do a calculation with a formula in a string
+function calculate_string($string, $intval = false) {
+    $string = trim(preg_replace('/[^0-9\+\-\*\/\(\) ]/i', '', $string));
+    $compute = create_function('', 'return ('.(empty($string) ? 0 : $string).');');
+    $result = 0 + $compute();
+    return $intval ? intval($result) : $result;
+}
+
+
+
 // Make sure initial characters of a string are what they need to be
 function start_with ($string, $start = '') {
 	$startlength = strlen($start);

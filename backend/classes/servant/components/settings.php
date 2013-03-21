@@ -57,9 +57,14 @@ class ServantSettings extends ServantObject {
 			foreach ($results as $key => $value) {
 				if (isset($input[$key])) {
 
+					// Support calculation from strings
+					if (is_string($input[$key])) {
+						$input[$key] = calculate_string($input[$key]);
+					}
+
 					// Don't accept just anything
 					if (is_int($input[$key]) and $input[$key] > 0) {
-						$results[$key] = strval($input[$key]);
+						$results[$key] = $input[$key];
 					}
 
 				}
