@@ -1,0 +1,37 @@
+
+body.level-2, body.level-3 {
+
+	#article {
+		clear: none;
+		float: left;
+		width: 75%;
+		padding-top: 1em;
+		> h1, > h2, > h3, > h4 {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+	}
+
+	#sidebar {
+		float: left;
+		margin-right: 5%;
+		margin-bottom: 4em;
+		width: 20%;
+
+		// Second-level menu
+		ul.menu-2, ol.menu-2 {
+		}
+
+		.menu-2 li {
+
+			// List item contents
+			a, strong {
+				display: block;
+			}
+
+		}
+
+	}
+
+}

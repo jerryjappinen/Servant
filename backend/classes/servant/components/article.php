@@ -92,7 +92,8 @@ class ServantArticle extends ServantObject {
 	}
 
 	protected function setTree ($tree = null) {
-		return $this->set('tree', $this->selectArticle($this->site()->articles(), to_array($tree)));
+		$tree = $this->selectArticle($this->site()->articles(), to_array($tree));
+		return $this->set('tree', $tree);
 	}
 
 	protected function setType () {
@@ -107,6 +108,7 @@ class ServantArticle extends ServantObject {
 
 	// Private helpers
 
+	// Choose one article from those available, preferring the one detailed in $tree
 	private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
  
 		// No preference or preferred item doesn't exist: auto select
@@ -127,7 +129,7 @@ class ServantArticle extends ServantObject {
 
 		// That was it
 		} else {
-			return $tree;
+			return array_slice($tree, 0, $level+1);
 		}
 
 	}

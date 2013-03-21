@@ -1,6 +1,4 @@
 
-# Installing Servant
-
 This is a detailed walkthrough. For a short version, consult **readme.txt**
 
 

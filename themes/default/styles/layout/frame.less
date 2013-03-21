@@ -5,23 +5,46 @@
 	padding-right: 8%;
 	padding-left: 8%;
 }
+#header {
+	position: fixed;
+	z-index: 100;
+	width: 84%;
+}
 #body, #footer {
-	margin: 0 auto;
-	padding-top: 3%;
 	padding-bottom: 3%;
+}
+#body {
+	padding-top: 7em;
+}
+#footer {
+	padding-top: 3%;
 }
 
 /*Adjust paddings on various screen sizes*/
 @media handheld, only screen and (min-width: 80em){
+	#header {
+		width: 72%;
+	}
 	#header, #body, #footer {
-		padding-right: 12%;
-		padding-left: 12%;
+		padding-right: 14%;
+		padding-left: 14%;
 	}
 }
-
-@media handheld, only screen and (min-width: 110em){
+@media handheld, only screen and (min-width: 95em){
+	#header {
+		width: 64%;
+	}
 	#header, #body, #footer {
 		padding-right: 18%;
 		padding-left: 18%;
+	}
+}
+@media handheld, only screen and (min-width: 110em){
+	#header {
+		width: 56%;
+	}
+	#header, #body, #footer {
+		padding-right: 22%;
+		padding-left: 22%;
 	}
 }

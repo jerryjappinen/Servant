@@ -44,28 +44,15 @@ $output = '
 
 
 
-			// Two-level dropdown menu
+			// Dropdown menu
 			$output .= '<select class="menu-1 menu-2 menu-1-2" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')">';
 			foreach ($servant->site()->articles() as $key => $value) {
 
 				// First-level article
-				$output .= '<option value="'.
-				$servant->paths()->root('domain').$servant->site()->id().
-				'/read/'.$key.'/"'.
-				($key === $servant->article()->tree(0) ? ' selected' : '').
-				'>'.$servant->format()->name($key).'</option>';
-
-				// Nested
-				// } else if (is_array($value)) {
-
-				// 	// Wrap in optgroup
-				// 	$output .= '<optgroup label="'.$servant->format()->name($key).'">';
-				// 	foreach ($value as $key2 => $value2) {
-				// 		$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/'.$key2.'/"'.($key == $servant->article()->parents(0) and $key2 == $servant->article()->id() ? '' : ' selected').'>'.$servant->format()->name($key2).'</option>';
-				// 	}
-				// 	$output .= '</optgroup>';
-
-				// }
+				$output .=
+				'<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/" '.($key === $servant->article()->tree(0) ? ' selected' : '').'>'.
+				$servant->format()->name($key).
+				'</option>';
 
 			}
 			$output .= '</select>';
@@ -82,71 +69,59 @@ $output = '
 
 
 
-			// Level 2 menu
-			$homePage = array_keys($servant->site()->articles());
-			$homePage = $homePage[0];
+			// Submenu in a sidebar
 			$level2 = $servant->site()->articles($servant->article()->tree(0));
-			if ((is_array($level2) and count($level2) > 1) or true) {
+			if (is_array($level2)) {
+				$output .= '<div id="sidebar"><ul class="menu-2">';
 
-				// Menu items
-				if (is_array($level2) and count($level2) > 1) {
+				// List items
+				foreach ($level2 as $key => $value) {
+					$output .= '<li>';
 
-					// List
-					$output .= '<ul class="menu-2">';
-					foreach ($level2 as $key => $value) {
+					// Link HTML
+					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a>';
 
-						// Selected
-						if ($servant->article()->tree(1) === $key) {
-							$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+					// Selected item
+					if ($servant->article()->tree(1) === $key) {
+						$output .= '<strong>'.$link.'</strong>';
+						unset($link);
 
-						// Normal link
-						} else {
-							$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+						// Possible children
+						if (is_array($value)) {
+							$output .= '<ul class="menu-3">';
+
+							// Child pages in array
+							foreach ($value as $key2 => $value2) {
+
+								// Child item HTML
+								$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
+								if ($servant->article()->tree(2) === $key2) {
+									$link = '<strong>'.$link.'</strong>';
+								}
+								$output .= '<li>'.$link.'</li>';
+							}
+							unset($level3, $key2, $value2);
+
+							$output .= '</ul>';
 						}
 
+					// Link only
+					} else {
+						$output .= $link;
 					}
-					$output .= '</ul><div class="clear"></div>';
+					unset($link);
 
-				// Show current article if we're not on the home page
-				// } else if (!in_array($homePage, array($servant->article()->id(), $servant->article()->tree(0)))) {
-				// 	$key = $servant->article()->tree(0);
-				// 	$output .= '<ul class="menu-2"><li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/">'.$servant->format()->name($key).'</a></strong></li></ul><div class="clear"></div>';
+					$output .= '</li>';
 				}
 
+				$output .= '</ul></div>';
 			}
 			unset($level2, $key, $value);
 
 
 
 			// Body content
-			$output .= $servant->template()->content();
-
-
-
-			// Sidebar if needed
-			if (count($servant->article()->tree())-1 >= 2) {
-				$output .= '
-				<div id="sidebar">
-
-					<ul>
-					';
-
-					// Level 3 menu
-					$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
-					if (is_array($level3) and count($level3) > 1) {
-						foreach ($level3 as $key => $value) {
-							$output .= '<li class="'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
-						}
-					}
-					unset($level3, $key, $value);
-
-					$output .= '
-					</ul>
-
-				</div>
-				<div class="clear"></div>
-				';
-			}
+			$output .= '<div id="article">'.$servant->template()->content().'</div><div class="clear"></div>';
 
 			$output .= '
 		</div>

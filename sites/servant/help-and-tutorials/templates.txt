@@ -1,0 +1,2 @@
+
+Templates are PHP code that output HTML dynamically. They are used to generate menus and other page elements that are based on site or article content.

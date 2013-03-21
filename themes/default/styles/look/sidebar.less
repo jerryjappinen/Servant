@@ -1,0 +1,50 @@
+
+#sidebar {
+
+	ul {
+		.shadows();
+		.border-radius(0.2em);
+		background-color: @grey-darkest;
+		color: @white;
+		list-style: none;
+		padding-left: 0;
+		ul {
+			.border-radius(0);
+			.box-shadow(none);
+			background-color: @grey-darker;
+			border-top-width: 0.1em;
+			border-color: @blue;
+		}
+	}
+
+
+
+	// Links
+	a {
+		.thick-border-left();
+		border-color: transparent;
+		padding: 0.6em 1em;
+		color: @white;
+		font-weight: 200;
+		text-decoration: none;
+		@media handheld, only screen and (max-width: @bb-header-accommodate){
+			padding-top: 0.5em;
+			padding-bottom: 0.5em;
+		}
+	}
+
+	// Interaction
+	a:hover {
+		padding-left: 1.4em;
+		padding-right: 0.6em;
+	}
+	a:active {
+		color: @grey-light;
+	}
+
+	// Selected
+	strong a {
+		border-color: @blue;
+	}
+
+}

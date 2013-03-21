@@ -1,0 +1,2 @@
+
+Themes consist of *stylesheets* and *scripts*. CSS, LESS and JS files are supported. All theme files and assets are packaged into one directory. Theme files can be included and organized freely within the theme folder. Servant will load all supported stylesheets and scripts automatically.
