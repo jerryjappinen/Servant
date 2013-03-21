@@ -1,11 +1,19 @@
 
 body.level-2, body.level-3 {
 
+	// Article
 	#article {
 		clear: none;
 		float: left;
-		width: 75%;
 		padding-top: 1em;
+
+		// Width
+		width: 73%;
+		@media handheld, only screen and (min-width: @bb-header-accommodate){
+			width: 68%;
+		}
+
+		// Keep the first title close to the top
 		> h1, > h2, > h3, > h4 {
 			&:first-child {
 				margin-top: 0;
@@ -13,11 +21,17 @@ body.level-2, body.level-3 {
 		}
 	}
 
+	// Sidebar
 	#sidebar {
 		float: left;
-		margin-right: 5%;
+		margin-right: 4%;
 		margin-bottom: 4em;
-		width: 20%;
+
+		// Width
+		width: 23%;
+		@media handheld, only screen and (min-width: @bb-header-accommodate){
+			width: 28%;
+		}
 
 		// Second-level menu
 		ul.menu-2, ol.menu-2 {
