@@ -3,8 +3,6 @@ body.level-2, body.level-3 {
 
 	// Article
 	#article {
-		clear: none;
-		float: left;
 		padding-top: 1em;
 
 		// Width
@@ -23,18 +21,13 @@ body.level-2, body.level-3 {
 
 	// Sidebar
 	#sidebar {
-		float: left;
 		margin-right: 4%;
-		margin-bottom: 4em;
+		margin-bottom: 5%;
 
 		// Width
 		width: 23%;
 		@media handheld, only screen and (min-width: @bb-header-accommodate){
 			width: 28%;
-		}
-
-		// Second-level menu
-		ul.menu-2, ol.menu-2 {
 		}
 
 		.menu-2 li {
@@ -46,6 +39,17 @@ body.level-2, body.level-3 {
 
 		}
 
+	}
+
+	// Both
+	#article, #sidebar {
+		clear: none;
+		float: left;
+		@media handheld, only screen and (max-width: @bb-header-dropdown){
+			float: none;
+			clear: both;
+			width: 100%;
+		}
 	}
 
 }

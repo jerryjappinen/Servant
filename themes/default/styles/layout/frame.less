@@ -6,17 +6,22 @@
 	padding-left: 8%;
 }
 #header {
-	position: fixed;
-	z-index: 100;
-	width: 84%;
+	@media handheld, only screen and (min-width: @bb-header-dropdown){
+		position: fixed;
+		z-index: 100;
+		width: 84%;
+	}
 }
 #body, #footer {
-	padding-bottom: 3%;
+	padding-bottom: 5%;
 }
 #body {
-	padding-top: 7em;
-	@media handheld, only screen and (max-width: @bb-header-accommodate){
+	padding-top: 2%;
+	@media handheld, only screen and (min-width: @bb-header-dropdown) {
 		padding-top: 5em;
+	}
+	@media handheld, only screen and (min-width: @bb-header-accommodate) {
+		padding-top: 7em;
 	}
 }
 #footer {

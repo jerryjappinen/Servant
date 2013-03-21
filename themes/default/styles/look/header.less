@@ -9,23 +9,21 @@
 	a {
 		line-height: 1;
 		color: @white;
-		font-size: 1.2em;
 		text-decoration: none;
 		font-weight: 200;
-		@media handheld, only screen and (max-width: @bb-header-accommodate){
-			font-size: 1em;
+		@media handheld, only screen and (min-width: @bb-header-accommodate) {
+			font-size: 1.2em;
 		}
 	}
 
 	// Navigation links
 	h1 a, li a {
-		padding: 1.2em 1em 0.8em 1em;
-		border-bottom-width: 0.4em;
-		@media handheld, only screen and (max-width: @bb-header-accommodate){
-			padding-top: 1em;
-			padding-right: 0.8em;
-			padding-bottom: 0.6em;
-			padding-left: 0.8em;
+		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+			padding: 1em 0.8em 0.6em 0.8em;
+			border-bottom-width: 0.4em;
+		}
+		@media handheld, only screen and (min-width: @bb-header-accommodate) {
+			padding: 1.2em 1em 0.8em 1em;
 		}
 	}
 
@@ -33,12 +31,14 @@
 	h1 {
 		font-size: 1em;
 		text-transform: uppercase;
-		margin-left: -1em;
+		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+			margin-left: -1em;
+		}
 		a {
 			font-weight: 600;
 			color: @white;
 			.text-shadow(0 0 0.8em @grey-dark);
-			@media handheld, only screen and (max-width: @bb-header-dropdown){
+			@media handheld, only screen and (max-width: @bb-header-dropdown) {
 				letter-spacing: 0.6em;
 				font-size: 2em;
 				font-weight: 100;
@@ -50,11 +50,6 @@
 
 	// Menu items
 	li {
-
-		// Links
-		a {
-
-		}
 
 		// Selected links
 		strong a {

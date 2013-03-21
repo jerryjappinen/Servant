@@ -7,13 +7,13 @@ class ServantArticle extends ServantObject {
 	protected $propertyIndex 	= null;
 	protected $propertyLevel 	= null;
 	protected $propertyName 	= null;
+	protected $propertyOutput 	= null;
+	protected $propertyPath 	= null;
 	protected $propertyParents 	= null;
 	protected $propertySiblings = null;
 	protected $propertySite 	= null;
 	protected $propertyTree 	= null;
 	protected $propertyType 	= null;
-	protected $propertyOutput 	= null;
-	protected $propertyPath 	= null;
 
 
 
@@ -63,11 +63,20 @@ class ServantArticle extends ServantObject {
 	}
 
 	protected function setOutput () {
+
+		// Root path for src attributes
+		$srcUrl = $this->site()->path('domain');
+
+		// Root path for hrefs
+		$hrefUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/'.$this->servant()->action()->id().'/';
+
+		// Relative location for URLs
 		$relativeUrl = substr(pathinfo($this->path('plain'), PATHINFO_DIRNAME), strlen($this->site()->path('plain')));
 		if (!empty($relativeUrl)) {
 			$relativeUrl .= '/';
 		}
-		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $this->site()->path('domain'), $relativeUrl));
+
+		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeUrl, $hrefUrl, $relativeUrl));
 	}
 
 	protected function setParents () {

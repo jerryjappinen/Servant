@@ -2,6 +2,7 @@
 #sidebar {
 
 	ul {
+		margin-bottom: 0;
 		.shadows();
 		.border-radius(0.2em);
 		background-color: @grey-darkest;
@@ -37,6 +38,7 @@
 	a:hover {
 		padding-left: 1.4em;
 		padding-right: 0.6em;
+		background-color: rgba(255, 255, 255, 0.05);
 	}
 	a:active {
 		color: @grey-light;
@@ -44,7 +46,7 @@
 
 	// Selected
 	strong a {
-		border-color: @blue;
+		border-color: @blue-light;
 	}
 
 }

@@ -10,8 +10,9 @@ foreach ($tree as $value) {
 }
 unset($tree, $i);
 
+// FLAG "language-javascript" really doesn't belong here
 $output = '
-	<body class="level-'.count($servant->article()->tree()).' '.implode(' ', $classes).'">
+	<body class="language-javascript level-'.count($servant->article()->tree()).' '.implode(' ', $classes).'">
 		';
 		unset($classes);
 

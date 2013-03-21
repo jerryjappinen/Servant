@@ -1,5 +1,6 @@
 
 #footer {
+
 	@media handheld, only screen and (max-width: @bb-header-dropdown){
 		text-align: center;
 	}
@@ -15,13 +16,15 @@
 	ul {
 		list-style: none;
 		padding-left: 0;
-		margin-left: -0.6em;
+		@media handheld, only screen and (min-width: @bb-header-dropdown){
+			margin-left: -1.2em;
+		}
 	}
 
 	// List items
 	li {
 		display: inline;
-		margin-right: 1em;
+		margin: 0.6em;
 		a {
 			padding: 0.2em 0.6em;
 			display: inline-block;

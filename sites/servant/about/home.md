@@ -22,9 +22,9 @@
 
 <div class="intro">
 	
-	<p class="close-top">Convert regular text or HTML files into web sites. On the fly. Servant runs on PHP, the most popular language used by web hosting services today. It's very easy to install, and can power multiple sites within one installation.</p>
+	<p class="close-top">Convert regular text documents to web pages. On the fly. On PHP, the most popular language used by web hosting services today. It's very easy to install, and can power multiple sites in a single installation.</p>
 
-	<p>Even though Servant is very simple, it caters to the needs of quite advanced users as well. Templates and pages can be scripted with PHP, sites can include custom stylesheets and scripts, and even custom backend functionality can be added.</p>
+	<p>Servant is very simple, and is crafted for those of use who seek robust and understandable environments. Still, it manages to <a href="/features">pack quite a few features </a>. Try it out, it's open-source!</p>
 
 	<p><a href="https://bitbucket.org/Eiskis/servant/get/default.zip" class="button">Download Servant</a> <a href="https://bitbucket.org/Eiskis/servant" target="_blank" class="button green">Source at Bitbucket</a></p>
 
@@ -68,7 +68,18 @@
 
 
 
-<div class="call-to-action">
+
+<img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar">
+
+Servant is an open-source project authored by <a href="http://eiskis.net/" target="_blank">Jerry Jäppinen</a>. It’s hosted on Bitbucket.
+
+Contributions are gladly accepted as pull requests. Clone the <a href="https://bitbucket.org/Eiskis/servant/src" target="_blank">source code</a> and see our current <a href="https://bitbucket.org/Eiskis/servant/issues?status=new&amp;status=open" target="_blank">tickets</a>. You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> for any questions or suggestions.
+
+Servant is released under <a href="../lgpl.txt" target="_blank">LGPL</a>.
+
+
+
+<div class="call-to-action hidden">
 	<h2><a href="#">View all features</a></h2>
 	<p>Or learn more:</p>
 

@@ -1,0 +1,12 @@
+
+For more advanced use cases, PHP templates are supported. They allow you to write dynamic pages, where you can generate content based what's available on your site or environment.
+
+
+
+## Examples
+
+#### Dynamic details of current article
+
+	// Dynamic title
+	$parents = $servant->article()->parents();
+	echo '<h1>'.(!empty($parents) ? $parents : $servant->site()->name()).': '.$servant->article()->name().'</h1>'

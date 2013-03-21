@@ -15,7 +15,7 @@
 
 <div class="column four last">
 	<h2>Extendable</h2>
-	<p>Create your own themes, site-specific styling, add scripts, write dynamic pages... Servant is flexible when needed, but features don't come in the way when you just want something simple.</p>
+	<p>Create your own themes, site-specific styling, add scripts, write dynamic pages... Servant has a ton of features, but they don't come in the way.</p>
 </div>
 <div class="clear"></div>
 
