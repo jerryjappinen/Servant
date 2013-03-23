@@ -24,7 +24,7 @@
 
 	<tr>
 		<th scope="row"><code>index()</code></th>
-		<td>The index number of the article in its category. Articles are sorted alphabetically by ID, and the index number of the first </td>
+		<td>The index number of the article on its level. Articles are sorted alphabetically by ID, and the index number of the first </td>
 		<td>Integer</td>
 	</tr>
 
@@ -54,20 +54,20 @@
 
 	<tr>
 		<th scope="row"><code>parents()</code></th>
-		<td></td>
-		<td></td>
+		<td>List possible parent nodes in <code>tree()</code>. <code>parents(0)</code> will return the direct parent if one exists.</td>
+		<td>List of parent node IDs (reversed order).</td>
 	</tr>
 
 	<tr>
 		<th scope="row"><code>siblings()</code></th>
-		<td></td>
-		<td></td>
+		<td>Lists all articles on the same level, but not the article itself.</td>
+		<td>List of sitemap node IDs.</td>
 	</tr>
 
 	<tr>
 		<th scope="row"><code>site()</code></th>
-		<td></td>
-		<td></td>
+		<td>Site</td>
+		<td><a href="site">ServantSite object</a>.</td>
 	</tr>
 
 	<tr>

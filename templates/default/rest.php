@@ -15,29 +15,31 @@ echo '<div id="footer">';
 		}
 
 		// Pages & generic stuff
-		echo '<h2>'.$servant->site()->name().'</h2>
-		<ul>
-			<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></li>
+		echo '<dl>
+			<dt>'.$servant->site()->name().'</dt>
+			<dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></dd>
 		';
 
 		// Create footer links for articles
 		foreach ($pages as $id) {
-			echo '<li><a href=".">'.$servant->format()->name($id).'</a></li>';
+			echo '<dd><a href=".">'.$servant->format()->name($id).'</a></dd>';
 		}
-		echo '</ul>';
+		echo '</dl>';
 
 		// Create footer links for categories
 		foreach ($categories as $id) {
-			echo '<h2>'.$servant->format()->name($id).'</h2><ul>';
+			echo '<dl>
+				<dt>'.$servant->format()->name($id).'</dt>
+			';
 			foreach ($servant->site()->articles($id) as $key => $value) {
-				echo '<li><a href=".">'.$servant->format()->name($key).'</a></li>';
+				echo '<dd><a href=".">'.$servant->format()->name($key).'</a></dd>';
 			}
-			echo '</ul>';
+			echo '</dl>';
 		}
 		echo '<div class="clear"></div>';
 
 		// Debug stuff
-		// echo htmlDump($servant->site()->articles());
+		echo htmlDump($servant->site()->dump());
 
 echo '</div>';
 

@@ -21,8 +21,6 @@
 
 
 
-<h1>Key features</h1>
-
 <div class="column three">
 	<h3>Convert text files to web pages</h3>
 	<p>Text files + HTML and Markdown documents are supported. PHP can also be used for scripting.</p>

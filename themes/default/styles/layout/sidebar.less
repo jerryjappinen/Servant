@@ -5,28 +5,26 @@ body.level-2, body.level-3 {
 	#article {
 		padding-top: 1em;
 
-		// Width
-		width: 73%;
-		@media handheld, only screen and (min-width: @bb-header-accommodate){
+		// Widths
+		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+			width: 73%;
+		}
+		@media handheld, only screen and (min-width: @bb-header-accommodate) {
 			width: 68%;
 		}
 
-		// Keep the first title close to the top
-		> h1, > h2, > h3, > h4 {
-			&:first-child {
-				margin-top: 0;
-			}
-		}
 	}
 
 	// Sidebar
 	#sidebar {
-		margin-right: 4%;
+		margin-left: 4%;
 		margin-bottom: 5%;
 
-		// Width
-		width: 23%;
-		@media handheld, only screen and (min-width: @bb-header-accommodate){
+		// Widths
+		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+			width: 23%;
+		}
+		@media handheld, only screen and (min-width: @bb-header-accommodate) {
 			width: 28%;
 		}
 
@@ -41,15 +39,31 @@ body.level-2, body.level-3 {
 
 	}
 
-	// Both
+	// Float on large screens
 	#article, #sidebar {
-		clear: none;
-		float: left;
-		@media handheld, only screen and (max-width: @bb-header-dropdown){
-			float: none;
-			clear: both;
-			width: 100%;
+		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+			clear: none;
+			float: right;
 		}
 	}
+
+	// Condenced styling on small screens
+	// FLAG replace with separate trigger
+	// #sidebar {
+	// 	@media handheld, only screen and (max-width: @bb-header-dropdown) {
+	// 		li a {
+	// 			.transition-property(height);
+	// 			.transition-duration(1s);
+	// 			padding-top: 0;
+	// 			padding-bottom: 0;
+	// 			line-height: 2.4em;
+	// 			height: 0;
+	// 			overflow: hidden;
+	// 		}
+	// 		li strong a, &.open li a {
+	// 			height: 2.4em;
+	// 		}
+	// 	}
+	// }
 
 }

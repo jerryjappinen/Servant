@@ -1,42 +1,49 @@
 
 // Buttons
 .button {
+	text-align: center;
 	display: inline-block;
 	line-height: 1.4em;
 	height: 1.4em;
-	padding: 0.8em 2em 0.75em 2em;
+	padding: 0.7em 2em 0.65em 2em;
 	border-top-width: 0.15em;
 	border-bottom-width: 0.2em;
 	.border-radius(0.15em);
 	.shadows();
 	font-size: 1.1em;
 	text-decoration: none;
-
-	// Interaction
-	&:hover {
-		margin-top: 0.15em;
-		margin-bottom: 0.15em;
-		padding-top: 0.65em;
-		padding-bottom: 0.6em;
-	}
-	&:active {
-		margin-top: 0.3em;
-		margin-bottom: 0.3em;
-		padding-top: 0.5em;
-		padding-bottom: 0.45em;
-	}
+	color: @white;
 
 	// Blue colors
-	color: @white;
 	background-color: @blue;
 	border-color: @blue-dark;
 	border-top-color: @blue-light;
+	&:hover {
+		background-color: @blue-dark;
+		border-color: @blue-darker;
+		border-top-color: @blue;
+	}
+	&:active {
+		background-color: @blue;
+		border-color: @blue-dark;
+		border-top-color: @blue-light;
+	}
 
 	// Green version
 	&.green {
 		background-color: @green;
 		border-color: @green-dark;
 		border-top-color: @green-light;
+		&:hover {
+			background-color: @green-dark;
+			border-color: @green-darker;
+			border-top-color: @green;
+		}
+		&:active {
+			background-color: @green;
+			border-color: @green-dark;
+			border-top-color: @green-light;
+		}
 	}
 
 	// Magenta version
@@ -44,6 +51,16 @@
 		background-color: @magenta;
 		border-color: @magenta-dark;
 		border-top-color: @magenta-light;
+		&:hover {
+			background-color: @magenta-dark;
+			border-color: @magenta-darker;
+			border-top-color: @magenta;
+		}
+		&:active {
+			background-color: @magenta;
+			border-color: @magenta-dark;
+			border-top-color: @magenta-light;
+		}
 	}
 
 }

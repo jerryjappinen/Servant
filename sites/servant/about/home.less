@@ -2,11 +2,10 @@
 // Home page
 body.article-about {
 
-	#body {
-		text-align: center;
-		font-weight: 200;
-		padding-bottom: 10%;
+	// Main description
+	.intro {
 
+		// Main title
 		h1 {
 			font-size: 4em;
 			font-weight: 100;
@@ -15,66 +14,54 @@ body.article-about {
 			color: @magenta;
 		}
 
-		.intro {
-			margin-bottom: 2.4em;
-			p {
-				max-width: 50em;
-				margin-right: auto;
-				margin-left: auto;
-			}
-			.button {
-				margin: 0.5em;
-			}
+		text-align: center;
+		.column {
+			text-align: left;
 		}
-
-		// White thingies
-		.column.step {
+		margin-bottom: 2.4em;
+		.buttons {
 			margin-top: 2em;
-			margin-bottom: 0em;
-
-			.box {
-
-				// Numbers
-				h3 {
-
-				}
-				.count {
-					display: inline-block;
-					.border-radius(9999em);
-
-					font-size: 2em;
-					line-height: 3em;
-					width: 3em;
-					height: 3em;
-
-					font-weight: 100;
-					font-style: normal;
-					background-color: @blue;
-					color: @white;
-				}
-
-				// Alternate colors
-				&.green .count {
-					background-color: @green;
-				}
-				&.magenta .count {
-					background-color: @magenta;
-				}
-
-			}
-
 		}
+		.button {
+			margin: 0.6em;
+			@media handheld, only screen and (min-width: @bb-header-accommodate) {
+			}
+			@media handheld, only screen and (max-width: @bb-header-dropdown) {
+				display: block;
+				margin-right: 0;
+				margin-top: 1em;
+				margin-bottom: 1em;
+				width: 90%;
+				padding-right: 5%;
+				padding-left: 5%;
+			}
+		}
+	}
 
+	.limit {
+		margin: 0 auto;
+		max-width: 55em;
 	}
 
 	// Splash intro
 	.showoff {
-		
+		text-align: center;
+		.buffer {
+			@media handheld, only screen and (max-width: @bb-header-dropdown) {
+				padding: 0;
+			}
+		}
 	}
 
 	// My pic
-	.avatar img, img.avatar {
-		max-width: 6em;
+	.author {
+		margin-top: 2em;
+		.column.fixed {
+			width: 8em;
+		}
+		.column.fluid > .container {
+			margin-left: 9.5em;
+		}
 	}
 
 	// Call to action

@@ -75,7 +75,8 @@ class ServantAvailable extends ServantObject {
 
 	// Templates are single template files or directories
 	protected function setTemplates () {
-		return $this->set('templates', array_merge($this->findFiles('templates', $this->servant()->settings()->formats('templates')), $this->findDirectories('templates')));
+		$formats = $this->servant()->settings()->formats('templates');
+		return $this->set('templates', array_merge($this->findFiles('templates', $formats), $this->findDirectories('templates')));
 	}
 
 	// Themes are single files or directories of stylesheets and scripts

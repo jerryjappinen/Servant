@@ -31,7 +31,7 @@ $output = '
 
 					// Selected
 					if ($servant->article()->tree(0) === $key) {
-						$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+						$output .= '<li class="selected"><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 
 					// Normal link
 					} else {
@@ -77,14 +77,13 @@ $output = '
 
 				// List items
 				foreach ($level2 as $key => $value) {
-					$output .= '<li>';
 
 					// Link HTML
 					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a>';
 
 					// Selected item
 					if ($servant->article()->tree(1) === $key) {
-						$output .= '<strong>'.$link.'</strong>';
+						$output .= '<li class="selected"><strong>'.$link.'</strong>';
 						unset($link);
 
 						// Possible children
@@ -97,22 +96,23 @@ $output = '
 								// Child item HTML
 								$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
 								if ($servant->article()->tree(2) === $key2) {
-									$link = '<strong>'.$link.'</strong>';
+									$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
+								} else {
+									$output .= '<li>'.$link.'</li>';
 								}
-								$output .= '<li>'.$link.'</li>';
 							}
 							unset($level3, $key2, $value2);
 
 							$output .= '</ul>';
 						}
+						$output .= '</li>';
 
 					// Link only
 					} else {
-						$output .= $link;
+						$output .= '<li>'.$link.'</li>';
 					}
 					unset($link);
 
-					$output .= '</li>';
 				}
 
 				$output .= '</ul></div>';

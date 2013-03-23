@@ -2,12 +2,12 @@
 /*Defaults*/
 #header, #body, #footer {
 	margin: 0 auto;
-	padding-right: 8%;
-	padding-left: 8%;
 }
 #header {
 	@media handheld, only screen and (min-width: @bb-header-dropdown){
 		position: fixed;
+		top: 0;
+		left: 0;
 		z-index: 100;
 		width: 84%;
 	}
@@ -16,7 +16,7 @@
 	padding-bottom: 5%;
 }
 #body {
-	padding-top: 2%;
+	padding-top: 3%;
 	@media handheld, only screen and (min-width: @bb-header-dropdown) {
 		padding-top: 5em;
 	}
@@ -28,7 +28,11 @@
 	padding-top: 3%;
 }
 
-/*Adjust paddings on various screen sizes*/
+/*Widths*/
+#header, #body, #footer {
+	padding-right: 8%;
+	padding-left: 8%;
+}
 @media handheld, only screen and (min-width: 80em){
 	#header {
 		width: 72%;

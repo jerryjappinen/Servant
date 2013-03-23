@@ -76,6 +76,49 @@ class ServantObject {
 	}
 
 	// Report failure, throw an error
+	protected function dump () {
+		$results = array();
+
+		// We can choose what to dump
+		$arguments = func_get_args();
+		$arguments = array_flatten($arguments);
+
+		// Return what was asked
+		$properties = array();
+		if ($arguments and !empty($arguments)) {
+			$properties = $arguments;
+
+		// Default to dumping all available properties (does not use custom getters)
+		} else {
+			$classProperties = get_class_vars(get_class($this));
+			unset($classProperties[$this->propertyName('main')]);
+			foreach (array_keys($classProperties) as $key => $value) {
+				$properties[] = $this->unPropertyName($value);
+			}
+		}
+
+		// Get values
+		foreach ($properties as $property) {
+			$value = $this->get($property);
+
+			// Call dump() for children, too
+			if (is_object($value) and is_subclass_of($value, 'ServantObject')) {
+				$results[$property] = ''.$value;
+			} else {
+				$results[$property] = $value;
+			}
+
+		}
+
+		// Only one thing was asked for
+		if ($arguments and !empty($arguments) and count($results) === 1) {
+			$results = $results[0];
+		}
+
+		return $results;
+	}
+
+	// Report failure, throw an error
 	protected function fail ($message, $code = 500) {
 		throw new Exception($message, $code);
 		return $this;
@@ -109,7 +152,7 @@ class ServantObject {
 
 
 
-	// Special methods
+	// Wrapper methods
 
 	// Getter that calls (auto) setter when needed
 	protected function getAndSet ($id, $tree = null) {
@@ -150,11 +193,21 @@ class ServantObject {
 	// Private helpers
 
 	// Naming convention helpers
+	// NOTE reverse namers are slow
 	private function propertyName ($id) {
 		return 'property'.ucfirst($id);
 	}
+	private function unPropertyName ($id) {
+		$base = substr($id, strlen('property'));
+		$name = strtolower(substr($base, 0, 1)).substr($base, 1);
+		return $name;
+	}
 	private function setterName ($id) {
 		return 'set'.ucfirst($id);
+	}
+	private function unSetterName ($id) {
+		$base = substr($id, strlen('set'));
+		return strtolower(substr($base, 0, 1)).substr($base, 1);
 	}
 
 }
