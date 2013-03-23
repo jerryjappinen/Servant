@@ -1,5 +1,5 @@
 <?php
-$servant->files()->load('urls', 'less');
+$servant->utilities()->load('urls', 'less');
 
 // All stylesheets for site
 $output = '';

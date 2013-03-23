@@ -14,7 +14,7 @@ class ServantSite extends ServantObject {
 
 
 	// Select ID and article while initializing
-	protected function initialize ($id = null, $selectedArticle = null) {
+	public function initialize ($id = null, $selectedArticle = null) {
 		if ($id) {
 			$this->setId($id);
 		}
@@ -61,7 +61,7 @@ class ServantSite extends ServantObject {
 	// Setters
 
 	protected function setArticle ($selectedArticle = null) {
-		return $this->set('article', new ServantArticle($this->servant(), $this, $selectedArticle));
+		return $this->set('article', create(new ServantArticle($this->servant()))->init($this, $selectedArticle));
 	}
 
 	protected function setArticles () {

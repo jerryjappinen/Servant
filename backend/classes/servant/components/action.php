@@ -34,7 +34,7 @@ class ServantAction extends ServantObject {
 
 
 	// Initialization
-	protected function initialize ($id = null) {
+	public function initialize ($id = null) {
 		if ($id) {
 			$this->setId($id);
 		}

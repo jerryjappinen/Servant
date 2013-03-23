@@ -12,7 +12,7 @@ class ServantTemplate extends ServantObject {
 
 
 	// Select ID when initializing
-	protected function initialize ($id = null) {
+	public function initialize ($id = null) {
 		if ($id) {
 			$this->setId($id);
 		}

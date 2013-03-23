@@ -1,6 +1,5 @@
 <?php
 
-// FLAG replication with scripts & stylesheets
 class ServantTheme extends ServantObject {
 
 	// Properties
@@ -12,7 +11,7 @@ class ServantTheme extends ServantObject {
 
 
 	// Select ID when initializing
-	protected function initialize ($id = false) {
+	public function initialize ($id = false) {
 		if ($id) {
 			$this->setId($id);
 		}

@@ -9,14 +9,16 @@ class ServantMain extends ServantObject {
 
 
 
+	// Startup
+	public function initialize ($paths, $settings) {
+		return $this->setPaths($paths)->setSettings($settings);
+	}
+
 	// Full execution
-	public function execute ($paths, $settings, $action = null, $site = null, $selectedArticle = null) {
+	public function execute ($action = null, $site = null, $selectedArticle = null) {
 
-		// We initialize and select things
-		$this->setPaths($paths)->setSettings($settings)->setAction($action)->setSite($site, $selectedArticle);
-
-		// We run action
-		$this->action()->run();
+		// We select things and run action
+		$this->setAction($action)->setSite($site, $selectedArticle)->action()->run();
 
 		// Sometimes we store our response
 		if ($this->settings()->cache('server') > 0 and !$this->response()->exists()) {
@@ -44,6 +46,7 @@ class ServantMain extends ServantObject {
 	protected $propertySite 		= null;
 	protected $propertyTemplate 	= null;
 	protected $propertyTheme 		= null;
+	protected $propertyUtilities 	= null;
 
 	// Public getters for children
 	public function article () {
@@ -55,37 +58,40 @@ class ServantMain extends ServantObject {
 
 	// Setters for children
 	protected function setAction ($id = null) {
-		return $this->set('action', new ServantAction($this, $id));
+		return $this->set('action', create(new ServantAction($this))->init($id));
 	}
 	protected function setAvailable () {
-		return $this->set('available', new ServantAvailable($this));
+		return $this->set('available', create(new ServantAvailable($this))->init());
 	}
 	protected function setFiles () {
-		return $this->set('files', new ServantFiles($this));
+		return $this->set('files', create(new ServantFiles($this))->init());
 	}
 	protected function setFormat () {
-		return $this->set('format', new ServantFormat($this));
+		return $this->set('format', create(new ServantFormat($this))->init());
 	}
 	protected function setHttpHeaders () {
-		return $this->set('httpHeaders', new ServantHttpHeaders($this));
+		return $this->set('httpHeaders', create(new ServantHttpHeaders($this))->init());
 	}
 	protected function setPaths ($paths) {
-		return $this->set('paths', new ServantPaths($this, $paths));
+		return $this->set('paths', create(new ServantPaths($this))->init($paths));
 	}
 	protected function setResponse () {
-		return $this->set('response', new ServantResponse($this));
+		return $this->set('response', create(new ServantResponse($this))->init());
 	}
 	protected function setSettings ($settings = array()) {
-		return $this->set('settings', new ServantSettings($this, $settings));
+		return $this->set('settings', create(new ServantSettings($this))->init($settings));
 	}
 	protected function setSite ($id = null, $selectedArticle = null) {
-		return $this->set('site', new ServantSite($this, $id, $selectedArticle));
+		return $this->set('site', create(new ServantSite($this))->init($id, $selectedArticle));
 	}
 	protected function setTemplate ($id = null) {
-		return $this->set('template', new ServantTemplate($this, $id));
+		return $this->set('template', create(new ServantTemplate($this))->init($id));
 	}
 	protected function setTheme ($id = null) {
-		return $this->set('theme', new ServantTheme($this, $id));
+		return $this->set('theme', create(new ServantTheme($this))->init($id));
+	}
+	protected function setUtilities () {
+		return $this->set('utilities', create(new ServantUtilities($this))->init());
 	}
 
 
@@ -93,7 +99,7 @@ class ServantMain extends ServantObject {
 	// Built-in debugger
 	protected $propertyDev = null;
 	protected function setDev () {
-		return $this->set('dev', new ServantDev($this));
+		return $this->set('dev', create(new ServantDev($this))->init());
 	}
 
 }

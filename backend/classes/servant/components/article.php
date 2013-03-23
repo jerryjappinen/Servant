@@ -18,10 +18,10 @@ class ServantArticle extends ServantObject {
 
 
 	// Select ID when initializing
-	protected function initialize ($site = null, $tree = null) {
+	public function initialize ($site = null, $tree = null) {
 
 		// Load utilities
-		$this->servant()->files()->load('urls');
+		$this->servant()->utilities()->load('urls');
 
 		// Select things
 		if ($site) {

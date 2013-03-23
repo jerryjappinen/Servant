@@ -21,15 +21,20 @@ class ServantObject {
 		if (get_class($main) === 'ServantMain') {
 			$this->set('main', $main);
 
-			// Optionally call class-specific initialization method
-			if (method_exists($this, 'initialize')) {
-				$temp = func_get_args();
-				array_shift($temp);
-				call_user_func_array(array($this, 'initialize'), $temp);
-			}
-
 		} else {
 			return $this->fail('New objects need a main Servant instance');
+		}
+
+		return $this;
+	}
+
+	// Generic initializer
+	public function init () {
+
+		// Also run the optional class-specific method
+		if (method_exists($this, 'initialize')) {
+			$arguments = func_get_args();
+			call_user_func_array(array($this, 'initialize'), $arguments);
 		}
 
 		return $this;

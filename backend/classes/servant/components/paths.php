@@ -68,7 +68,7 @@ class ServantPaths extends ServantObject {
 
 
 	// Kickstart all paths
-	protected function initialize ($paths) {
+	public function initialize ($paths) {
 		$results = array();
 
 		// Check required paths against against what's given

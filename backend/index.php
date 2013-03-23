@@ -7,7 +7,7 @@ date_default_timezone_set('UTC');
 
 
 // Custom error handling functions
-// set_error_handler('handleFubarError');
+set_error_handler('handleFubarError');
 set_exception_handler('handleFubarException');
 function handleFubarError ($errno, $errstr) {
 	return handleFubar($errno);
@@ -85,9 +85,6 @@ foreach (glob($paths['documentRoot'].$paths['root'].$paths['helpers'].'*.php') a
 foreach (rglob_files($paths['documentRoot'].$paths['root'].$paths['classes'], 'php') as $path) {
 	require_once $path;
 }
-// foreach (rglob_files($paths['documentRoot'].$paths['root'].$paths['utilities'], 'php') as $path) {
-// 	require_once $path;
-// }
 unset($path);
 
 
@@ -135,7 +132,7 @@ unset($i, $key);
 unset($_SERVER, $_COOKIE, $_GET, $_POST, $_REQUEST, $_FILES);
 
 // Run Servant
-create(new ServantMain)->execute($paths, $settings, $action, $site, $article);
+create(new ServantMain)->init($paths, $settings)->execute($action, $site, $article);
 unset($paths, $settings, $action, $site, $article);
 die();
 ?>
