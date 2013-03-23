@@ -31,7 +31,7 @@ $output = '
 
 					// Selected
 					if ($servant->article()->tree(0) === $key) {
-						$output .= '<li class="selected"><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
+						$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</a></strong></li>';
 
 					// Normal link
 					} else {

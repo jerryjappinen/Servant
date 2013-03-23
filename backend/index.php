@@ -7,10 +7,10 @@ date_default_timezone_set('UTC');
 
 
 // Custom error handling functions
-set_error_handler('handleFubarError');
+// set_error_handler('handleFubarError');
 set_exception_handler('handleFubarException');
 function handleFubarError ($errno, $errstr) {
-	return handleFubar($errno);
+	return handleFubar($errno, $errstr);
 }
 function handleFubarException ($exception) {
 	return handleFubar($exception->getCode(), $exception->getMessage());

@@ -1,7 +1,7 @@
 <?php
 
 // Footer
-echo '<div id="footer">';
+echo '<div class="footer container">';
 
 		// Sort articles into pages and categories
 		$pages = array();
@@ -15,24 +15,32 @@ echo '<div id="footer">';
 		}
 
 		// Pages & generic stuff
-		echo '<dl><dt>'.$servant->site()->name().'</dt><dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></dd>
-		';
+		echo '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></li>';
 
 		// Create footer links for articles
 		foreach ($pages as $id) {
-			echo '<dd><a href=".">'.$servant->format()->name($id).'</a></dd>';
+			echo '<li><a href=".">'.$servant->format()->name($id).'</a></li>';
 		}
-		echo '</dl>';
+		echo '</ul></div>';
 
 		// Create footer links for categories
+		$i = 2;
 		foreach ($categories as $id) {
-			echo '<dl><dt>'.$servant->format()->name($id).'</dt>';
+			echo $i === 1 ? '<div class="row">' : '';
+			echo '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->name($id).'</li>';
 			foreach ($servant->site()->articles($id) as $key => $value) {
-				echo '<dd><a href=".">'.$servant->format()->name($key).'</a></dd>';
+				echo '<li><a href=".">'.$servant->format()->name($key).'</a></li>';
 			}
-			echo '</dl>';
+			echo '</ul></div>';
+
+			// Handle counter
+			if ($i === 4) {
+				echo '</div>';
+				$i = 1;
+			} else {
+				$i++;
+			}
 		}
-		echo '<div class="clear"></div>';
 
 		// Debug stuff
 		// echo htmlDump($servant->site()->dump());

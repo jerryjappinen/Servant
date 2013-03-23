@@ -3,6 +3,7 @@
 class ServantFiles extends ServantObject {
 
 	// Load utilities upon initialization
+	// FLAG this fails, and I don't know why
 	// public function initialize () {
 	// 	$this->servant()->utilities()->load('markdown');
 	// 	return $this;
