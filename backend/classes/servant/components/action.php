@@ -20,7 +20,7 @@ class ServantAction extends ServantObject {
 		// Include action's code
 		try {
 			foreach ($this->files('server') as $path) {
-				$this->servant()->files()->run($path);
+				$this->servant()->files()->read($path);
 			}
 
 		// If it fails, we create output like gentlemen

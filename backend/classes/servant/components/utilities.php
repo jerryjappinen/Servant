@@ -22,13 +22,13 @@ class ServantUtilities extends ServantObject {
 
 				// Single file
 				if (is_file($path.'.php')) {
-					$this->servant()->files()->run($path.'.php');
+					$this->servant()->files()->run($path.'.php', array('servant' => $this->servant()));
 					$this->setLoaded($name);
 
 				// Directory
 				} else if (is_dir($path.'/')) {
 					foreach (rglob_files($path.'/', 'php') as $file) {
-						$this->servant()->files()->run($file);
+						$this->servant()->files()->run($file, array('servant' => $this->servant()));
 					}
 					$this->setLoaded($name);
 
