@@ -12,7 +12,7 @@ unset($tree, $i);
 
 // FLAG "language-javascript" really doesn't belong here
 $output = '
-	<body class="language-javascript level-'.count($servant->article()->tree()).' '.implode(' ', $classes).'">
+	<body class="language-javascript level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">
 		';
 		unset($classes);
 
@@ -91,7 +91,14 @@ $output = '
 							$output .= '<ul class="menu-3">';
 
 							// Child pages in array
+							$skip = true;
 							foreach ($value as $key2 => $value2) {
+
+								// Skip first
+								if ($skip) {
+									$skip = false;
+									continue;
+								}
 
 								// Child item HTML
 								$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
@@ -101,7 +108,7 @@ $output = '
 									$output .= '<li>'.$link.'</li>';
 								}
 							}
-							unset($level3, $key2, $value2);
+							unset($skip, $level3, $key2, $value2);
 
 							$output .= '</ul>';
 						}

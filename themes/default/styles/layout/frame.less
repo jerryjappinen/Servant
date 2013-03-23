@@ -4,7 +4,7 @@
 	margin: 0 auto;
 }
 #header {
-	@media handheld, only screen and (min-width: @bb-header-dropdown){
+	@media handheld, only screen and (min-width: @bb-stack){
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -17,10 +17,10 @@
 }
 #body {
 	padding-top: 3%;
-	@media handheld, only screen and (min-width: @bb-header-dropdown) {
+	@media handheld, only screen and (min-width: @bb-stack) {
 		padding-top: 5em;
 	}
-	@media handheld, only screen and (min-width: @bb-header-accommodate) {
+	@media handheld, only screen and (min-width: @bb-accommodate) {
 		padding-top: 7em;
 	}
 }

@@ -1,7 +1,7 @@
 
 #footer {
 
-	@media handheld, only screen and (max-width: @bb-header-dropdown){
+	@media handheld, only screen and (max-width: @bb-stack) {
 		text-align: center;
 	}
 
@@ -12,13 +12,16 @@
 		clear: none;
 		height: 11em;
 		overflow: hidden;
+		@media handheld, only screen and (max-width: @bb-stack) {
+			width: 50%;
+		}
 	}
 	dt {
 		font-size: 1.3em;
 		font-weight: inherit;
 	}
 	dd {
-		@media handheld, only screen and (min-width: @bb-header-dropdown){
+		@media handheld, only screen and (min-width: @bb-stack) {
 			margin-left: -0.6em;
 		}
 		// List items

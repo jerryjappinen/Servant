@@ -14,6 +14,5 @@ $output .= '
 </table>
 ';
 
-$output = Markdown($output);
-echo $output;
+echo Markdown($output);
 ?>

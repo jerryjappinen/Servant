@@ -2,6 +2,13 @@
 
 class ServantFiles extends ServantObject {
 
+	// Load utilities upon initialization
+	public function initialize () {
+		$this->load('markdown');
+		return $this;
+	}
+
+
 	// Open and get file contents in a renderable format
 	public function read ($path, $type = '') {
 
@@ -29,7 +36,40 @@ class ServantFiles extends ServantObject {
 		}
 	}
 
+	// Load utilities
+	public function load () {
+
+		// Accept input in various ways
+		$arguments = func_get_args();
+		$arguments = array_flatten($arguments);
+
+		// Load utilities
+		foreach ($arguments as $name) {
+			$path = $this->servant()->paths()->utilities('server').$name;
+
+			// Single file
+			if (is_file($path.'.php')) {
+				$this->run($path.'.php', true);
+
+			// Directory
+			} else if (is_dir($path.'/')) {
+				foreach (rglob_files($path.'/', 'php') as $file) {
+					$this->run($file, true);
+				}
+
+			// Not found
+			} else {
+				$this->fail('Missing utility '.$name);
+			}
+
+		}
+
+		return $this;
+	}
+
 	// Run scripts files cleanly
+	// Argument 1: path to a file
+	// Argument 2: use include_once
 	public function run () {
 
 		// Helper shorthand for main object
@@ -38,9 +78,13 @@ class ServantFiles extends ServantObject {
 		// Run each script
 		ob_start();
 
-		// We only support PHP files
-		if (is_file(func_get_arg(0)) and detect(func_get_arg(0), 'extension') === 'php') {
-			include func_get_arg(0);
+		// Include script
+		if (is_file(func_get_arg(0))) {
+			if (func_num_args() > 1 and func_get_arg(1)) {
+				include_once func_get_arg(0);
+			} else {
+				include func_get_arg(0);
+			}
 		}
 
 		// Catch output reliably

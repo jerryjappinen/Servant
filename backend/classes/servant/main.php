@@ -30,7 +30,7 @@ class ServantMain extends ServantObject {
 
 
 
-	// Children
+	// Components
 
 	// Properties
 	protected $propertyAction 		= null;

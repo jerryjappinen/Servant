@@ -6,10 +6,10 @@ body.level-2, body.level-3 {
 		padding-top: 1em;
 
 		// Widths
-		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+		@media handheld, only screen and (min-width: @bb-stack) {
 			width: 73%;
 		}
-		@media handheld, only screen and (min-width: @bb-header-accommodate) {
+		@media handheld, only screen and (min-width: @bb-accommodate) {
 			width: 68%;
 		}
 
@@ -17,14 +17,14 @@ body.level-2, body.level-3 {
 
 	// Sidebar
 	#sidebar {
-		margin-left: 4%;
 		margin-bottom: 5%;
 
 		// Widths
-		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+		@media handheld, only screen and (min-width: @bb-stack) {
 			width: 23%;
+			margin-left: 4%;
 		}
-		@media handheld, only screen and (min-width: @bb-header-accommodate) {
+		@media handheld, only screen and (min-width: @bb-accommodate) {
 			width: 28%;
 		}
 
@@ -41,7 +41,7 @@ body.level-2, body.level-3 {
 
 	// Float on large screens
 	#article, #sidebar {
-		@media handheld, only screen and (min-width: @bb-header-dropdown) {
+		@media handheld, only screen and (min-width: @bb-stack) {
 			clear: none;
 			float: right;
 		}
@@ -50,7 +50,7 @@ body.level-2, body.level-3 {
 	// Condenced styling on small screens
 	// FLAG replace with separate trigger
 	// #sidebar {
-	// 	@media handheld, only screen and (max-width: @bb-header-dropdown) {
+	// 	@media handheld, only screen and (max-width: @bb-stack) {
 	// 		li a {
 	// 			.transition-property(height);
 	// 			.transition-duration(1s);

@@ -13,8 +13,6 @@
 			.border-radius(0);
 			.box-shadow(none);
 			background-color: @grey-darker;
-			border-top-width: 0.1em;
-			border-color: @blue;
 		}
 	}
 
@@ -26,9 +24,8 @@
 		border-color: transparent;
 		padding: 0.6em 1em;
 		color: @white;
-		font-weight: 200;
 		text-decoration: none;
-		@media handheld, only screen and (max-width: @bb-header-accommodate){
+		@media handheld, only screen and (max-width: @bb-accommodate){
 			padding-top: 0.5em;
 			padding-bottom: 0.5em;
 		}
@@ -44,12 +41,40 @@
 			background-color: rgba(0, 0, 0, 0.1);
 		}
 	a:active {
-		color: @grey-light;
+		color: @grey-lighter;
 	}
 
 	// Selected
 	strong a {
 		border-color: @blue-light;
+		background-color: @grey-darker;
+		font-weight: bold;
 	}
 
+}
+
+// Don't show parent list item as selected on lower levels
+body.level-3 {
+	#sidebar .menu-2 {
+		strong a {
+			border-color: transparent;
+			font-weight: 200;
+		}
+		.menu-3 strong a {
+			border-color: @blue-light;
+			font-weight: bold;
+		}
+	}
+
+	// We're on first level
+	&.index-0 #sidebar .menu-2 {
+		strong a {
+			border-color: @blue-light;
+			font-weight: bold;
+		}
+		.menu-3 strong a {
+			border-color: transparent;
+			font-weight: 200;
+		}
+	}
 }

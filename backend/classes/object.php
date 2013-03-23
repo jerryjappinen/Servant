@@ -79,7 +79,7 @@ class ServantObject {
 	protected function dump () {
 		$results = array();
 
-		// We can choose what to dump
+		// Accept input in various ways
 		$arguments = func_get_args();
 		$arguments = array_flatten($arguments);
 

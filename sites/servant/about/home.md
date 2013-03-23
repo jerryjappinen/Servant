@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="column six last">
-			<p>Servant is very simple, and is crafted for those of use who seek robust and understandable environments. Still, it manages to <a href="/features">pack quite a few features </a>. Try it out, it's open-source!</p>
+			<p>Servant is very simple, and is crafted for those of use who seek robust and understandable environments. Still, it manages to <a href="/how-it-works/features">pack quite a few features </a>. Try it out, it's open-source!</p>
 		</div>
 		<div class="clear"></div>
 
@@ -41,12 +41,12 @@
 
 
 <div class="author limit">
+	<h2>It's open-source</h2>
 
 	<div class="column fluid">
 		<div class="container">
-			<h4 class="squeeze-top">It's open-source</h4>
 
-			<p>Servant is an open-source project authored by <a href="http://eiskis.net/" target="_blank">Jerry Jäppinen</a>. It’s hosted on Bitbucket and released under <a href="../lgpl.txt" target="_blank">LGPL</a>.</p>
+			<p>Servant is an open-source project authored by <a href="http://eiskis.net/" target="_blank">Jerry Jäppinen</a>. It’s hosted on Bitbucket and released under <a href="http://www.gnu.org/copyleft/lesser.html" target="_blank">LGPL</a>.</p>
 
 			<p>Contributions are gladly accepted as pull requests. Clone the <a href="https://bitbucket.org/Eiskis/servant/src" target="_blank">source code</a> and see our current <a href="https://bitbucket.org/Eiskis/servant/issues?status=new&amp;status=open" target="_blank">tickets</a>. You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> for any questions or suggestions.</p>
 
