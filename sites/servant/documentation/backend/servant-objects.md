@@ -9,7 +9,7 @@ All classes in Servant (`ServantMain` and all components) extend `ServantObject`
 
 ServantObjects don't have public properties. All properties are protexted and accessed via protected or public getter methods.
 
-The base class has one property, the ServantMain object:
+The base class has one property, the main Servant object:
 
 ##### backend/classes/object.php
 	// Properties
@@ -20,7 +20,17 @@ The base class has one property, the ServantMain object:
 		return $this->get('main');
 	}
 
-As you can see, the actual property name is prefixed, but the getter is not. This is a Servant convention. The custom getter will return the property's value via `get()`, which looks like this:
+As you can see, the actual property name is prefixed, but the getter is not. This is a Servant convention. The custom getter will return the property's value via a generic getter.
+
+
+
+### Generic getters
+
+All properties in a Servant object are accessed via different kinds of custom getters that call different kinds of generic getters. These methods are fairly powerful, and include magic that improve code usability.
+
+
+
+#### `get()`
 
 ##### backend/classes/object.php
 	// Generic getter with traversing options
@@ -32,3 +42,7 @@ As you can see, the actual property name is prefixed, but the getter is not. Thi
 		}
 		return $value;
 	}
+
+Your average `get()` is the simplest there is. It accepts the name of the property, and an optional [traversal array](value-traversing).
+
+

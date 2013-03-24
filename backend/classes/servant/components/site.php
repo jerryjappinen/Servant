@@ -15,12 +15,14 @@ class ServantSite extends ServantObject {
 
 	// Select ID and article while initializing
 	public function initialize ($id = null, $selectedArticle = null) {
+
 		if ($id) {
 			$this->setId($id);
 		}
 		if ($selectedArticle) {
 			$this->setArticle($selectedArticle);
 		}
+
 		return $this;
 	}
 
@@ -60,6 +62,7 @@ class ServantSite extends ServantObject {
 
 	// Setters
 
+	// Selected article as child object
 	protected function setArticle ($selectedArticle = null) {
 		return $this->set('article', create(new ServantArticle($this->servant()))->init($this, $selectedArticle));
 	}

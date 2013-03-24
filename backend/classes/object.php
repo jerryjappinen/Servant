@@ -2,17 +2,25 @@
 
 class ServantObject {
 
-	// Properties
-	protected $propertyMain = null;
 
-	// Include a reference to an established Servant parent
+
+	// Properties
+	private $propertyMain = null;
+
+	// Include a reference to main Servant object
 	protected function servant () {
-		return $this->get('main');
+		$main = $this->get('main');
+		return $main === null ? $this : $main;
 	}
 
 
 
 	// Magic methods
+
+	// Default behavior when calling inaccessible method is getAndSet
+	public function __call ($id, $arguments) {
+		return $this->getAndSet($id, $arguments);
+	}
 
 	// Generic constructor
 	public function __construct ($main) {
@@ -22,27 +30,10 @@ class ServantObject {
 			$this->set('main', $main);
 
 		} else {
-			return $this->fail('New objects need a main Servant instance');
+			return $this->fail('New objects need a main Servant instance ('.$this.')');
 		}
 
 		return $this;
-	}
-
-	// Generic initializer
-	public function init () {
-
-		// Also run the optional class-specific method
-		if (method_exists($this, 'initialize')) {
-			$arguments = func_get_args();
-			call_user_func_array(array($this, 'initialize'), $arguments);
-		}
-
-		return $this;
-	}
-
-	// Default behavior when calling inaccessible method is getAndSet
-	public function __call ($id, $arguments) {
-		return $this->getAndSet($id, $arguments);
 	}
 
 	// When object is used as string, return a name
@@ -55,29 +46,43 @@ class ServantObject {
 		}
 	}
 
+	// Generic initializer, calls object's custom initializer if one exists
+	public function init () {
+
+		// Also run the optional class-specific method
+		if (method_exists($this, 'initialize')) {
+			$arguments = func_get_args();
+			call_user_func_array(array($this, 'initialize'), $arguments);
+		}
+
+		return $this;
+	}
+
 
 
 	// Generic functionality
 
-	// Generic getter with traversing options
-	protected function get ($id, $tree = null) {
-		$propertyName = $this->propertyName($id);
-		$value = $this->$propertyName;
-		if (is_array($value) and !empty($tree)) {
-			return array_traverse($value, array_flatten($tree));
+	// Find out if key exists within traversable property; optionally check for specific value
+	protected function assert ($id, $tree = null, $target = null) {
+		$value = $this->get($id, $tree);
+		if ($value === null) {
+			return false;
+		} else if (isset($target) and $value !== $target) {
+			return false;
+		} else {
+			return true;
 		}
-		return $value;
 	}
 
-	// Generic property setter, can be used in setter methods
-	protected function set ($id, $value) {
-		$propertyName = $this->propertyName($id);
-		if ($value === null) {
-			return $this->fail('Properties cannot be null');
+	// Call a property-specific setter
+	protected function callSetter ($id, $arguments = array()) {
+		$setterName = $this->setterName($id);
+		debug($setterName);
+		if (method_exists($this, $setterName)) {
+			return call_user_func_array(array($this, $setterName), to_array($arguments));
 		} else {
-			$this->$propertyName = $value;
+			return $this->fail(get_class($this).' property "'.$id.'" is missing a setter');
 		}
-		return $this;
 	}
 
 	// Report failure, throw an error
@@ -129,30 +134,25 @@ class ServantObject {
 		return $this;
 	}
 
-
-
-	// Wrapper functionality
-
-	// Return true if key exists within property, false if it doesn't
-	protected function assert ($id, $tree = null, $target = null) {
-		$value = $this->get($id, $tree);
-		if ($value === null) {
-			return false;
-		} else if (isset($target) and $value !== $target) {
-			return false;
-		} else {
-			return true;
+	// Generic getter with traversing options
+	protected function get ($id, $tree = null) {
+		$propertyName = $this->propertyName($id);
+		$value = $this->$propertyName;
+		if (is_array($value) and !empty($tree)) {
+			return array_traverse($value, array_flatten($tree));
 		}
+		return $value;
 	}
 
-	// Call a property-specific setter
-	protected function callSetter ($id, $arguments = array()) {
-		$setterName = $this->setterName($id);
-		if (method_exists($this, $setterName)) {
-			return call_user_func_array(array($this, $setterName), $arguments);
+	// Generic property setter, can be used in setter methods
+	protected function set ($id, $value) {
+		$propertyName = $this->propertyName($id);
+		if ($value === null) {
+			return $this->fail('Properties cannot be null');
 		} else {
-			return $this->fail(get_class($this).' property "'.$id.'" is missing a setter');
+			$this->$propertyName = $value;
 		}
+		return $this;
 	}
 
 
@@ -198,21 +198,34 @@ class ServantObject {
 	// Private helpers
 
 	// Naming convention helpers
-	// NOTE reverse namers are slow
+	private function className ($id) {
+		return $this->generateName('Servant', $id);
+	}
+	private function unClassName ($id) {
+		return $this->parseGeneratedName('Servant', $id);
+	}
 	private function propertyName ($id) {
-		return 'property'.ucfirst($id);
+		return $this->generateName('property', $id);
 	}
 	private function unPropertyName ($id) {
-		$base = substr($id, strlen('property'));
-		$name = strtolower(substr($base, 0, 1)).substr($base, 1);
-		return $name;
+		return $this->parseGeneratedName('property', $id);
 	}
 	private function setterName ($id) {
-		return 'set'.ucfirst($id);
+		return $this->generateName('set', $id);
 	}
 	private function unSetterName ($id) {
-		$base = substr($id, strlen('set'));
-		return strtolower(substr($base, 0, 1)).substr($base, 1);
+		return $this->parseGeneratedName('set', $id);
+	}
+
+	// Generating/parsing names for things
+	// NOTE reverse namers are slow
+	private function generateName ($prefix, $name) {
+		return $prefix.ucfirst($name);
+	}
+	private function parseGeneratedName ($prefix, $name) {
+		$base = substr($name, strlen($prefix));
+		$name = strtolower(substr($base, 0, 1)).substr($base, 1);
+		return $name;
 	}
 
 }

@@ -6,6 +6,10 @@ date_default_timezone_set('UTC');
 
 
 
+//
+// Error handling
+//
+
 // Custom error handling functions
 // set_error_handler('handleFubarError');
 set_exception_handler('handleFubarException');
@@ -48,6 +52,10 @@ function handleFubar ($code = 500, $message = '') {
 
 
 
+//
+// Paths
+//
+
 // Set and treat paths
 require 'paths.php';
 
@@ -89,6 +97,10 @@ unset($path);
 
 
 
+//
+// JSON settings
+//
+
 // Include JSON settings
 // FLAG I should throw errors when parsing JSON fails, but I don't know how to at this point
 $settings = array();
@@ -99,40 +111,51 @@ unset($path);
 
 
 
+//
 // Take input
+//
 
-// Site
-$action = '';
-if (isset($_GET['action']) and (is_string($_GET['action']) or is_int($_GET['action']))) {
-	$action = $_GET['action'];
+$input = array(
+	'action' => '',
+	'site' => '',
+	'article' => array(),
+);
+
+// Action & site
+foreach (array('action', 'site') as $key) {
+	if (isset($_GET[$key]) and !empty($_GET[$key]) and (is_string($_GET[$key]) or is_int($_GET[$key]))) {
+		$input[$key] = strval($_GET[$key]);
+	}
 }
 
-// Site
-$site = '';
-if (isset($_GET['site']) and (is_string($_GET['site']) or is_int($_GET['site']))) {
-	$site = $_GET['site'];
-}
-
-// Article
-$article = array();
-$i=0;
+// Current article
 foreach (array('dir1', 'dir2', 'dir3', 'dir4', 'dir5', 'dir6', 'dir7') as $key) {
-	if (isset($_GET[$key]) and (is_string($_GET[$key]) or is_int($_GET[$key])) and !empty($_GET[$key])) {
-		$article[$i] = strval($_GET[$key]);
+
+	// Strict requirements for input
+	if (
+		isset($_GET[$key]) and 
+		!empty($_GET[$key]) and 
+		(is_string($_GET[$key]) or is_int($_GET[$key])) 
+	) {
+		$input['article'][] = strval($_GET[$key]);
 	} else {
 		break;
 	}
-	$i++;
+
 }
-unset($i, $key);
+unset($key);
 
 
+
+//
+// Run Servant
+//
 
 // Clear some things to prevent abuse
 unset($_SERVER, $_COOKIE, $_GET, $_POST, $_REQUEST, $_FILES);
 
-// Run Servant
-create(new ServantMain)->init($paths, $settings)->execute($action, $site, $article);
-unset($paths, $settings, $action, $site, $article);
+// Objects
+create(new ServantMain)->init($paths, $settings)->execute($input['action'], $input['site'], $input['article']);
+unset($paths, $settings, $input);
 die();
 ?>

@@ -18,6 +18,40 @@ class ServantPaths extends ServantObject {
 	protected $propertyUtilities 	= null;
 
 
+
+	// Kickstart all paths
+	public function initialize ($paths) {
+		$results = array();
+
+		// Check required paths against against what's given
+		foreach (array(
+			'documentRoot',
+			'root',
+			'actions',
+			'cache',
+			'classes',
+			'helpers',
+			'index',
+			'settings',
+			'sites',
+			'templates',
+			'themes',
+			'utilities',
+		) as $key) {
+
+			// Meaningful values are needed
+			if (isset($paths[$key]) and !empty($paths[$key])) {
+				$this->set($key, $paths[$key]);
+			} else {
+				fail('Need a proper path for '.$key);
+			}
+		}
+
+		return $this;
+	}
+
+
+
 	// Public getters
 
 	// Root paths are a little special
@@ -63,39 +97,6 @@ class ServantPaths extends ServantObject {
 	}
 	public function utilities ($format = false) {
 		return $this->servant()->format()->path($this->get('utilities'), $format);
-	}
-
-
-
-	// Kickstart all paths
-	public function initialize ($paths) {
-		$results = array();
-
-		// Check required paths against against what's given
-		foreach (array(
-			'documentRoot',
-			'root',
-			'actions',
-			'cache',
-			'classes',
-			'helpers',
-			'index',
-			'settings',
-			'sites',
-			'templates',
-			'themes',
-			'utilities',
-		) as $key) {
-
-			// Meaningful values can be used
-			if (isset($paths[$key]) and !empty($paths[$key])) {
-				$this->set($key, $paths[$key]);
-			} else {
-				fail('Need a proper path for '.$key);
-			}
-		}
-
-		return $this;
 	}
 
 }

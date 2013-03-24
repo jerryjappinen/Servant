@@ -10,7 +10,14 @@ ol {
 	li {
 		counter-increment: section;
 		&:before {
-			content: counters(section, ".") ". ";
+			content: counters(section, '.') '. ';
+		}
+	}
+	ul li {
+		counter-reset: section;
+		counter-increment: none;
+		&:before {
+			content: '';
 		}
 	}
 }

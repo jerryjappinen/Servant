@@ -11,7 +11,7 @@
 
 
 	<div class="column four">
-		<p class="close"><span class="placeholder"></span></p>
+		<p class="close"><img src="files.png" alt="Files" title="Files"></p>
 		<h3 class="squeeze">Convert text files to web pages</h3>
 		<p>Text files, HTML and Markdown documents are supported. PHP can also be used for scripting. Take your pick.</p>
 	</div>
@@ -24,8 +24,8 @@
 
 	<div class="column four last">
 		<p class="close"><span class="placeholder"></span></p>
-		<h3 class="squeeze">One Servant, multiple sites</h3>
-		<p>One installation powers any number of sites. You only have to install Servant once, but can still create as many sites as you want, sharing templates and themes.</p>
+		<h3 class="squeeze">It's usable</h3>
+		<p>Servant outputs nice URLs are nice. All default themes are well written, and all default themes are responsive.</p>
 	</div>
 	<div class="clear"></div>
 
@@ -54,8 +54,8 @@
 
 	<div class="column four">
 		<p class="close"><span class="placeholder"></span></p>
-		<h3 class="squeeze">It's usable</h3>
-		<p>Servant outputs nice URLs are nice. All default themes are well written, and all default themes are responsive.</p>
+		<h3 class="squeeze">One Servant, multiple sites</h3>
+		<p>One installation powers any number of sites. You only have to install Servant once, but can still create as many sites as you want, sharing templates and themes.</p>
 	</div>
 	<div class="clear"></div>
 
