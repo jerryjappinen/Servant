@@ -3,7 +3,7 @@
 class ServantFiles extends ServantObject {
 
 	// Load utilities upon initialization
-	// FLAG this fails, and I don't know why
+	// FLAG this fails, something to do with how child objects are created and initialized (ServantUtilities is reliant on ServantFiles)
 	// public function initialize () {
 	// 	$this->servant()->utilities()->load('markdown');
 	// 	return $this;
@@ -13,9 +13,9 @@ class ServantFiles extends ServantObject {
 	// Open and get file contents in a renderable format
 	public function read ($path, $type = '') {
 
-		// Auto file type detection
+		// Automatic file type detection
 		if (empty($type)) {
-			$type = detect($path, 'extension');
+			$type = pathinfo($path, PATHINFO_EXTENSION);
 		}
 
 		// File must exist

@@ -112,7 +112,7 @@ class ServantArticle extends ServantObject {
 	}
 
 	protected function setType () {
-		return $this->set('type', detect($this->path(), 'extension'));
+		return $this->set('type', pathinfo($this->path(), PATHINFO_EXTENSION));
 	}
 
 	protected function setPath () {

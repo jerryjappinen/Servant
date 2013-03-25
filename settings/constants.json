@@ -138,7 +138,7 @@
 	},
 
 	"formats": {
-		"templates": ["md", "txt", "html", "htm", "xhtml", "php", "json"],
+		"templates": ["md", "txt", "html", "php", "json"],
 		"stylesheets": ["css", "less"],
 		"scripts": ["js", "json"]
 	}

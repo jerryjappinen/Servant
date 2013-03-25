@@ -63,65 +63,6 @@ function dont_end_with ($string, $end = '') {
 
 
 
-// Gets the format of a file based on a filename
-// FLAG
-//    - too magical
-//    - doesn't handle directories -> split functionality
-//    - should NOT use $p
-// ACCEPTS
-// 		1. File name, path or extension
-// 		2. Requested information
-// 		 	type: 			returns the type of file (default)
-// 			extension: 		returns the normalized file extension
-function detect ($string, $mode = 'type') {
-
-	global $p;
-
-	// Parse file extension
-	if (strrchr($string, '.')) {
-		$extension = strtolower(pathinfo($string, PATHINFO_EXTENSION));
-	} else {
-		$extension = strtolower($string);
-	}
-
-	// Normalize duplicates
-	$temp = array(
-		'tiff' => 'tif',
-		'jpeg' => 'jpg',
-		'mpeg' => 'mpg',
-		'htm' => 'html'
-	);
-
-	if (array_key_exists($extension, $temp)) {
-		$extension = $temp[$extension];
-	}
-
-	// We're done if only extension was asked
-	if ($mode == 'extension') {
-		$return = empty($extension) ? false : $extension;
-
-	// Apply valid categories
-	} else {
-
-		// Valid category
-		foreach ($p->settings->fileTypes() as $key => $value) {
-			if (in_array($extension, $value)) {
-				$return = $key;
-			}
-		}
-
-		// Last resort
-		if (empty($return)) {
-			$return = 'file';
-		}
-
-	}
-
-	return $return;
-}
-
-
-
 // Decodes a string into an array
 // NOTE format: "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
 function shorthand_decode ($string) {
