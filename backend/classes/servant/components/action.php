@@ -24,8 +24,10 @@ class ServantAction extends ServantObject {
 			}
 
 		// If it fails, we create output like gentlemen
+		// FLAG this isn't that great. Could we have an error action? Can we switch to another action at this point?
 		} catch (Exception $exception) {
-			$this->browserCache(false)->contentType('html')->status($exception->getCode())->output($exception->getMessage());
+			$message = $exception->getCode() < 500 ? $exception->getMessage() : 'Something went wrong, and we\'re sorry. We\'ll try to fix it as soon as possible.';
+			$this->browserCache(false)->contentType('html')->status($exception->getCode())->outputViaTemplate(true)->output('<p>'.$message.'</p>');
 		}
 
 		return $this;
@@ -40,7 +42,7 @@ class ServantAction extends ServantObject {
 		}
 
 		// Set defaults
-		return $this->browserCache(true)->contentType('html')->status(200)->output('');
+		return $this->browserCache(true)->contentType('html')->status(200)->outputViaTemplate(false)->output('');
 	}
 
 

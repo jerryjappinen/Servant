@@ -20,17 +20,21 @@ class ServantUtilities extends ServantObject {
 			// Utility could already be loaded
 			if (!$this->loaded($name)) {
 
-				// Single file
-				if (is_file($path.'.php')) {
-					$this->servant()->files()->run($path.'.php', array('servant' => $this->servant()));
-					$this->setLoaded($name);
+				// Check if utility is available
+				if ($this->servant()->available()->utility($name)) {
 
-				// Directory
-				} else if (is_dir($path.'/')) {
-					foreach (rglob_files($path.'/', 'php') as $file) {
-						$this->servant()->files()->run($file, array('servant' => $this->servant()));
+					// Single file
+					if (is_file($path.'.php')) {
+						$this->servant()->files()->run($path.'.php', array('servant' => $this->servant()));
+						$this->setLoaded($name);
+
+					// Directory
+					} else if (is_dir($path.'/')) {
+						foreach (rglob_files($path.'/', 'php') as $file) {
+							$this->servant()->files()->run($file, array('servant' => $this->servant()));
+						}
+						$this->setLoaded($name);
 					}
-					$this->setLoaded($name);
 
 				// Not found
 				} else {

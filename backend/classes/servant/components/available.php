@@ -11,6 +11,7 @@ class ServantAvailable extends ServantObject {
 	protected $propertyStatuses 	= null;
 	protected $propertyTemplates 	= null;
 	protected $propertyThemes 		= null;
+	protected $propertyUtilities 	= null;
 
 
 
@@ -48,6 +49,9 @@ class ServantAvailable extends ServantObject {
 	public function theme ($id) {
 		return in_array($id, $this->themes());
 	}
+	public function utility ($id) {
+		return in_array($id, $this->utilities());
+	}
 
 
 
@@ -83,6 +87,11 @@ class ServantAvailable extends ServantObject {
 	protected function setThemes () {
 		$formats = array_merge($this->servant()->settings()->formats('stylesheets'), $this->servant()->settings()->formats('scripts'));
 		return $this->set('themes', array_merge($this->findFiles('themes', $formats), $this->findDirectories('themes')));
+	}
+
+	// Utilities are script files or directories
+	protected function setUtilities () {
+		return $this->set('utilities', array_merge($this->findFiles('utilities', 'php'), $this->findDirectories('utilities')));
 	}
 
 
