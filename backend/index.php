@@ -112,50 +112,18 @@ unset($path);
 
 
 //
-// Take input
-//
-
-$input = array(
-	'action' => '',
-	'site' => '',
-	'article' => array(),
-);
-
-// Action & site
-foreach (array('action', 'site') as $key) {
-	if (isset($_GET[$key]) and !empty($_GET[$key]) and (is_string($_GET[$key]) or is_int($_GET[$key]))) {
-		$input[$key] = strval($_GET[$key]);
-	}
-}
-
-// Current article
-foreach (array('dir1', 'dir2', 'dir3', 'dir4', 'dir5', 'dir6', 'dir7') as $key) {
-
-	// Strict requirements for input
-	if (
-		isset($_GET[$key]) and 
-		!empty($_GET[$key]) and 
-		(is_string($_GET[$key]) or is_int($_GET[$key])) 
-	) {
-		$input['article'][] = strval($_GET[$key]);
-	} else {
-		break;
-	}
-
-}
-unset($key);
-
-
-
-//
-// Run Servant
+// Execute -_-
 //
 
 // Clear some things to prevent abuse
-unset($_SERVER, $_COOKIE, $_GET, $_POST, $_REQUEST, $_FILES);
+$input = $_GET;
+unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
-// Objects
-create(new ServantMain)->init($paths, $settings)->execute($input['action'], $input['site'], $input['article']);
+// Startup
+$servant = create(new ServantMain)->init($paths, $settings, $input);
 unset($paths, $settings, $input);
+
+// Run Servant
+$servant->execute();
 die();
 ?>

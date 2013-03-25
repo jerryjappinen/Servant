@@ -10,15 +10,15 @@ class ServantMain extends ServantObject {
 
 
 	// Startup
-	public function initialize ($paths, $settings) {
-		return $this->setPaths($paths)->setSettings($settings);
+	public function initialize ($paths, $settings, $input = null) {
+		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}
 
 	// Full execution
-	public function execute ($action = null, $site = null, $selectedArticle = null) {
+	public function execute () {
 
-		// We select things and run action
-		$this->setAction($action)->setSite($site, $selectedArticle)->action()->run();
+		// Run action
+		$this->action()->run();
 
 		// Sometimes we store our response
 		if ($this->settings()->cache('server') > 0 and !$this->response()->exists()) {
@@ -40,6 +40,7 @@ class ServantMain extends ServantObject {
 	protected $propertyFiles 		= null;
 	protected $propertyFormat 		= null;
 	protected $propertyHttpHeaders 	= null;
+	protected $propertyInput 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertyResponse 	= null;
 	protected $propertySettings 	= null;
@@ -72,6 +73,9 @@ class ServantMain extends ServantObject {
 	protected function setHttpHeaders () {
 		return $this->set('httpHeaders', create(new ServantHttpHeaders($this))->init());
 	}
+	protected function setInput ($input) {
+		return $this->set('input', create(new ServantInput($this))->init($input));
+	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', create(new ServantPaths($this))->init($paths));
 	}
@@ -92,14 +96,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setUtilities () {
 		return $this->set('utilities', create(new ServantUtilities($this))->init());
-	}
-
-
-
-	// Built-in debugger
-	protected $propertyDev = null;
-	protected function setDev () {
-		return $this->set('dev', create(new ServantDev($this))->init());
 	}
 
 }

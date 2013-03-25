@@ -10,80 +10,101 @@ class ServantInput extends ServantObject {
 
 
 	// Take input
-	public function initialize ($inputs) {
+	public function initialize ($input = null) {
 
 		// Set defaults
-		$this->setAction('');
-		$this->setArticle(array());
-		$this->setSite('');
+		$this->setAction('')->setArticle(array())->setSite('');
 
 		// Select things if we have any
-		if (!empty($inputs)) {
-			foreach ($inputs as $key => $value) {
-				if (in_array($key, array('action', 'article', 'site'))) {
-					$this->callSetter($key, array($value));
+		if (!empty($input) and is_array($input)) {
+
+			// Look for whatever we support
+			foreach (array('action', 'article', 'site') as $id) {
+
+				// Call setter if user has provided input
+				if (array_key_exists($id, $input)) {
+					$this->callSetter($id, array($input[$id]));
 				}
+
 			}
+
 		}
 
 		return $this;
+	}
+
+
+
+	// Public getters
+	public function action () {
+		return $this->get('action');
+	}
+	public function site () {
+		return $this->get('site');
 	}
 
 
 
 	// Setters
 
-	protected function setAction ($input) {
-		if ($this->accept($input)) {
-			$this->set('action', $this->normalize($input));
+	protected function setAction ($value) {
+		$result = '';
+		if ($this->acceptString($value)) {
+			$result = $this->normalizeString($value);
 		}
-		return $this;
+		return $this->set('action', $result);
 	}
 
 	// List of article names to select one in the article tree
-	protected function setArticle ($input) {
-		$input = to_array($input);
-		ksort($input);
-
+	protected function setArticle ($values) {
 		$results = array();
 
 		// Sanitize each item
-		if (!empty($input)) {
+		if (!empty($values)) {
 
 			// Parse string input
-			if (is_string($input)) {
+			if (is_string($values)) {
 
 				// Assume JSON
-				$temp = json_decode($input);
+				$temp = json_decode($values);
 				if (is_array($temp)) {
-					$input = $temp;
+					$results = $temp;
 
 				// Shorthand
 				} else {
-					$input = shorthand_decode($input);
+					$results = shorthand_decode($values);
 				}
 
-			}
+			// Try to use it as an array
+			} else {
+				$values = to_array($values);
+				ksort($values);
 
-			// Use array items
-			if (is_array($input)) {
-				foreach ($input as $value) {
-					if ($this->accept($value)) {
-						$results[] = $this->normalize($value);
+				// Use each individual item as string, with max 9 supported values as a fail safe
+				// FLAG hardcoded maximum count
+				$i = 0;
+				foreach ($values as $value) {
+					if ($this->acceptString($value) and $i < 9) {
+						$results[] = $this->normalizeString($value);
+					} else {
+						break;
 					}
+					$i++;
 				}
+
 			}
 
 		}
 
-		return $this->set('action', $results);
+		return $this->set('article', $results);
 	}
 
-	protected function setSite ($input) {
-		if ($this->accept($input)) {
-			$this->set('site', $this->normalize($input));
+	protected function setSite ($value) {
+		$result = '';
+		if ($this->acceptString($value)) {
+			$result = $this->normalizeString($value);
 		}
-		return $this;
+		return $this->set('site', $result);
 	}
 
 
@@ -91,13 +112,13 @@ class ServantInput extends ServantObject {
 	// Private helpers
 
 	// Is the value good enough to accept after sanitizing?
-	private function accept ($value) {
+	private function acceptString ($value) {
 		return !empty($value) and (is_string($value) or is_int($value));
 	}
 
 	// Normalize slightly bad input
-	private function normalize () {
-		return trim(strval($input));
+	private function normalizeString ($value) {
+		return trim(strval($value));
 	}
 
 }

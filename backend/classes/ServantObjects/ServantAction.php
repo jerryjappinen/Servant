@@ -36,10 +36,7 @@ class ServantAction extends ServantObject {
 
 
 	// Initialization
-	public function initialize ($id = null) {
-		if ($id) {
-			$this->setId($id);
-		}
+	public function initialize () {
 
 		// Set defaults
 		return $this->browserCache(true)->contentType('html')->status(200)->outputViaTemplate(false)->output('');
@@ -155,7 +152,10 @@ class ServantAction extends ServantObject {
 
 
 	// Name of the action (file or folder in actions dir)
-	protected function setId ($id = null) {
+	protected function setId () {
+
+		// Try using input
+		$id = $this->servant()->input()->action();
 
 		// Silent fallback
 		if (!$this->servant()->available()->action($id)) {

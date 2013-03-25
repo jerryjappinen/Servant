@@ -13,21 +13,6 @@ class ServantSite extends ServantObject {
 
 
 
-	// Select ID and article while initializing
-	public function initialize ($id = null, $selectedArticle = null) {
-
-		if ($id) {
-			$this->setId($id);
-		}
-		if ($selectedArticle) {
-			$this->setArticle($selectedArticle);
-		}
-
-		return $this;
-	}
-
-
-
 	// Public getters
 
 	public function path ($format = null) {
@@ -63,7 +48,11 @@ class ServantSite extends ServantObject {
 	// Setters
 
 	// Selected article as child object
-	protected function setArticle ($selectedArticle = null) {
+	protected function setArticle () {
+
+		// Select article based on input
+		$selectedArticle = $this->servant()->input()->article();
+
 		return $this->set('article', create(new ServantArticle($this->servant()))->init($this, $selectedArticle));
 	}
 
@@ -71,7 +60,10 @@ class ServantSite extends ServantObject {
 		return $this->set('articles', $this->findArticles($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
-	protected function setId ($id = null) {
+	protected function setId () {
+
+		// Try using input
+		$id = $this->servant()->input()->site();
 
 		// Given ID is invalid
 		if (!$id or !$this->servant()->available()->site($id)) {
