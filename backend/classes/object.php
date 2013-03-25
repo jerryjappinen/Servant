@@ -77,7 +77,6 @@ class ServantObject {
 	// Call a property-specific setter
 	protected function callSetter ($id, $arguments = array()) {
 		$setterName = $this->setterName($id);
-		debug($setterName);
 		if (method_exists($this, $setterName)) {
 			return call_user_func_array(array($this, $setterName), to_array($arguments));
 		} else {
