@@ -1,5 +1,5 @@
 
-<?
+<?php
 
 // List available sites
 $i = 1;

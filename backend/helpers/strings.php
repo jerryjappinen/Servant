@@ -23,42 +23,77 @@ function calculate_string($string, $intval = false) {
 
 
 
-// Make sure initial characters of a string are what they need to be
-function start_with ($string, $start = '') {
-	$startlength = strlen($start);
-	if (strlen($string) < $startlength or substr($string, 0, $startlength) !== $start) {
-		$string = $start.$string;
+// Check if string starts with a specific substring
+function starts_with ($subject, $substring) {
+	$result = false;
+	$substringLength = strlen($substring);
+	if (strlen($subject) >= $substringLength and substr($subject, 0, $substringLength) === $substring) {
+		$result = true;
 	}
-	return $string;
+	return $result;
+}
+
+// Check if string ends with a specific substring
+function ends_with ($subject, $substring) {
+	$result = false;
+	$substringLength = strlen($substring);
+	if (strlen($subject) >= $substringLength and substr($subject, -($substringLength)) === $substring) {
+		$result = true;
+	}
+	return $result;
+}
+
+
+
+// Make sure initial characters of a string are what they need to be
+function start_with ($subject, $substring = '') {
+	if (!starts_with($subject, $substring)) {
+		$subject = $substring.$subject;
+	}
+	return $subject;
 }
 
 // Make sure initial characters of a string are NOT what they shouldn't to be
-function dont_start_with ($string, $start = '') {
-	$startlength = strlen($start);
-	if (strlen($string) >= $startlength and substr($string, 0, $startlength) === $start) {
-		$string = substr($string, $startlength);
-		$string = dont_start_with($string, $start);
+function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
+	if (starts_with($subject, $substring)) {
+
+		// Cut the substring out
+		$subject = substr($subject, strlen($substring));
+		if ($subject === false) {
+			$subject = '';
+		}
+
+		// Make sure that the new string still doesn't start with the substring
+		if (!$onlyCheckOnce) {
+			$subject = dont_start_with($subject, $substring);
+		}
+
 	}
-	return $string;
+	return $subject;
 }
 
 // Make sure final characters of a string are what they need to be
-function end_with ($string, $end = '') {
-	$endlength = strlen($end);
-	if (strlen($string) < $endlength or substr($string, -($endlength)) !== $end) {
-		$string .= $end;
+function end_with ($subject, $substring = '') {
+	if (!ends_with($subject, $substring)) {
+		$subject .= $substring;
 	}
-	return $string;
+	return $subject;
 }
 
 // Make sure final characters of a string are NOT what they shouldn't to be
-function dont_end_with ($string, $end = '') {
-	$endlength = strlen($end);
-	if (strlen($string) >= $endlength and substr($string, -($endlength)) === $end) {
-		$string = substr($string, 0, -($endlength));
-		$string = dont_end_with($string, $end);
+function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
+	if (ends_with($subject, $substring)) {
+
+		// Cut the substring out
+		$subject = substr($subject, 0, -(strlen($substring)));
+
+		// Make sure that the new string still doesn't start with the substring
+		if (!$onlyCheckOnce) {
+			$subject = dont_end_with($subject, $substring);
+		}
+
 	}
-	return $string;
+	return $subject;
 }
 
 

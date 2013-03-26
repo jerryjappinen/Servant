@@ -55,15 +55,18 @@ class ServantArticle extends ServantObject {
 		return $this->set('id', end($tree));
 	}
 
+	// Location of this article relative to its siblings
 	protected function setIndex () {
 		$siblings = array_flip($this->siblings());
 		return $this->set('index', $siblings[$this->id()]);
 	}
 
+	// Depth of this article in site's article tree
 	protected function setLevel () {
 		return $this->set('level', count($this->tree()));
 	}
 
+	// Human-readable name, generated from ID
 	protected function setName () {
 		return $this->set('name', $this->servant()->format()->name($this->id()));
 	}
@@ -85,12 +88,14 @@ class ServantArticle extends ServantObject {
 		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeUrl, $hrefUrl, $relativeUrl));
 	}
 
+	// Parent nodes of this article in site's article tree, order is reversed
 	protected function setParents () {
 		$parents = array_reverse($this->tree());
 		array_shift($parents);
 		return $this->set('parents', $parents);
 	}
 
+	// All articles on this level of the site article tree. Includes this article.
 	protected function setSiblings () {
 		$siblings = array_keys($this->site()->articles(array_reverse($this->parents())));
 		return $this->set('siblings', empty($siblings) ? array() : $siblings);
@@ -105,6 +110,14 @@ class ServantArticle extends ServantObject {
 
 		return $this->set('site', $site);
 	}
+
+	// Site stylesheet relevant to this article
+	// FLAG should use site()->stylesheets() instead of traversing files
+	// protected function setStylesheets () {
+	// 	$results = array();
+
+	// 	return $this->set('stylesheets', $results);
+	// }
 
 	protected function setTree ($tree = null) {
 		$tree = $this->selectArticle($this->site()->articles(), to_array($tree));

@@ -1,8 +1,12 @@
 <?php
+
+// Require utilities
 $servant->utilities()->load('urls', 'less');
 
 // All stylesheets for site
 $output = '';
+
+
 
 // Merge all stylesheets from theme
 foreach ($servant->theme()->stylesheets('plain') as $path) {
