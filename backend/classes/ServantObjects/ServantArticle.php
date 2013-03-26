@@ -3,17 +3,19 @@
 class ServantArticle extends ServantObject {
 
 	// Properties
-	protected $propertyId 		= null;
-	protected $propertyIndex 	= null;
-	protected $propertyLevel 	= null;
-	protected $propertyName 	= null;
-	protected $propertyOutput 	= null;
-	protected $propertyPath 	= null;
-	protected $propertyParents 	= null;
-	protected $propertySiblings = null;
-	protected $propertySite 	= null;
-	protected $propertyTree 	= null;
-	protected $propertyType 	= null;
+	protected $propertyId 			= null;
+	protected $propertyIndex 		= null;
+	protected $propertyLevel 		= null;
+	protected $propertyName 		= null;
+	protected $propertyOutput 		= null;
+	protected $propertyPath 		= null;
+	protected $propertyParents 		= null;
+	protected $propertyScripts 		= null;
+	protected $propertySiblings 	= null;
+	protected $propertySite 		= null;
+	protected $propertyStylesheets 	= null;
+	protected $propertyTree 		= null;
+	protected $propertyType 		= null;
 
 
 
@@ -95,6 +97,11 @@ class ServantArticle extends ServantObject {
 		return $this->set('parents', $parents);
 	}
 
+	// Site scripts relevant to this article
+	protected function setScripts () {
+		return $this->set('scripts', $this->filterSiteFiles('scripts'));
+	}
+
 	// All articles on this level of the site article tree. Includes this article.
 	protected function setSiblings () {
 		$siblings = array_keys($this->site()->articles(array_reverse($this->parents())));
@@ -112,12 +119,9 @@ class ServantArticle extends ServantObject {
 	}
 
 	// Site stylesheet relevant to this article
-	// FLAG should use site()->stylesheets() instead of traversing files
-	// protected function setStylesheets () {
-	// 	$results = array();
-
-	// 	return $this->set('stylesheets', $results);
-	// }
+	protected function setStylesheets () {
+		return $this->set('stylesheets', $this->filterSiteFiles('stylesheets'));
+	}
 
 	protected function setTree ($tree = null) {
 		$tree = $this->selectArticle($this->site()->articles(), to_array($tree));
@@ -160,6 +164,30 @@ class ServantArticle extends ServantObject {
 			return array_slice($tree, 0, $level+1);
 		}
 
+	}
+
+	// Select site's files that are relevant for this article
+	private function filterSiteFiles ($type) {
+		$results = array();
+
+		// Allowed paths
+		$allowed = $this->tree();
+		foreach ($allowed as $key => $path) {
+			if ($key > 0) {
+				$allowed[$key] = $allowed[$key-1].'/'.$path;
+			}
+		}
+		unset($key, $path);
+
+		// Traverse site's stylesheets
+		foreach ($this->site()->$type() as $value) {
+			$base = pathinfo(dont_start_with($value, $this->site()->path(), true), PATHINFO_DIRNAME);
+			if (in_array($base, $allowed)) {
+				$results[] = $value;
+			}
+		}
+
+		return $results;
 	}
 
 }

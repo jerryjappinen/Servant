@@ -35,7 +35,7 @@ echo '<div id="footer">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	// echo htmlDump($servant->dump());
+	echo htmlDump($servant->article()->scripts());
 
 // Close footer
 echo '</div>';
