@@ -27,7 +27,7 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 
 
 // Merge stylesheets from site
-foreach ($servant->site()->stylesheets('plain') as $path) {
+foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 
 	// Root is site directory root
 	$rootUrl = $this->servant()->site()->path('domain');

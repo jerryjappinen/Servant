@@ -10,45 +10,48 @@ date_default_timezone_set('UTC');
 // Error handling
 //
 
+// Development
+require('php_error.php');
+
 // Custom error handling functions
 // set_error_handler('handleFubarError');
-set_exception_handler('handleFubarException');
-function handleFubarError ($errno, $errstr) {
-	return handleFubar($errno, $errstr);
-}
-function handleFubarException ($exception) {
-	return handleFubar($exception->getCode(), $exception->getMessage());
-}
-function handleFubar ($code = 500, $message = '') {
-	header('HTTP/1.1 500 Internal Server Error');
-	header('Content-Type: text/html; charset=utf-8');
-	echo '
-	<html>
-		<head>
-			<title>Server error :(</title>
-			<style type="text/css">
-				body {
-					background-color: #fafafa;
-					color: #0d0d0d;
-					font-family: sans-serif;
-					padding: 5%;
-					max-width: 50em;
-					margin: 0 auto;
-				}
-			</style>
-		</head>
-		<body>
-			<!-- Error code: '.$code.' -->
-			<h1>Something went wrong :(</h1>
-			<p>We\'ve been notified now, and will fix this as soon as possible.</p>
-			'.((isset($message) and !empty($message)) ? '<p>'.$message.'</p>' : '').'
-		</body>
-	</html>
-	';
+// set_exception_handler('handleFubarException');
+// function handleFubarError ($errno, $errstr) {
+// 	return handleFubar($errno, $errstr);
+// }
+// function handleFubarException ($exception) {
+// 	return handleFubar($exception->getCode(), $exception->getMessage());
+// }
+// function handleFubar ($code = 500, $message = '') {
+// 	header('HTTP/1.1 500 Internal Server Error');
+// 	header('Content-Type: text/html; charset=utf-8');
+// 	echo '
+// 	<html>
+// 		<head>
+// 			<title>Server error :(</title>
+// 			<style type="text/css">
+// 				body {
+// 					background-color: #fafafa;
+// 					color: #0d0d0d;
+// 					font-family: sans-serif;
+// 					padding: 5%;
+// 					max-width: 50em;
+// 					margin: 0 auto;
+// 				}
+// 			</style>
+// 		</head>
+// 		<body>
+// 			<!-- Error code: '.$code.' -->
+// 			<h1>Something went wrong :(</h1>
+// 			<p>We\'ve been notified now, and will fix this as soon as possible.</p>
+// 			'.((isset($message) and !empty($message)) ? '<p>'.$message.'</p>' : '').'
+// 		</body>
+// 	</html>
+// 	';
 
-	die();
-	return false;
-}
+// 	die();
+// 	return false;
+// }
 
 
 

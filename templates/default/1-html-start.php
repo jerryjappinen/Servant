@@ -21,7 +21,7 @@ echo '
 		}
 
 		// Stylesheets
-		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.'" media="screen">';
+		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->site()->article()->tree()).'/'.'" media="screen">';
 
 		echo '
 	</head>

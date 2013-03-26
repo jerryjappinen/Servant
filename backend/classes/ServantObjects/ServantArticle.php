@@ -39,12 +39,33 @@ class ServantArticle extends ServantObject {
 
 
 	// Public getters
+
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->format()->path($path, $format);
 		}
 		return $path;
+	}
+
+	public function scripts ($format = false) {
+		$files = $this->getAndSet('scripts');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
+	}
+
+	public function stylesheets ($format = false) {
+		$files = $this->getAndSet('stylesheets');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
 	}
 
 
@@ -171,17 +192,21 @@ class ServantArticle extends ServantObject {
 		$results = array();
 
 		// Allowed paths
-		$allowed = $this->tree();
-		foreach ($allowed as $key => $path) {
+		$allowed = array();
+		foreach ($this->tree() as $key => $path) {
 			if ($key > 0) {
-				$allowed[$key] = $allowed[$key-1].'/'.$path;
+				$allowed[] = $allowed[$key-1].$path.'/';
+			} else {
+				$allowed[] = $path.'/';
 			}
 		}
+		// Also include root path
+		array_unshift($allowed, '');
 		unset($key, $path);
 
-		// Traverse site's stylesheets
+		// Traverse site's stylesheets, accept the ones on allowed levels
 		foreach ($this->site()->$type() as $value) {
-			$base = pathinfo(dont_start_with($value, $this->site()->path(), true), PATHINFO_DIRNAME);
+			$base = dont_start_with(pathinfo($value, PATHINFO_DIRNAME).'/', $this->site()->path(), true);
 			if (in_array($base, $allowed)) {
 				$results[] = $value;
 			}

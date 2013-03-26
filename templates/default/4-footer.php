@@ -15,7 +15,7 @@ echo '<div id="footer">';
 	}
 
 	// Pages & generic stuff
-	echo '<dl><dt>'.$servant->site()->name().'</dt><dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></dd>
+	echo '<dl><dt>'.$servant->site()->name().'</dt><dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.implode('/', $servant->site()->article()->tree()).'/'.'">Sitemap</a></dd>
 	';
 
 	// Create footer links for articles
@@ -35,7 +35,7 @@ echo '<div id="footer">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	echo htmlDump($servant->article()->scripts());
+	// echo htmlDump($servant->article()->stylesheets());
 
 // Close footer
 echo '</div>';

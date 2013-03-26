@@ -22,9 +22,7 @@ $output = '
 		}
 
 		// Stylesheets
-		foreach ($servant->theme()->stylesheets('domain') as $path) {
-			$output .= '<link rel="stylesheet" href="'.$path.'" media="screen">';
-		}
+		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->site()->article()->tree()).'/'.'" media="screen">';
 
 		$output .= '
 	</head>
@@ -239,10 +237,8 @@ $output .= '
 		</div>
 		';
 
-		// Scripts
-		foreach ($servant->theme()->scripts('domain') as $path) {
-			$output .= '<script src="'.$path.'"></script>';
-		}
+		// Include scripts
+		echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->site()->article()->tree()).'/'.'"></script>';
 
 		$output .= '
 	</body>

@@ -7,7 +7,7 @@ foreach ($servant->theme()->scripts('server') as $path) {
 }
 
 // Merge all scripts from site
-foreach ($servant->site()->scripts('server') as $path) {
+foreach ($servant->site()->article()->scripts('server') as $path) {
 	$output .= file_get_contents($path);
 }
 

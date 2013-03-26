@@ -12,6 +12,7 @@ class ServantFiles extends ServantObject {
 
 	// Open and get file contents in a renderable format
 	public function read ($path, $type = '') {
+		$this->servant()->utilities()->load('markdown');
 
 		// Automatic file type detection
 		if (empty($type)) {
@@ -87,7 +88,6 @@ class ServantFiles extends ServantObject {
 
 	// Markdown converts to HTML
 	private function readMdFile ($path) {
-		$this->servant()->utilities()->load('markdown');
 		return Markdown(file_get_contents($path));
 	}
 

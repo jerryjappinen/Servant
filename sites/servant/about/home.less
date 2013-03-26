@@ -1,80 +1,76 @@
 
 // Home page
-body.article-about {
+h1, h2, h3 {
+	text-align: center;
+}
 
-	h1, h2, h3 {
+// Main description
+.intro {
+	margin-bottom: 2.4em;
+
+	// Main title
+	h1 {
+		font-size: 4em;
+		font-weight: 100;
+		margin-top: 0.2em;
+		margin-bottom: 0;
+		color: @magenta;
+	}
+
+	.buttons {
+		margin-top: 5%;
 		text-align: center;
 	}
 
-	// Main description
-	.intro {
-		margin-bottom: 2.4em;
-
-		// Main title
-		h1 {
-			font-size: 4em;
-			font-weight: 100;
-			margin-top: 0.2em;
-			margin-bottom: 0;
-			color: @magenta;
+	.button {
+		margin: 0.6em;
+		@media handheld, only screen and (min-width: @bb-accommodate) {
 		}
-
-		.buttons {
-			margin-top: 5%;
-			text-align: center;
-		}
-
-		.button {
-			margin: 0.6em;
-			@media handheld, only screen and (min-width: @bb-accommodate) {
-			}
-			@media handheld, only screen and (max-width: @bb-stack) {
-				display: block;
-				margin-right: 0;
-				margin-top: 1em;
-				margin-bottom: 1em;
-				width: 90%;
-				padding-right: 5%;
-				padding-left: 5%;
-			}
+		@media handheld, only screen and (max-width: @bb-stack) {
+			display: block;
+			margin-right: 0;
+			margin-top: 1em;
+			margin-bottom: 1em;
+			width: 90%;
+			padding-right: 5%;
+			padding-left: 5%;
 		}
 	}
+}
 
-	// Limited-width areas
-	.limit {
-		margin: 0 auto;
-		max-width: 55em;
-	}
+// Limited-width areas
+.limit {
+	margin: 0 auto;
+	max-width: 55em;
+}
 
-	// Splash intro
-	.showoff {
-		text-align: center;
-		.buffer {
-			@media handheld, only screen and (max-width: @bb-stack) {
-				padding: 0;
-			}
+// Splash intro
+.showoff {
+	text-align: center;
+	.buffer {
+		@media handheld, only screen and (max-width: @bb-stack) {
+			padding: 0;
 		}
 	}
+}
 
-	// My pic
-	.author {
-		margin-top: 5%;
-		.column.fixed {
-			width: 8em;
-		}
-		.column.fluid > .container {
-			margin-left: 9.5em;
-		}
+// My pic
+.author {
+	margin-top: 5%;
+	.column.fixed {
+		width: 8em;
 	}
-
-	// Logos on the bottom
-	.logos {
-		margin-top: 5%;
-		img {
-			max-height: 6em;
-			margin-right: 1em;
-			margin-left: 1em;
-		}
+	.column.fluid > .container {
+		margin-left: 9.5em;
 	}
+}
 
+// Logos on the bottom
+.logos {
+	margin-top: 5%;
+	img {
+		max-height: 6em;
+		margin-right: 1em;
+		margin-left: 1em;
+	}
 }

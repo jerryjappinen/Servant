@@ -47,14 +47,8 @@ echo '<div class="footer container">';
 
 echo '</div>';
 
-
-
-// Scripts
-$scripts = $servant->theme()->scripts();
-if (!empty($scripts)) {
-	echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.'"></script>';
-}
-unset($scripts);
+// Include scripts
+echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->site()->article()->tree()).'/'.'"></script>';
 
 // End it all
 echo '
