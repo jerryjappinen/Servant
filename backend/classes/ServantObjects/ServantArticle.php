@@ -80,7 +80,7 @@ class ServantArticle extends ServantObject {
 		$hrefUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/'.$this->servant()->action()->id().'/';
 
 		// Relative location for URLs
-		$relativeUrl = substr(pathinfo($this->path('plain'), PATHINFO_DIRNAME), strlen($this->site()->path('plain')));
+		$relativeUrl = dont_start_with(pathinfo($this->path('plain'), PATHINFO_DIRNAME), $this->site()->path('plain'), true);
 		if (!empty($relativeUrl)) {
 			$relativeUrl .= '/';
 		}
