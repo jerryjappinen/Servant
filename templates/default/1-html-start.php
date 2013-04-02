@@ -7,7 +7,11 @@ echo '
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<style type="text/css">@-ms-viewport{width: device-width;}</style>
+		<style type="text/css">
+			@-ms-viewport{width: device-width;}
+			@-o-viewport{width: device-width;}
+			@viewport{width: device-width;}
+		</style>
 
 		<title>'.$servant->site()->name().'</title>
 		';
@@ -38,7 +42,7 @@ foreach ($tree as $value) {
 unset($tree, $i);
 
 // FLAG "language-javascript" really doesn't belong here
-echo '<body class="language-javascript level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">';
+echo '<body class="language-javascript site-'.$servant->site()->id().' level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">';
 unset($classes);
 
 ?>

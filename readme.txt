@@ -32,18 +32,7 @@ Getting started
 
 1. Each directory under *sites/* is a site.
 2. All .txt, .html, .md and .php files under a site folder are articles.
-3. Servant creates a web site with menus etc. for site contents.
+3. Servant creates a web site with articles as pages.
 4. You can choose a template and template for each site, to customize format and look of each site.
 
-
-
-General TODO notes
-------------------
-
-- Stop hardcoding class names when validating object type
-	- e.g. in ServantArticle, ServantObject
-- Add caching
-- Set some headers
-- Detect localhost to go into debug mode
-	- caching disabled
-	- debug log visible
+For information on how to create your own themes and templates, extend the backend functionality or contribute to the core, visit http://eiskis.net/servant/ for full documentation.

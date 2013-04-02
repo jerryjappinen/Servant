@@ -111,7 +111,11 @@ class ServantAvailable extends ServantObject {
 		$items = array();
 		$dirs = glob_dir($this->servant()->paths()->$dir('server'));
 		foreach ($dirs as $path) {
-			$items[] = basename($path);
+			$files = rglob_files($path);
+			if (!empty($files)) {
+				$items[] = basename($path);
+			}
+			unset($files);
 		}
 		return $items;
 	}

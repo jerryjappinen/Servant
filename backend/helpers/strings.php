@@ -15,7 +15,7 @@ function from_camelcase ($string) {
 
 // Do a calculation with a formula in a string
 function calculate_string($string, $intval = false) {
-    $string = trim(preg_replace('/[^0-9\+\-\*\/\(\) ]/i', '', $string));
+    $string = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $string));
     $compute = create_function('', 'return ('.(empty($string) ? 0 : $string).');');
     $result = 0 + $compute();
     return $intval ? intval($result) : $result;

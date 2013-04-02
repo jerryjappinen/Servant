@@ -9,7 +9,7 @@
 		top: 0;
 		left: 0;
 		z-index: 100;
-		width: 84%;
+		width: 88%;
 	}
 }
 #body, #footer {
@@ -30,10 +30,19 @@
 
 /*Widths*/
 #header, #body, #footer {
-	padding-right: 8%;
-	padding-left: 8%;
+	padding-right: 6%;
+	padding-left: 6%;
 }
 @media handheld, only screen and (min-width: 80em){
+	#header {
+		width: 80%;
+	}
+	#header, #body, #footer {
+		padding-right: 10%;
+		padding-left: 10%;
+	}
+}
+@media handheld, only screen and (min-width: 95em){
 	#header {
 		width: 72%;
 	}
@@ -42,21 +51,12 @@
 		padding-left: 14%;
 	}
 }
-@media handheld, only screen and (min-width: 95em){
+@media handheld, only screen and (min-width: 110em){
 	#header {
 		width: 64%;
 	}
 	#header, #body, #footer {
 		padding-right: 18%;
 		padding-left: 18%;
-	}
-}
-@media handheld, only screen and (min-width: 110em){
-	#header {
-		width: 56%;
-	}
-	#header, #body, #footer {
-		padding-right: 22%;
-		padding-left: 22%;
 	}
 }

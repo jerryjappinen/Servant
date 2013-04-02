@@ -35,7 +35,7 @@ echo '<div id="footer">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	// echo htmlDump($servant->article()->stylesheets());
+	// echo htmlDump($servant->available()->sites());
 
 // Close footer
 echo '</div>';

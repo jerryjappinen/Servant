@@ -19,7 +19,8 @@
 		"+": " &amp; ",
 		"url": "URL",
 		"jquery": "jQuery",
-		"js ": "JS "
+		"js ": "JS ",
+		" php ": "PHP "
 	}
 
 }
