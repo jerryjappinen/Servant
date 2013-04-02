@@ -1,6 +1,6 @@
 
 
-# `function to_array ($value)`
+### `function to_array ($value)`
 
 **Make sure value is array, convert if needed.**
 

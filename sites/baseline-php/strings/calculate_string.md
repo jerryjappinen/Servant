@@ -1,6 +1,6 @@
 
 
-# `function calculate_string ($formula = '', $forceInteger = false)`
+### `function calculate_string ($formula = '', $forceInteger = false)`
 
 **Do a calculation with a formula in a string.**
 

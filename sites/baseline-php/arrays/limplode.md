@@ -1,6 +1,6 @@
 
 
-# `function limplode ($glue = '', $pieces = array(), $lastGlue = false)`
+### `function limplode ($glue = '', $pieces = array(), $lastGlue = false)`
 
 **`implode()` with optional last glue parameter.**
 
