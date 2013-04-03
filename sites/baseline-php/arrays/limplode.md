@@ -1,14 +1,13 @@
 
+# limplode
 
-### `function limplode ($glue = '', $pieces = array(), $lastGlue = false)`
+**`implode()` with optional last glue parameter.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/arrays/limplode.php?at=default)
 
-**`implode()` with optional last glue parameter.**
+	function limplode ($glue = '', $pieces = array(), $lastGlue = false)
 
-This function works exactly like the native `implode()`, glueing array items into a string. However, in addition, this function accepts an optional third parameters, which will be used as the glue between the last two array items when there are three or more.
+This function works exactly like the native `implode()`, glueing array items into a string. However, it also accepts an optional third parameter, which will be used as the glue between the *last* (hence the name) two array items when there are three or more.
 
 Like with `implode()`, this function accepts `$glue` and `$pieces` in reversed order as well. This does not affect the use of `$lastGlue`.
-
-[View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/arrays/limplode.php?at=default)
 
 
 

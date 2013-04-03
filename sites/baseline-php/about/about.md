@@ -1,27 +1,25 @@
 
 # Baseline PHP
 
-PHP helper set missing from the core language. Authored by Jerry Jäppinen ([eiskis@gmail.com](mailto:eiskis@gmail.com), [eiskis.net](http://eiskis.net/)), released under LGPL.
+PHP helper set for usefult things missing from the core language. Tested on PHP 5.2 and up. Authored by Jerry Jäppinen ([eiskis@gmail.com](mailto:eiskis@gmail.com), [eiskis.net](http://eiskis.net/)), released under LGPL.
 
 
 
 ## Usage
 
-[Download Baseline PHP's release file](https://bitbucket.org/Eiskis/baseline-php/raw/default/baseline.php) in the beginning of your PHP script:
+[Download Baseline PHP's release file](https://bitbucket.org/Eiskis/baseline-php/raw/default/baseline.php) and include it in the beginning of your PHP script:
 
 	require_once 'baseline.php';
 
 You can now use Baseline PHP's functions in the script.
 
-
-
-## Documentation
-
-Documentation is always available online at [eiskis.net/baseline-php](http://eiskis.net/baseline-php/)
+This documentation is always available online at [eiskis.net/baseline-php](http://eiskis.net/baseline-php/)
 
 
 
 ## It's open-source
+
+<a href="http://eiskis.net/"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows author"></a>
 
 Baseline PHP is an open-source project authored by [Jerry Jäppinen](mailto:eiskis@gmail.com) from [eiskis.net](http://eiskis.net/). It's released under [LGPL](http://www.gnu.org/copyleft/lesser.html).
 

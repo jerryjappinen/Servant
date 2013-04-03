@@ -1,12 +1,12 @@
 
+# calculate_string
 
-### `function calculate_string ($formula = '', $forceInteger = false)`
+**Calculate a formula in a string.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/calculate_string.php?at=default)
 
-**Do a calculation with a formula in a string.**
+	function calculate_string ($formula = '', $forceInteger = false)
+
 
 This function accepts a mathematical formula as a string, calculates the result and returns it. When `$forceInteger` is set to true, the return value will be rounded to an integer if it would otherwise be a float value.
-
-[View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/calculate_string.php?at=default)
 
 
 
@@ -21,13 +21,13 @@ This function accepts a mathematical formula as a string, calculates the result 
 	</tr>
 
 	<tr>
-		<td><code>'12*200'</code></td>
+		<td><code>calculate_string('12*200')</code></td>
 		<td><code>2400</code></td>
 		<td></td>
 	</tr>
 
 	<tr>
-		<td><code>'52*7*24*60*60'</code></td>
+		<td><code>calculate_string('52*7*24*60*60')</code></td>
 		<td><code>31449600</code></td>
 		<td></td>
 	</tr>
