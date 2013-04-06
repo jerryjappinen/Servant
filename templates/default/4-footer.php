@@ -35,7 +35,7 @@ echo '<div id="footer">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	// echo htmlDump($servant->theme()->icon());
+	// echo htmlDump($servant->theme()->path());
 
 // Close footer
 echo '</div>';

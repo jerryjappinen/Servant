@@ -70,11 +70,9 @@ class ServantTheme extends ServantObject {
 		$result = '';
 
 		// Look for an icon image file in theme package
-		if (is_dir($this->servant()->theme()->path('server'))) {
-			foreach (rglob_files($this->servant()->theme()->path('server'), $this->servant()->settings()->formats('iconImages')) as $path) {
-				$result = $this->servant()->format()->path($path, 'plain', 'server');
-				break;
-			}
+		foreach (rglob_files($this->path('server'), $this->servant()->settings()->formats('iconImages')) as $path) {
+			$result = $this->servant()->format()->path($path, 'plain', 'server');
+			break;
 		}
 
 		return $this->set('icon', $result);
@@ -124,35 +122,9 @@ class ServantTheme extends ServantObject {
 
 
 
-	// Theme is either a file or a folder within the themes directory
+	// Theme is a folder under the themes directory
 	protected function setPath () {
-		$path = '';
-		$serverPath = $this->servant()->paths()->themes('server').$this->id();
-
-		// Search for a directory
-		if (is_dir($serverPath.'/')) {
-			$path = '/';
-
-		// Search for one file
-		} else {
-
-			// Go through acceptable types, break when we find a match
-			$formats = array_merge($this->servant()->settings()->formats('stylesheets'), $this->servant()->settings()->formats('scripts'));
-			foreach ($formats as $format) {
-				if (is_file($serverPath.'.'.$format)) {
-					$path = '.'.$format;
-					break;
-				}
-			}
-
-		}
-
-		// Make sure we found a proper path
-		if (!empty($path)) {
-			$path = $this->servant()->paths()->themes('plain').$this->id().$path;
-		}
-
-		return $this->set('path', $path);
+		return $this->set('path', $this->servant()->paths()->themes().$this->id().'/');
 	}
 
 
@@ -172,17 +144,10 @@ class ServantTheme extends ServantObject {
 	// Helper to find files
 	private function findFiles ($formatsType) {
 		$files = array();
-		$path = $this->path('server');
 
-		// Individual file
-		if (is_file($path)) {
-			$files[] = $this->path('plain');
-
-		// All template files in directory
-		} else if (is_dir($path)) {
-			foreach (rglob_files($path, $this->servant()->settings()->formats($formatsType)) as $file) {
-				$files[] = $this->servant()->format()->path($file, false, 'server');
-			}
+		// All files of this type in theme's directory
+		foreach (rglob_files($this->path('server'), $this->servant()->settings()->formats($formatsType)) as $file) {
+			$files[] = $this->servant()->format()->path($file, false, 'server');
 		}
 
 		return $files;

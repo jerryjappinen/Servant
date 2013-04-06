@@ -5,24 +5,54 @@ $output = '
 <!DOCTYPE html>
 <html>
 	<head>
-
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<style type="text/css">@-ms-viewport{width: device-width;}</style>
-
-		<title>'.$servant->site()->name().'</title>
 		';
 
-		// Use a favicon if there is one
-		if (is_dir($servant->theme()->path('server'))) {
-			foreach (rglob_files($servant->theme()->path('server'), 'ico') as $path) {
-				$output .= '<link rel="shortcut icon" href="'.$servant->format()->path($path, 'domain', 'server').'" type="image/x-icon">';
-				break;
-			}
+		// Basic meta stuff - charset, scaling...
+		$output .= '
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<style type="text/css">
+			@-ms-viewport{width: device-width;}
+			@-o-viewport{width: device-width;}
+			@viewport{width: device-width;}
+		</style>
+		';
+
+		// Site title
+		$output .= '
+		<title>'.$servant->site()->name().'</title>
+		<meta name="application-name" content="'.$servant->site()->name().'">
+		';
+
+		// Custom web site icon
+		$icon = $servant->site()->icon('domain');
+		if (empty($icon)) {
+			$icon = $servant->theme()->icon('domain');
 		}
+		if (!empty($icon)) {
+			$extension = pathinfo($icon, PATHINFO_EXTENSION);
+
+			// .ico for browsers
+			if ($extension === 'ico') {
+				$output .= '<link rel="shortcut icon" href="'.$icon.'" type="image/x-icon">';
+
+			// Images for browsers, iOS, Windows 8
+			} else {
+				$output .= '
+				<link rel="icon" href="'.$icon.'" type="'.$servant->settings()->contentTypes($extension).'">
+				<link rel="apple-touch-icon-precomposed" href="'.$icon.'" />
+				<meta name="msapplication-TileImage" content="'.$icon.'"/>';
+				// $output .= '<meta name="msapplication-TileColor" content="#d83434"/>';
+			}
+
+			unset($extension);
+		}
+		unset($icon);
+
+
 
 		// Stylesheets
-		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->site()->article()->tree()).'/'.'" media="screen">';
+		$output .= '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->site()->article()->tree()).'/'.'" media="screen">';
 
 		$output .= '
 	</head>

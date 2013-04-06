@@ -13,9 +13,6 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 
 	// Root is theme directory root
 	$rootUrl = $this->servant()->theme()->path('domain');
-	if (!$rootUrl) {
-		$rootUrl = $this->servant()->paths()->themes('domain');
-	}
 
 	// We can parse relative path from that
 	$relativeUrl = substr((pathinfo($path, PATHINFO_DIRNAME).'/'), strlen($this->servant()->theme()->path('plain')));
@@ -31,9 +28,6 @@ foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 
 	// Root is site directory root
 	$rootUrl = $this->servant()->site()->path('domain');
-	if (!$rootUrl) {
-		$rootUrl = $this->servant()->paths()->sites('domain');
-	}
 
 	// We can parse relative path from that
 	$relativeUrl = substr((pathinfo($path, PATHINFO_DIRNAME).'/'), strlen($this->servant()->site()->path('plain')));

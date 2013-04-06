@@ -39,7 +39,6 @@ echo '
 			} else {
 				echo '
 				<link rel="icon" href="'.$icon.'" type="'.$servant->settings()->contentTypes($extension).'">
-				<link rel="shortcut icon" href="'.$icon.'" type="image/x-icon">
 				<link rel="apple-touch-icon-precomposed" href="'.$icon.'" />
 				<meta name="msapplication-TileImage" content="'.$icon.'"/>';
 				// echo '<meta name="msapplication-TileColor" content="#d83434"/>';

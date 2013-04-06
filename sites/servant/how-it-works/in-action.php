@@ -17,7 +17,7 @@ foreach ($servant->available()->sites() as $id) {
 	'.($i === 3 ? '<div class="clear"></div>' : '');
 
 	// Counter
-	$i = $i === 3 ? 0 : $i+1;
+	$i = $i === 3 ? 1 : $i+1;
 }
 unset($i);
 

@@ -86,7 +86,7 @@ class ServantAvailable extends ServantObject {
 	// Themes are single files or directories of stylesheets and scripts
 	protected function setThemes () {
 		$formats = array_merge($this->servant()->settings()->formats('stylesheets'), $this->servant()->settings()->formats('scripts'));
-		return $this->set('themes', array_merge($this->findFiles('themes', $formats), $this->findDirectories('themes')));
+		return $this->set('themes', $this->findDirectories('themes'));
 	}
 
 	// Utilities are script files or directories
