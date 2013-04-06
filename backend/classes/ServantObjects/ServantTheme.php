@@ -55,33 +55,44 @@ class ServantTheme extends ServantObject {
 	// Setters
 
 	// Theme identity
-	// FLAG I don't want to double get everything, but don't want to get everything either - what's the best way to do this?
-	protected function setId ($id = null) {
+	protected function setId ($input = null) {
 
-		// Silent fallback
-		if (!$this->servant()->available()->theme($id)) {
+		// List our options, in order of preference
+		$preferredIds = array(
 
-			// Site's own theme
-			if ($this->servant()->available()->theme($this->servant()->site()->id())) {
-				$id = $this->servant()->site()->id();
+			// Whatever we got as input parameter here
+			$input,
 
-			// Template's theme
-			} else if ($this->servant()->available()->theme($this->servant()->template()->id())) {
-				$id = $this->servant()->template()->id();
+			// Theme defined in site settings
+			$this->servant()->site()->settings('theme'),
 
-			// Global default
-			} else if ($this->servant()->available()->theme($this->servant()->settings()->defaults('theme'))) {
-				$id = $this->servant()->settings()->defaults('theme');
+			// Theme with the same name as site
+			$this->servant()->site()->id(),
+
+			// Theme with the same name as template
+			$this->servant()->template()->id(),
+
+			// Default from global settings
+			$this->servant()->settings()->defaults('theme'),
 
 			// Whatever's available
-			} else {
-				$id = $this->servant()->available()->themes(0);
+			$id = $this->servant()->available()->themes(0)
 
-				if ($id === null) {
-					$this->fail('No themes available');
-				}
+		);
+
+		// Go through our options, try to find a template
+		foreach ($preferredIds as $id) {
+			if ($this->servant()->available()->template($id)) {
+				break;
 			}
 		}
+
+		// Require a valid template
+		// FLAG I want Servant to work without a theme
+		if ($id === null) {
+			$this->fail('No themes available');
+		}
+
 		return $this->set('id', $id);
 	}
 

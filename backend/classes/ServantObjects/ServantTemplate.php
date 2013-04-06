@@ -74,26 +74,39 @@ class ServantTemplate extends ServantObject {
 
 
 	// Name of the template (file or folder in the templates directory)
-	protected function setId ($id = null) {
+	protected function setId ($input = null) {
 
-		// Silent fallback
-		if (!$this->servant()->available()->template($id)) {
+		// List our options, in order of preference
+		$preferredIds = array(
 
-			// Site's own template
-			if ($this->servant()->available()->template($this->servant()->site()->id())) {
-				$id = $this->servant()->site()->id();
+			// Whatever we got as input parameter here
+			$input,
 
-			// Global default
-			} else if ($this->servant()->available()->template($this->servant()->settings()->defaults('template'))) {
-				$id = $this->servant()->settings()->defaults('template');
+			// Template defined in site settings
+			$this->servant()->site()->settings('template'),
+
+			// Template with the same name as site
+			$this->servant()->site()->id(),
+
+			// Default from global settings
+			$this->servant()->settings()->defaults('template'),
 
 			// Whatever's available
-			} else {
-				$id = $this->servant()->available()->templates(0);
-				if ($id === null) {
-					$this->fail('No templates available');
-				}
+			$id = $this->servant()->available()->templates(0)
+
+		);
+
+		// Go through our options, try to find a template
+		foreach ($preferredIds as $id) {
+			if ($this->servant()->available()->template($id)) {
+				break;
 			}
+		}
+
+		// Require a valid template
+		// FLAG I want Servant to work without a template
+		if ($id === null) {
+			$this->fail('No templates available');
 		}
 
 		return $this->set('id', $id);
