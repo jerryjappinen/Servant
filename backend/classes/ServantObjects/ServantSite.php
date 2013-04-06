@@ -5,7 +5,7 @@ class ServantSite extends ServantObject {
 	// Properties
 	protected $propertyArticle 			= null;
 	protected $propertyArticles 		= null;
-	protected $propertyConfiguration	= null;
+	protected $propertySettings	= null;
 	protected $propertyId 				= null;
 	protected $propertyName 			= null;
 	protected $propertyPath 			= null;
@@ -61,19 +61,23 @@ class ServantSite extends ServantObject {
 		return $this->set('articles', $this->findArticles($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
-	protected function setConfiguration () {
+	protected function setSettings () {
 
-		// Base format
-		$configuration = array('template' => '', 'theme' => '');
+		// Basic format of site settings
+		$settings = array(
+			'name' => '',
+			'template' => '',
+			'theme' => ''
+		);
 
-		// Look for configuration files
-		$path = $this->path('server').$this->servant()->settings()->packageContents('siteConfigurationFile');
+		// Look for settings files
+		$path = $this->path('server').$this->servant()->settings()->packageContents('siteSettingsFile');
 		if (is_file($path)) {
 
-			// Read configuration, interpret into an array
+			// Read settings, interpret into an array
 			$contents = str_replace(array(',', ';', "\n\n"), "\n", trim_text(file_get_contents($path)));
 			$contents = explode("\n", $contents);
-			$keys = array_keys($configuration);
+			$keys = array_keys($settings);
 			$keyCount = count($keys);
 
 			// Evaluate any key-value pairs found
@@ -89,7 +93,7 @@ class ServantSite extends ServantObject {
 					$key = trim($value[0]);
 					$value = trim($value[1]);
 					if (in_array($key, $keys) and !empty($value)) {
-						$configuration[$key] = ''.$value;
+						$settings[$key] = ''.$value;
 
 						// Break when we've found everything
 						$j++;
@@ -112,7 +116,7 @@ class ServantSite extends ServantObject {
 
 		}
 
-		return $this->set('configuration', $configuration);
+		return $this->set('settings', $settings);
 	}
 
 	protected function setId () {
@@ -145,8 +149,15 @@ class ServantSite extends ServantObject {
 		return $this->set('id', $id);
 	}
 
+	// Name comes from settings or is created from ID
 	protected function setName () {
-		return $this->set('name', $this->servant()->format()->name($this->id()));
+		$nameFromSettings = $this->settings('name');
+		if (!empty($nameFromSettings)) {
+			$result = $nameFromSettings;
+		} else {
+			$result = $this->servant()->format()->name($this->id());
+		}
+		return $this->set('name', $result);
 	}
 
 	protected function setPath () {
@@ -168,12 +179,12 @@ class ServantSite extends ServantObject {
 	// Private helpers
 
 	// List available articles recursively
-	// FLAG excluding configuration file is a bit laborious
+	// FLAG excluding settings file is a bit laborious
 	private function findArticles ($path, $filetypes = array()) {
 		$results = array();
 
 		// Unaccetable files
-		$blacklist = array($this->path('plain').$this->servant()->settings()->packageContents('siteConfigurationFile'));
+		$blacklist = array($this->path('plain').$this->servant()->settings()->packageContents('siteSettingsFile'));
 
 		// Files on this level
 		foreach (glob_files($path, $filetypes) as $file) {
