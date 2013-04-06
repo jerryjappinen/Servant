@@ -72,7 +72,7 @@ class ServantInput extends ServantObject {
 
 				// Shorthand
 				} else {
-					$results = shorthand_decode($values);
+					$results = parse_into_array($values);
 				}
 
 			// Try to use it as an array

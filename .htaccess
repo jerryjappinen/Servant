@@ -1,8 +1,9 @@
 
 # Settings
+# Please note that there is another .htaccess file in "backend/", which denies direct access to the folder and its contents
 
 # Disable directory listings
-# Options -Indexes
+Options -Indexes
 
 # Allow URL rewrites (uncomment the next line if needed on your server)
 # Options +FollowSymLinks

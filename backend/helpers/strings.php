@@ -96,74 +96,13 @@ function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
 	return $subject;
 }
 
-
-
-// Decodes a string into an array
-// NOTE format: "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
-function shorthand_decode ($string) {
-
-	$result = array();
-
-	// Iterate through all the values/key-value pairs
-	foreach (explode(';', $string) as $key => $value) {
-
-		// Individual value
-		if (strpos($value, ',') === false and strpos($value, ':') === false) {
-			$result[$key] = trim($value);
-
-		// List
-		} else {
-			foreach (explode(',', $value) as $key2 => $value2) {
-
-				$value2 = trim($value2, '"');
-
-				// Key-value pair
-				if (strpos($value2, ':') !== false) {
-					$temp2 = explode(':', $value2);
-					$result[$key][$temp2[0]] = $temp2[1];
-
-				// Plain value
-				} else {
-					$result[$key][$key2] = $value2;
-				}
-
-			}
-		}
+// Trim excess whitespaces, empty lines etc. from a string.
+function trim_text ($subject) {
+	if (is_string($subject)) {
+		return preg_replace('/[ \t]+/', ' ', preg_replace('/\s*$^\s*/m', "\n\n", trim($subject)));
+	} else {
+		return $subject;
 	}
-
-	// FLAG I'm looping the results twice
-	foreach ($result as $key => $value) {
-		if (is_string($value) and empty($value)) {
-			unset($result[$key]);
-		}
-	}
-
-	return $result;
-}
-
-
-
-// Serialize an array into non-human-readable strings
-function array_serialize ($array) {
-	$string = '';
-	foreach ($array as $key => $value) {
-		$string .= '.'.base64_encode(serialize($value));
-	}
-	return substr($string, 1);
-}
-
-// Unserialize an array back into a sane format
-function array_unserialize ($string) {
-	$result = array();
-
-	// Exploding serialized data
-	if (!empty($string)) {
-		foreach (explode('.', $string) as $value) {
-			$result[] = unserialize(base64_decode($value));
-		}
-	}
-
-	return $result;
 }
 
 ?>

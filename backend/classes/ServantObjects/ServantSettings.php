@@ -23,6 +23,7 @@ class ServantSettings extends ServantObject {
 			'defaults',
 			'formats',
 			'namingConvention',
+			'packageContents',
 			'patterns',
 			'statuses',
 		);
@@ -140,8 +141,14 @@ class ServantSettings extends ServantObject {
 
 
 
-	protected function setNamingConvention ($input = array()) {
-		return $this->set('namingConvention', array_flatten(to_array($input), true, true));
+	protected function setNamingConvention ($input = null) {
+		return $this->set('namingConvention', $this->takeInAssociativeArray($input));
+	}
+
+
+
+	protected function setPackageContents ($input = null) {
+		return $this->set('packageContents', $this->takeInAssociativeArray($input));
 	}
 
 
@@ -160,13 +167,21 @@ class ServantSettings extends ServantObject {
 
 	// Private helpers
 
-	private function takeInFlattenedArray ($array = null, $numericalKeys = false) {
+	private function takeInAssociativeArray ($input = null) {
+		$results = array();
+		if ($input) {
+			$results = array_flatten(to_array($input), true, true);
+		}
+		return $results;
+	}
+
+	private function takeInFlattenedArray ($input = null, $numericalKeys = false) {
 		$results = array();
 
 		// Pick stuff from input
-		if ($array and is_array($array)) {
-			$array = array_flatten($array, true, true);
-			foreach ($array as $key => $value) {
+		if ($input and is_array($input)) {
+			$input = array_flatten($input, true, true);
+			foreach ($input as $key => $value) {
 
 				// Accept string values with either numerical or integer keys
 				if (is_string($value) and (($numericalKeys and is_numeric($key)) or (!$numericalKeys and is_string($key)))) {

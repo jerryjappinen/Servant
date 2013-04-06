@@ -112,8 +112,8 @@ $string = dont_start_with($string, 'http://');    // still 'eiskis.net/proot/gui
 	</tr>
 
 	<tr>
-		<td><code>shorthand_decode($string)</code><br />Decodes a string into an array.</td>
-		<td><pre><code>shorthand_decode('some value;1,2;key:Value,anotherKey:Another value');
+		<td><code>parse_into_array($string)</code><br />Decodes a string into an array.</td>
+		<td><pre><code>parse_into_array('some value;1,2;key:Value,anotherKey:Another value');
 /* array(
 	0 => 'Some value',
 	1 => array(

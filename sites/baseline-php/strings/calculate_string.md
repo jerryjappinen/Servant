@@ -6,37 +6,21 @@
 	function calculate_string ($formula = '', $forceInteger = false)
 
 
-This function accepts a mathematical formula as a string, calculates the result and returns it. When `$forceInteger` is set to true, the return value will be rounded to an integer if it would otherwise be a float value.
+This function accepts a mathematical formula as a string, calculates the result and returns it. When `$forceInteger` is set to `true`, the return value will be rounded to an integer if it would otherwise be a float value.
 
 
 
-## I/O examples
+## Examples
 
-<table>
+### Basics
 
-	<tr>
-		<th scope="col">Input</th>
-		<th scope="col">Return value</th>
-		<th scope="col">Notes</th>
-	</tr>
+##### Some multiplication
+	calculate_string('12*200')			// Returns 2400
 
-	<tr>
-		<td><code>calculate_string('12*200')</code></td>
-		<td><code>2400</code></td>
-		<td></td>
-	</tr>
-
-	<tr>
-		<td><code>calculate_string('52*7*24*60*60')</code></td>
-		<td><code>31449600</code></td>
-		<td></td>
-	</tr>
-
-</table>
+##### Seconds in a week
+	calculate_string('7*24*60*60')		// Returns 31449600
 
 
-
-## Real-life examples
 
 ### Parse formulas in JSON
 
@@ -56,4 +40,5 @@ JSON is a common format for sending and storing structured information, but does
 		$settings['sessionTimeout'] = calculate_string($settins['sessionTimeout']);
 	}
 
-	echo $settings['sessionTimeout'];		// 43200
+	echo $settings['sessionTimeout'];
+	// Returns 43200

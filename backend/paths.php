@@ -11,14 +11,14 @@ $paths = array(
 	'sites' 		=> 'sites/',
 	'themes' 		=> 'themes/',
 	'templates' 	=> 'templates/',
-	'cache' 		=> 'cache/',
+	'cache' 		=> 'backend/cache/',
 
 	// Backend
 	'index' 		=> 'backend/',
 	'actions' 		=> 'backend/actions/',
 	'classes' 		=> 'backend/classes/',
 	'helpers' 		=> 'backend/helpers/',
-	'settings' 		=> 'settings/',
+	'settings' 		=> 'backend/settings/',
 	'utilities' 	=> 'backend/utilities/',
 
 );

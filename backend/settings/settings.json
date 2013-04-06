@@ -5,6 +5,10 @@
 		"server": "0*24*2"
 	},
 
+	"packageContents": {
+		"siteConfigurationFile": "configuration.txt"
+	},
+
 	"defaults": {
 		"action": "read",
 		"site": "home",
@@ -20,7 +24,8 @@
 		"url": "URL",
 		"jquery": "jQuery",
 		"js ": "JS ",
-		" php ": "PHP "
+		" php": " PHP",
+		"php ": "PHP "
 	}
 
 }
