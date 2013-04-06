@@ -3,18 +3,27 @@
 class ServantSite extends ServantObject {
 
 	// Properties
-	protected $propertyArticle 			= null;
-	protected $propertyArticles 		= null;
-	protected $propertySettings	= null;
-	protected $propertyId 				= null;
-	protected $propertyName 			= null;
-	protected $propertyPath 			= null;
-	protected $propertyStylesheets 		= null;
-	protected $propertyScripts 			= null;
+	protected $propertyArticle 		= null;
+	protected $propertyArticles 	= null;
+	protected $propertySettings		= null;
+	protected $propertyIcon 		= null;
+	protected $propertyId 			= null;
+	protected $propertyName 		= null;
+	protected $propertyPath 		= null;
+	protected $propertyStylesheets 	= null;
+	protected $propertyScripts 		= null;
 
 
 
 	// Public getters
+
+	public function icon ($format = null) {
+		$icon = $this->getAndSet('icon');
+		if ($format and !empty($icon)) {
+			$icon = $this->servant()->format()->path($icon, $format);
+		}
+		return $icon;
+	}
 
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
@@ -48,7 +57,9 @@ class ServantSite extends ServantObject {
 
 	// Setters
 
-	// Selected article as child object
+	/**
+	* Selected article as child object
+	*/
 	protected function setArticle () {
 
 		// Select article based on input
@@ -57,14 +68,86 @@ class ServantSite extends ServantObject {
 		return $this->set('article', create(new ServantArticle($this->servant()))->init($this, $selectedArticle));
 	}
 
+	/**
+	* Articles of this site
+	*/
 	protected function setArticles () {
 		return $this->set('articles', $this->findArticles($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
+	/**
+	* Path to site icon comes from settings or remains an empty string
+	*/
+	protected function setIcon () {
+		$result = '';
+		$setting = $this->settings('icon');
+		if (!empty($setting) and in_array(pathinfo($setting, PATHINFO_EXTENSION), $this->servant()->settings()->formats('iconImages')) and is_file($this->path('server').$setting)) {
+			$result = $this->path('plain').$setting;
+		}
+		return $this->set('icon', $result);
+	}
+
+	/**
+	* ID
+	*/
+	protected function setId () {
+
+		// Try using input
+		$id = $this->servant()->input()->site();
+
+		// Given ID is invalid
+		if (!$id or !$this->servant()->available()->site($id)) {
+
+			// Other options
+			$default = $this->servant()->settings()->defaults('site');
+			$first = $this->servant()->available()->sites(0);
+
+			// Global default
+			if ($this->servant()->available()->site($default)) {
+				$id = $default;
+
+			// Whatever's available
+			} else if (isset($first)) {
+				$id = $first;
+
+			// No sites
+			} else {
+				$this->fail('No sites available');
+			}
+
+		}
+
+		return $this->set('id', $id);
+	}
+
+	/**
+	* Name comes from settings or is created from ID
+	*/
+	protected function setName () {
+		$setting = $this->settings('name');
+		if (!empty($setting)) {
+			$result = $setting;
+		} else {
+			$result = $this->servant()->format()->name($this->id());
+		}
+		return $this->set('name', $result);
+	}
+
+	/**
+	* Path
+	*/
+	protected function setPath () {
+		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
+	}
+
+	/**
+	* Site's settings
+	*/
 	protected function setSettings () {
 
 		// Basic format of site settings
 		$settings = array(
+			'icon' => '',
 			'name' => '',
 			'template' => '',
 			'theme' => ''
@@ -119,57 +202,16 @@ class ServantSite extends ServantObject {
 		return $this->set('settings', $settings);
 	}
 
-	protected function setId () {
-
-		// Try using input
-		$id = $this->servant()->input()->site();
-
-		// Given ID is invalid
-		if (!$id or !$this->servant()->available()->site($id)) {
-
-			// Other options
-			$default = $this->servant()->settings()->defaults('site');
-			$first = $this->servant()->available()->sites(0);
-
-			// Global default
-			if ($this->servant()->available()->site($default)) {
-				$id = $default;
-
-			// Whatever's available
-			} else if (isset($first)) {
-				$id = $first;
-
-			// No sites
-			} else {
-				$this->fail('No sites available');
-			}
-
-		}
-
-		return $this->set('id', $id);
-	}
-
-	// Name comes from settings or is created from ID
-	protected function setName () {
-		$nameFromSettings = $this->settings('name');
-		if (!empty($nameFromSettings)) {
-			$result = $nameFromSettings;
-		} else {
-			$result = $this->servant()->format()->name($this->id());
-		}
-		return $this->set('name', $result);
-	}
-
-	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
-	}
-
-	// Stylesheet files
+	/**
+	* Stylesheet files
+	*/
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->findFiles('stylesheets'));
 	}
 
-	// Script files
+	/**
+	* Script files
+	*/
 	protected function setScripts () {
 		return $this->set('scripts', $this->findFiles('scripts'));
 	}
@@ -178,13 +220,24 @@ class ServantSite extends ServantObject {
 
 	// Private helpers
 
-	// List available articles recursively
-	// FLAG excluding settings file is a bit laborious
+	/**
+	* List available articles recursively
+	*
+	* FLAG excluding settings file is a bit laborious
+	*/
 	private function findArticles ($path, $filetypes = array()) {
 		$results = array();
+		$blacklist = array();
 
-		// Unaccetable files
-		$blacklist = array($this->path('plain').$this->servant()->settings()->packageContents('siteSettingsFile'));
+		// Blacklist site settings file
+		$blacklist[] = $this->path('plain').$this->servant()->settings()->packageContents('siteSettingsFile');
+
+		// Blacklist site icon
+		$iconPath = $this->settings('icon');
+		if (!empty($iconPath)) {
+			$blacklist[] = $this->path('plain').$iconPath;
+		}
+		unset($iconPath);
 
 		// Files on this level
 		foreach (glob_files($path, $filetypes) as $file) {
@@ -220,7 +273,9 @@ class ServantSite extends ServantObject {
 		return $results;
 	}
 
-	// Helper to find any files, returns them uncategorized
+	/**
+	* Helper to find any files, returns them uncategorized
+	*/
 	private function findFiles ($formatsType) {
 		$files = array();
 		$path = $this->path('server');

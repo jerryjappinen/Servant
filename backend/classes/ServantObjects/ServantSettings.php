@@ -122,6 +122,7 @@ class ServantSettings extends ServantObject {
 
 		// Base format with defaults
 		$results = array(
+			'iconImages' => array(),
 			'templates' => array(),
 			'stylesheets' => array(),
 			'scripts' => array(),

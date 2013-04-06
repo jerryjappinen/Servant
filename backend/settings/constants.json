@@ -16,6 +16,7 @@
 		"pdf": "application/pdf",
 		"zip": "application/zip",
 
+		"ico": "image/x-icon",
 		"gif": "image/gif",
 		"jpg": "image/jpeg",
 		"png": "image/png",
@@ -138,6 +139,7 @@
 	},
 
 	"formats": {
+		"iconImages": ["ico", "png", "gif", "jpg"],
 		"templates": ["md", "txt", "html", "php", "json"],
 		"stylesheets": ["css", "less"],
 		"scripts": ["js", "json"]
