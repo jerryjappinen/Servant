@@ -4,10 +4,16 @@ class ServantObject {
 
 
 
-	// Properties
+	/**
+	* Properties
+	*/
 	private $propertyMain = null;
 
-	// Include a reference to main Servant object
+	/**
+	* servant
+	*
+	* Include a reference to main Servant object
+	*/
 	protected function servant () {
 		$main = $this->get('main');
 		return $main === null ? $this : $main;
@@ -15,14 +21,22 @@ class ServantObject {
 
 
 
-	// Magic methods
+	/**
+	* Magic methods
+	*/
 
-	// Default behavior when calling inaccessible method is getAndSet
+	/**
+	* _call
+	*
+	* Default behavior when calling inaccessible method is getAndSet
+	*/
 	public function __call ($id, $arguments) {
 		return $this->getAndSet($id, $arguments);
 	}
 
-	// Generic constructor
+	/**
+	* __construct
+	*/
 	public function __construct ($main) {
 
 		// Take in Servant object
@@ -36,7 +50,11 @@ class ServantObject {
 		return $this;
 	}
 
-	// When object is used as string, return a name
+	/**
+	* toString
+	*
+	* When object is used as string, return a name
+	*/
 	public function __toString () {
 		if (method_exists($this, 'id')) {
 			$name = $this->id();
@@ -46,7 +64,11 @@ class ServantObject {
 		}
 	}
 
-	// Generic initializer, calls object's custom initializer if one exists
+	/**
+	* init
+	*
+	* Generic initializer, calls object's custom initializer if one exists
+	*/
 	public function init () {
 
 		// Also run the optional class-specific method
@@ -60,9 +82,13 @@ class ServantObject {
 
 
 
-	// Generic functionality
+	/**
+	* Generic functionality
+	*/
 
-	// Find out if key exists within traversable property; optionally check for specific value
+	/**
+	* Find out if key exists within traversable property; optionally check for specific value
+	*/
 	protected function assert ($id, $tree = null, $target = null) {
 		$value = $this->get($id, $tree);
 		if ($value === null) {
@@ -74,7 +100,9 @@ class ServantObject {
 		}
 	}
 
-	// Call a property-specific setter
+	/**
+	* Call a property-specific setter
+	*/
 	protected function callSetter ($id, $arguments = array()) {
 		$setterName = $this->setterName($id);
 		if (method_exists($this, $setterName)) {
@@ -84,7 +112,9 @@ class ServantObject {
 		}
 	}
 
-	// Report failure, throw an error
+	/**
+	* Report failure, throw an error
+	*/
 	protected function dump () {
 		$results = array();
 
@@ -127,13 +157,17 @@ class ServantObject {
 		return $results;
 	}
 
-	// Report failure, throw an error
+	/**
+	* Report failure, throw an error
+	*/
 	protected function fail ($message, $code = 500) {
 		throw new Exception($message, $code);
 		return $this;
 	}
 
-	// Generic getter with traversing options
+	/**
+	* Generic getter with traversing options
+	*/
 	protected function get ($id, $tree = null) {
 		$propertyName = $this->propertyName($id);
 		$value = $this->$propertyName;
@@ -143,7 +177,9 @@ class ServantObject {
 		return $value;
 	}
 
-	// Generic property setter, can be used in setter methods
+	/**
+	* Generic property setter, can be used in setter methods
+	*/
 	protected function set ($id, $value) {
 		$propertyName = $this->propertyName($id);
 		if ($value === null) {
@@ -156,9 +192,13 @@ class ServantObject {
 
 
 
-	// Wrapper methods
+	/**
+	* Wrapper methods
+	*/
 
-	// Getter that calls (auto) setter when needed
+	/**
+	* Getter that calls (auto) setter when needed
+	*/
 	protected function getAndSet ($id, $tree = null) {
 		if ($this->get($id) === null) {
 			$this->callSetter($id);
@@ -166,7 +206,9 @@ class ServantObject {
 		return $this->get($id, $tree);
 	}
 
-	// Getter that calls (auto) setter when needed
+	/**
+	* Getter that calls (auto) setter when needed
+	*/
 	protected function assertAndSet ($id, $tree = null, $target = null) {
 		if ($this->get($id) === null) {
 			$this->callSetter($id);
@@ -174,7 +216,9 @@ class ServantObject {
 		return $this->assert($id, $tree);
 	}
 
-	// Get if values are not provided, but forward to setting if they are
+	/**
+	* Get if values are not provided, but forward to setting if they are
+	*/
 	protected function getOrSet ($id, $arguments = null) {
 		if (empty($arguments)) {
 			return $this->get($id);
@@ -183,7 +227,9 @@ class ServantObject {
 		}
 	}
 
-	// Getter that can check if a key exists
+	/**
+	* Getter that can check if a key exists
+	*/
 	protected function getOrAssert ($id, $tree = null, $target = null) {
 		if (empty($tree)) {
 			return $this->get($id);
@@ -194,7 +240,9 @@ class ServantObject {
 
 
 
-	// Private helpers
+	/**
+	* Private helpers
+	*/
 
 	// Naming convention helpers
 	private function className ($id) {
@@ -217,7 +265,6 @@ class ServantObject {
 	}
 
 	// Generating/parsing names for things
-	// NOTE reverse namers are slow
 	private function generateName ($prefix, $name) {
 		return $prefix.ucfirst($name);
 	}

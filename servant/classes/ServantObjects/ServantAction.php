@@ -2,7 +2,9 @@
 
 class ServantAction extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyBrowserCache 		= null;
 	protected $propertyCacheLocation 			= null;
 	protected $propertyContentType 			= null;
@@ -15,7 +17,15 @@ class ServantAction extends ServantObject {
 
 
 
-	// Run custom scripts in action
+	/**
+	* Wrapper methods
+	*/
+
+	/**
+	* Run
+	*
+	* Get custom scripts from action's package, run them cleanly
+	*/
 	public function run () {
 
 		// Include action's code
@@ -34,9 +44,9 @@ class ServantAction extends ServantObject {
 		return $this;
 	}
 
-
-
-	// Initialization
+	/**
+	* Initialize
+	*/
 	public function initialize () {
 
 		// Set defaults
@@ -48,49 +58,26 @@ class ServantAction extends ServantObject {
 
 
 
-	// Public getters/setters
+	/**
+	* Special getters
+	*/
 
-	// Whether or not to allow browsers to cache response
 	public function browserCache () {
 		$arguments = func_get_args();
 		return $this->getOrSet('browserCache', $arguments);
 	}
 
-	// Whether or not to allow browsers to cache response
 	public function cacheLocation () {
 		$arguments = func_get_args();
 		return $this->getOrSet('cacheLocation', $arguments);
 	}
 
-	// Content type is a short extension (from settings) that marks the type of output
 	public function contentType () {
 		$arguments = func_get_args();
 		return $this->getOrSet('contentType', $arguments);
 	}
 
-	// Output is the complete body content given for response
-	public function output () {
-		$arguments = func_get_args();
-		return $this->getOrSet('output', $arguments);
-	}
-
-	// Either use template or not when outputting
-	public function outputViaTemplate () {
-		$arguments = func_get_args();
-		return $this->getOrSet('outputViaTemplate', $arguments);
-	}
-
-	// Status is a numerical HTTP status code (from settings) that indicates what happened in action 
-	public function status () {
-		$arguments = func_get_args();
-		return $this->getOrSet('status', $arguments);
-	}
-
-
-
-	// Formattable paths with autosetters
-
-	// File list in any format
+	// Files in any format
 	public function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
@@ -101,7 +88,17 @@ class ServantAction extends ServantObject {
 		return $files;
 	}
 
-	// Allow formatting path when getting
+	public function output () {
+		$arguments = func_get_args();
+		return $this->getOrSet('output', $arguments);
+	}
+
+	public function outputViaTemplate () {
+		$arguments = func_get_args();
+		return $this->getOrSet('outputViaTemplate', $arguments);
+	}
+
+	// Path in any format
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -110,11 +107,22 @@ class ServantAction extends ServantObject {
 		return $path;
 	}
 
+	public function status () {
+		$arguments = func_get_args();
+		return $this->getOrSet('status', $arguments);
+	}
 
 
-	// Setters
 
-	// Set max time in minutes, or allow/disallow
+	/**
+	* Setters
+	*/
+
+	/**
+	* Browser cache
+	*
+	* Set max time in minutes, or allow/disallow caching of the response by browser.
+	*/
 	protected function setBrowserCache ($time) {
 		$result = 0;
 
@@ -130,16 +138,11 @@ class ServantAction extends ServantObject {
 		return $this->set('browserCache', $result);
 	}
 
-
-
-	// A code for content type, available in settings
-	protected function setContentType ($contentType) {
-		return $this->set('contentType', $contentType);
-	}
-
-
-
-	// Location of cache file under the action's cache directory
+	/**
+	* Cache location
+	*
+	* Location of cache file under the action's cache directory. A set of directory/file names.
+	*/
 	protected function setCacheLocation () {
 		$result = array();
 
@@ -147,7 +150,7 @@ class ServantAction extends ServantObject {
 		$arguments = func_get_args();
 		foreach (array_flatten($arguments) as $value) {
 			if (!empty($value)) {
-				$result[] = $value;
+				$result[] = trim($value);
 			} else {
 				break;
 			}
@@ -156,9 +159,20 @@ class ServantAction extends ServantObject {
 		return $this->set('cacheLocation', $result);
 	}
 
+	/**
+	* Content type
+	*
+	* A code for content type, available in settings. Must be available in settings.
+	*/
+	protected function setContentType ($contentType) {
+		return $this->set('contentType', $contentType);
+	}
 
-
-	// All files of the action
+	/**
+	* Files
+	*
+	* List of all files of the action.
+	*/
 	protected function setFiles () {
 		$files = array();
 		$path = $this->path('server');
@@ -177,9 +191,11 @@ class ServantAction extends ServantObject {
 		return $this->set('files', $files);
 	}
 
-
-
-	// Name of the action (file or folder in actions dir)
+	/**
+	* ID
+	*
+	* Name of the action (file or folder in the actions directory).
+	*/
 	protected function setId () {
 
 		// Try using input
@@ -204,23 +220,29 @@ class ServantAction extends ServantObject {
 		return $this->set('id', $id);
 	}
 
-
-
-	// Output content
+	/**
+	* Output
+	*
+	* The complete body content given for response.
+	*/
 	protected function setOutput ($output) {
-		return $this->set('output', $output);
+		return $this->set('output', ''.$output);
 	}
 
-
-
-	// Yes or no, simple
+	/**
+	* Output via template
+	*
+	* Choose to use template or go without when printing output.
+	*/
 	protected function setOutputViaTemplate ($value) {
 		return $this->set('outputViaTemplate', ($value ? true : false));
 	}
 
-
-
-	// Action is either a file or a folder within the actions directory
+	/**
+	* Path
+	*
+	* Action is either a file or a folder within the actions directory.
+	*/
 	protected function setPath () {
 		$path = $this->servant()->paths()->actions('plain').$this->id();
 		$serverPath = $this->servant()->paths()->actions('server').$this->id();
@@ -237,9 +259,11 @@ class ServantAction extends ServantObject {
 		return $this->set('path', $path);
 	}
 
-
-
-	// Output status (three-digit code)
+	/**
+	* Status
+	*
+	* Three-digit HTTP status code that indicates what happened in action. Must be available in settings.
+	*/
 	protected function setStatus ($status) {
 		return $this->set('status', $status);
 	}

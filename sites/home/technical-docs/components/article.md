@@ -84,4 +84,4 @@
 
 </table>
 
-To learn how to read this table, read the [introduction to ServantObject](/backend/source-code/about)
+To learn how to read this table, read the [introduction to ServantObject](/technical-docs/about/servant-objects).

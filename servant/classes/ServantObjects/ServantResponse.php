@@ -2,7 +2,9 @@
 
 class ServantResponse extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyBody 			= null;
 	protected $propertyBrowserCacheTime = null;
 	protected $propertyContentType 		= null;
@@ -75,7 +77,7 @@ class ServantResponse extends ServantObject {
 
 
 	/**
-	* Getters
+	* Special getters
 	*/
 
 	/**

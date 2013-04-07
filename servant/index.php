@@ -120,7 +120,7 @@ unset($path);
 
 
 //
-// Execute -_-
+// Bitches be like "execute"
 //
 
 // Clear some things to prevent abuse

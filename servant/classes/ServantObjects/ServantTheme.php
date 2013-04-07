@@ -70,7 +70,6 @@ class ServantTheme extends ServantObject {
 		$result = '';
 
 		// Look for an icon image file in theme package
-		debug(rglob_files($this->path('server'), $this->servant()->settings()->formats('iconImages')));
 		foreach (rglob_files($this->path('server'), $this->servant()->settings()->formats('iconImages')) as $path) {
 			$result = $this->servant()->format()->path($path, 'plain', 'server');
 			break;

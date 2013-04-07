@@ -102,13 +102,17 @@ class ServantArticle extends ServantObject {
 		// Root path for hrefs
 		$hrefUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/'.$this->servant()->action()->id().'/';
 
-		// Relative location for URLs
-		$relativeUrl = dont_start_with(pathinfo($this->path('plain'), PATHINFO_DIRNAME), $this->site()->path('plain'), true);
-		if (!empty($relativeUrl)) {
-			$relativeUrl .= '/';
+		// Relative location for SRC urls
+		$relativeSrcUrl = dont_start_with(pathinfo($this->path('plain'), PATHINFO_DIRNAME), $this->site()->path('plain'), true);
+		if (!empty($relativeSrcUrl)) {
+			$relativeSrcUrl .= '/';
 		}
 
-		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeUrl, $hrefUrl, $relativeUrl));
+		// Relative location for HREF urls
+		// $relativeHrefUrl = $relativeSrcUrl;
+		$relativeHrefUrl = end_with(implode('/', array_reverse($this->parents())), '/');
+
+		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl));
 	}
 
 	// Parent nodes of this article in site's article tree, order is reversed

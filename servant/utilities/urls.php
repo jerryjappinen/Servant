@@ -1,6 +1,12 @@
 <?php
 
-// Prefix URLs with correct paths
+/**
+* Manipulate URLs to point to right places on the domain
+*/
+
+/**
+* URLs in HTML
+*/
 function manipulateHtmlUrls ($string, $rootPath, $relativePath = '', $domainRootPath = null, $domainRelativePath = '') {
 
 	// Fallback
@@ -24,7 +30,9 @@ function manipulateHtmlUrls ($string, $rootPath, $relativePath = '', $domainRoot
 	return $string;
 }
 
-// Prefix URLs with correct paths
+/**
+* URLs in CSS
+*/
 function manipulateCssUrls ($string, $rootPath, $relativePath = '') {
 
 	// Root-relative internal URLs
