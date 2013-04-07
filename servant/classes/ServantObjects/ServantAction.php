@@ -4,6 +4,7 @@ class ServantAction extends ServantObject {
 
 	// Properties
 	protected $propertyBrowserCache 		= null;
+	protected $propertyCacheLocation 			= null;
 	protected $propertyContentType 			= null;
 	protected $propertyFiles 				= null;
 	protected $propertyId 					= null;
@@ -24,7 +25,7 @@ class ServantAction extends ServantObject {
 			}
 
 		// If it fails, we create output like gentlemen
-		// FLAG this isn't that great. Could we have an error action? Can we switch to another action at this point?
+		// FLAG this isn't that great. We should switch to an error action now.
 		} catch (Exception $exception) {
 			$message = $exception->getCode() < 500 ? $exception->getMessage() : 'Something went wrong, and we\'re sorry. We\'ll try to fix it as soon as possible.';
 			$this->browserCache(false)->contentType('html')->status($exception->getCode())->outputViaTemplate(true)->output('<p>'.$message.'</p>');
@@ -39,18 +40,26 @@ class ServantAction extends ServantObject {
 	public function initialize () {
 
 		// Set defaults
-		return $this->browserCache(true)->contentType('html')->status(200)->outputViaTemplate(false)->output('');
+		$cacheLocation = array_reverse($this->servant()->site()->article()->parents());
+		$cacheLocation[] = $this->servant()->article()->id();
+
+		return $this->browserCache(true)->cacheLocation($cacheLocation)->contentType('html')->status(200)->outputViaTemplate(false)->output('');
 	}
 
 
 
 	// Public getters/setters
-	// FLAG really, no better way to write these?
 
 	// Whether or not to allow browsers to cache response
 	public function browserCache () {
 		$arguments = func_get_args();
 		return $this->getOrSet('browserCache', $arguments);
+	}
+
+	// Whether or not to allow browsers to cache response
+	public function cacheLocation () {
+		$arguments = func_get_args();
+		return $this->getOrSet('cacheLocation', $arguments);
 	}
 
 	// Content type is a short extension (from settings) that marks the type of output
@@ -126,6 +135,25 @@ class ServantAction extends ServantObject {
 	// A code for content type, available in settings
 	protected function setContentType ($contentType) {
 		return $this->set('contentType', $contentType);
+	}
+
+
+
+	// Location of cache file under the action's cache directory
+	protected function setCacheLocation () {
+		$result = array();
+
+		// Accept
+		$arguments = func_get_args();
+		foreach (array_flatten($arguments) as $value) {
+			if (!empty($value)) {
+				$result[] = $value;
+			} else {
+				break;
+			}
+		}
+
+		return $this->set('cacheLocation', $result);
 	}
 
 

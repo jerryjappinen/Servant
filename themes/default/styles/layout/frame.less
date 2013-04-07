@@ -1,62 +1,59 @@
 
-/*Defaults*/
+// Defaults
 .frame-header, .frame-body, .frame-footer {
 	margin: 0 auto;
+	width: 88%;
+	padding-right: 6%;
+	padding-left: 6%;
+	@media handheld, only screen and (min-width: 80em){
+		width: 80%;
+		padding-right: 10%;
+		padding-left: 10%;
+	}
+	@media handheld, only screen and (min-width: 95em){
+		width: 72%;
+		padding-right: 14%;
+		padding-left: 14%;
+	}
+	@media handheld, only screen and (min-width: 110em){
+		width: 64%;
+		padding-right: 18%;
+		padding-left: 18%;
+	}
 }
+
+// Vertical paddings
+.frame-header {
+	@media handheld, only screen and (max-width: @bb-stack){
+		padding-top: 3%;
+		padding-bottom: 5%;
+	}
+}
+
+.frame-body, .frame-footer {
+	padding-bottom: 5%;
+}
+
+.frame-body {
+	padding-top: 7em;
+	@media handheld, only screen and (max-width: @bb-accommodate) {
+		padding-top: 5em;
+	}
+	@media handheld, only screen and (max-width: @bb-stack) {
+		padding-top: 3%;
+	}
+}
+
+.frame-footer {
+	padding-top: 3%;
+}
+
+// Fixed header
 .frame-header {
 	@media handheld, only screen and (min-width: @bb-stack){
 		position: fixed;
 		top: 0;
 		left: 0;
 		z-index: 100;
-		width: 88%;
-	}
-}
-.frame-body, .frame-footer {
-	padding-bottom: 5%;
-}
-.frame-body {
-	padding-top: 3%;
-	@media handheld, only screen and (min-width: @bb-stack) {
-		padding-top: 5em;
-	}
-	@media handheld, only screen and (min-width: @bb-accommodate) {
-		padding-top: 7em;
-	}
-}
-.frame-footer {
-	padding-top: 3%;
-}
-
-/*Widths*/
-.frame-header, .frame-body, .frame-footer {
-	padding-right: 6%;
-	padding-left: 6%;
-}
-@media handheld, only screen and (min-width: 80em){
-	.frame-header {
-		width: 80%;
-	}
-	.frame-header, .frame-body, .frame-footer {
-		padding-right: 10%;
-		padding-left: 10%;
-	}
-}
-@media handheld, only screen and (min-width: 95em){
-	.frame-header {
-		width: 72%;
-	}
-	.frame-header, .frame-body, .frame-footer {
-		padding-right: 14%;
-		padding-left: 14%;
-	}
-}
-@media handheld, only screen and (min-width: 110em){
-	.frame-header {
-		width: 64%;
-	}
-	.frame-header, .frame-body, .frame-footer {
-		padding-right: 18%;
-		padding-left: 18%;
 	}
 }

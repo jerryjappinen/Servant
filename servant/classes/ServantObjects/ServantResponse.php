@@ -19,7 +19,9 @@ class ServantResponse extends ServantObject {
 	* Wrapper methods
 	*/
 
-	// Send a response
+	/**
+	* Send a response
+	*/
 	public function send () {
 
 		// Send headers
@@ -33,7 +35,9 @@ class ServantResponse extends ServantObject {
 		return $this;
 	}
 
-	// Body content of the response
+	/**
+	* Body content of the response
+	*/
 	public function body () {
 
 		// Response has been saved
@@ -47,7 +51,9 @@ class ServantResponse extends ServantObject {
 
 	}
 
-	// Save response into cache folder as file
+	/**
+	* Save response into cache folder as file
+	*/
 	public function store () {
 		$directory = pathinfo($this->path('server'), PATHINFO_DIRNAME);
 
@@ -68,9 +74,13 @@ class ServantResponse extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Getters
+	*/
 
-	// Paths can be fetched in any format
+	/**
+	* Path in any format
+	*/
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -81,13 +91,16 @@ class ServantResponse extends ServantObject {
 
 
 
-
 	/**
 	* Setters
 	*/
 
-	// Max browser cache time in seconds
-	// FLAG read from cache file if it's available
+	/**
+	* Max browser cache time in seconds
+	*
+	* FLAG
+	* - Read from cache file if it's available
+	*/
 	protected function setBrowserCacheTime () {
 		$time = 0;
 
@@ -111,8 +124,14 @@ class ServantResponse extends ServantObject {
 		return $this->set('browserCacheTime', $time*60);
 	}
 
-	// Get content type from action
-	// FLAG read from cache file if it's available
+
+
+	/**
+	* Get content type from action
+	* 
+	* FLAG
+	* - Read from cache file if it's available
+	*/
 	protected function setContentType () {
 		$contentType = $this->servant()->action()->contentType();
 
@@ -126,16 +145,29 @@ class ServantResponse extends ServantObject {
 		}
 	}
 
-	// CORS is always on
+
+
+	/**
+	* CORS is always on
+	*/
 	protected function setCors () {
 		return $this->set('cors', true);
 	}
 
+
+
+	/**
+	* Whether or not response has already been saved
+	*/
 	protected function setExists () {
 		return $this->set('exists', is_file($this->path('server')) and filemtime($this->path('server')) < time()+($this->servant()->settings()->cache('server')*60));
 	}
 
-	// Relevant response items converted to HTTP header strings
+
+
+	/**
+	* Relevant response items converted to HTTP header strings
+	*/
 	protected function setHeaders () {
 
 		// This is what's included
@@ -154,8 +186,14 @@ class ServantResponse extends ServantObject {
 		return $this->set('headers', $headers);
 	}
 
-	// Status comes from action
-	// FLAG read from cache file if it's available
+
+
+	/**
+	* Status comes from action
+	*
+	* FLAG
+	* - Read from cache file if it's available
+	*/
 	protected function setStatus () {
 		$status = $this->servant()->action()->status();
 
@@ -169,12 +207,26 @@ class ServantResponse extends ServantObject {
 		}
 	}
 
+
+
+	/**
+	* Where to look for/save the response content
+	*/
 	protected function setPath () {
-		$relativePath = implode('/', array_reverse($this->servant()->site()->article()->parents()));
-		if (!empty($relativePath)) {
-			$relativePath .= '/';
+
+		// Base cache path
+		$path = $this->servant()->paths()->cache().$this->servant()->action()->id().'/';
+
+		// Action gives the file location
+		$action = implode('/', $this->servant()->action()->cacheLocation());
+		if (!empty($action)) {
+			$path .= $action.'.';
 		}
-		return $this->set('path', $this->servant()->paths()->cache().$this->servant()->action()->id().'/'.$this->servant()->site()->id().'/'.$relativePath.$this->servant()->article()->id().'.'.$this->status().'.'.$this->contentType());
+
+		// Status and content type
+		$path .= $this->status().'.'.$this->contentType();
+
+		return $this->set('path', $path);
 	}
 
 
@@ -183,13 +235,17 @@ class ServantResponse extends ServantObject {
 	* Private helpers
 	*/
 
-	// Save text content
+	/**
+	* Save text content
+	*/
 	private function storeText ($content, $filepath) {
 		file_put_contents($filepath, $content);
 		return $this;
 	}
 
-	// Save image
+	/**
+	* Save image
+	*/
 	private function storeImage ($resource, $filepath, $contentType) {
 
 		// JPG
