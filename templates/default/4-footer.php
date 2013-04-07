@@ -1,7 +1,7 @@
 <?php
 
 // Footer
-echo '<div id="footer">';
+echo '<div class="frame-footer">';
 
 	// Sort articles into pages and categories
 	$pages = array();
@@ -35,7 +35,7 @@ echo '<div id="footer">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	// echo htmlDump($servant->theme()->path());
+	// echo htmlDump($servant->theme()->icon());
 
 // Close footer
 echo '</div>';

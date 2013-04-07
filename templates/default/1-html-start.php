@@ -57,7 +57,9 @@ echo '
 	</head>
 ';
 
-// Create classes for body class
+
+
+// Create classes for body
 $i = 1;
 $classes = array();
 $tree = $servant->article()->tree();
@@ -67,8 +69,8 @@ foreach ($tree as $value) {
 }
 unset($tree, $i);
 
-// FLAG "language-javascript" really doesn't belong here
-echo '<body class="language-javascript site-'.$servant->site()->id().' level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">';
+// Body tag
+echo '<body class="site-'.$servant->site()->id().' level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">';
 unset($classes);
 
 ?>

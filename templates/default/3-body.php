@@ -1,14 +1,14 @@
 <?php
 
 // Body content
-$output = '<div id="body">';
+$output = '<div class="frame-body">';
 
 
 
 	// Submenu in a sidebar
 	$level2 = $servant->site()->articles($servant->article()->tree(0));
 	if (is_array($level2)) {
-		$output .= '<div id="sidebar"><ul class="menu-2">';
+		$output .= '<div id="sidebar" class="frame-sidebar"><ul class="menu-2">';
 
 		// List items
 		foreach ($level2 as $key => $value) {
@@ -64,7 +64,7 @@ $output = '<div id="body">';
 
 
 	// Article content
-	$output .= '<div id="article">'.$servant->template()->content().'</div><div class="clear"></div>';
+	$output .= '<div id="article" class="frame-article">'.$servant->template()->content().'</div><div class="clear"></div>';
 
 
 

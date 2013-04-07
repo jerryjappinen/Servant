@@ -42,9 +42,6 @@ echo '<div class="footer container">';
 			}
 		}
 
-		// Debug stuff
-		// echo htmlDump($servant->site()->dump());
-
 echo '</div>';
 
 // Include scripts

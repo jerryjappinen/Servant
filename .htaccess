@@ -1,6 +1,6 @@
 
 # Settings
-# Please note that there is another .htaccess file in "backend/", which denies direct access to the folder and its contents
+# Please note that there is another .htaccess file in "servant/", which denies direct access to the folder and its contents
 
 # Disable directory listings
 Options -Indexes
@@ -17,14 +17,14 @@ RewriteEngine on
 # Endpoints
 
 # Forward to default site and action
-RewriteRule ^$ %{REQUEST_URI}servant/ [R=301,L]
+RewriteRule ^$ %{REQUEST_URI}home/ [R=301,L]
 
 # Load index.php at root
-DirectoryIndex backend/index.php
+DirectoryIndex servant/index.php
 
 # Respect natural paths
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Access actions of a site
-RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?site=$1&action=$2&article=$3;$4;$5;$6;$7;$8;$9
+RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \servant/index.php?site=$1&action=$2&article=$3;$4;$5;$6;$7;$8;$9

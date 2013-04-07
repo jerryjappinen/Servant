@@ -1,9 +1,9 @@
 
 /*Defaults*/
-#header, #body, #footer {
+.frame-header, .frame-body, .frame-footer {
 	margin: 0 auto;
 }
-#header {
+.frame-header {
 	@media handheld, only screen and (min-width: @bb-stack){
 		position: fixed;
 		top: 0;
@@ -12,10 +12,10 @@
 		width: 88%;
 	}
 }
-#body, #footer {
+.frame-body, .frame-footer {
 	padding-bottom: 5%;
 }
-#body {
+.frame-body {
 	padding-top: 3%;
 	@media handheld, only screen and (min-width: @bb-stack) {
 		padding-top: 5em;
@@ -24,38 +24,38 @@
 		padding-top: 7em;
 	}
 }
-#footer {
+.frame-footer {
 	padding-top: 3%;
 }
 
 /*Widths*/
-#header, #body, #footer {
+.frame-header, .frame-body, .frame-footer {
 	padding-right: 6%;
 	padding-left: 6%;
 }
 @media handheld, only screen and (min-width: 80em){
-	#header {
+	.frame-header {
 		width: 80%;
 	}
-	#header, #body, #footer {
+	.frame-header, .frame-body, .frame-footer {
 		padding-right: 10%;
 		padding-left: 10%;
 	}
 }
 @media handheld, only screen and (min-width: 95em){
-	#header {
+	.frame-header {
 		width: 72%;
 	}
-	#header, #body, #footer {
+	.frame-header, .frame-body, .frame-footer {
 		padding-right: 14%;
 		padding-left: 14%;
 	}
 }
 @media handheld, only screen and (min-width: 110em){
-	#header {
+	.frame-header {
 		width: 64%;
 	}
-	#header, #body, #footer {
+	.frame-header, .frame-body, .frame-footer {
 		padding-right: 18%;
 		padding-left: 18%;
 	}

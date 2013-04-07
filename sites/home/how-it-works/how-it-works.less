@@ -1,0 +1,37 @@
+
+body.level-2, body.level-3 {
+
+	// Hack second-level menu
+	.frame-article, .frame-sidebar {
+		width: auto;
+		float: none;
+		clear: both;
+		margin-right: 0;
+		margin-left: 0;
+	}
+	.frame-sidebar {
+		text-align: center;
+		ul {
+			width: 50em;
+			max-width: 100%;
+			display: inline-block;
+		}
+		li {
+			width: 33%;
+			display: inline-block;
+			&:first-child {
+				width: 34%;
+			}
+			a {
+				padding-top: 0.8em;
+				border-left-width: 0;
+				border-bottom-width: 0.2em;
+				&:hover {
+					padding-right: 1em;
+					padding-left: 1em;
+				}
+			}
+		}
+	}
+
+}

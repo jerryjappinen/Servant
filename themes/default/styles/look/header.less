@@ -1,5 +1,5 @@
 
-#header {
+.frame-header {
 
 	// Base look
 	background-color: @grey-darkest;
@@ -11,33 +11,35 @@
 		color: @white;
 		text-decoration: none;
 		font-weight: 200;
-		@media handheld, only screen and (min-width: @bb-accommodate) {
-			font-size: 1.1em;
+		font-size: 1.1em;
+		@media handheld, only screen and (max-width: @bb-accommodate) {
+			font-size: 1em;
 		}
 	}
 
 	// Navigation links
 	h1 a, li a {
-		@media handheld, only screen and (min-width: @bb-stack) {
-			padding: 1em 0.8em 0.6em 0.8em;
-			border-bottom-width: 0.4em;
-		}
-		@media handheld, only screen and (min-width: @bb-accommodate) {
-			padding: 1.2em 1.2em 0.8em 1.2em;
+		padding: 1.2em;
+		@media handheld, only screen and (max-width: @bb-accommodate) {
+			padding: 1em 0.8em;
 		}
 	}
 
 	// Page title
 	h1 {
+		margin-left: -1.2em;
 		font-size: 1em;
 		text-transform: uppercase;
-		@media handheld, only screen and (min-width: @bb-stack) {
-			margin-left: -1.2em;
+		@media handheld, only screen and (max-width: @bb-stack) {
+			margin-left: 0;
 		}
 		a {
 			font-weight: 600;
 			color: @white;
 			.text-shadow(0 0 0.8em @grey-dark);
+			&:hover {
+				text-decoration: none;
+			}
 			@media handheld, only screen and (max-width: @bb-stack) {
 				letter-spacing: 0.6em;
 				font-size: 2em;
@@ -53,8 +55,15 @@
 
 		// Selected links
 		strong a {
-			border-color: @blue-light;
-			background-color: @grey-darker;
+			.border-radius(0.2em);
+			background-color: @blue-light;
+			padding-top: 0.6em;
+			padding-bottom: 0.6em;
+			.gradient(@blue-light, @blue-light, @blue);
+			@media handheld, only screen and (max-width: @bb-accommodate) {
+				padding-top: 0.5em;
+				padding-bottom: 0.5em;
+			}
 		}
 
 		// Text color

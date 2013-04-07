@@ -1,0 +1,29 @@
+{
+
+	"cache": {
+		"browser": 0,
+		"server": "0*24*2"
+	},
+
+	"packageContents": {
+		"siteSettingsFile": "settings.txt"
+	},
+
+	"defaults": {
+		"action": "read",
+		"site": "home",
+		"template": "default",
+		"theme": "default"
+	},
+
+	"namingConvention": {
+		"-": " ",
+		"_": " ",
+		" and ": " &amp; ",
+		"+": " &amp; ",
+		"url": "URL",
+		"jquery": "jQuery",
+		"js ": "JS "
+	}
+
+}

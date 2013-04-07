@@ -2,7 +2,7 @@
 
 // Header
 $output = '
-<div id="header">
+<div class="frame-header">
 	<h1><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.'">'.$servant->site()->name().'</a></h1>
 	';
 
