@@ -25,7 +25,6 @@ class ServantResponse extends ServantObject {
 	* Send a response
 	*
 	* FLAG
-	* - we shouldn't run action if cache's response exists
 	* - most of this should be done in ServantMain()
 	* - need to sort out when action is run... maybe its execution should be all under init(), and action isn't even created until we know response doesn't already exist
 	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
@@ -36,7 +35,7 @@ class ServantResponse extends ServantObject {
 
 		// Response has been saved
 		if ($cacheEnabled and $this->exists()) {
-			$output = file_get_contents($this->existingPath('server'));
+			$output = file_get_contents($this->path('server'));
 
 		// Response needs to be generated
 		} else {
@@ -106,7 +105,7 @@ class ServantResponse extends ServantObject {
 
 		// Read content type from file extension
 		if ($this->exists()) {
-			$contentType = pathinfo($this->existingPath(), PATHINFO_EXTENSION);
+			$contentType = pathinfo($this->path(), PATHINFO_EXTENSION);
 
 		// Get content type from action
 		} else {
@@ -190,7 +189,7 @@ class ServantResponse extends ServantObject {
 		if ($this->exists()) {
 			$path = $this->basePath('server');
 			$potential = glob($path.'.*.*');
-			$path = $potential[0];
+			$path = $this->servant()->format()->path($potential[0], 'plain', 'server');
 
 		// Response doesn't exist, we'll be creating a new one
 		// FLAG this is dangerous, action must have been run
@@ -210,7 +209,7 @@ class ServantResponse extends ServantObject {
 
 		// Read status from filename
 		if ($this->exists()) {
-			$status = explode('.', basename($this->existingPath()));
+			$status = explode('.', basename($this->path()));
 			$status = $status[count($status)-2];
 
 		// Get status from action
