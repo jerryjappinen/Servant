@@ -14,19 +14,9 @@ class ServantMain extends ServantObject {
 		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}
 
-	// Full execution
+	// Execute Servant to generate a response
 	public function execute () {
-
-		// Run action
-		$this->action()->run();
-
-		// Sometimes we store our response
-		if ($this->settings()->cache('server') > 0 and !$this->response()->exists()) {
-			$this->response()->store();
-		}
-
-		// And then we send a response
-		$this->response()->send();
+		$this->response()->serve();
 		return $this;
 	}
 

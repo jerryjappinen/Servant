@@ -16,3 +16,19 @@ body.level-2, body.level-3 {
 		margin-left: 0;
 	}
 }
+
+.column h3 img {
+	background-color: @blue;
+	max-height: 1.2em;
+	vertical-align: sub;
+	margin-left: 0.2em;
+	.border-radius(9999em);
+}
+
+.column h3 a:hover {
+	text-decoration: none;
+	color: @blue-dark;
+	img {
+		background-color: @blue-dark;
+	}
+}

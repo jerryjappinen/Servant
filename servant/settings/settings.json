@@ -2,7 +2,7 @@
 
 	"cache": {
 		"browser": 0,
-		"server": "0*24*2"
+		"server": 0
 	},
 
 	"packageContents": {

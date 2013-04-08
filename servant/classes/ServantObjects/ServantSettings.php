@@ -44,7 +44,7 @@ class ServantSettings extends ServantObject {
 
 	// Setters
 
-	// Cache'related items
+	// Cache'related items (times are in minutes)
 	protected function setCache ($input = null) {
 
 		// Base format, with defaults

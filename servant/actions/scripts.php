@@ -1,4 +1,6 @@
 <?php
+
+// All scripts for site
 $output = '';
 
 // Merge all scripts from theme
@@ -6,9 +8,16 @@ foreach ($servant->theme()->scripts('server') as $path) {
 	$output .= file_get_contents($path);
 }
 
-// Merge all scripts from site
+// Merge scripts from site
 foreach ($servant->site()->article()->scripts('server') as $path) {
 	$output .= file_get_contents($path);
+}
+
+// Compress
+// FLAG this is a hack
+if ($this->servant()->settings()->cache('server')) {
+	$servant->utilities()->load('jshrink');
+	$output = Minifier::minify($output, array('flaggedComments' => false));
 }
 
 // Output scripts

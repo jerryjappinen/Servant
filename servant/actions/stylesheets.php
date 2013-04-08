@@ -43,8 +43,9 @@ $output = trim($output);
 if (!empty($output)) {
 	$less = new lessc();
 
-	// Compress when caching
-	if ($servant->response()->browserCacheTime() > 0) {
+	// Compress
+	// FLAG this is a hack
+	if ($this->servant()->settings()->cache('server')) {
 		$less->setFormatter('compressed');
 	}
 

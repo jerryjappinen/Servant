@@ -5,8 +5,6 @@ class ServantAction extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyBrowserCache 		= null;
-	protected $propertyCacheLocation 			= null;
 	protected $propertyContentType 			= null;
 	protected $propertyFiles 				= null;
 	protected $propertyId 					= null;
@@ -38,7 +36,7 @@ class ServantAction extends ServantObject {
 		// FLAG this isn't that great. We should switch to an error action now.
 		} catch (Exception $exception) {
 			$message = $exception->getCode() < 500 ? $exception->getMessage() : 'Something went wrong, and we\'re sorry. We\'ll try to fix it as soon as possible.';
-			$this->browserCache(false)->contentType('html')->status($exception->getCode())->outputViaTemplate(true)->output('<p>'.$message.'</p>');
+			$this->contentType('html')->status($exception->getCode())->outputViaTemplate(true)->output('<p>'.$message.'</p>');
 		}
 
 		return $this;
@@ -46,14 +44,11 @@ class ServantAction extends ServantObject {
 
 	/**
 	* Initialize
+	*
+	* Defaults are set here, and can be overridden by action's code.
 	*/
 	public function initialize () {
-
-		// Set defaults
-		$cacheLocation = array_reverse($this->servant()->site()->article()->parents());
-		$cacheLocation[] = $this->servant()->article()->id();
-
-		return $this->browserCache(true)->cacheLocation($cacheLocation)->contentType('html')->status(200)->outputViaTemplate(false)->output('');
+		return $this->contentType('html')->status(200)->outputViaTemplate(false)->output('');
 	}
 
 
@@ -61,16 +56,6 @@ class ServantAction extends ServantObject {
 	/**
 	* Special getters
 	*/
-
-	public function browserCache () {
-		$arguments = func_get_args();
-		return $this->getOrSet('browserCache', $arguments);
-	}
-
-	public function cacheLocation () {
-		$arguments = func_get_args();
-		return $this->getOrSet('cacheLocation', $arguments);
-	}
 
 	public function contentType () {
 		$arguments = func_get_args();
@@ -118,46 +103,25 @@ class ServantAction extends ServantObject {
 	* Setters
 	*/
 
-	/**
-	* Browser cache
-	*
-	* Set max time in minutes, or allow/disallow caching of the response by browser.
-	*/
-	protected function setBrowserCache ($time) {
-		$result = 0;
+	// /**
+	// * Browser cache
+	// *
+	// * Set max time in minutes, or allow/disallow caching of the response by browser.
+	// */
+	// protected function setBrowserCache ($time) {
+	// 	$result = 0;
 
-		// True will allow caching if enabled in settings
-		if ($time === true) {
-			$result = true;
+	// 	// True will allow caching if enabled in settings
+	// 	if ($time === true) {
+	// 		$result = true;
 
-		// Other times will be minutes
-		} else if (is_numeric($time) and $time > 0) {
-			$result = intval($time);
-		}
+	// 	// Other times will be minutes
+	// 	} else if (is_numeric($time) and $time > 0) {
+	// 		$result = intval($time);
+	// 	}
 
-		return $this->set('browserCache', $result);
-	}
-
-	/**
-	* Cache location
-	*
-	* Location of cache file under the action's cache directory. A set of directory/file names.
-	*/
-	protected function setCacheLocation () {
-		$result = array();
-
-		// Accept
-		$arguments = func_get_args();
-		foreach (array_flatten($arguments) as $value) {
-			if (!empty($value)) {
-				$result[] = trim($value);
-			} else {
-				break;
-			}
-		}
-
-		return $this->set('cacheLocation', $result);
-	}
+	// 	return $this->set('browserCache', $result);
+	// }
 
 	/**
 	* Content type
