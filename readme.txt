@@ -5,7 +5,7 @@ Servant
 - Intro, download & docs
 	- http://www.eiskis.net/servant/
 - Source & issues
-	- http://bitbucket.org/Eiskis/proot/
+	- http://bitbucket.org/Eiskis/servant/
 - By Jerry Jäppinen
 	- Released under LGPL
 	- eiskis@gmail.com
