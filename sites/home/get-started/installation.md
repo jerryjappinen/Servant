@@ -30,3 +30,9 @@ Your server usually has a directory called *Document Root* somewhere in the file
 
 - If you are using [WAMP](http://www.wampserver.com/en/) on Windows, the default is `C:\wamp\www\`.
 - If you are using [MAMP](http://www.mamp.info/en/index.html) on Mac OS X, the default is `/Applications/MAMP/htdocs/`. This can be changed in MAMP's settings, and you can check there to make sure what it is on your specific system.
+
+
+
+#### URLs are not working or I'm getting a "Forbidden" error
+
+Make sure you `.htaccess` files have been copied to your server. There is one in the root directory of Servant and another in the same directory as `index.php`.

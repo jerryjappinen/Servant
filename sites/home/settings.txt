@@ -1,4 +1,3 @@
-icon:about/author.png
 name:Servant
 theme:default
 template:default

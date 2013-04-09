@@ -18,7 +18,7 @@
 
 	<div class="column four">
 		<p class="close"><span class="placeholder"></span></p>
-		<h3 class="squeeze">Hierarchy turns to categories</h3>
+		<h3 class="squeeze">Hierarchy turns into categories</h3>
 		<p>Documents in subfolders are shown categorized on the web site. It's easy to create subpages on multiple levels.</p>
 	</div>
 
@@ -51,6 +51,12 @@
 	<div class="clear"></div>
 
 
+
+	<div class="column four">
+		<p class="close"><span class="placeholder"></span></p>
+		<h3 class="squeeze">Automatic caching</h3>
+		<p>Responses are cached to speed up page loads. Cache files are created and updated automatically.</p>
+	</div>
 
 	<div class="column four">
 		<p class="close"><span class="placeholder"></span></p>
