@@ -140,7 +140,7 @@
 
 	"formats": {
 		"iconImages": ["ico", "png", "gif", "jpg"],
-		"templates": ["md", "txt", "html", "php", "json"],
+		"templates": ["md", "txt", "html", "php", "json", "textile"],
 		"stylesheets": ["css", "less"],
 		"scripts": ["js", "json"]
 	}

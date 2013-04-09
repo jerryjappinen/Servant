@@ -2,8 +2,13 @@
 
 class ServantFiles extends ServantObject {
 
-	// Load utilities upon initialization
-	// FLAG this fails, something to do with how child objects are created and initialized (ServantUtilities is reliant on ServantFiles)
+	/**
+	* Load utilities upon initialization
+	*
+	* FLAG
+	* - this fails, something to do with how child objects are created and initialized (ServantUtilities is reliant on ServantFiles)
+	* - I should really have file loading logic separated from loading template files
+	*/
 	// public function initialize () {
 	// 	$this->servant()->utilities()->load('markdown');
 	// 	return $this;
@@ -12,7 +17,9 @@ class ServantFiles extends ServantObject {
 
 	// Open and get file contents in a renderable format
 	public function read ($path, $type = '') {
-		$this->servant()->utilities()->load('markdown');
+
+		// FLAG I don't want to do this here
+		$this->servant()->utilities()->load('markdown', 'textile');
 
 		// Automatic file type detection
 		if (empty($type)) {
@@ -44,7 +51,6 @@ class ServantFiles extends ServantObject {
 	// Argument 1: path to a file
 	// Argument 2: array of variables and values to be created for the script
 	// FLAG $this is still what it is
-	// FLAG pass servant and other variables given for scripts as parameters
 	public function run () {
 
 		if (is_file(func_get_arg(0))) {
@@ -94,6 +100,12 @@ class ServantFiles extends ServantObject {
 	// PHP file is included elaborately
 	private function readPhpFile ($path) {
 		return $this->run($path, array('servant' => $this->servant()));
+	}
+
+	// Textile converts to HTML
+	private function readTextileFile ($path) {
+		$parser = new Textile();
+		return $parser->textileThis(file_get_contents($path));;
 	}
 
 	// Text is assumed to be Markdown

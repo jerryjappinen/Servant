@@ -1,0 +1,47 @@
+
+h1. Sites
+
+<big>Every folder under the @sites/@ is a site. To create a site, you only need to create a new folder and add a text file with some content. It's that easy to get started!</big>
+
+Servant will create menus, fancy URLs, sitemaps, stylesheets and much more for each site. You can have as many sites as you want. Each site will use one "_template_ and one _theme_":templates-and-themes, so you can choose the structure and the look that you like.
+
+
+
+h2. Creating a site
+
+Create a folder under @sites/@ and add one or more page documents. This is the minimum content required: point your browser to where you installed Servant, and type the folder name of the site you just created in the URL to view your site.
+
+Your site is still pretty barebones, so maybe you should start "creating more pages":pages?
+
+
+
+h2. Site settings
+
+Site settings are completely optional, but you probably want to manually define some things like the template + theme you're using. By adding @settings.txt@ in your site's folder you can define these things with a very simple syntax. Here's an example:
+
+h5. @sites/my-site/settings.txt@
+
+<pre>@
+icon: favicon.png
+name: My Awesome Site
+template: bootstrap
+theme: bootstrap-green
+@</pre>
+
+So, to define settings, simply type the name of the property, add a colon and type in the value. Separate multiple definitions with line breaks or commas. Don't worry about being picky about whitespaces or empty lines.
+
+
+
+h3. Supported settings
+
+|_. Setting|_. Description|_. Example values|
+|*icon*|||
+|*name*|||
+|*template*|The template to use for this site. Available templates are folders under @templates/@. If you leave this out, a template will be "selected automatically":templates-and-themes.|@default@, @bootstrap@, @documentation@|
+|*theme*|The theme to use for this site. Available themes are folders under @themes/@. If you leave this out, a theme will be "selected automatically":templates-and-themes.|@bootstrap@, @bootstrap-green@, @default@|
+
+
+
+h2. Name & icon
+
+If you don't specify a name in settings, one will be generated based on the site's folder name.

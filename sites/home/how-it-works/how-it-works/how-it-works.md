@@ -4,7 +4,7 @@
 	<div class="buffer box green">
 		<h3 class="squeeze-top"><em class="count">1</em></h3>
 		<h2 class="squeeze-top close-bottom">Text documents go in</h2>	
-		<p>Servant takes regular text, Markdown and HTML files, and converts them into web pages. PHP is also supported for advanced scripting.</p>
+		<p>Servant takes plain text, HTML, Textile and Markdown files, and converts them into web pages. Stock PHP files are also supported.</p>
 	</div>
 
 </div>

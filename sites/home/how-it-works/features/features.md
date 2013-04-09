@@ -13,7 +13,7 @@
 	<div class="column four">
 		<p class="close"><img src="files.png" alt="Files" title="Files"></p>
 		<h3 class="squeeze">Text files just work</h3>
-		<p>Text files, HTML and Markdown documents are supported. PHP can also be used for scripting. Take your pick.</p>
+		<p>Plain text, HTML, Textile and Markdown documents are supported. Stock PHP can also be used for scripting. Take your pick.</p>
 	</div>
 
 	<div class="column four">

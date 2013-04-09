@@ -5,8 +5,6 @@ Here's the short version: [Download servant.zip](https://bitbucket.org/Eiskis/se
 
 For more details, read on.
 
-[1](templates-and-themes)
-
 
 
 ## Walkthrough

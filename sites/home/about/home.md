@@ -24,11 +24,11 @@
 		<h1>Welcome to <em>Servant</em>.</h1>
 
 		<div class="column six">
-			<p>Convert regular text documents to web pages. On the fly. On PHP, the easiest and most popular language used by web hosting services today. It's very easy to install, and can power multiple sites in a single installation.</p>
+			<p>Convert text documents to web pages. On the fly. On PHP, the easiest and most popular language used by web hosting services today. It's very easy to install, and can power multiple sites in a single installation.</p>
 		</div>
 
 		<div class="column six last">
-			<p>Servant is very simple, and is crafted for those of use who appreciate robust and understandable platforms. Still, it <a href="/how-it-works/features">packs quite a few features </a>. Try it out, it's free!</p>
+			<p>Servant is very simple, and is crafted for those of use who appreciate robust and understandable platforms. Still, it <a href="/how-it-works/features">packs quite a few features</a>. Try it out, it's free!</p>
 		</div>
 		<div class="clear"></div>
 
