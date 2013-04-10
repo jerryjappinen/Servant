@@ -15,7 +15,7 @@ foreach ($servant->site()->article()->scripts('server') as $path) {
 
 // Compress
 // FLAG this is a hack
-if ($this->servant()->settings()->cache('server')) {
+if ($servant->settings()->cache('server')) {
 	$servant->utilities()->load('jshrink');
 	$output = Minifier::minify($output, array('flaggedComments' => false));
 }

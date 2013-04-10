@@ -56,7 +56,7 @@
 	</div>
 
 	<div class="column fixed">
-		<p><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></p>
+		<p><a href="http://eiskis.net/"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
 	</div>
 	<div class="clear"></div>
 

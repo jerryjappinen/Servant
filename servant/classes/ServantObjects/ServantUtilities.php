@@ -3,27 +3,26 @@
 /**
 * Utilities component
 *
-* This component can load utilities, called anywhere in the program.
+* This component handles loading of utilities, called anywhere in the program.
 *
 * Dependencies
-* - ServantFiles
-*   - run()
-* - ServantAvailable
-*   - utility()
-* - ServantFormat
-*   - path()
-* - ServantPaths
-*   - utilities()
+*   - available()->utility()
+*   - format()->path()
+*   - paths()->utilities()
 */
 class ServantUtilities extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyLoaded 	= null;
 	protected $propertyPath 	= null;
 
 
 
-	// Load a utility
+	/**
+	* Load a (new) utility
+	*/
 	public function load () {
 		$arguments = func_get_args();
 		$arguments = array_flatten($arguments);
@@ -40,13 +39,13 @@ class ServantUtilities extends ServantObject {
 
 					// Single file
 					if (is_file($path.'.php')) {
-						$this->servant()->files()->run($path.'.php', array('servant' => $this->servant()));
+						run_script($path.'.php', array('servant' => $this->servant()));
 						$this->setLoaded($name);
 
 					// Directory
 					} else if (is_dir($path.'/')) {
 						foreach (rglob_files($path.'/', 'php') as $file) {
-							$this->servant()->files()->run($file, array('servant' => $this->servant()));
+							run_script($file, array('servant' => $this->servant()));
 						}
 						$this->setLoaded($name);
 					}
@@ -64,7 +63,13 @@ class ServantUtilities extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Public getters
+	*/
+
+	/**
+	* Loaded
+	*/
 	public function loaded ($name = null) {
 
 		// Check for a specific utility
@@ -84,6 +89,9 @@ class ServantUtilities extends ServantObject {
 
 	}
 
+	/**
+	* Path
+	*/
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -94,9 +102,13 @@ class ServantUtilities extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
-	// List of utilities that have been loaded
+	/**
+	* List of utilities that have been loaded
+	*/
 	protected function setLoaded () {
 		$arguments = func_get_args();
 		$arguments = array_flatten($arguments);
@@ -109,6 +121,10 @@ class ServantUtilities extends ServantObject {
 
 		return $this->set('loaded', array_merge($current, $arguments));
 	}
+
+	/**
+	* Path to the utilities directory
+	*/
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->utilities());
 	}

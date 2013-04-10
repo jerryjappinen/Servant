@@ -1,25 +1,32 @@
 <?php
 
+/**
+* Files component
+*
+* This component handles reading structure/content files of various formats and converting them into HTML.
+*
+* Dependencies
+*   - utilities()->load()
+*/
 class ServantFiles extends ServantObject {
 
 	/**
-	* Load utilities upon initialization
+	* Initialization
 	*
-	* FLAG
-	* - this fails, something to do with how child objects are created and initialized (ServantUtilities is reliant on ServantFiles)
-	* - I should really have file loading logic separated from loading template files
+	* Load utilities needed by the component
 	*/
-	// public function initialize () {
-	// 	$this->servant()->utilities()->load('markdown');
-	// 	return $this;
-	// }
+	public function initialize () {
+		$this->servant()->utilities()->load('markdown', 'textile', 'wiky');
+		return $this;
+	}
 
 
-	// Open and get file contents in a renderable format
+
+	/**
+	* Open and get file contents in a renderable format
+	*/
 	public function read ($path, $type = '') {
 
-		// FLAG I don't want to do this here
-		$this->servant()->utilities()->load('markdown', 'textile', 'wiky');
 
 		// Automatic file type detection
 		if (empty($type)) {
@@ -47,73 +54,49 @@ class ServantFiles extends ServantObject {
 
 
 
-	// Run scripts files cleanly
-	// Argument 1: path to a file
-	// Argument 2: array of variables and values to be created for the script
-	// FLAG $this is still what it is
-	public function run () {
+	/**
+	* Private helpers for each format
+	*/
 
-		if (is_file(func_get_arg(0))) {
-
-			// Set up variables for the script
-			foreach (func_get_arg(1) as $key => $value) {
-				if (is_string($key) and preg_match($this->servant()->settings()->patterns('safename'), $key)) {
-					${$key} = $value;
-				}
-			}
-
-			// Run each script
-			ob_start();
-
-			// Include script
-			include func_get_arg(0);
-
-			// Catch output reliably
-			$output = ob_get_contents();
-			if ($output === false) {
-				$output = '';
-			}
-
-			// Clear buffer
-			ob_end_clean();
-
-		}
-
-		// Return any output
-		return $output;
-	}
-
-
-
-	// Private helpers
-
-	// HTML
+	/**
+	* HTML
+	*/
 	private function readHtmlFile ($path) {
 		return file_get_contents($path);
 	}
 
-	// Markdown
+	/**
+	* Markdown
+	*/
 	private function readMdFile ($path) {
 		return Markdown(file_get_contents($path));
 	}
 
-	// PHP
+	/**
+	* PHP
+	*/
 	private function readPhpFile ($path) {
-		return $this->run($path, array('servant' => $this->servant()));
+		return run_script($path, array('servant' => $this->servant()));
 	}
 
-	// Textile
+	/**
+	* Textile
+	*/
 	private function readTextileFile ($path) {
 		$parser = new Textile();
 		return $parser->textileThis(file_get_contents($path));;
 	}
 
-	// Plain text
+	/**
+	* Plain text
+	*/
 	private function readTxtFile ($path) {
 		return $this->readMdFile($path);
 	}
 
-	// Wiki markup
+	/**
+	* Wiki markup
+	*/
 	private function readWikiFile ($path) {
 		$wiky = new wiky;
 		$parsed = $wiky->parse(file_get_contents($path));

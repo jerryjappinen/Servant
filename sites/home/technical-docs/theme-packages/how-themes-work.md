@@ -11,7 +11,7 @@ For each site, one of the available specific themes is selected. Since Servant a
 
 Here's the order of preference used when selecting a theme.
 
-1. <del>Theme defined in site's configuration.</del> <ins>Not implemented yet.</ins>
+1. Theme defined in site's configuration.
 2. The theme with the same name as the current *site*.
 3. The theme with the same name as the current *template*.
 4. The default theme defined in global settings.
