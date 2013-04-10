@@ -34,3 +34,11 @@ Your server usually has a directory called *Document Root* somewhere in the file
 #### URLs are not working or I'm getting a "Forbidden" error
 
 Make sure you `.htaccess` files have been copied to your server. There is one in the root directory of Servant and another in the same directory as `index.php`.
+
+
+
+#### PHP can't find files or paths are otherwise broken
+
+Servant needs to know where it's running. Normally it detects this automatically, but on some, more complicated environments this doesn't work. In this case, define `'document root'` and/or `'root'` manually in the file `paths.php`. Uncomment the first two lines and add the correct values according to the examples.
+
+You shouldn't have to, but you can also go through `.htaccess` and make sure nothing there conflicts with your environment's settings.

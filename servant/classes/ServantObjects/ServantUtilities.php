@@ -1,5 +1,20 @@
 <?php
 
+/**
+* Utilities component
+*
+* This component can load utilities, called anywhere in the program.
+*
+* Dependencies
+* - ServantFiles
+*   - run()
+* - ServantAvailable
+*   - utility()
+* - ServantFormat
+*   - path()
+* - ServantPaths
+*   - utilities()
+*/
 class ServantUtilities extends ServantObject {
 
 	// Properties

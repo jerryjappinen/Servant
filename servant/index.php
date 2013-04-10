@@ -18,9 +18,9 @@ function handleFubarError ($errno, $errstr) {
 	return handleFubar($errno, $errstr);
 }
 function handleFubarException ($exception) {
-	return handleFubar($exception->getCode(), $exception->getMessage());
+	return handleFubar($exception->getCode(), $exception->getMessage(), true);
 }
-function handleFubar ($code = 500, $message = '') {
+function handleFubar ($code = 500, $message = '', $printMessage = false) {
 	header('HTTP/1.1 500 Internal Server Error');
 	header('Content-Type: text/html; charset=utf-8');
 	echo '
@@ -46,9 +46,8 @@ function handleFubar ($code = 500, $message = '') {
 		<body>
 			<!-- Error code: '.$code.' -->
 			<h1>Something went wrong :(</h1>
-			<p>We\'ve been notified now, and will fix this as soon as possible.</p>
 			';
-			// echo ((isset($message) and !empty($message)) ? '<p>'.$message.'</p>' : '');
+			echo (($printMessage and isset($message) and !empty($message)) ? '<p>'.$message.'.</p>' : '<p>We\'ve been notified now, and will fix this as soon as possible.</p>');
 			echo '
 		</body>
 	</html>

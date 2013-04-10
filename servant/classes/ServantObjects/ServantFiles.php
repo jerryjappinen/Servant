@@ -19,7 +19,7 @@ class ServantFiles extends ServantObject {
 	public function read ($path, $type = '') {
 
 		// FLAG I don't want to do this here
-		$this->servant()->utilities()->load('markdown', 'textile');
+		$this->servant()->utilities()->load('markdown', 'textile', 'wiky');
 
 		// Automatic file type detection
 		if (empty($type)) {
@@ -87,30 +87,37 @@ class ServantFiles extends ServantObject {
 
 	// Private helpers
 
-	// HTML is already HTML
+	// HTML
 	private function readHtmlFile ($path) {
 		return file_get_contents($path);
 	}
 
-	// Markdown converts to HTML
+	// Markdown
 	private function readMdFile ($path) {
 		return Markdown(file_get_contents($path));
 	}
 
-	// PHP file is included elaborately
+	// PHP
 	private function readPhpFile ($path) {
 		return $this->run($path, array('servant' => $this->servant()));
 	}
 
-	// Textile converts to HTML
+	// Textile
 	private function readTextileFile ($path) {
 		$parser = new Textile();
 		return $parser->textileThis(file_get_contents($path));;
 	}
 
-	// Text is assumed to be Markdown
+	// Plain text
 	private function readTxtFile ($path) {
 		return $this->readMdFile($path);
+	}
+
+	// Wiki markup
+	private function readWikiFile ($path) {
+		$wiky = new wiky;
+		$parsed = $wiky->parse(htmlspecialchars(file_get_contents($path)));
+		return $parsed ? $parsed : '';
 	}
 
 }
