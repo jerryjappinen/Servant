@@ -116,7 +116,7 @@ class ServantFiles extends ServantObject {
 	// Wiki markup
 	private function readWikiFile ($path) {
 		$wiky = new wiky;
-		$parsed = $wiky->parse(htmlspecialchars(file_get_contents($path)));
+		$parsed = $wiky->parse(file_get_contents($path));
 		return $parsed ? $parsed : '';
 	}
 

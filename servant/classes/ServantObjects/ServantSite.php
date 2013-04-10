@@ -268,7 +268,7 @@ class ServantSite extends ServantObject {
 		}
 
 		// Mix sort directories and files
-		ksort($results);
+		uksort($results, 'strcasecmp');
 
 		return $results;
 	}

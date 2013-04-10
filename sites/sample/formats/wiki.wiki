@@ -7,10 +7,6 @@ I would like to add another line
 == Subheading ==
 Some more content
 Some more lines1
-:A line with indent
-:: A 2-indented line
-:: more
-:back to 1-indented line
 Something here
 
 ==== subsub ====
@@ -22,12 +18,13 @@ This is an image.
 [[File:http://lygon.net/lygonsoftware.png Lygon Software]]
 This is some more text
 
+This is an internal link: [[/|Go back home]].
 This is a link: [http://www.google.com Google blaah blaahg].
 This is a bold link: '''[http://www.google.com Google]'''.
 This is a bold-italic link: '''''[http://www.google.com Google]'''''.
 This is '''bold''', '''''bold-italic''''', and ''italic''
 This here is a link without text [http://lygon.net]
-Don't forget to strip out, or convert any <strong>html</html> if planning on echoing directly to a page.
+Inline <strong>HTML</strong> is not parsed out.
 
 Some more lines1
 :A line with indent
@@ -38,7 +35,7 @@ Some more lines1
 And a hr thingy here
 ----
 
-== Listings hiar ==
+== Listings hierarchy ==
 
 # First
 # second
