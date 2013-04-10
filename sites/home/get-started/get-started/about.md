@@ -35,3 +35,5 @@
 ## Support
 
 Having problems? If these instructions don't answer your questions, or you have feature requests or any other feedback, please post on <a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb">Servant's Google group</a> for support. You can also contact the author of Servant <a href="mailto:eiskis@gmail.com">directly via email</a> if you want.
+
+<a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb" class="button magenta">Visit Servant's Google group</a>

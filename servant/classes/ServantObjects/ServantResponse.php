@@ -248,7 +248,7 @@ class ServantResponse extends ServantObject {
 	*/
 	private function store ($content) {
 		$filepath = $this->path('server');
-		$directory = pathinfo($filepath, PATHINFO_DIRNAME);
+		$directory = dirname($filepath);
 
 		// Create directory if it doesn't exist
 		if (!is_dir($directory)) {

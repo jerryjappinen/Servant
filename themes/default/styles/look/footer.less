@@ -6,7 +6,7 @@
 		width: 14em;
 		float: left;
 		clear: none;
-		height: 11em;
+		height: 15em;
 		overflow: hidden;
 		@media handheld, only screen and (max-width: @bb-stack) {
 			width: 50%;
@@ -15,19 +15,20 @@
 	dt {
 		font-size: 1.3em;
 		font-weight: inherit;
+		a {
+			color: @grey-darker;
+		}
 	}
 	dd {
-		margin-left: -0.6em;
-
-		// Links
-		a {
-			padding: 0.2em 0.6em;
-			display: inline-block;
-			text-decoration: none;
-			&:hover {
-				text-decoration: underline;
-			}
+		a:hover {
+			text-decoration: underline;
 		}
+	}
+	// Links
+	a {
+		padding: 0.2em 0;
+		display: block;
+		text-decoration: none;
 	}
 
 

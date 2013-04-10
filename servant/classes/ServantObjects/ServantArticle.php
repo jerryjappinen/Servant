@@ -103,7 +103,7 @@ class ServantArticle extends ServantObject {
 		$hrefUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/'.$this->servant()->action()->id().'/';
 
 		// Relative location for SRC urls
-		$relativeSrcUrl = dont_start_with(pathinfo($this->path('plain'), PATHINFO_DIRNAME), $this->site()->path('plain'), true);
+		$relativeSrcUrl = dont_start_with(dirname($this->path('plain')), $this->site()->path('plain'), true);
 		if (!empty($relativeSrcUrl)) {
 			$relativeSrcUrl .= '/';
 		}
@@ -210,7 +210,7 @@ class ServantArticle extends ServantObject {
 
 		// Traverse site's stylesheets, accept the ones on allowed levels
 		foreach ($this->site()->$type() as $value) {
-			$base = dont_start_with(pathinfo($value, PATHINFO_DIRNAME).'/', $this->site()->path(), true);
+			$base = dont_start_with(dirname($value).'/', $this->site()->path(), true);
 			if (in_array($base, $allowed)) {
 				$results[] = $value;
 			}

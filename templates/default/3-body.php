@@ -1,7 +1,7 @@
 <?php
 
 // Body content
-$output = '<div class="frame-body">';
+$output = '<div class="frame-body"><div class="frame-container">';
 
 
 
@@ -21,39 +21,39 @@ $output = '<div class="frame-body">';
 				$output .= '<li class="selected"><strong>'.$link.'</strong>';
 				unset($link);
 
-				// Possible children
-				if (is_array($value)) {
-					$output .= '<ul class="menu-3">';
-
-					// Child pages in array
-					$skip = true;
-					foreach ($value as $key2 => $value2) {
-
-						// Skip first
-						if ($skip) {
-							$skip = false;
-							continue;
-						}
-
-						// Child item HTML
-						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
-						if ($servant->article()->tree(2) === $key2) {
-							$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
-						} else {
-							$output .= '<li>'.$link.'</li>';
-						}
-					}
-					unset($skip, $level3, $key2, $value2);
-
-					$output .= '</ul>';
-				}
-				$output .= '</li>';
-
 			// Link only
 			} else {
-				$output .= '<li>'.$link.'</li>';
+				$output .= '<li>'.$link;
 			}
 			unset($link);
+
+			// Possible children
+			if (is_array($value)) {
+				$output .= '<ul class="menu-3">';
+
+				// Child pages in array
+				$skip = true;
+				foreach ($value as $key2 => $value2) {
+
+					// Skip first
+					if ($skip) {
+						$skip = false;
+						continue;
+					}
+
+					// Child item HTML
+					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
+					if ($servant->article()->tree(2) === $key2) {
+						$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
+					} else {
+						$output .= '<li>'.$link.'</li>';
+					}
+				}
+				unset($skip, $level3, $key2, $value2);
+
+				$output .= '</ul>';
+			}
+			$output .= '</li>';
 
 		}
 
@@ -69,7 +69,7 @@ $output = '<div class="frame-body">';
 
 
 // End body
-$output .= '</div>';
+$output .= '</div></div>';
 
 echo $output;
 ?>

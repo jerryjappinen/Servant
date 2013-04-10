@@ -1,0 +1,10 @@
+{
+
+	"formats": {
+		"iconImages": ["ico", "png", "gif", "jpg"],
+		"templates": ["md", "txt", "html", "php", "json", "textile", "wiki", "rst"],
+		"stylesheets": ["css", "less"],
+		"scripts": ["js", "json"]
+	}
+
+}

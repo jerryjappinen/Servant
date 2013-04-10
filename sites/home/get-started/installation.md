@@ -20,6 +20,13 @@ You need *PHP 5.2+* and *Apache*. Apache needs to have *rewrite_module* enabled 
 [Download Servant](https://bitbucket.org/Eiskis/servant/get/default.zip). It will come in the form of a `.zip` file you need to extract and move to your server.
 
 
+
+### 3. Point your browser to Servant
+
+Go to your server, where you just moved Servant's files. If Servant's home site is loading, Servant is now installed correctly. If not, continue reading to find out what you still need to do.
+
+
+
 ## Troubleshooting
 
 #### I don't know where to copy Servant's files

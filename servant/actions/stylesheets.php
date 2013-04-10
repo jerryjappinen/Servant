@@ -15,7 +15,7 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 	$rootUrl = $servant->theme()->path('domain');
 
 	// We can parse relative path from that
-	$relativeUrl = substr((pathinfo($path, PATHINFO_DIRNAME).'/'), strlen($servant->theme()->path('plain')));
+	$relativeUrl = substr((dirname($path).'/'), strlen($servant->theme()->path('plain')));
 
 	// Get CSS file contents with URLs replaced
 	$output .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl);
@@ -30,7 +30,7 @@ foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 	$rootUrl = $servant->site()->path('domain');
 
 	// We can parse relative path from that
-	$relativeUrl = substr((pathinfo($path, PATHINFO_DIRNAME).'/'), strlen($servant->site()->path('plain')));
+	$relativeUrl = substr((dirname($path).'/'), strlen($servant->site()->path('plain')));
 
 	// Get CSS file contents with URLs replaced
 	$output .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl);

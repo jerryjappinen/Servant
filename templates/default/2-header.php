@@ -1,10 +1,8 @@
 <?php
 
 // Header
-$output = '
-<div class="frame-header">
-	<h1><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.'">'.$servant->site()->name().'</a></h1>
-	';
+$output = '<div class="frame-header"><div class="frame-container">
+	<h1><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.'">'.$servant->site()->name().'</a></h1>';
 
 
 
@@ -48,7 +46,7 @@ $output = '
 
 
 // Body content
-$output .= '</div>';
+$output .= '</div></div>';
 
 echo $output;
 ?>

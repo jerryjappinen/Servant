@@ -136,13 +136,6 @@
 		"551": "551 Option not supported",
 		"598": "598 Network read timeout error",
 		"599": "599 Network connect timeout error"
-	},
-
-	"formats": {
-		"iconImages": ["ico", "png", "gif", "jpg"],
-		"templates": ["md", "txt", "html", "php", "json", "textile", "wiki"],
-		"stylesheets": ["css", "less"],
-		"scripts": ["js", "json"]
 	}
 
 }

@@ -112,7 +112,7 @@ function move_dir ($path, $newLocation) {
 
 		// Move files individually
 		foreach (rglob_files($path) as $filepath) {
-			move_file($filepath, pathinfo($newLocation.dont_start_with($filepath, $path), PATHINFO_DIRNAME));
+			move_file($filepath, dirname($newLocation.dont_start_with($filepath, $path)));
 		}
 
 		// Remove previous, now empty directories
