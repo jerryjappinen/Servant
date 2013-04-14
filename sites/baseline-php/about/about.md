@@ -1,7 +1,7 @@
 
 # This is Baseline.php
 
-Baseline.php is a set of everyday functions missing from the core language. It includes useful and usable tools for manipulating arrays/strings, accessing/moving/deleting files as well as debugging. Read documentation on this site and try it out.
+Baseline.php is a set of everyday functions missing from core PHP. It includes useful and usable tools for manipulating arrays/strings, accessing/moving/deleting files as well as debugging. Read documentation on this site and try it out.
 
 Baseline.php is tested on PHP 5.2+ and released under LGPL. This documentation is always available online at [eiskis.net/baseline-php](http://eiskis.net/baseline-php/).
 

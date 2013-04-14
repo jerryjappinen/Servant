@@ -36,7 +36,7 @@
 
 	<p class="buttons"><a href="/how-it-works" class="button">Read more</a> <a href="https://bitbucket.org/Eiskis/servant/get/default.zip" class="button magenta">Download servant.zip</a> <a href="https://bitbucket.org/Eiskis/servant" class="button green">Source at Bitbucket</a></p>
 
-	<p class="center"><a href="/get-started">Here's how to get started</a> after downloading.</p>
+	<p class="center"><a href="/get-started">Here's how to get started</a> after downloading. Visit our <a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb">Google Groups page</a> for support and suggestions.</p>
 
 </div>
 
@@ -48,9 +48,11 @@
 	<div class="column fluid">
 		<div class="container">
 
-			<p>Servant is an open-source project authored by <a href="http://eiskis.net/">Jerry Jäppinen</a>. It’s released under <a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>.</p>
+			<p>Servant is an open-source project authored by <a href="http://eiskis.net/">Jerry Jäppinen</a> and released under <a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>.</p>
 
-			<p>The project is hosted on Bitbucket, and contributions are gladly accepted. Clone the <a href="https://bitbucket.org/Eiskis/servant/src" target="_blank">source code</a> to get started. You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> to ask questions and suggest new features.</p>
+			<p><strong>The project is under active development.</strong> Not everything is in place yet, but improvements and new features are rapidly being introduced. It's hosted on Bitbucket, and contributions are gladly accepted: clone the <a href="https://bitbucket.org/Eiskis/servant/src" target="_blank">source code</a> to get started.</p>
+
+			<p>You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> or visit our <a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb">Google Groups page</a> to ask questions and suggest new features.</p>
 
 		</div>
 	</div>

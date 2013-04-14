@@ -38,13 +38,21 @@ Your server usually has a directory called *Document Root* somewhere in the file
 
 
 
-#### URLs are not working or I'm getting a "Forbidden" error
+#### I'm getting a "Forbidden" error
 
-Make sure you `.htaccess` files have been copied to your server. There is one in the root directory of Servant and another in the same directory as `index.php`.
+Make sure you `.htaccess` files have been copied to your server. They forward requests from one place to another, prevent public directory listings and deny access to some files for security reasons. They are hidden files, and as such might sometimes slip through when you're copying files from one place to another.
+
+There's one file in the root folder, and one in each main directory:
+
+- `/.htaccess` (root directory):
+- `/servant/.htaccess` (the same place as `index.php` and `paths.php`)
+- `/sites/.htaccess` (sites folder)
+- `/templates/.htaccess` (templates folder)
+- `/themes/.htaccess` (themes folder)
 
 
 
-#### PHP can't find files or paths are otherwise broken
+#### PHP can't find files
 
 Servant needs to know where it's running. Normally it detects this automatically, but on some, more complicated environments this doesn't work. In this case, define `'document root'` and/or `'root'` manually in the file `paths.php`. Uncomment the first two lines and add the correct values according to the examples.
 

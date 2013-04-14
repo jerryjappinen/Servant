@@ -72,12 +72,12 @@ $output = '<div class="frame-body"><div class="frame-container">';
 
 
 	// Article content
-	$output .= '<div class="frame-article">'.$servant->template()->content().'</div><div class="clear"></div>';
+	$output .= '<div class="frame-article">'.$servant->template()->content().'</div>';
 
 
 
 // End body
-$output .= '</div></div>';
+$output .= '<div class="clear"></div></div></div>';
 
 echo $output;
 ?>

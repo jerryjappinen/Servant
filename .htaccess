@@ -1,11 +1,22 @@
 
-# Settings
-# Please note that there is another .htaccess file in "servant/", which denies direct access to the folder and its contents
+#
+#   NOTES
+#
+#   Please note that there is another .htaccess file under
+#   servant/ ("servant/.htaccess"), which denies direct
+#   access to the folder and its contents.
+#
+
+
+
+#
+#   SETTINGS
+#
 
 # Disable directory listings
 Options -Indexes
 
-# Allow URL rewrites (uncomment the next line if needed on your server)
+# Allow URL rewrites (uncomment "+FollowSymLinks" line if needed on your server)
 # Options +FollowSymLinks
 RewriteEngine on
 
@@ -14,7 +25,9 @@ RewriteEngine on
 
 
 
-# Endpoints
+#
+#   ENDPOINTS
+#
 
 # Forward to default site and action
 RewriteRule ^$ %{REQUEST_URI}home/ [R=301,L]
