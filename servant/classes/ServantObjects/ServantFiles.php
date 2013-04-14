@@ -3,7 +3,7 @@
 /**
 * Files component
 *
-* This component handles reading structure/content files of various formats and converting them into HTML.
+* Reading structure/content files of various formats and converting them into HTML.
 *
 * Dependencies
 *   - utilities()->load()

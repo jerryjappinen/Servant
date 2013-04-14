@@ -1,5 +1,22 @@
 <?php
 
+/**
+* Action component
+*
+* Running the current action.
+*
+* FLAG
+*   - This component needs to be transformed into a separete action object that can be created whenever and wherever.
+*
+* Dependencies
+*   - servant()->available()->action()
+*   - servant()->available()->actions()
+*   - servant()->files()->read()
+*   - servant()->format()->path()
+*   - servant()->input()->action()
+*   - servant()->paths()->actions()
+*   - servant()->settings()->defaults()
+*/
 class ServantAction extends ServantObject {
 
 	/**
@@ -54,7 +71,7 @@ class ServantAction extends ServantObject {
 
 
 	/**
-	* Special getters
+	* Public getters
 	*/
 
 	public function contentType () {

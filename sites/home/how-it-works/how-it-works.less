@@ -15,6 +15,13 @@ body.level-2, body.level-3 {
 			width: 50em;
 			max-width: 100%;
 			display: inline-block;
+			border-right: 0;
+			margin-top: 0;
+			padding-top: 0;
+			padding-bottom: 0;
+			background-color: @grey-darkest;
+			.shadows();
+			.border-radius(0.2em);
 		}
 		li {
 			width: 33%;
@@ -23,13 +30,18 @@ body.level-2, body.level-3 {
 				width: 34%;
 			}
 			a {
+				font-size: 0.85em;
+				color: @white;
 				padding-top: 0.8em;
-				border-left-width: 0;
-				border-bottom-width: 0.2em;
+				padding-bottom: 0.4em;
+				border-bottom-width: 0.4em;
 				&:hover {
-					padding-right: 1em;
-					padding-left: 1em;
+					text-decoration: none;
+					background-color: @grey-darker;
 				}
+			}
+			strong a {
+				border-color: @blue;
 			}
 		}
 	}

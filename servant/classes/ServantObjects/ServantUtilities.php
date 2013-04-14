@@ -3,7 +3,7 @@
 /**
 * Utilities component
 *
-* This component handles loading of utilities, called anywhere in the program.
+* Loading utilities, called anywhere in the program.
 *
 * Dependencies
 *   - available()->utility()

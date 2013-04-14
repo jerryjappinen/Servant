@@ -1,5 +1,6 @@
 
 .frame-header {
+	.box-shadow(0 0.05em 0.2em rgba(36, 41, 45, 0.5));
 
 	// Base look
 	background-color: @grey-darkest;
@@ -15,13 +16,10 @@
 		@media handheld, only screen and (max-width: @bb-accommodate) {
 			font-size: 1em;
 		}
-	}
-
-	// Navigation links
-	h1 a, li a {
 		padding: 1.2em;
-		@media handheld, only screen and (max-width: @bb-accommodate) {
-			padding: 1em 0.8em;
+		@media handheld, only screen and (max-width: @bb-accommodate) and (min-width: @bb-stack) {
+			padding-right: 0.8em;
+			padding-left: 0.8em;
 		}
 	}
 
@@ -40,15 +38,39 @@
 			&:hover {
 				text-decoration: none;
 			}
-			@media handheld, only screen and (max-width: @bb-stack) {
-				letter-spacing: 0.6em;
-				font-size: 2em;
-				font-weight: 100;
-			}
 		}
 	}
 
 
+
+	// Dropdown menu
+	@media handheld, only screen and (max-width: @bb-stack) {
+		#responsive-menu {
+			a {
+				.border-radius(0.2em);
+				display: block;
+				padding: 1em 1.4em;
+				&:hover {
+					background-color: @grey-darker;
+				}
+				&:active {
+					background-color: @grey-darker;
+				}
+			}
+			ul.menu-1 {
+				padding-bottom: 2em;
+			}
+			strong {
+				display: block;
+				a {
+					font-weight: bold;
+					background-color: transparent;
+					background-image: none;
+					.box-shadow(none);
+				}
+			}
+		}
+	}
 
 	// Menu items
 	li {

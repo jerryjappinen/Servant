@@ -6,7 +6,9 @@
 // Returns the contents of the output buffer after the script has run
 function run_script () {
 
-	if (is_file(func_get_arg(0))) {
+	$script = func_get_arg(0);
+	if (is_file($script)) {
+		unset($script);
 
 		// Set up variables for the script
 		foreach (func_get_arg(1) as $____key => $____value) {
@@ -16,12 +18,14 @@ function run_script () {
 		}
 
 		// Clean up variables
-		if (!array_key_exists('____key', func_get_arg(1))) {
+		$____params = func_get_arg(1);
+		if (!array_key_exists('____key', $____params)) {
 			unset($____key);
 		}
-		if (!array_key_exists('____value', func_get_arg(1))) {
+		if (!array_key_exists('____value', $____params)) {
 			unset($____value);
 		}
+		unset($____params);
 
 		// Run each script
 		ob_start();

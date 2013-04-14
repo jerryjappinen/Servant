@@ -8,7 +8,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 	// Submenu in a sidebar
 	$level2 = $servant->site()->articles($servant->article()->tree(0));
 	if (is_array($level2)) {
-		$output .= '<div id="sidebar" class="frame-sidebar"><ul class="menu-2">';
+		$output .= '<div class="frame-sidebar"><ul class="menu-2">';
 
 		// List items
 		foreach ($level2 as $key => $value) {
@@ -16,9 +16,17 @@ $output = '<div class="frame-body"><div class="frame-container">';
 			// Link HTML
 			$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a>';
 
-			// Selected item
+			// Selected item or group
 			if ($servant->article()->tree(1) === $key) {
-				$output .= '<li class="selected"><strong>'.$link.'</strong>';
+				$output .= '<li class="selected">';
+
+				// This specific link is selected
+				if ($servant->article()->index() === 0 or $servant->article()->level() === 2) {
+					$output .= '<strong>'.$link.'</strong>';
+				} else {
+					$output .= $link;
+				}
+
 				unset($link);
 
 			// Link only
@@ -64,7 +72,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 
 
 	// Article content
-	$output .= '<div id="article" class="frame-article">'.$servant->template()->content().'</div><div class="clear"></div>';
+	$output .= '<div class="frame-article">'.$servant->template()->content().'</div><div class="clear"></div>';
 
 
 

@@ -4,11 +4,7 @@ body.level-2, body.level-3 {
 	// Common
 	.frame-article, .frame-sidebar {
 		clear: none;
-		float: right;
-		@media handheld, only screen and (max-width: @bb-stack) {
-			clear: both;
-			float: none;
-		}
+		float: left;
 	}
 
 	// Article
@@ -26,15 +22,14 @@ body.level-2, body.level-3 {
 	.frame-sidebar {
 		width: 23%;
 		margin-bottom: 5%;
-		margin-left: 4%;
+		margin-right: 4%;
 
 		// Small screens
 		@media handheld, only screen and (max-width: @bb-accommodate) {
 			width: 25%;
 		}
 		@media handheld, only screen and (max-width: @bb-stack) {
-			margin-left: 0;
-			width: auto;
+			display: none;
 		}
 
 		.menu-2 li {

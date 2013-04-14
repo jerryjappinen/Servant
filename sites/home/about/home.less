@@ -4,6 +4,23 @@ h1, h2, h3 {
 	text-align: center;
 }
 
+// Limited-width areas
+.limit {
+	margin: 0 auto;
+	max-width: 55em;
+}
+
+// Main propositon
+.showoff {
+	text-align: center;
+	.buffer {
+		padding-top: 0;
+		@media handheld, only screen and (max-width: @bb-stack) {
+			padding: 0;
+		}
+	}
+}
+
 // Main description
 .intro {
 	margin-bottom: 2.4em;
@@ -34,22 +51,6 @@ h1, h2, h3 {
 			width: 90%;
 			padding-right: 5%;
 			padding-left: 5%;
-		}
-	}
-}
-
-// Limited-width areas
-.limit {
-	margin: 0 auto;
-	max-width: 55em;
-}
-
-// Splash intro
-.showoff {
-	text-align: center;
-	.buffer {
-		@media handheld, only screen and (max-width: @bb-stack) {
-			padding: 0;
 		}
 	}
 }

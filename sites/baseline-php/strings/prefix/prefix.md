@@ -29,26 +29,3 @@ This function checks if a `$subject` string starts with a specific `$prefix` str
 ##### Case-insensitive checking, note that the original prefix is preferred
 	prefix('HTTP://www.domain.com', 'http://', true)
 	// Returns 'HTTP://www.domain.com'
-
-
-
-### Parse formulas in JSON
-
-JSON is a common format for sending and storing structured information, but does not support mathematical formulas as such. If you are using JSON for storing settings of your PHP program, `calculate_string()` allows you to store numerical values as strings that include mathematical formulas.
-
-##### settings.json
-	{
-		"sessionTimeout": "12*60*60"
-	}
-
-##### index.php
-	// Parse JSON settings
-	$settings = parse_json(file_get_contents('settings.json'));
-
-	// Use JSON values as 
-	if (isset($settings['sessionTimeout'])) {
-		$settings['sessionTimeout'] = calculate_string($settins['sessionTimeout']);
-	}
-
-	echo $settings['sessionTimeout'];
-	// 43200

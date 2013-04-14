@@ -1,8 +1,24 @@
 <?php
 
+/**
+* Article component
+*
+* The selected article in a ServantSite.
+*
+* Dependencies
+*   - servant()->action()->id()
+*   - servant()->files()->read()
+*   - servant()->format()->name()
+*   - servant()->format()->path()
+*   - servant()->paths()->root()
+*   - servant()->site()
+*   - servant()->utilities()->load()
+*/
 class ServantArticle extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
 	protected $propertyLevel 		= null;
@@ -19,7 +35,9 @@ class ServantArticle extends ServantObject {
 
 
 
-	// Select ID when initializing
+	/**
+	* Select ID when initializing
+	*/
 	public function initialize ($site = null, $tree = null) {
 
 		// Load utilities
@@ -38,7 +56,9 @@ class ServantArticle extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Public getters
+	*/
 
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
@@ -70,8 +90,12 @@ class ServantArticle extends ServantObject {
 
 
 
-	// Setters
-	// NOTE site and tree determine most of these
+	/**
+	* Setters
+	*
+	* NOTE
+	*   - ->site() and ->tree() determine most of these
+	*/
 
 	protected function setId () {
 		$tree = $this->tree();
