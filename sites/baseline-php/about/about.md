@@ -21,7 +21,7 @@ You can now use Baseline.php's functions in the script.
 - [Arrays](arrays)
 - Booleans
 - [Debugging](debug)
-- Exceptions
+- [Exceptions](exceptions)
 - Files
 - [Glob alternatives](glob)
 - Objects

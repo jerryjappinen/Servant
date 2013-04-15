@@ -21,7 +21,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 				$output .= '<li class="selected">';
 
 				// This specific link is selected
-				if ($servant->article()->index() === 0 or $servant->article()->level() === 2) {
+				if ($servant->article()->level() === 2) {
 					$output .= '<strong>'.$link.'</strong>';
 				} else {
 					$output .= $link;
@@ -40,24 +40,17 @@ $output = '<div class="frame-body"><div class="frame-container">';
 				$output .= '<ul class="menu-3">';
 
 				// Child pages in array
-				$skip = true;
 				foreach ($value as $key2 => $value2) {
-
-					// Skip first
-					if ($skip) {
-						$skip = false;
-						continue;
-					}
 
 					// Child item HTML
 					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
-					if ($servant->article()->tree(2) === $key2) {
+					if ($servant->article()->tree(1) === $key and $servant->article()->tree(2) === $key2) {
 						$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
 					} else {
 						$output .= '<li>'.$link.'</li>';
 					}
 				}
-				unset($skip, $level3, $key2, $value2);
+				unset($level3, $key2, $value2);
 
 				$output .= '</ul>';
 			}
