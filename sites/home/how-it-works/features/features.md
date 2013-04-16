@@ -11,19 +11,19 @@
 
 
 	<div class="column four">
-		<p class="close"><img src="files.png" alt="Files" title="Files"></p>
+		<p class="close"><img src="file.png" alt="Files" title="Files" class="blue"></p>
 		<h3 class="squeeze">Text files just work</h3>
 		<p>Plain text, HTML, Textile and Markdown documents are supported. Stock PHP can also be used for scripting. Take your pick.</p>
 	</div>
 
 	<div class="column four">
-		<p class="close"><span class="placeholder"></span></p>
+		<p class="close"><img src="folder.png" alt="Folders" title="Folders" class="grey"></p>
 		<h3 class="squeeze">Hierarchy turns into categories</h3>
 		<p>Documents in subfolders are shown categorized on the web site. It's easy to create subpages on multiple levels.</p>
 	</div>
 
 	<div class="column four last">
-		<p class="close"><span class="placeholder"></span></p>
+		<p class="close"><img src="humans.png" alt="For humans" title="For humans" class="green"></p>
 		<h3 class="squeeze">It's usable</h3>
 		<p>All default themes are responsive. URLs are human-readable.</p>
 	</div>
@@ -32,7 +32,7 @@
 
 
 	<div class="column four">
-		<p class="close"><span class="placeholder"></span></p>
+		<p class="close"><img src="pen.png" alt="Themes" title="Themes" class="magenta"></p>
 		<h3 class="squeeze">Themes</h3>
 		<p>Themes control how your site will look. You can choose from multiple themes, or create more yourself. You can also add site-specific styles and scripts to complement themes.</p>
 	</div>
@@ -40,11 +40,11 @@
 	<div class="column four">
 		<p class="close"><span class="placeholder"></span></p>
 		<h3 class="squeeze">Templates</h3>
-		<p>Servant can create any kind of site from your documents. There are many options for creating different kinds of web sites or blogs.</p>
+		<p>Servant can create any kind of site from your documents. There are templates for marketing sites, documentation, blogs and more.</p>
 	</div>
 
 	<div class="column four last">
-		<p class="close"><span class="placeholder"></span></p>
+		<p class="close"><span class="placeholder grey-dark"></span></p>
 		<h3 class="squeeze">Sane &amp; effortless asset pipeline</h3>
 		<p>Styles, scripts and templates are loaded from their packages automatically based on alphabetical order and directory structure. No manual configuration required.</p>
 	</div>
@@ -59,15 +59,15 @@
 	</div>
 
 	<div class="column four">
-		<p class="close"><span class="placeholder"></span></p>
+		<p class="close"><img src="servant.png" alt="Servant" title="Servant" class="green-dark"></p>
 		<h3 class="squeeze">One Servant, multiple sites</h3>
 		<p>One installation powers any number of sites. You only have to install Servant once, but can still create as many sites as you want, sharing templates and themes.</p>
 	</div>
 
 	<div class="column four last">
-		<p class="close"><span class="placeholder"></span></p>
+		<p class="close"><span class="placeholder magenta-dark"></span></p>
 		<h3 class="squeeze">Easy to set-up and publish</h3>
-		<p>Servant runs on commonplace PHP servers. It can be installed by simply copying the files from the download on a server. No background magic.</p>
+		<p>Servant runs on commonplace PHP servers. It can be installed by simply copying the files from the download on a server. No wizard skills required.</p>
 	</div>
 	<div class="clear"></div>
 
