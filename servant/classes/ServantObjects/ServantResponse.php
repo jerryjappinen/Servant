@@ -147,7 +147,6 @@ class ServantResponse extends ServantObject {
 		if (!empty($potential)) {
 			$path = $potential[0];
 		}
-		debug($path);
 
 		return $this->set('exists', is_file($path) and filemtime($path) < time()+($this->servant()->settings()->cache('server')*60));
 	}

@@ -104,14 +104,14 @@ class ServantTheme extends ServantObject {
 
 		);
 
-		// Go through our options, try to find a template
+		// Go through our options, try to find a theme
 		foreach ($preferredIds as $id) {
-			if ($this->servant()->available()->template($id)) {
+			if ($this->servant()->available()->theme($id)) {
 				break;
 			}
 		}
 
-		// Require a valid template
+		// Require a valid theme
 		// FLAG I want Servant to work without a theme
 		if ($id === null) {
 			$this->fail('No themes available');
