@@ -159,49 +159,16 @@ class ServantSite extends ServantObject {
 			'theme' => ''
 		);
 
-		// Look for settings files
+		// Look for settings file
 		$path = $this->path('server').$this->servant()->settings()->packageContents('siteSettingsFile');
 		if (is_file($path)) {
 
-			// Read settings, interpret into an array
-			// FLAG should be a separate private method
-			$contents = str_replace(array(',', ';', "\n\n"), "\n", trim_text(file_get_contents($path)));
-			$contents = explode("\n", $contents);
-			$keys = array_keys($settings);
-			$keyCount = count($keys);
-
-			// Evaluate any key-value pairs found
-			$i = 0;
-			$j = 0;
-			foreach ($contents as $key => $value) {
-
-				// Only accept uncommented lines that have a ":"
-				if (!in_array(mb_substr($value, 0, 1), array('#', '/')) and strpos($value, ':') !== false) {
-					$value = explode(':', $value);
-
-					// Sanitize content
-					$key = trim($value[0]);
-					$value = trim($value[1]);
-					if (in_array($key, $keys) and !empty($value)) {
-						$settings[$key] = ''.$value;
-
-						// Break when we've found everything
-						$j++;
-						if ($j >= $keyCount) {
-							break;
-						}
-
-					}
-
+			// Read settings, interpret into an array (only array values are accepted)
+			$temp = json_decode(suffix(prefix(trim(file_get_contents($path)), '{'), '}'), true);
+			foreach ($settings as $key => $value) {
+				if (array_key_exists($key, $temp) and !empty($temp[$key]) and is_string($temp[$key])) {
+					$settings[$key] = trim_text($temp[$key]);
 				}
-
-				// Respect maximum iteration count to prevent abuse
-				if ($i > 9) {
-					break;
-				} else {
-					$i++;
-				}
-
 			}
 
 		}
@@ -225,7 +192,9 @@ class ServantSite extends ServantObject {
 
 
 
-	// Private helpers
+	/**
+	* Private helpers
+	**/
 
 	/**
 	* List available articles recursively

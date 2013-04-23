@@ -1,3 +1,0 @@
-
-template:bootstrap
-theme:bootstrap

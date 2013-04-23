@@ -6,7 +6,7 @@
 	},
 
 	"packageContents": {
-		"siteSettingsFile": "settings.txt"
+		"siteSettingsFile": "settings.json"
 	},
 
 	"defaults": {
