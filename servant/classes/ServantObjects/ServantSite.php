@@ -163,11 +163,22 @@ class ServantSite extends ServantObject {
 		$path = $this->path('server').$this->servant()->settings()->packageContents('siteSettingsFile');
 		if (is_file($path)) {
 
-			// Read settings, interpret into an array (only array values are accepted)
+			// Read settings, turn into an array
 			$temp = json_decode(suffix(prefix(trim(file_get_contents($path)), '{'), '}'), true);
-			foreach ($settings as $key => $value) {
-				if (array_key_exists($key, $temp) and !empty($temp[$key]) and is_string($temp[$key])) {
-					$settings[$key] = trim_text($temp[$key]);
+			foreach ($settings as $key => $default) {
+
+				// Only accept non-empty values
+				if (array_key_exists($key, $temp) and !empty($temp[$key])) {
+
+					// Numerical entries can be turned into strings by us
+					if (is_string($default) and (is_string($temp[$key])) or is_numeric($temp[$key])) {
+						$settings[$key] = trim_text(strval($temp[$key]));
+
+					// Otherwise type must match
+					} else if (gettype($default) === $temp[$key]) {
+						$settings[$key] = $temp[$key];
+					}
+
 				}
 			}
 
