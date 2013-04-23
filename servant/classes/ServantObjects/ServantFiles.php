@@ -20,7 +20,6 @@ class ServantFiles extends ServantObject {
 	* Load utilities needed by the component
 	*/
 	public function initialize () {
-		$this->servant()->utilities()->load('markdown', 'rst', 'textile', 'wiky');
 		return $this;
 	}
 
@@ -73,6 +72,7 @@ class ServantFiles extends ServantObject {
 	* Markdown
 	*/
 	private function readMdFile ($path) {
+		$this->servant()->utilities()->load('markdown');
 		return Markdown(file_get_contents($path));
 	}
 
@@ -90,6 +90,7 @@ class ServantFiles extends ServantObject {
 	*   - parser is incomplete
 	*/
 	private function readRstFile ($path) {
+		$this->servant()->utilities()->load('rst');
 		return RST(file_get_contents($path));
 	}
 
@@ -97,6 +98,7 @@ class ServantFiles extends ServantObject {
 	* Textile
 	*/
 	private function readTextileFile ($path) {
+		$this->servant()->utilities()->load('textile');
 		$parser = new Textile();
 		return $parser->textileThis(file_get_contents($path));;
 	}
@@ -115,6 +117,7 @@ class ServantFiles extends ServantObject {
 	*   - parser is incomplete
 	*/
 	private function readWikiFile ($path) {
+		$this->servant()->utilities()->load('wiky');
 		$wiky = new wiky;
 		$parsed = $wiky->parse(file_get_contents($path));
 		return $parsed ? $parsed : '';
