@@ -2,7 +2,9 @@
 
 class ServantTemplate extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
 	protected $propertyContent 	= null;
@@ -11,7 +13,9 @@ class ServantTemplate extends ServantObject {
 
 
 
-	// Select ID when initializing
+	/**
+	* Select ID when initializing
+	*/
 	public function initialize ($id = null) {
 		if ($id) {
 			$this->setId($id);
@@ -21,14 +25,18 @@ class ServantTemplate extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Public getters
+	*/
 
 	public function content () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->servant()->action(), 'output'), $arguments);
 	}
 
-	// Files can be fetched with their paths in any format
+	/**
+	* Files can be fetched with their paths in any format
+	*/
 	public function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
@@ -39,7 +47,9 @@ class ServantTemplate extends ServantObject {
 		return $files;
 	}
 
-	// Paths can be fetched in any format
+	/**
+	* Paths can be fetched in any format
+	*/
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -50,9 +60,13 @@ class ServantTemplate extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
-	// All files of the template
+	/**
+	* All files of the template
+	*/
 	protected function setFiles () {
 		$files = array();
 		$path = $this->path('server');
@@ -73,7 +87,9 @@ class ServantTemplate extends ServantObject {
 
 
 
-	// Name of the template (file or folder in the templates directory)
+	/**
+	* Name of the template (file or folder in the templates directory)
+	*/
 	protected function setId ($input = null) {
 
 		// List our options, in order of preference
@@ -114,7 +130,9 @@ class ServantTemplate extends ServantObject {
 
 
 
-	// Output content
+	/**
+	* Output content
+	*/
 	protected function setOutput () {
 		$result = '';
 		foreach ($this->files('server') as $path) {
@@ -125,7 +143,9 @@ class ServantTemplate extends ServantObject {
 
 
 
-	// Template is either a file or a folder within the templates directory
+	/**
+	* Template is either a file or a folder within the templates directory
+	*/
 	protected function setPath () {
 		$path = '';
 		$serverPath = $this->servant()->paths()->templates('server').$this->id();

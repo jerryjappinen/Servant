@@ -2,19 +2,23 @@
 
 class ServantMain extends ServantObject {
 
-	// Override default construction method
+	/**
+	* Override default construction method
+	*/
 	public function __construct () {
 		return $this;
 	}
 
-
-
-	// Startup
+	/**
+	* Startup
+	*/
 	public function initialize ($paths, $settings, $input = null) {
 		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}
 
-	// Execute Servant to generate a response
+	/**
+	* Execute Servant to generate a response
+	*/
 	public function execute () {
 		$this->response()->serve();
 		return $this;
@@ -22,9 +26,10 @@ class ServantMain extends ServantObject {
 
 
 
-	// Components
+	/**
+	* Child components
+	*/
 
-	// Properties
 	protected $propertyAction 		= null;
 	protected $propertyAvailable 	= null;
 	protected $propertyFiles 		= null;

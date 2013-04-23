@@ -2,7 +2,9 @@
 
 class ServantSettings extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyCache 			= null;
 	protected $propertyContentTypes 	= null;
 	protected $propertyDefaults 		= null;
@@ -13,7 +15,9 @@ class ServantSettings extends ServantObject {
 
 
 
-	// Take original settings in during initialization
+	/**
+	* Take original settings in during initialization
+	*/
 	public function initialize ($settings) {
 
 		// This is what we can set
@@ -42,9 +46,13 @@ class ServantSettings extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
-	// Cache'related items (times are in minutes)
+	/**
+	* Cache'related items (times are in minutes)
+	*/
 	protected function setCache ($input = null) {
 
 		// Base format, with defaults
@@ -77,15 +85,21 @@ class ServantSettings extends ServantObject {
 
 
 
-	// Content types
+	/**
+	* Content types
+	*/
 	protected function setContentTypes ($input = null) {
 		return $this->set('contentTypes', $this->takeInFlattenedArray($input, false));
 	}
 
 
 
-	// Default preferences for guiding how to choose between available items
-	// NOTE default items are not necessarily available in the system, they're just dumb preferences
+	/**
+	* Default preferences for guiding how to choose between available items
+	*
+	* NOTE
+	*   - Default items are not necessarily available in the system, they're just dumb preferences
+	*/
 	protected function setDefaults ($input = null) {
 
 		// Base format
@@ -116,8 +130,6 @@ class ServantSettings extends ServantObject {
 		return $this->set('defaults', $results);
 	}
 
-
-
 	protected function setFormats ($input = null) {
 
 		// Base format with defaults
@@ -140,25 +152,17 @@ class ServantSettings extends ServantObject {
 		return $this->set('formats', $results);
 	}
 
-
-
 	protected function setNamingConvention ($input = null) {
 		return $this->set('namingConvention', $this->takeInAssociativeArray($input));
 	}
-
-
 
 	protected function setPackageContents ($input = null) {
 		return $this->set('packageContents', $this->takeInAssociativeArray($input));
 	}
 
-
-
 	protected function setPatterns ($input = null) {
 		return $this->set('patterns', $this->takeInFlattenedArray($input, false));
 	}
-
-
 
 	protected function setStatuses ($input = null) {
 		return $this->set('statuses', $this->takeInFlattenedArray($input, true));
@@ -166,7 +170,9 @@ class ServantSettings extends ServantObject {
 
 
 
-	// Private helpers
+	/**
+	* Private helpers
+	*/
 
 	private function takeInAssociativeArray ($input = null) {
 		$results = array();

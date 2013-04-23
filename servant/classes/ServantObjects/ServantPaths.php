@@ -2,7 +2,9 @@
 
 class ServantPaths extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyDocumentRoot = null;
 	protected $propertyRoot 		= null;
 
@@ -19,7 +21,9 @@ class ServantPaths extends ServantObject {
 
 
 
-	// Kickstart all paths
+	/**
+	* Kickstart all paths
+	*/
 	public function initialize ($paths) {
 		$results = array();
 
@@ -52,9 +56,14 @@ class ServantPaths extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Public getters
+	*/
 
-	// Root paths are a little special
+	/**
+	* Root paths
+	*/
+
 	public function documentRoot () {
 		return $this->get('documentRoot');
 	}
@@ -67,7 +76,9 @@ class ServantPaths extends ServantObject {
 		}
 	}
 
-	// Others
+	/**
+	* Other paths
+	*/
 	public function actions ($format = false) {
 		return $this->servant()->format()->path($this->get('actions'), $format);
 	}

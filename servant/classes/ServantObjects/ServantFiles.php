@@ -3,10 +3,14 @@
 /**
 * Files component
 *
-* Reading structure/content files of various formats and converting them into HTML.
+* Reading structure/content files in various formats and converting them into HTML.
 *
 * Dependencies
 *   - utilities()->load()
+*
+* FLAG
+*   - Should really have a different name
+*   - Should this be merged with ServantFormat?
 */
 class ServantFiles extends ServantObject {
 

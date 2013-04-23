@@ -25,7 +25,7 @@ class ServantResponse extends ServantObject {
 	* Send a response
 	*
 	* FLAG
-	* - most of this should be done in ServantMain()
+	* - Should this be done in ServantMain()?
 	* - need to sort out when action is run... maybe its execution should be all under init(), and action isn't even created until we know response doesn't already exist
 	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
 	* - exists() and path() need to be less strict about the input type, and accept the first one that's close enough
@@ -68,6 +68,11 @@ class ServantResponse extends ServantObject {
 	* Special getters
 	*/
 
+
+	/**
+	* FLAG
+	*   - Should be existing(), and return the path of existing cache file
+	*/
 	public function exists () {
 		return $this->getAndSet('exists');
 	}

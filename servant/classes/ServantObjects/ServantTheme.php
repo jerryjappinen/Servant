@@ -2,7 +2,9 @@
 
 class ServantTheme extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyIcon			= null;
 	protected $propertyId 			= null;
 	protected $propertyPath 		= null;
@@ -11,7 +13,9 @@ class ServantTheme extends ServantObject {
 
 
 
-	// Select ID when initializing
+	/**
+	* Select ID when initializing
+	*/
 	public function initialize ($id = false) {
 		if ($id) {
 			$this->setId($id);
@@ -21,7 +25,9 @@ class ServantTheme extends ServantObject {
 
 
 
-	// Public getters for paths
+	/**
+	* Public getters for paths
+	*/
 
 	public function icon ($format = null) {
 		$icon = $this->getAndSet('icon');
@@ -61,7 +67,9 @@ class ServantTheme extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
 	/**
 	* Path to theme's fallback site icon
@@ -78,7 +86,9 @@ class ServantTheme extends ServantObject {
 		return $this->set('icon', $result);
 	}
 
-	// Theme identity
+	/**
+	* Theme identity
+	*/
 	protected function setId ($input = null) {
 
 		// List our options, in order of preference
@@ -122,26 +132,36 @@ class ServantTheme extends ServantObject {
 
 
 
-	// Theme is a folder under the themes directory
+	/**
+	* Theme is a folder under the themes directory
+	*/
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->themes().$this->id().'/');
 	}
 
 
 
-	// Files
+	/**
+	* Files
+	*/
 
-	// Stylesheet files
+	/**
+	* Stylesheet files
+	*/
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->findFiles('stylesheets'));
 	}
 
-	// Script files
+	/**
+	* Script files
+	*/
 	protected function setScripts () {
 		return $this->set('scripts', $this->findFiles('scripts'));
 	}
 
-	// Helper to find files
+	/**
+	* Helper to find files
+	*/
 	private function findFiles ($formatsType) {
 		$files = array();
 

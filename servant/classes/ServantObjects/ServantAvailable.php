@@ -2,7 +2,9 @@
 
 class ServantAvailable extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyActions 		= null;
 	protected $propertyArticles 	= null;
 	protected $propertyContentTypes = null;
@@ -15,9 +17,13 @@ class ServantAvailable extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Public getters
+	*/
 
-	// Articles are dependent on current site
+	/**
+	* Articles are dependent on current site
+	*/
 	public function article () {
 		$arguments = func_get_args();
 		return $this->assert('articles', $arguments);
@@ -27,7 +33,9 @@ class ServantAvailable extends ServantObject {
 		return call_user_func_array(array($this->servant()->site(), 'articles'), $arguments);
 	}
 
-	// Others just get extra assertion methods
+	/**
+	* Others have extra assertion methods
+	*/
 	public function action ($id) {
 		return in_array($id, $this->actions());
 	}
@@ -55,7 +63,9 @@ class ServantAvailable extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
 	protected function setActions () {
 		return $this->set('actions', array_merge($this->findFiles('actions', 'php'), $this->findDirectories('actions')));
@@ -77,26 +87,40 @@ class ServantAvailable extends ServantObject {
 		return $this->set('statuses', array_keys($this->servant()->settings()->statuses()));
 	}
 
-	// Templates are single template files or directories
+	/**
+	* Templates
+	*
+	* Single template files or directories
+	*/
 	protected function setTemplates () {
 		$formats = $this->servant()->settings()->formats('templates');
 		return $this->set('templates', array_merge($this->findFiles('templates', $formats), $this->findDirectories('templates')));
 	}
 
-	// Themes are single files or directories of stylesheets and scripts
+	/**
+	* Themes
+	*
+	* Single files or directories of stylesheets and scripts
+	*/
 	protected function setThemes () {
 		$formats = array_merge($this->servant()->settings()->formats('stylesheets'), $this->servant()->settings()->formats('scripts'));
 		return $this->set('themes', $this->findDirectories('themes'));
 	}
 
-	// Utilities are script files or directories
+	/**
+	* Utilities
+	*
+	* Script files or directories
+	*/
 	protected function setUtilities () {
 		return $this->set('utilities', array_merge($this->findFiles('utilities', 'php'), $this->findDirectories('utilities')));
 	}
 
 
 
-	// Private helpers
+	/**
+	* Private helpers
+	*/
 
 	private function findFiles ($dir, $types) {
 		$items = array();

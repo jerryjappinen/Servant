@@ -2,7 +2,9 @@
 
 class ServantSite extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyArticle 		= null;
 	protected $propertyArticles 	= null;
 	protected $propertySettings		= null;
@@ -15,7 +17,9 @@ class ServantSite extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Public getters
+	*/
 
 	public function icon ($format = null) {
 		$icon = $this->getAndSet('icon');
@@ -55,7 +59,9 @@ class ServantSite extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
 	/**
 	* Selected article as child object

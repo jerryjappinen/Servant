@@ -1,8 +1,15 @@
 <?php
 
+/**
+* HTTP headers component
+*
+* Valid HTTP header strings to be send to UA with the response.
+*/
 class ServantHttpHeaders extends ServantObject {
 
-	// Properties
+	/**
+	* Properties
+	*/
 	protected $propertyBrowserCacheTime = null;
 	protected $propertyContentType 		= null;
 	protected $propertyCors 			= null;
@@ -10,7 +17,9 @@ class ServantHttpHeaders extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
 	protected function setBrowserCacheTime () {
 		$time = $this->servant()->response()->browserCacheTime();

@@ -2,13 +2,17 @@
 
 class ServantFormat extends ServantObject {
 
-	// Create human-readable title from something like a filename
+	/**
+	* Create human-readable title from something like a filename
+	*/
 	public function name ($string) {
 		$conversions = $this->servant()->settings()->namingConvention();
 		return ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));
 	}
 
-	// Convert a plain path into any format
+	/**
+	* Convert a path from one format to another
+	*/
 	public function path ($path, $resultFormat = null, $originalFormat = null) {
 
 		// Don't do anything if it doesn't make sense

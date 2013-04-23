@@ -2,17 +2,23 @@
 
 class ServantInput extends ServantObject {
 
-	// Properties
+
+
+	/**
+	* Properties
+	*/
 	protected $propertyAction 	= null;
 	protected $propertyArticle 	= null;
 	protected $propertySite 	= null;
 
 
 
-	// Take input
+	/**
+	* Take input
+	*/
 	public function initialize ($input = null) {
 
-		// Set defaults
+		// Set defaults to all properties
 		$this->setAction('')->setArticle(array())->setSite('');
 
 		// Select things if we have any
@@ -35,9 +41,14 @@ class ServantInput extends ServantObject {
 
 
 
-	// Public getters
+	/**
+	* Public getters
+	*/
 	public function action () {
 		return $this->get('action');
+	}
+	public function article () {
+		return $this->get('article');
 	}
 	public function site () {
 		return $this->get('site');
@@ -45,17 +56,26 @@ class ServantInput extends ServantObject {
 
 
 
-	// Setters
+	/**
+	* Setters
+	*/
 
+	/**
+	* Action
+	*/
 	protected function setAction ($value) {
 		$result = '';
-		if ($this->acceptString($value)) {
+		if ($this->acceptable($value)) {
 			$result = $this->normalizeString($value);
 		}
 		return $this->set('action', $result);
 	}
 
-	// List of article names to select one in the article tree
+	/**
+	* Article
+	*
+	* List of article names to select one in the article tree
+	*/
 	protected function setArticle ($values) {
 		$results = array();
 
@@ -84,7 +104,7 @@ class ServantInput extends ServantObject {
 				// FLAG hardcoded maximum count
 				$i = 0;
 				foreach ($values as $value) {
-					if ($this->acceptString($value) and $i < 9) {
+					if ($this->acceptable($value) and $i < 9) {
 						$results[] = $this->normalizeString($value);
 					} else {
 						break;
@@ -99,9 +119,12 @@ class ServantInput extends ServantObject {
 		return $this->set('article', $results);
 	}
 
+	/**
+	* Site
+	*/
 	protected function setSite ($value) {
 		$result = '';
-		if ($this->acceptString($value)) {
+		if ($this->acceptable($value)) {
 			$result = $this->normalizeString($value);
 		}
 		return $this->set('site', $result);
@@ -116,7 +139,7 @@ class ServantInput extends ServantObject {
 	/**
 	* Is the value good enough to accept after sanitizing?
 	*/
-	private function acceptString ($value) {
+	private function acceptable ($value) {
 		return !empty($value) and (is_string($value) or is_int($value));
 	}
 
