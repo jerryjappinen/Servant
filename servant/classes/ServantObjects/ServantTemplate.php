@@ -158,7 +158,7 @@ class ServantTemplate extends ServantObject {
 		} else {
 
 			// Go through acceptable types, break when we find a match
-			foreach ($this->servant()->settings()->formats('templates') as $format) {
+			foreach (array_flatten($this->servant()->settings()->formats('templates')) as $format) {
 				if (is_file($serverPath.'.'.$format)) {
 					$path = '.'.$format;
 					break;

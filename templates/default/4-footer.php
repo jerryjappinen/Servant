@@ -35,7 +35,7 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	// echo htmlDump($servant->site()->articles());
+	// echo html_dump(array_flatten($servant->settings()->formats('templates')));
 
 // Close footer
 echo '</div></div>';

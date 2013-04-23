@@ -2,7 +2,14 @@
 
 	"formats": {
 		"iconImages": ["ico", "png", "gif", "jpg"],
-		"templates": ["md", "txt", "html", "php", "textile", "wiki", "rst"],
+		"templates": {
+			"markdown": ["md", "markdown", "txt"],
+			"html": ["html", "html", "xhtml"],
+			"php": ["php", "ph"],
+			"textile": ["textile"],
+			"wiki": "wiki",
+			"rst": "rst"
+		},
 		"stylesheets": ["css", "less"],
 		"scripts": ["js", "json"]
 	}

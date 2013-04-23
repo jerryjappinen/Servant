@@ -7,6 +7,7 @@
 *
 * Dependencies
 *   - utilities()->load()
+*   - settings()->formats()
 *
 * FLAG
 *   - Should really have a different name
@@ -33,7 +34,14 @@ class ServantFiles extends ServantObject {
 
 		// Automatic file type detection
 		if (empty($type)) {
-			$type = pathinfo($path, PATHINFO_EXTENSION);
+			$extension = pathinfo($path, PATHINFO_EXTENSION);
+			foreach ($this->servant()->settings()->formats('templates') as $key => $extensions) {
+				if (in_array($extension, $extensions)) {
+					$type = $key;
+					break;
+				}
+			}
+
 		}
 
 		// File must exist
@@ -71,7 +79,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* Markdown
 	*/
-	private function readMdFile ($path) {
+	private function readMarkdownFile ($path) {
 		$this->servant()->utilities()->load('markdown');
 		return Markdown(file_get_contents($path));
 	}

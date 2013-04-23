@@ -144,7 +144,18 @@ class ServantSettings extends ServantObject {
 		if ($input) {
 			foreach ($results as $key => $value) {
 				if (isset($input[$key])) {
-					$results[$key] = array_flatten(to_array($input[$key]));
+
+					// Templates are multidimensional
+					if ($key === 'templates' and is_array($input[$key])) {
+						foreach ($input[$key] as $key2 => $value2) {
+							$results[$key][$key2] = array_flatten(to_array($value2));
+						}
+
+					// Others are flattened
+					} else {
+						$results[$key] = array_flatten(to_array($input[$key]));
+					}
+
 				}
 			}
 		}
