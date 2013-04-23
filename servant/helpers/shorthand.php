@@ -2,6 +2,7 @@
 
 // Decodes a string into an array
 // NOTE format: "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
+// FLAG only used once, should be a private method in input
 function parse_into_array ($string) {
 
 	$result = array();

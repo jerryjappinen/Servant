@@ -127,14 +127,13 @@ class ServantArticle extends ServantObject {
 		$hrefUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/'.$this->servant()->action()->id().'/';
 
 		// Relative location for SRC urls
-		$relativeSrcUrl = dont_start_with(dirname($this->path('plain')), $this->site()->path('plain'), true);
+		$relativeSrcUrl = unprefix(dirname($this->path('plain')), $this->site()->path('plain'), true);
 		if (!empty($relativeSrcUrl)) {
 			$relativeSrcUrl .= '/';
 		}
 
 		// Relative location for HREF urls
-		// $relativeHrefUrl = $relativeSrcUrl;
-		$relativeHrefUrl = end_with(implode('/', array_reverse($this->parents())), '/');
+		$relativeHrefUrl = suffix(implode('/', array_reverse($this->parents())), '/');
 
 		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl));
 	}
@@ -234,7 +233,7 @@ class ServantArticle extends ServantObject {
 
 		// Traverse site's stylesheets, accept the ones on allowed levels
 		foreach ($this->site()->$type() as $value) {
-			$base = dont_start_with(dirname($value).'/', $this->site()->path(), true);
+			$base = unprefix(dirname($value).'/', $this->site()->path(), true);
 			if (in_array($base, $allowed)) {
 				$results[] = $value;
 			}

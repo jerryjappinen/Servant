@@ -49,43 +49,43 @@ class ServantMain extends ServantObject {
 
 	// Setters for children
 	protected function setAction ($id = null) {
-		return $this->set('action', create(new ServantAction($this))->init($id));
+		return $this->set('action', create_object(new ServantAction($this))->init($id));
 	}
 	protected function setAvailable () {
-		return $this->set('available', create(new ServantAvailable($this))->init());
+		return $this->set('available', create_object(new ServantAvailable($this))->init());
 	}
 	protected function setFiles () {
-		return $this->set('files', create(new ServantFiles($this))->init());
+		return $this->set('files', create_object(new ServantFiles($this))->init());
 	}
 	protected function setFormat () {
-		return $this->set('format', create(new ServantFormat($this))->init());
+		return $this->set('format', create_object(new ServantFormat($this))->init());
 	}
 	protected function setHttpHeaders () {
-		return $this->set('httpHeaders', create(new ServantHttpHeaders($this))->init());
+		return $this->set('httpHeaders', create_object(new ServantHttpHeaders($this))->init());
 	}
 	protected function setInput ($input) {
-		return $this->set('input', create(new ServantInput($this))->init($input));
+		return $this->set('input', create_object(new ServantInput($this))->init($input));
 	}
 	protected function setPaths ($paths) {
-		return $this->set('paths', create(new ServantPaths($this))->init($paths));
+		return $this->set('paths', create_object(new ServantPaths($this))->init($paths));
 	}
 	protected function setResponse () {
-		return $this->set('response', create(new ServantResponse($this))->init());
+		return $this->set('response', create_object(new ServantResponse($this))->init());
 	}
 	protected function setSettings ($settings = array()) {
-		return $this->set('settings', create(new ServantSettings($this))->init($settings));
+		return $this->set('settings', create_object(new ServantSettings($this))->init($settings));
 	}
 	protected function setSite ($id = null, $selectedArticle = null) {
-		return $this->set('site', create(new ServantSite($this))->init($id, $selectedArticle));
+		return $this->set('site', create_object(new ServantSite($this))->init($id, $selectedArticle));
 	}
 	protected function setTemplate ($id = null) {
-		return $this->set('template', create(new ServantTemplate($this))->init($id));
+		return $this->set('template', create_object(new ServantTemplate($this))->init($id));
 	}
 	protected function setTheme ($id = null) {
-		return $this->set('theme', create(new ServantTheme($this))->init($id));
+		return $this->set('theme', create_object(new ServantTheme($this))->init($id));
 	}
 	protected function setUtilities () {
-		return $this->set('utilities', create(new ServantUtilities($this))->init());
+		return $this->set('utilities', create_object(new ServantUtilities($this))->init());
 	}
 
 }

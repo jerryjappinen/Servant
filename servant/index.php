@@ -127,7 +127,7 @@ $input = $_GET;
 unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
 // Startup
-$servant = create(new ServantMain)->init($paths, $settings, $input);
+$servant = create_object(new ServantMain)->init($paths, $settings, $input);
 unset($paths, $settings, $input);
 
 // Run Servant

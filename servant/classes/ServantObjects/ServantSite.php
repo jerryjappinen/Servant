@@ -65,7 +65,7 @@ class ServantSite extends ServantObject {
 		// Select article based on input
 		$selectedArticle = $this->servant()->input()->article();
 
-		return $this->set('article', create(new ServantArticle($this->servant()))->init($this, $selectedArticle));
+		return $this->set('article', create_object(new ServantArticle($this->servant()))->init($this, $selectedArticle));
 	}
 
 	/**
@@ -158,6 +158,7 @@ class ServantSite extends ServantObject {
 		if (is_file($path)) {
 
 			// Read settings, interpret into an array
+			// FLAG should be a separate private method
 			$contents = str_replace(array(',', ';', "\n\n"), "\n", trim_text(file_get_contents($path)));
 			$contents = explode("\n", $contents);
 			$keys = array_keys($settings);

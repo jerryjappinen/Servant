@@ -269,7 +269,7 @@ class ServantObject {
 		return $prefix.ucfirst($name);
 	}
 	private function parseGeneratedName ($prefix, $name) {
-		$base = dont_start_with($name, $prefix, true);
+		$base = unprefix($name, $prefix, true);
 		$name = strtolower(substr($base, 0, 1)).substr($base, 1);
 		return $name;
 	}

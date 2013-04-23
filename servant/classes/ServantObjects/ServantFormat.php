@@ -20,16 +20,16 @@ class ServantFormat extends ServantObject {
 
 			// Strip to plain format
 			if ($originalFormat === 'server') {
-				$path = dont_start_with($path, $documentRoot.$root);
+				$path = unprefix($path, $documentRoot.$root);
 			} else if ($originalFormat === 'domain') {
-				$path = dont_start_with($path, $root);
+				$path = unprefix($path, $root);
 			}
 
 			// Add prefixes if needed
 			if ($resultFormat === 'server') {
 				$path = $documentRoot.$root.$path;
 			} else if ($resultFormat === 'domain') {
-				$path = start_with($root.$path, '/');
+				$path = prefix($root.$path, '/');
 			}
 
 		}
