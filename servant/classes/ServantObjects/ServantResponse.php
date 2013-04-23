@@ -9,7 +9,7 @@ class ServantResponse extends ServantObject {
 	protected $propertyBrowserCacheTime = null;
 	protected $propertyContentType 		= null;
 	protected $propertyCors 			= null;
-	protected $propertyExists 			= null;
+	protected $propertyExisting 		= null;
 	protected $propertyHeaders 			= null;
 	protected $propertyPath 			= null;
 	protected $propertyStatus 			= null;
@@ -28,14 +28,13 @@ class ServantResponse extends ServantObject {
 	* - Should this be done in ServantMain()?
 	* - need to sort out when action is run... maybe its execution should be all under init(), and action isn't even created until we know response doesn't already exist
 	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
-	* - exists() and path() need to be less strict about the input type, and accept the first one that's close enough
 	*/
 	public function serve () {
 		$cacheEnabled = $this->servant()->settings()->cache('server') > 0;	
 
 		// Response has been saved
-		if ($cacheEnabled and $this->exists()) {
-			$output = file_get_contents($this->path('server'));
+		if ($cacheEnabled and $this->existing()) {
+			$output = file_get_contents($this->existing('server'));
 
 		// Response needs to be generated
 		} else {
@@ -47,7 +46,7 @@ class ServantResponse extends ServantObject {
 			$output = $this->servant()->action()->outputViaTemplate() ? $this->servant()->template()->output() : $this->servant()->action()->output();
 
 			// Store if needed
-			if ($this->contentType() < 400 and $cacheEnabled and !$this->exists()) {
+			if ($this->contentType() < 400 and $cacheEnabled and !$this->existing()) {
 				$this->store($output);
 			}
 
@@ -68,19 +67,19 @@ class ServantResponse extends ServantObject {
 	* Special getters
 	*/
 
-
 	/**
-	* FLAG
-	*   - Should be existing(), and return the path of existing cache file
+	* Paths in any format
 	*/
-	public function exists () {
-		return $this->getAndSet('exists');
+
+	public function existing ($format = null) {
+		$path = $this->getAndSet('existing');
+		if ($format and !empty($path)) {
+			$path = $this->servant()->format()->path($path, $format);
+		}
+		return $path;
 	}
 
-	/**
-	* Path in any format
-	*/
-	public function path ($format = false) {
+	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->format()->path($path, $format);
@@ -109,8 +108,8 @@ class ServantResponse extends ServantObject {
 	protected function setContentType () {
 
 		// Read content type from file extension
-		if ($this->exists()) {
-			$contentType = pathinfo($this->path(), PATHINFO_EXTENSION);
+		if ($this->existing()) {
+			$contentType = pathinfo($this->existing(), PATHINFO_EXTENSION);
 
 		// Get content type from action
 		} else {
@@ -139,12 +138,13 @@ class ServantResponse extends ServantObject {
 
 
 	/**
-	* Whether or not response has already been saved.
+	* Path to saved response, if one exists (otherwise empty string).
 	*
 	* NOTE
 	* - Action isn't run when a response already exists
 	*/
-	protected function setExists () {
+	protected function setExisting () {
+		$result = '';
 
 		// Look for a file that matches criteria work
 		$path = $this->basePath('server');
@@ -153,7 +153,12 @@ class ServantResponse extends ServantObject {
 			$path = $potential[0];
 		}
 
-		return $this->set('exists', is_file($path) and filemtime($path) < time()+($this->servant()->settings()->cache('server')*60));
+		// File exists and is not too old
+		if (is_file($path) and filemtime($path) < time()+($this->servant()->settings()->cache('server')*60)) {
+			$result = $this->servant()->format()->path($path, 'plain', 'server');
+		}
+
+		return $this->set('existing', $result);
 	}
 
 
@@ -186,14 +191,9 @@ class ServantResponse extends ServantObject {
 	*/
 	protected function setPath () {
 
-		// Base
-
 		// Existing response
-		// FLAG duplicating logic from exists()
-		if ($this->exists()) {
-			$path = $this->basePath('server');
-			$potential = glob($path.'.*.*');
-			$path = $this->servant()->format()->path($potential[0], 'plain', 'server');
+		if ($this->existing()) {
+			$path = $this->existing();
 
 		// Response doesn't exist, we'll be creating a new one
 		// FLAG this is dangerous, action must have been run
@@ -212,8 +212,8 @@ class ServantResponse extends ServantObject {
 	protected function setStatus () {
 
 		// Read status from filename
-		if ($this->exists()) {
-			$status = explode('.', basename($this->path()));
+		if ($this->existing()) {
+			$status = explode('.', basename($this->existing()));
 			$status = $status[count($status)-2];
 
 		// Get status from action
@@ -241,7 +241,7 @@ class ServantResponse extends ServantObject {
 	/**
 	* Base path of saved response.
 	*
-	* Includes cache folder path, site ID, action ID and article tree. Used by path() and exists().
+	* Includes cache folder path, site ID, action ID and article tree. Used by path() and existing().
 	*/
 	private function basePath ($format = null) {
 		return $this->servant()->paths()->cache($format).$this->servant()->site()->id().'/'.$this->servant()->action()->id().'/'.implode('/', $this->servant()->site()->article()->tree());

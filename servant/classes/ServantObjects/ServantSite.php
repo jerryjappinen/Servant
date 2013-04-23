@@ -172,7 +172,7 @@ class ServantSite extends ServantObject {
 
 					// Numerical entries can be turned into strings by us
 					if (is_string($default) and (is_string($temp[$key])) or is_numeric($temp[$key])) {
-						$settings[$key] = trim_text(strval($temp[$key]));
+						$settings[$key] = trim_text(strval($temp[$key]), true);
 
 					// Otherwise type must match
 					} else if (gettype($default) === $temp[$key]) {
