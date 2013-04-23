@@ -84,16 +84,7 @@ class ServantInput extends ServantObject {
 
 			// Parse string input
 			if (is_string($values)) {
-
-				// Assume JSON
-				$temp = json_decode($values);
-				if (is_array($temp)) {
-					$results = $temp;
-
-				// Shorthand
-				} else {
-					$results = $this->parseIntoArray($values);
-				}
+				$results = $this->parseStringInput($values);
 
 			// Try to use it as an array
 			} else {
@@ -154,44 +145,54 @@ class ServantInput extends ServantObject {
 	* Decodes a string into an array (probably from GET)
 	*
 	* NOTE
-	*   - format: "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
+	*   - takes in JSON or "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
 	*/
-	private function parseIntoArray ($string) {
+	private function parseStringInput ($input) {
+		$string = trim($input);
 
-		$result = array();
+		// Assume JSON
+		$temp = json_decode(suffix(prefix($string, '{'), '}'));
+		if (is_array($temp)) {
+			$results = $temp;
 
-		// Iterate through all the values/key-value pairs
-		foreach (explode(';', $string) as $key => $value) {
+		// Custom shorthand
+		} else {
+			$result = array();
 
-			// Individual value
-			if (strpos($value, ',') === false and strpos($value, ':') === false) {
-				$result[$key] = trim($value);
+			// Iterate through all the values/key-value pairs
+			foreach (explode(';', $string) as $key => $value) {
 
-			// List
-			} else {
-				foreach (explode(',', $value) as $key2 => $value2) {
+				// Individual value
+				if (strpos($value, ',') === false and strpos($value, ':') === false) {
+					$result[$key] = trim($value);
 
-					$value2 = trim($value2, '"');
+				// List
+				} else {
+					foreach (explode(',', $value) as $key2 => $value2) {
 
-					// Key-value pair
-					if (strpos($value2, ':') !== false) {
-						$temp2 = explode(':', $value2);
-						$result[$key][$temp2[0]] = $temp2[1];
+						$value2 = trim($value2, '"');
 
-					// Plain value
-					} else {
-						$result[$key][$key2] = $value2;
+						// Key-value pair
+						if (strpos($value2, ':') !== false) {
+							$temp2 = explode(':', $value2);
+							$result[$key][$temp2[0]] = $temp2[1];
+
+						// Plain value
+						} else {
+							$result[$key][$key2] = $value2;
+						}
+
 					}
-
 				}
 			}
-		}
 
-		// FLAG I'm looping the results twice
-		foreach ($result as $key => $value) {
-			if (is_string($value) and empty($value)) {
-				unset($result[$key]);
+			// FLAG I'm looping the results twice
+			foreach ($result as $key => $value) {
+				if (is_string($value) and empty($value)) {
+					unset($result[$key]);
+				}
 			}
+
 		}
 
 		return $result;
