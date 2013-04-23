@@ -72,7 +72,7 @@ class ServantInput extends ServantObject {
 
 				// Shorthand
 				} else {
-					$results = parse_into_array($values);
+					$results = $this->parseIntoArray($values);
 				}
 
 			// Try to use it as an array
@@ -109,16 +109,69 @@ class ServantInput extends ServantObject {
 
 
 
-	// Private helpers
+	/**
+	* Private helpers
+	*/
 
-	// Is the value good enough to accept after sanitizing?
+	/**
+	* Is the value good enough to accept after sanitizing?
+	*/
 	private function acceptString ($value) {
 		return !empty($value) and (is_string($value) or is_int($value));
 	}
 
-	// Normalize slightly bad input
+	/**
+	* Normalize slightly malformed input
+	*/
 	private function normalizeString ($value) {
 		return trim(strval($value));
+	}
+
+	/**
+	* Decodes a string into an array (probably from GET)
+	*
+	* NOTE
+	*   - format: "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
+	*/
+	private function parseIntoArray ($string) {
+
+		$result = array();
+
+		// Iterate through all the values/key-value pairs
+		foreach (explode(';', $string) as $key => $value) {
+
+			// Individual value
+			if (strpos($value, ',') === false and strpos($value, ':') === false) {
+				$result[$key] = trim($value);
+
+			// List
+			} else {
+				foreach (explode(',', $value) as $key2 => $value2) {
+
+					$value2 = trim($value2, '"');
+
+					// Key-value pair
+					if (strpos($value2, ':') !== false) {
+						$temp2 = explode(':', $value2);
+						$result[$key][$temp2[0]] = $temp2[1];
+
+					// Plain value
+					} else {
+						$result[$key][$key2] = $value2;
+					}
+
+				}
+			}
+		}
+
+		// FLAG I'm looping the results twice
+		foreach ($result as $key => $value) {
+			if (is_string($value) and empty($value)) {
+				unset($result[$key]);
+			}
+		}
+
+		return $result;
 	}
 
 }

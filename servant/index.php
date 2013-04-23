@@ -7,11 +7,9 @@ date_default_timezone_set('UTC');
 
 
 
-//
-// Error handling
-//
-
-// Custom error handling functions
+/**
+* Error handling
+*/
 // set_error_handler('handleFubarError');
 set_exception_handler('handleFubarException');
 function handleFubarError ($errno, $errstr) {
@@ -59,11 +57,9 @@ function handleFubar ($code = 500, $message = '', $printMessage = false) {
 
 
 
-//
-// Paths
-//
-
-// Set and treat paths
+/**
+* Paths
+*/
 require 'paths.php';
 
 // Auto setect document root
@@ -93,7 +89,9 @@ unset($key, $path);
 
 
 
-// Load helpers & classes
+/**
+* Load helpers & Servant's classes
+*/
 foreach (glob($paths['documentRoot'].$paths['root'].$paths['helpers'].'*.php') as $path) {
 	require_once $path;
 }
@@ -104,12 +102,13 @@ unset($path);
 
 
 
-//
-// JSON settings
-//
-
-// Include JSON settings
-// FLAG I should throw errors when parsing JSON fails, but I don't know how to at this point
+/**
+* Include JSON settings
+*
+* FLAG
+*   - I should throw errors when parsing JSON fails, but I don't know how to at this point
+*   - I should parse JSON within ServantSettings
+*/
 $settings = array();
 foreach (rglob_files($paths['documentRoot'].$paths['root'].$paths['settings'], 'json') as $path) {
 	$settings = array_merge($settings, json_decode(file_get_contents($path), true));
@@ -118,11 +117,11 @@ unset($path);
 
 
 
-//
-// Bitches be like "execute"
-//
+/**
+* Running Servant
+*/
 
-// Clear some things to prevent abuse
+//Clear some things to prevent abuse
 $input = $_GET;
 unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
