@@ -1,0 +1,7 @@
+
+%h1 This is HAML
+
+%ul#users
+  - foreach($servant->settings()->formats('stylesheets') as $format)
+    %li
+      = $format

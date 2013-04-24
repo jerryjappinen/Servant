@@ -39,13 +39,13 @@ class ServantUtilities extends ServantObject {
 
 					// Single file
 					if (is_file($path.'.php')) {
-						run_script($path.'.php', array('servant' => $this->servant()));
+						require_once $path.'.php';
 						$this->setLoaded($name);
 
 					// Directory
 					} else if (is_dir($path.'/')) {
 						foreach (rglob_files($path.'/', 'php') as $file) {
-							run_script($file, array('servant' => $this->servant()));
+							require_once $file;
 						}
 						$this->setLoaded($name);
 					}

@@ -68,7 +68,7 @@ class ServantSettings extends ServantObject {
 
 					// Support calculation from strings
 					if (is_string($input[$key])) {
-						$input[$key] = calculate_string($input[$key]);
+						$input[$key] = calculate($input[$key]);
 					}
 
 					// Don't accept just anything
