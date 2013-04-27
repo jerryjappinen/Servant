@@ -39,23 +39,12 @@ class ServantAction extends ServantObject {
 	/**
 	* Run
 	*
-	* Get custom scripts from action's package, run them cleanly
+	* Run custom scripts from action's package cleanly
 	*/
 	public function run () {
-
-		// Include action's code
-		try {
-			foreach ($this->files('server') as $path) {
-				$this->servant()->files()->read($path);
-			}
-
-		// If it fails, we create output like gentlemen
-		// FLAG this isn't that great. We should switch to an error action now.
-		} catch (Exception $exception) {
-			$message = $exception->getCode() < 500 ? $exception->getMessage() : 'Something went wrong, and we\'re sorry. We\'ll try to fix it as soon as possible.';
-			$this->contentType('html')->status($exception->getCode())->outputViaTemplate(true)->output('<p>'.$message.'</p>');
+		foreach ($this->files('server') as $path) {
+			$this->servant()->files()->read($path);
 		}
-
 		return $this;
 	}
 
@@ -119,26 +108,6 @@ class ServantAction extends ServantObject {
 	/**
 	* Setters
 	*/
-
-	// /**
-	// * Browser cache
-	// *
-	// * Set max time in minutes, or allow/disallow caching of the response by browser.
-	// */
-	// protected function setBrowserCache ($time) {
-	// 	$result = 0;
-
-	// 	// True will allow caching if enabled in settings
-	// 	if ($time === true) {
-	// 		$result = true;
-
-	// 	// Other times will be minutes
-	// 	} else if (is_numeric($time) and $time > 0) {
-	// 		$result = intval($time);
-	// 	}
-
-	// 	return $this->set('browserCache', $result);
-	// }
 
 	/**
 	* Content type

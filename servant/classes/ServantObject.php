@@ -28,9 +28,12 @@ class ServantObject {
 	/**
 	* _call
 	*
-	* Default behavior when calling inaccessible method is getAndSet
+	* When calling an inaccessible method, the fallback is getAndSet()
 	*/
 	public function __call ($id, $arguments) {
+		if ($id === 'fail') {
+			log_dump($this->dump());
+		}
 		return $this->getAndSet($id, $arguments);
 	}
 
@@ -113,7 +116,7 @@ class ServantObject {
 	}
 
 	/**
-	* Report failure, throw an error
+	* Output object content for debugging
 	*/
 	protected function dump () {
 		$results = array();

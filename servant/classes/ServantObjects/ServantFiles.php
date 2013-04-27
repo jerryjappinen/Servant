@@ -31,7 +31,6 @@ class ServantFiles extends ServantObject {
 	*/
 	public function read ($path, $type = '') {
 
-
 		// Automatic file type detection
 		if (empty($type)) {
 			$extension = pathinfo($path, PATHINFO_EXTENSION);

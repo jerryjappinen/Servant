@@ -47,7 +47,7 @@ class ServantPaths extends ServantObject {
 			if (isset($paths[$key]) and !empty($paths[$key])) {
 				$this->set($key, $paths[$key]);
 			} else {
-				fail('Need a proper path for '.$key);
+				$this->fail('Need a proper path for '.$key);
 			}
 		}
 
