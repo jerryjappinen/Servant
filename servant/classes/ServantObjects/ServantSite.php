@@ -130,13 +130,7 @@ class ServantSite extends ServantObject {
 	* Name comes from settings or is created from ID
 	*/
 	protected function setName () {
-		$setting = $this->settings('name');
-		if (!empty($setting)) {
-			$result = $setting;
-		} else {
-			$result = $this->servant()->format()->name($this->id());
-		}
-		return $this->set('name', $result);
+		return $this->set('name', $this->servant()->format()->name($this->id(), $this->settings('names')));
 	}
 
 	/**
@@ -154,7 +148,7 @@ class ServantSite extends ServantObject {
 		// Basic format of site settings
 		$settings = array(
 			'icon' => '',
-			'name' => '',
+			'names' => array(),
 			'template' => '',
 			'theme' => ''
 		);
@@ -163,25 +157,36 @@ class ServantSite extends ServantObject {
 		$path = $this->path('server').$this->servant()->settings()->packageContents('siteSettingsFile');
 		if (is_file($path)) {
 
-			// Read settings, turn into an array
+			// Read settings file, turn into an array
 			$temp = json_decode(suffix(prefix(trim(file_get_contents($path)), '{'), '}'), true);
-			foreach ($settings as $key => $default) {
+			if (is_array($temp)) {
+				foreach ($settings as $key => $default) {
 
-				// Only accept non-empty values
-				if (array_key_exists($key, $temp) and !empty($temp[$key])) {
+					// Only accept non-empty values
+					if (array_key_exists($key, $temp) and !empty($temp[$key])) {
 
-					// Numerical entries can be turned into strings by us
-					if (is_string($default) and (is_string($temp[$key])) or is_numeric($temp[$key])) {
-						$settings[$key] = trim_text(strval($temp[$key]), true);
+						// Numerical entries can be turned into strings by us
+						if (is_string($default) and (is_string($temp[$key])) or is_numeric($temp[$key])) {
+							$settings[$key] = trim_text(strval($temp[$key]), true);
 
-					// Otherwise type must match
-					} else if (gettype($default) === $temp[$key]) {
-						$settings[$key] = $temp[$key];
+						// Otherwise type must match
+						} else if (gettype($default) === gettype($temp[$key])) {
+							$settings[$key] = $temp[$key];
+						}
+
 					}
-
 				}
 			}
 
+		}
+
+		// Normalize name conversions array
+		if (!empty($settings['names'])) {
+			$temp = array();
+			foreach (array_flatten($settings['names'], false, true) as $key => $value) {
+				$temp[mb_strtolower($key)] = $value;
+			}
+			$settings['names'] = $temp;
 		}
 
 		return $this->set('settings', $settings);

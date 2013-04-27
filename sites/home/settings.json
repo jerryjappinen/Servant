@@ -1,5 +1,8 @@
 {
-	"name": "Servant",
+	"names": {
+		"home": "Servant",
+		"text-and-markdown": "Text & Markdown"
+	},
 	"theme": "default",
 	"template": "default"
 }
