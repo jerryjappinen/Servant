@@ -69,6 +69,29 @@ class ServantFiles extends ServantObject {
 	*/
 
 	/**
+	* HAML
+	*/
+	private function readHamlFile ($path) {
+		$this->servant()->utilities()->load('mthaml');
+		$haml = new MtHaml\Environment('php');
+
+		// Run script with eval()
+		// FLAG
+
+		ob_start();
+
+		eval(' ?>'.$haml->compileString(file_get_contents($path), '').'<?php ');
+
+		$output = ob_get_contents();
+		if ($output === false) {
+			$output = '';
+		}
+		ob_end_clean();
+
+		return $output;
+	}
+
+	/**
 	* HTML
 	*/
 	private function readHtmlFile ($path) {
