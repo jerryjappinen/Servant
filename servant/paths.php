@@ -19,6 +19,7 @@ $paths = array(
 	'classes' 		=> 'servant/classes/',
 	'helpers' 		=> 'servant/helpers/',
 	'settings' 		=> 'servant/settings/',
+	'temp' 			=> 'servant/temp/',
 	'utilities' 	=> 'servant/utilities/',
 
 );

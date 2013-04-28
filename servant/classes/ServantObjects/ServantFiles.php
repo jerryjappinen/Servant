@@ -70,23 +70,29 @@ class ServantFiles extends ServantObject {
 
 	/**
 	* HAML
+	*
+	* FLAG
+	*   - saving PHP files cannot possibly be a good idea...
+	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
 	*/
 	private function readHamlFile ($path) {
+
+		// Prepare HAML
 		$this->servant()->utilities()->load('mthaml');
 		$haml = new MtHaml\Environment('php');
 
-		// Run script with eval()
-		// FLAG
+		// Save and read compiled HAML as PHP
+		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
+		if ($this->saveProcessedFile($tempPath, $haml->compileString(file_get_contents($path), ''))) {
+			$output = $this->readPhpFile($tempPath);
 
-		ob_start();
-
-		eval(' ?>'.$haml->compileString(file_get_contents($path), '').'<?php ');
-
-		$output = ob_get_contents();
-		if ($output === false) {
+		// Didn't work out
+		} else {
 			$output = '';
 		}
-		ob_end_clean();
+
+		// Clean up
+		remove_file($tempPath);
 
 		return $output;
 	}
@@ -151,6 +157,28 @@ class ServantFiles extends ServantObject {
 		$wiky = new wiky;
 		$parsed = $wiky->parse(file_get_contents($path));
 		return $parsed ? $parsed : '';
+	}
+
+
+
+	/**
+	* Templates that compile into PHP are run through a temp file
+	*/
+	private function saveProcessedFile ($path, $content) {
+
+		// Create directory if it doesn't exist
+		$directory = dirname($path);
+		if (!is_dir($directory)) {
+			mkdir($directory, 0777, true);
+		}
+
+		// File might already exist
+		if (is_file($path)) {
+			return false;
+		} else {
+			return file_put_contents($path, $content);
+		}
+
 	}
 
 }
