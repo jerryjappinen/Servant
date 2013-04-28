@@ -133,9 +133,15 @@ class ServantArticle extends ServantObject {
 		}
 
 		// Relative location for HREF urls
-		$relativeHrefUrl = suffix(implode('/', array_reverse($this->parents())), '/');
+		$relativeHrefUrl = implode('/', array_reverse($this->parents()));
+		if (!empty($relativeHrefUrl)) {
+			$relativeHrefUrl .= '/';
+		}
 
-		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl));
+		// Base URL to point to actions on the domain
+		$actionsUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/';
+
+		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 	}
 
 	// Parent nodes of this article in site's article tree, order is reversed
