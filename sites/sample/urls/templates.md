@@ -70,16 +70,14 @@ These are the basic rules:
 
 	&lt;!-- Result --&gt;
 	&lt;a href="//search"&gt;
-	&lt;!-- Result with /// --&gt;
-	&lt;a href="///search"&gt;
 </pre>
 
 ##### **Advanced**: `src` URL to an action
 
 <pre>
 	&lt;!-- Original --&gt;
-	&lt;a href=&quot;//imagescale/foo.jpg/200/400&quot;&gt;
+	&lt;a href=&quot;//imagescale/subdir\/foo.jpg/200/400&quot;&gt;
 
 	&lt;!-- Result --&gt;
-	&lt;a href="//imagescale/foo.jpg/200/400"&gt;
+	&lt;a href="//imagescale/subdir\/foo.jpg/200/400"&gt;
 </pre>

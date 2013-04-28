@@ -1,9 +1,15 @@
 
 # URLs in stylesheets
 
-URL calues used in CSS are manipulated so that they point to the right place on the final page with a single merged stylesheet file.
+URL calues used in CSS are manipulated so that they point to the right place on the final page with a single merged stylesheet file. URLs work in the same manner in both site and theme packages.
 
 Here are some examples of how the URLs will change.
+
+
+
+### Absolute URLs
+
+Absolute URLs will not be touched.
 
 
 
@@ -12,8 +18,6 @@ Here are some examples of how the URLs will change.
 Relative URLs point to the location of the file they're used in.
 
 For example, if in our CSS we write
-
-
 
 ##### themes/default/layout/header.css
 	#header {
@@ -24,8 +28,6 @@ For example, if in our CSS we write
 	}
 
 the result in the minified stylesheet file will be
-
-
 
 ##### sitename/stylesheets/
 	#header {
@@ -39,9 +41,7 @@ the result in the minified stylesheet file will be
 
 ### Root-relative URLs
 
-Root-relative URLs point to the root of the theme folder:
-
-
+Root-relative URLs point to the root of the site or theme folder:
 
 ##### themes/default/layout/footer.css
 	#footer {
@@ -65,6 +65,20 @@ the result in the minified stylesheet file will be
 
 
 
-### Absolute URLs
+### URLs to actions
 
-Absolute URLs will not be touched.
+You don't usually need to write links to specific actions, but it can be done. You might need it if you created an action for scaling images, for example, and wanted to use scaled images in your stylesheets. Use **two forwards slashes** in the beginning of the URL, and write the name of the action first:
+
+##### themes/default/layout/body.css
+	.container-body {
+		background-image: url('//imagescale/body.jpg/200/200');
+	}
+
+the result in the minified stylesheet file will be
+
+
+
+##### sitename/stylesheets/
+	.container-body {
+		background-image: url('/path/to/servant/sitename/imagescale/body.jpg/200/200');
+	}
