@@ -8,6 +8,9 @@ $output = '';
 
 
 
+// We need this for URL manipulations
+$actionsPath = $servant->paths()->root('domain').$servant->site()->id().'/';
+
 // Merge all stylesheets from theme
 foreach ($servant->theme()->stylesheets('plain') as $path) {
 
@@ -18,7 +21,7 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->theme()->path('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$output .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl);
+	$output .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 
@@ -33,7 +36,7 @@ foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->site()->path('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$output .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl);
+	$output .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 

@@ -70,6 +70,8 @@ These are the basic rules:
 
 	&lt;!-- Result --&gt;
 	&lt;a href="//search"&gt;
+	&lt;!-- Result with /// --&gt;
+	&lt;a href="///search"&gt;
 </pre>
 
 ##### **Advanced**: `src` URL to an action
