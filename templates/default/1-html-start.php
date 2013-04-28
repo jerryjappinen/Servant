@@ -50,8 +50,14 @@ echo '
 
 
 
-		// Stylesheets
-		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->site()->article()->tree()).'/'.'" media="screen">';
+		// Stylesheets, possibly article-specific
+		// FLAG I really shouldn't hardcode the name of read action...
+		if ($servant->action()->id() === 'read') {
+			$temp = implode('/', $servant->site()->article()->tree()).'/';
+		} else {
+			$temp = '';
+		}
+		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.$temp.'" media="screen">';
 
 		echo '
 	</head>

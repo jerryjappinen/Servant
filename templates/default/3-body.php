@@ -3,7 +3,7 @@
 // Body content
 $output = '<div class="frame-body"><div class="frame-container">';
 
-	// FLAG I really shouldn't hardcode the name of read action....
+	// FLAG I really shouldn't hardcode the name of read action...
 	if ($servant->action()->id() === 'read') {
 
 		// Submenu in a sidebar

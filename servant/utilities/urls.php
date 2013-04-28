@@ -30,7 +30,7 @@ function manipulateHtmlUrls ($string, $srcRootPath, $srcRelativePath = '', $href
 		// // 1 src=" ... \/ ... "
 		// '/(src)\s*=\s*[\"\'](?:\/)([^"\']*)[\"\']/U',
 
-		// // 2 src=" ... \/ ... "
+		// // 2 src=" ... \\ ... "
 		// '/(src)\s*=\s*[\"\'](?:\/)([^"\']*)[\"\']/U',
 
 		// 3 src="/foo"
@@ -76,19 +76,27 @@ function manipulateCssUrls ($string, $rootPath, $relativePath = '', $actionsPath
 
 	return preg_replace(array(
 
-		// 1 url(/foo) - root-relative internal URLs
+		// 1 url( ... \\ ... )
+		// '/url\(\s*("|\')?([^"\')]*)("|\')?\)/',
+
+		// 2 url( ... \\ ... )
+		// '/url\(\s*("|\')?([^"\')]*)("|\')?\)/',
+
+		// 3 url(/foo) - root-relative internal URLs
 		'/url\(\s*("|\')?(?:\/)(?!\/)([^"\')]*)("|\')?\)/',
 
-		// 2 url(/foo) - URLs to actions
+		// 4 url(/foo) - URLs to actions
 		'/url\(\s*("|\')?(?:\/\/)([^"\')]*)("|\')?\)/',
 
-		// 3 url(foo) - relative internal URLs
+		// 5 url(foo) - relative internal URLs
 		'/url\(\s*("|\')?(?!\/|http:|https:|skype:|ftp:|#|mailto:|tel:)([^"\')]*)("|\')?\)/',
 
 	), array(
-		'url("'.$rootPath.'\\2")',					// 1
-		'url("'.$actionsPath.'\\2")',				// 2
-		'url("'.$rootPath.$relativePath.'\\2")',	// 3
+		// '%252F',									// 1
+		// '%255C',									// 2
+		'url("'.$rootPath.'\\2")',					// 3
+		'url("'.$actionsPath.'\\2")',				// 4
+		'url("'.$rootPath.$relativePath.'\\2")',	// 5
 	), $string);
 
 }
