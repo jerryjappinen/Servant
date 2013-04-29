@@ -94,7 +94,7 @@ class ServantAvailable extends ServantObject {
 	*/
 	protected function setTemplates () {
 		$formats = $this->servant()->settings()->formats('templates');
-		return $this->set('templates', array_merge($this->findFiles('templates', $formats), $this->findDirectories('templates')));
+		return $this->set('templates', $this->findDirectories('templates', $formats));
 	}
 
 	/**
@@ -104,7 +104,7 @@ class ServantAvailable extends ServantObject {
 	*/
 	protected function setThemes () {
 		$formats = array_merge($this->servant()->settings()->formats('stylesheets'), $this->servant()->settings()->formats('scripts'));
-		return $this->set('themes', $this->findDirectories('themes'));
+		return $this->set('themes', $this->findDirectories('themes', $formats));
 	}
 
 	/**
@@ -131,11 +131,17 @@ class ServantAvailable extends ServantObject {
 		return $items;
 	}
 
-	private function findDirectories ($dir) {
+	/**
+	* Find directories with at least one supported file
+	*
+	* FLAG
+	*   - This is pretty slow. We go through all template and theme directories.
+	*/
+	private function findDirectories ($dir, $formats = array()) {
 		$items = array();
 		$dirs = glob_dir($this->servant()->paths()->$dir('server'));
 		foreach ($dirs as $path) {
-			$files = rglob_files($path);
+			$files = rglob_files($path, $formats);
 			if (!empty($files)) {
 				$items[] = basename($path);
 			}

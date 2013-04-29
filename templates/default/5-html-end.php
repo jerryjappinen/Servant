@@ -1,5 +1,7 @@
 <?php
 
+echo html_dump($servant->available()->templates());
+
 // Include scripts
 // FLAG I really shouldn't hardcode the name of read action...
 if ($servant->action()->id() === 'read') {
