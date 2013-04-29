@@ -1,10 +1,10 @@
 
-<h1>Hello World!</h1>
+<h1>{{ servant.article().name() }}</h1>
 
 <p><code>{{ servant.format().path('formatted/path', 'domain') }}</code></p>
 
 <ul>
-{% for i in range(low=1, high=10, step=2) %}
-    <li>{{ i }}</li>
+{% for id in servant.article().siblings() %}
+	<li><a href="{{ id }}">{{ servant.format().name(id) }}</a></li>
 {% endfor %}
 </ul>

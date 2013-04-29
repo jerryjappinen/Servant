@@ -8,12 +8,12 @@
 			"html": ["html", "html", "xhtml"],
 			"php": ["php", "ph"],
 			"textile": ["textile"],
-			"twig": "twig",
+			"twig": ["twig", "tw"],
 			"wiki": "wiki",
 			"rst": "rst"
 		},
 		"stylesheets": ["css", "less"],
-		"scripts": ["js", "json"]
+		"scripts": ["js"]
 	}
 
 }
