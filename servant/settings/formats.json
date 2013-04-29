@@ -4,9 +4,11 @@
 		"iconImages": ["ico", "png", "gif", "jpg"],
 		"templates": {
 			"markdown": ["md", "markdown", "txt"],
+			"haml": "haml",
 			"html": ["html", "html", "xhtml"],
 			"php": ["php", "ph"],
 			"textile": ["textile"],
+			"twig": "twig",
 			"wiki": "wiki",
 			"rst": "rst"
 		},

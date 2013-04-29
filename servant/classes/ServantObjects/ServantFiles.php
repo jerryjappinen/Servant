@@ -69,6 +69,35 @@ class ServantFiles extends ServantObject {
 	*/
 
 	/**
+	* HAML
+	*
+	* FLAG
+	*   - saving PHP files cannot possibly be a good idea...
+	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
+	*/
+	private function readHamlFile ($path) {
+
+		// Prepare HAML
+		$this->servant()->utilities()->load('mthaml');
+		$haml = new MtHaml\Environment('php');
+
+		// Save and read compiled HAML as PHP
+		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
+		if ($this->saveProcessedFile($tempPath, $haml->compileString(file_get_contents($path), ''))) {
+			$output = $this->readPhpFile($tempPath);
+
+		// Didn't work out
+		} else {
+			$output = '';
+		}
+
+		// Clean up
+		remove_file($tempPath);
+
+		return $output;
+	}
+
+	/**
 	* HTML
 	*/
 	private function readHtmlFile ($path) {
@@ -111,6 +140,24 @@ class ServantFiles extends ServantObject {
 	}
 
 	/**
+	* Twig
+	*
+	* FLAG
+	*   - saving PHP files cannot possibly be a good idea...
+	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
+	*/
+	private function readTwigFile ($path) {
+
+		// Prepare Twig
+		$this->servant()->utilities()->load('twig');
+		$loader = new Twig_Loader_String();
+		$twig = new Twig_Environment($loader);
+
+		// Render Twig
+		return $twig->render(file_get_contents($path), array('servant' => $this->servant()));
+	}
+
+	/**
 	* Plain text
 	*/
 	private function readTxtFile ($path) {
@@ -128,6 +175,28 @@ class ServantFiles extends ServantObject {
 		$wiky = new wiky;
 		$parsed = $wiky->parse(file_get_contents($path));
 		return $parsed ? $parsed : '';
+	}
+
+
+
+	/**
+	* Templates that compile into PHP are run through a temp file
+	*/
+	private function saveProcessedFile ($path, $content) {
+
+		// Create directory if it doesn't exist
+		$directory = dirname($path);
+		if (!is_dir($directory)) {
+			mkdir($directory, 0777, true);
+		}
+
+		// File might already exist
+		if (is_file($path)) {
+			return false;
+		} else {
+			return file_put_contents($path, $content);
+		}
+
 	}
 
 }
