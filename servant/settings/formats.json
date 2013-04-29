@@ -8,6 +8,7 @@
 			"html": ["html", "html", "xhtml"],
 			"php": ["php", "ph"],
 			"textile": ["textile"],
+			"twig": "twig",
 			"wiki": "wiki",
 			"rst": "rst"
 		},

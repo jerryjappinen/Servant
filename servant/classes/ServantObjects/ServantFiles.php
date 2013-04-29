@@ -140,6 +140,24 @@ class ServantFiles extends ServantObject {
 	}
 
 	/**
+	* Twig
+	*
+	* FLAG
+	*   - saving PHP files cannot possibly be a good idea...
+	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
+	*/
+	private function readTwigFile ($path) {
+
+		// Prepare Twig
+		$this->servant()->utilities()->load('twig');
+		$loader = new Twig_Loader_String();
+		$twig = new Twig_Environment($loader);
+
+		// Render Twig
+		return $twig->render(file_get_contents($path), array('servant' => $this->servant()));
+	}
+
+	/**
 	* Plain text
 	*/
 	private function readTxtFile ($path) {

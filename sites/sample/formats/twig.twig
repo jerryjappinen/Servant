@@ -1,4 +1,10 @@
 
-Hello World!
+<h1>Hello World!</h1>
 
-{{ servant.format().path('esa/pekka') }}
+<p><code>{{ servant.format().path('formatted/path', 'domain') }}</code></p>
+
+<ul>
+{% for i in range(low=1, high=10, step=2) %}
+    <li>{{ i }}</li>
+{% endfor %}
+</ul>

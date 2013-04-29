@@ -47,7 +47,7 @@ class ServantResponse extends ServantObject {
 			// FLAG we should switch to an error action at this point
 			} catch (Exception $exception) {
 				$message = $exception->getCode() < 500 ? $exception->getMessage() : 'We\'re sorry. We\'ll try to fix it as soon as possible.';
-				$this->servant()->action()->contentType('html')->status($exception->getCode())->outputViaTemplate(true)->output('<h1>Something went wrong :(</h1><p>'.$message.'</p>');
+				$this->servant()->action()->contentType('html')->status(500)->outputViaTemplate(true)->output('<h1>Something went wrong :(</h1><p>'.$message.'</p>');
 			}
 
 			// Get action's output, possibly via template
