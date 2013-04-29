@@ -1,5 +1,5 @@
 
-# Plain text & Markdown
+# Text & Markdown pages
 
 #### File extension: `.txt` or `.md`
 

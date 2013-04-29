@@ -1,5 +1,5 @@
 
-# Wiki markup
+# Wiki markup pages
 
 #### File extension: `.wiki`
 

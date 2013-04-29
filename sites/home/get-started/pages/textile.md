@@ -1,5 +1,5 @@
 
-# Textile
+# Textile pages
 
 #### File extension: `.textile`
 

@@ -1,4 +1,10 @@
 
-Hello World!
+<h1>{{ servant.article().name() }}</h1>
 
-{{ servant.format().path('esa/pekka') }}
+<p><code>{{ servant.format().path('formatted/path', 'domain') }}</code></p>
+
+<ul>
+{% for id in servant.article().siblings() %}
+	<li><a href="{{ id }}">{{ servant.format().name(id) }}</a></li>
+{% endfor %}
+</ul>
