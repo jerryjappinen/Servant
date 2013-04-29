@@ -105,6 +105,36 @@ class ServantFiles extends ServantObject {
 	}
 
 	/**
+	* Jade
+	*
+	* FLAG
+	*   - saving PHP files cannot possibly be a good idea...
+	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
+	*/
+	private function readJadeFile ($path) {
+
+		// Prepare Jade
+		$this->servant()->utilities()->load('jade');
+		$jade = new Jade\Jade(true);
+
+		// Save and read compiled Jade as PHP
+		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
+		if ($this->saveProcessedFile($tempPath, $jade->render(file_get_contents($path)))) {
+			$output = $this->readPhpFile($tempPath);
+
+		// Didn't work out
+		} else {
+			$output = '';
+		}
+
+		// Clean up
+		remove_file($tempPath);
+
+		// Parse a template
+		return $output;
+	}
+
+	/**
 	* Markdown
 	*/
 	private function readMarkdownFile ($path) {
@@ -141,10 +171,6 @@ class ServantFiles extends ServantObject {
 
 	/**
 	* Twig
-	*
-	* FLAG
-	*   - saving PHP files cannot possibly be a good idea...
-	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
 	*/
 	private function readTwigFile ($path) {
 

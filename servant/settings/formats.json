@@ -6,6 +6,7 @@
 			"markdown": ["md", "markdown", "txt"],
 			"haml": "haml",
 			"html": ["html", "html", "xhtml"],
+			"jade": ["jade", "jd"],
 			"php": ["php", "ph"],
 			"textile": ["textile"],
 			"twig": ["twig", "tw"],
