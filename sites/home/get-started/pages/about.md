@@ -1,9 +1,9 @@
 
 # Pages
 
-Each text document in your site's folder will be shown as a page on your site, so creating pages are very easy to create in Servant: just creating a new `.txt` file will suffice, but you can make it as simple or complex as you like.
+Each text document in your site's folder will be shown as a page on your site. **Just creating a new `.txt` file will result in a new page**, but you can also write files in [HTML](HTML), [Textile](textile), [Markdown](text-and-markdown), [Wiki markup](wiki-markup), RST, [PHP](PHP), HAML, [Twig](twig) or Jade. Phew!
 
-You can create files in **plain text, HTML, Textile or Markdown**. Advanced users can write dynamic pages in *PHP*. All files are converted and served to your users as HTML automatically. For example, your site's folder could look like this:
+All files are converted and served to your users as HTML automatically. For example, your site's folder could look like this:
 
 ##### sites/my-site/
 	about.txt
@@ -12,7 +12,7 @@ You can create files in **plain text, HTML, Textile or Markdown**. Advanced user
 	features.html
 	get-started.md
 
-Pages can contain things like titles, subtitles, lists, links and images. [Themes](templates-and-themes) will change the look of these elements, so a site can look very different by changing the theme it's using without changing the content.
+Pages can contain things like titles, subtitles, lists, links and images. [Themes](templates-and-themes) will change the look of these elements, so your pages can look very different if you choose a new theme.
 
 
 

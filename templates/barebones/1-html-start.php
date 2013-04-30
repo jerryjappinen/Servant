@@ -1,13 +1,8 @@
-<?php
 
-echo '
 <!DOCTYPE html>
 <html>
 	<head>
-		';
 
-		// Basic meta stuff - charset, scaling...
-		echo '
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<style type="text/css">
@@ -15,14 +10,11 @@ echo '
 			@-o-viewport{width: device-width;}
 			@viewport{width: device-width;}
 		</style>
-		';
 
-		// Site title
-		echo '
-		<title>'.$servant->site()->name().'</title>
-		<meta name="application-name" content="'.$servant->site()->name().'">
-		';
+		<title><?= $servant->site()->name() ?></title>
+		<meta name="application-name" content="<?= $servant->site()->name() ?>">
 
+		<?php
 		// Custom web site icon
 		$icon = $servant->site()->icon('domain');
 		if (empty($icon)) {
@@ -47,24 +39,23 @@ echo '
 			unset($extension);
 		}
 		unset($icon);
+		?>
 
 
-
+		<?php
 		// Stylesheets, possibly article-specific
 		// FLAG I really shouldn't hardcode the name of read action...
+		$temp = $servant->paths()->root('domain').$servant->site()->id().'/stylesheets/';
 		if ($servant->action()->id() === 'read') {
-			$temp = implode('/', $servant->site()->article()->tree()).'/';
-		} else {
-			$temp = '';
+			$temp .= implode('/', $servant->site()->article()->tree()).'/';
 		}
-		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.$temp.'" media="screen">';
+		?>
+		<link rel="stylesheet" href="<?= $temp ?>" media="screen">
 
-		echo '
 	</head>
-';
 
 
-
+<?php
 // Create classes for body
 $i = 1;
 $classes = array();
@@ -74,9 +65,6 @@ foreach ($tree as $value) {
 	$i++;
 }
 unset($tree, $i);
-
-// Body tag
-echo '<body class="site-'.$servant->site()->id().' level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">';
-unset($classes);
-
 ?>
+
+<body class="site-<?= $servant->site()->id() ?> level-<?= count($servant->article()->tree())?> index-<?= $servant->article()->index()?> <?= implode(' ', $classes) ?>">

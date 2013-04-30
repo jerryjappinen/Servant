@@ -1,3 +1,1 @@
-<?php
-echo $servant->template()->content();
-?>
+<?= $servant->template()->content() ?>

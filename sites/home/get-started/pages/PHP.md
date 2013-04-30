@@ -11,9 +11,7 @@ Servant runs on PHP, and **scriptable PHP pages** are supported out of the box. 
 
 	<h1>Welcome!</h1>
 
-	<?php
-		print '<p>Hello! It's the year '.date('Y').'!</p>';
-	?>
+	<p>Hello! It is the year <?= date('Y') ?>!</p>
 
 
 

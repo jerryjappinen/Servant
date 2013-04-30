@@ -1,9 +1,9 @@
 
 h1. Sites
 
-<big>Every folder under the @sites/@ is a site. To create a site, you only need to create a new folder and add a text file with some content. It's that easy to get started!</big>
+<big>Every folder under the @sites/@ folder is a site. To create a site, you only need to create a new folder and add a text file with some content. It's that easy to get started!</big>
 
-Servant will create menus, fancy URLs, sitemaps, stylesheets and much more for each site. You can have as many sites as you want. Each site will use one "_template_ and one _theme_":templates-and-themes, so you can choose the structure and the look that you like.
+Servant will create menus, fancy URLs, sitemaps, stylesheets and much more for each site. You can have as many sites as you want. Each site will use "_one template_ and one _theme_":templates-and-themes, so you can choose the structure and the look that you like.
 
 
 
