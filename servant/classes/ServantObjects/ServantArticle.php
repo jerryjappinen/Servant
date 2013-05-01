@@ -220,7 +220,7 @@ class ServantArticle extends ServantObject {
 
 	}
 
-	// Select site's files that are relevant for this article
+	// Select the files from site() that are relevant for this article
 	private function filterSiteFiles ($type) {
 		$results = array();
 
@@ -237,7 +237,7 @@ class ServantArticle extends ServantObject {
 		array_unshift($allowed, '');
 		unset($key, $path);
 
-		// Traverse site's stylesheets, accept the ones on allowed levels
+		// Traverse site's files, accept the ones on allowed levels
 		foreach ($this->site()->$type() as $value) {
 			$base = unprefix(dirname($value).'/', $this->site()->path(), true);
 			if (in_array($base, $allowed)) {

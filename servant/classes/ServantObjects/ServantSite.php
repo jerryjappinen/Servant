@@ -196,14 +196,14 @@ class ServantSite extends ServantObject {
 	* Stylesheet files
 	*/
 	protected function setStylesheets () {
-		return $this->set('stylesheets', $this->findFiles('stylesheets'));
+		return $this->set('stylesheets', $this->findFiles($this->servant()->settings()->formats('stylesheets')));
 	}
 
 	/**
 	* Script files
 	*/
 	protected function setScripts () {
-		return $this->set('scripts', $this->findFiles('scripts'));
+		return $this->set('scripts', $this->findFiles($this->servant()->settings()->formats('scripts')));
 	}
 
 
@@ -215,7 +215,8 @@ class ServantSite extends ServantObject {
 	/**
 	* List available articles recursively
 	*
-	* FLAG excluding settings file is a bit laborious
+	* FLAG
+	*   - The implementation of settings file exclusion is a bit laborious
 	*/
 	private function findArticles ($path, $filetypes = array()) {
 		$results = array();
@@ -268,7 +269,7 @@ class ServantSite extends ServantObject {
 	/**
 	* Helper to find any files, returns them uncategorized
 	*/
-	private function findFiles ($formatsType) {
+	private function findFiles ($formats = array()) {
 		$files = array();
 		$path = $this->path('server');
 
@@ -278,7 +279,7 @@ class ServantSite extends ServantObject {
 
 		// All template files in directory
 		} else if (is_dir($path)) {
-			foreach (rglob_files($path, $this->servant()->settings()->formats($formatsType)) as $file) {
+			foreach (rglob_files($path, $formats) as $file) {
 				$files[] = $this->servant()->format()->path($file, false, 'server');
 			}
 		}

@@ -73,6 +73,9 @@ class ServantTheme extends ServantObject {
 
 	/**
 	* Path to theme's fallback site icon
+	*
+	* FLAG
+	*   - This behavior is a bit weird
 	*/
 	protected function setIcon () {
 		$result = '';
@@ -149,24 +152,24 @@ class ServantTheme extends ServantObject {
 	* Stylesheet files
 	*/
 	protected function setStylesheets () {
-		return $this->set('stylesheets', $this->findFiles('stylesheets'));
+		return $this->set('stylesheets', $this->findFiles($this->servant()->settings()->formats('stylesheets')));
 	}
 
 	/**
 	* Script files
 	*/
 	protected function setScripts () {
-		return $this->set('scripts', $this->findFiles('scripts'));
+		return $this->set('scripts', $this->findFiles($this->servant()->settings()->formats('scripts')));
 	}
 
 	/**
 	* Helper to find files
 	*/
-	private function findFiles ($formatsType) {
+	private function findFiles ($formats) {
 		$files = array();
 
 		// All files of this type in theme's directory
-		foreach (rglob_files($this->path('server'), $this->servant()->settings()->formats($formatsType)) as $file) {
+		foreach (rglob_files($this->path('server'), $formats) as $file) {
 			$files[] = $this->servant()->format()->path($file, false, 'server');
 		}
 

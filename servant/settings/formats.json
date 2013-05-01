@@ -13,8 +13,14 @@
 			"twig": ["twig", "tw"],
 			"wiki": "wiki"
 		},
-		"stylesheets": ["css", "less", "scss"],
-		"scripts": ["js"]
+		"stylesheets": {
+			"css": "css",
+			"less": "less",
+			"scss": "scss"
+		},
+		"scripts": {
+			"js": "js"
+		}
 	}
 
 }
