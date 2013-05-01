@@ -1,7 +1,7 @@
 <?php
 
 // Require utilities
-$servant->utilities()->load('urls', 'less');
+$servant->utilities()->load('urls');
 
 // All stylesheets for site
 $output = '';
@@ -44,18 +44,8 @@ foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 // Parse LESS
 $output = trim($output);
 if (!empty($output)) {
-	$less = new lessc();
-
-	// Compress
-	// FLAG this is a hack
-	if ($servant->settings()->cache('server')) {
-		$less->setFormatter('compressed');
-	}
-
-	$output = $less->parse($output);
+	$output = $servant->parse()->lessToCss($output);
 }
-
-
 
 // Output CSS
 $servant->action()->contentType('css')->output($output);

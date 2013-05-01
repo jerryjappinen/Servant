@@ -3,15 +3,15 @@
 	"formats": {
 		"iconImages": ["ico", "png", "gif", "jpg"],
 		"templates": {
-			"markdown": ["md", "markdown", "txt"],
 			"haml": "haml",
 			"html": ["html", "html", "xhtml"],
 			"jade": ["jade", "jd"],
+			"markdown": ["md", "markdown", "txt", "text"],
 			"php": ["php", "ph"],
+			"rst": "rst",
 			"textile": ["textile"],
 			"twig": ["twig", "tw"],
-			"wiki": "wiki",
-			"rst": "rst"
+			"wiki": "wiki"
 		},
 		"stylesheets": ["css", "less"],
 		"scripts": ["js"]

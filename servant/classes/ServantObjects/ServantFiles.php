@@ -3,7 +3,7 @@
 /**
 * Files component
 *
-* Reading template/script files in various formats and converting them into HTML.
+* Reading files in various formats as target format
 *
 * Dependencies
 *   - utilities()->load()
@@ -68,13 +68,9 @@ class ServantFiles extends ServantObject {
 	*/
 	private function readHamlFile ($path) {
 
-		// Prepare HAML
-		$this->servant()->utilities()->load('mthaml');
-		$haml = new MtHaml\Environment('php');
-
 		// Save and read compiled HAML as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
-		if ($this->saveProcessedFile($tempPath, $haml->compileString(file_get_contents($path), ''))) {
+		if ($this->saveProcessedFile($tempPath, $this->servant()->parse()->hamlToPhp(file_get_contents($path)))) {
 			$output = $this->readPhpFile($tempPath);
 
 		// Didn't work out
@@ -82,7 +78,7 @@ class ServantFiles extends ServantObject {
 			$output = '';
 		}
 
-		// Clean up
+		// Clean up temp file
 		remove_file($tempPath);
 
 		return $output;
@@ -104,13 +100,9 @@ class ServantFiles extends ServantObject {
 	*/
 	private function readJadeFile ($path) {
 
-		// Prepare Jade
-		$this->servant()->utilities()->load('jade');
-		$jade = new Jade\Jade(true);
-
 		// Save and read compiled Jade as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
-		if ($this->saveProcessedFile($tempPath, $jade->render(file_get_contents($path)))) {
+		if ($this->saveProcessedFile($tempPath, $this->servant()->parse()->jadeToPhp(file_get_contents($path)))) {
 			$output = $this->readPhpFile($tempPath);
 
 		// Didn't work out
@@ -118,10 +110,9 @@ class ServantFiles extends ServantObject {
 			$output = '';
 		}
 
-		// Clean up
+		// Clean up temp file
 		remove_file($tempPath);
 
-		// Parse a template
 		return $output;
 	}
 
@@ -129,8 +120,7 @@ class ServantFiles extends ServantObject {
 	* Markdown
 	*/
 	private function readMarkdownFile ($path) {
-		$this->servant()->utilities()->load('markdown');
-		return Markdown(file_get_contents($path));
+		return $this->servant()->parse()->markdownToHtml(file_get_contents($path));
 	}
 
 	/**
@@ -142,56 +132,30 @@ class ServantFiles extends ServantObject {
 
 	/**
 	* RST
-	*
-	* FLAG
-	*   - parser is incomplete
 	*/
 	private function readRstFile ($path) {
-		$this->servant()->utilities()->load('rst');
-		return RST(file_get_contents($path));
+		return $this->servant()->parse()->rstToHtml(file_get_contents($path));
 	}
 
 	/**
 	* Textile
 	*/
 	private function readTextileFile ($path) {
-		$this->servant()->utilities()->load('textile');
-		$parser = new Textile();
-		return $parser->textileThis(file_get_contents($path));;
+		return $this->servant()->parse()->textileToHtml(file_get_contents($path));;
 	}
 
 	/**
 	* Twig
 	*/
 	private function readTwigFile ($path) {
-
-		// Prepare Twig
-		$this->servant()->utilities()->load('twig');
-		$loader = new Twig_Loader_String();
-		$twig = new Twig_Environment($loader);
-
-		// Render Twig
-		return $twig->render(file_get_contents($path), array('servant' => $this->servant()));
-	}
-
-	/**
-	* Plain text
-	*/
-	private function readTxtFile ($path) {
-		return $this->readMdFile($path);
+		return $this->servant()->parse()->twigToHtml(file_get_contents($path));
 	}
 
 	/**
 	* Wiki markup
-	*
-	* FLAG
-	*   - parser is incomplete
 	*/
 	private function readWikiFile ($path) {
-		$this->servant()->utilities()->load('wiky');
-		$wiky = new wiky;
-		$parsed = $wiky->parse(file_get_contents($path));
-		return $parsed ? $parsed : '';
+		return $this->servant()->parse()->wikiToHtml(file_get_contents($path));
 	}
 
 

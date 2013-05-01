@@ -13,27 +13,37 @@ class ServantParse extends ServantObject {
 	/**
 	* HAML to PHP
 	*/
-	public function hamlToPHP ($content) {
+	public function hamlToPHP ($haml) {
 		$this->servant()->utilities()->load('mthaml');
-		$haml = new MtHaml\Environment('php');
-		return $haml->compileString($content, '');
+		$parser = new MtHaml\Environment('php');
+		return $parser->compileString($haml, '');
 	}
 
 	/**
 	* Jade to PHP
 	*/
-	public function jadeToPhp ($content) {
+	public function jadeToPhp ($jade) {
 		$this->servant()->utilities()->load('jade');
-		$jade = new Jade\Jade(true);
-		return $jade->render($content);
+		$parser = new Jade\Jade(true);
+		return $parser->render($jade);
 	}
 
 	/**
 	* Markdown to HTML
 	*/
-	public function markdownToHtml ($content) {
+	public function markdownToHtml ($markdown) {
 		$this->servant()->utilities()->load('markdown');
-		return Markdown($content);
+		return Markdown($markdown);
+	}
+
+	/**
+	* Less to CSS
+	*/
+	public function lessToCss ($less) {
+		$this->servant()->utilities()->load('less');
+		$parser = new lessc();
+		$parser->setFormatter('compressed');
+		return $parser->parse($less);
 	}
 
 	/**
@@ -42,34 +52,32 @@ class ServantParse extends ServantObject {
 	* FLAG
 	*   - parser is incomplete
 	*/
-	public function rstToHtml ($content) {
+	public function rstToHtml ($rst) {
 		$this->servant()->utilities()->load('rst');
-		return RST($content);
+		return RST($rst);
 	}
 
 	/**
 	* Textile to HTML
 	*/
-	public function textileToHtml ($content) {
+	public function textileToHtml ($textile) {
 		$this->servant()->utilities()->load('textile');
-		$parser = new Textile();
-		return $parser->textileThis($content);;
+		return create_object(new Textile())->textileThis($textile);
 	}
 
 	/**
 	* Twig to HTML
 	*/
-	public function twigToHtml ($content) {
+	public function twigToHtml ($twig) {
 		$this->servant()->utilities()->load('twig');
-		$twig = new Twig_Environment(new Twig_Loader_String());
-		return $twig->render($content, array('servant' => $this->servant()));
+		return create_object(new Twig_Environment(new Twig_Loader_String()))->render($twig, array('servant' => $this->servant()));
 	}
 
 	/**
 	* Plain text to HTML
 	*/
-	public function txtToHtml ($content) {
-		return $this->markdownToHtml($content);
+	public function txtToHtml ($txt) {
+		return $this->markdownToHtml($txt);
 	}
 
 	/**
@@ -78,11 +86,11 @@ class ServantParse extends ServantObject {
 	* FLAG
 	*   - parser is incomplete
 	*/
-	public function wikiToHtml ($content) {
+	public function wikiToHtml ($wiki) {
 		$this->servant()->utilities()->load('wiky');
-		$wiky = new wiky;
-		$parsed = $wiky->parse($content);
-		return $parsed ? $parsed : '';
+		$parser = new wiky;
+		$html = $parser->parse($wiki);
+		return $html ? $html : '';
 	}
 
 }

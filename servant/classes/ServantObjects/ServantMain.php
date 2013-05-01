@@ -13,6 +13,9 @@ class ServantMain extends ServantObject {
 	* Startup
 	*/
 	public function initialize ($paths, $settings, $input = null) {
+
+		// FLAG clear temp directory
+
 		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}
 
