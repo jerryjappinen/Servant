@@ -103,7 +103,10 @@ class ServantAvailable extends ServantObject {
 	* Single files or directories of stylesheets and scripts
 	*/
 	protected function setThemes () {
-		$formats = array_merge($this->servant()->settings()->formats('stylesheets'), $this->servant()->settings()->formats('scripts'));
+		$formats = array_merge(
+			array_flatten($this->servant()->settings()->formats('stylesheets')),
+			array_flatten($this->servant()->settings()->formats('scripts'))
+		);
 		return $this->set('themes', $this->findDirectories('themes', $formats));
 	}
 
@@ -135,7 +138,7 @@ class ServantAvailable extends ServantObject {
 	* Find directories with at least one supported file
 	*
 	* FLAG
-	*   - This is pretty slow. We go through all template and theme directories.
+	*   - This is pretty slow. We basically go through all files in all template and theme directories.
 	*/
 	private function findDirectories ($dir, $formats = array()) {
 		$items = array();

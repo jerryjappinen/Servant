@@ -40,6 +40,9 @@ class ServantAction extends ServantObject {
 	* Run
 	*
 	* Run custom scripts from action's package cleanly
+	*
+	* FLAG
+	*   - I should create a dummy object for action's scripts so that $this and variable scope works nicely
 	*/
 	public function run () {
 		foreach ($this->files('server') as $path) {

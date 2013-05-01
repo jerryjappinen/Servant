@@ -13,6 +13,9 @@ class ServantMain extends ServantObject {
 	* Startup
 	*/
 	public function initialize ($paths, $settings, $input = null) {
+
+		// FLAG clear temp directory
+
 		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}
 
@@ -36,6 +39,7 @@ class ServantMain extends ServantObject {
 	protected $propertyFormat 		= null;
 	protected $propertyHttpHeaders 	= null;
 	protected $propertyInput 		= null;
+	protected $propertyParse 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertyResponse 	= null;
 	protected $propertySettings 	= null;
@@ -53,8 +57,8 @@ class ServantMain extends ServantObject {
 
 
 	// Setters for children
-	protected function setAction ($id = null) {
-		return $this->set('action', create_object(new ServantAction($this))->init($id));
+	protected function setAction () {
+		return $this->set('action', create_object(new ServantAction($this))->init());
 	}
 	protected function setAvailable () {
 		return $this->set('available', create_object(new ServantAvailable($this))->init());
@@ -71,6 +75,9 @@ class ServantMain extends ServantObject {
 	protected function setInput ($input) {
 		return $this->set('input', create_object(new ServantInput($this))->init($input));
 	}
+	protected function setParse () {
+		return $this->set('parse', create_object(new ServantParse($this))->init());
+	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', create_object(new ServantPaths($this))->init($paths));
 	}
@@ -80,14 +87,14 @@ class ServantMain extends ServantObject {
 	protected function setSettings ($settings = array()) {
 		return $this->set('settings', create_object(new ServantSettings($this))->init($settings));
 	}
-	protected function setSite ($id = null, $selectedArticle = null) {
-		return $this->set('site', create_object(new ServantSite($this))->init($id, $selectedArticle));
+	protected function setSite () {
+		return $this->set('site', create_object(new ServantSite($this))->init());
 	}
-	protected function setTemplate ($id = null) {
-		return $this->set('template', create_object(new ServantTemplate($this))->init($id));
+	protected function setTemplate () {
+		return $this->set('template', create_object(new ServantTemplate($this))->init());
 	}
-	protected function setTheme ($id = null) {
-		return $this->set('theme', create_object(new ServantTheme($this))->init($id));
+	protected function setTheme () {
+		return $this->set('theme', create_object(new ServantTheme($this))->init());
 	}
 	protected function setUtilities () {
 		return $this->set('utilities', create_object(new ServantUtilities($this))->init());
