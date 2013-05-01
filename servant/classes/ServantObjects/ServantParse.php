@@ -58,6 +58,16 @@ class ServantParse extends ServantObject {
 	}
 
 	/**
+	* SCSS to CSS
+	*/
+	public function scssToCss ($scss) {
+		$this->servant()->utilities()->load('scss');
+		$parser = new scssc();
+		$parser->setFormatter('scss_formatter_compressed');
+		return $parser->compile($scss);
+	}
+
+	/**
 	* Textile to HTML
 	*/
 	public function textileToHtml ($textile) {

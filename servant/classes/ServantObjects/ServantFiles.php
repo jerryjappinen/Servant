@@ -3,15 +3,15 @@
 /**
 * Files component
 *
-* Reading files in various formats as target format
+* Reading files in various formats into target format
 *
 * Dependencies
-*   - utilities()->load()
 *   - settings()->formats()
+*   - parse()
+*   - paths()->temp()
 *
 * FLAG
-*   - Should really have a different name.
-*   - Should this be merged with ServantFormat? Or be split into ServantParse.
+*   - Is there a better name for this?
 */
 class ServantFiles extends ServantObject {
 
