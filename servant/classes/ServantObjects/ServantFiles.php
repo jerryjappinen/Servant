@@ -3,26 +3,17 @@
 /**
 * Files component
 *
-* Reading structure/content files in various formats and converting them into HTML.
+* Reading template/script files in various formats and converting them into HTML.
 *
 * Dependencies
 *   - utilities()->load()
 *   - settings()->formats()
 *
 * FLAG
-*   - Should really have a different name
-*   - Should this be merged with ServantFormat?
+*   - Should really have a different name.
+*   - Should this be merged with ServantFormat? Or be split into ServantParse.
 */
 class ServantFiles extends ServantObject {
-
-	/**
-	* Initialization
-	*
-	* Load utilities needed by the component
-	*/
-	public function initialize () {
-		return $this;
-	}
 
 
 
