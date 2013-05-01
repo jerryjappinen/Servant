@@ -13,7 +13,7 @@
 			"twig": ["twig", "tw"],
 			"wiki": "wiki"
 		},
-		"stylesheets": ["css", "less"],
+		"stylesheets": ["css", "less", "scss"],
 		"scripts": ["js"]
 	}
 

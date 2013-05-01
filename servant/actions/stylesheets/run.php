@@ -59,11 +59,11 @@ foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 	if (in_array($language, array('scss', 'less'))) {
 
 		// Format is now selected for site's stylesheets
-		if (!$stylesheetSets[0]['language']) {
-			$stylesheetSets[0]['language'] = $language;
+		if (!$stylesheetSets[1]['language']) {
+			$stylesheetSets[1]['language'] = $language;
 
 		// Fail if supersets are mixed
-		} else if ($stylesheetSets[0]['language'] !== $language) {
+		} else if ($stylesheetSets[1]['language'] !== $language) {
 			fail('SCSS and LESS cannot be mixed in site\'s stylesheets');
 		}
 	}
@@ -87,7 +87,7 @@ foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 
 // Theme and site styles use the same superset language; parse as one
 // FLAG not very elegant or dynamic
-if ($stylesheetSets[0]['language'] and $stylesheetSets[0]['language'] === $stylesheetSets[1]['content']) {
+if ($stylesheetSets[0]['language'] and $stylesheetSets[0]['language'] === $stylesheetSets[1]['language']) {
 	$stylesheetSets[0]['content'] = $stylesheetSets[0]['content'].$stylesheetSets[1]['content'];
 	unset($stylesheetSets[1]);
 }
