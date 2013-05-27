@@ -22,6 +22,7 @@ Site settings are **completely optional**, but you probably want to manually def
 h5. @sites/my-site/settings.json@
 
 <pre>@"icon": "favicon.png",
+"language": "en",
 "template": "bootstrap",
 "theme": "bootstrap-green",
 "names": {
@@ -38,9 +39,10 @@ h3. Supported settings
 
 |_. Setting|_. Description|_. Example values|
 |*icon*|||
+|*language*|Two-letter language code to mark the main language of your content. This|@"en"@, @"fr"@|
 |*names*|||
-|*template*|The template to use for this site. Available templates are folders under @templates/@. If you leave this out, a template will be "selected automatically":templates-and-themes.|@default@, @bootstrap@, @documentation@|
-|*theme*|The theme to use for this site. Available themes are folders under @themes/@. If you leave this out, a theme will be "selected automatically":templates-and-themes.|@bootstrap@, @bootstrap-green@, @default@|
+|*template*|The template to use for this site. Available templates are folders under @templates/@. If you leave this out, a template will be "selected automatically":templates-and-themes.|@"default"@, @"bootstrap"@, @"documentation"@|
+|*theme*|The theme to use for this site. Available themes are folders under @themes/@. If you leave this out, a theme will be "selected automatically":templates-and-themes.|@"bootstrap"@, @"bootstrap-green"@, @"default"@|
 
 
 

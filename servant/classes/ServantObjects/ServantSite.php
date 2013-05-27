@@ -10,6 +10,7 @@ class ServantSite extends ServantObject {
 	protected $propertySettings		= null;
 	protected $propertyIcon 		= null;
 	protected $propertyId 			= null;
+	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
 	protected $propertyPath 		= null;
 	protected $propertyStylesheets 	= null;
@@ -127,6 +128,36 @@ class ServantSite extends ServantObject {
 	}
 
 	/**
+	* Language
+	*
+	* FLAG
+	*   - This should be a list of supported languages in order of preference
+	*   - Hardcoded default
+	*/
+	protected function setLanguage () {
+
+		// Hardcoded fallback -_-
+		$default = 'en';
+		$language = '';
+
+		// Language from site settings
+		if ($this->settings('language')) {
+			$language = $this->settings('language');
+
+		// Global default
+		} else if ($this->servant()->settings()->defaults('language')) {
+			$language = $this->servant()->settings()->defaults('language');
+		}
+
+		// Validate language string
+		if (!is_string($language) or mb_strlen($language) != 2) {
+			$language = $default;
+		}
+
+		return $this->set('language', $language);
+	}
+
+	/**
 	* Name comes from settings or is created from ID
 	*/
 	protected function setName () {
@@ -148,6 +179,7 @@ class ServantSite extends ServantObject {
 		// Basic format of site settings
 		$settings = array(
 			'icon' => '',
+			'language' => '',
 			'names' => array(),
 			'template' => '',
 			'theme' => ''

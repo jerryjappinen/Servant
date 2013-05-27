@@ -34,7 +34,7 @@
 	<div class="column four">
 		<p class="close"><img src="pen.png" alt="Themes" title="Themes" class="magenta"></p>
 		<h3 class="squeeze">Themes</h3>
-		<p>Themes control how your site will look. You can choose from multiple themes, or create more yourself. You can also add site-specific styles and scripts to complement themes.</p>
+		<p>Choose your site's look from multiple themes, or create one yourself. Site-specific styles and scripts work can also be added. CSS, SCSS, LESS and JavaScript work out of the box.</p>
 	</div>
 
 	<div class="column four">

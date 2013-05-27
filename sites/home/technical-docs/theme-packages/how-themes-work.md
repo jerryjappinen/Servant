@@ -25,11 +25,11 @@ Themes consist of stylesheets, scripts and accompanying assets. They are contain
 
 ### Styles & scripts
 
-Servant supports both `.css` and `.less` files. They will be minified and provided as a single merged stylesheet for the users automatically. **You should not use `@import`** in the style files, since all files will be automatically loaded in the predetermined order anyway.
+Servant supports `.css`, `.less` and `.scss` files out of the box. They will be minified and provided as a single merged stylesheet for the users automatically. **You should not use `@import`** in the style files, since all files will be automatically loaded in the predetermined order anyway.
 
-For scripts, `.js` files are used. All script files are merged into a single, file for users.
+For scripts, `.js` files are used. All JavaScript files are merged into a one file for users.
 
-**Note!** Remember, that sites can also include custom stylesheets and scripts, which will override anything in themes.
+**Note!** Remember, that sites can also include custom stylesheets and scripts. These can override the styles or scripts in themes.
 
 
 

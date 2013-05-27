@@ -35,7 +35,7 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	// echo html_dump($servant->parse()->txtToHtml("# Hey, how's it going?\nI'm Eiskis"));
+	// echo html_dump($servant->site()->language());
 
 // Close footer
 echo '</div></div>';

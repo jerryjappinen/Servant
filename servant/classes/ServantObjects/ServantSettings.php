@@ -105,12 +105,13 @@ class ServantSettings extends ServantObject {
 		// Base format
 		$results = array(
 			'action' => null,
+			'language' => null,
 			'site' => null,
 			'template' => null,
 			'theme' => null,
 		);
 
-		// Pick default IDs
+		// Pick defaults
 		if ($input) {
 			foreach ($results as $key => $value) {
 				if (isset($input[$key])) {

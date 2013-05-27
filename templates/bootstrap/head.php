@@ -2,7 +2,7 @@
 
 echo '
 <!DOCTYPE html>
-<html>
+<html lang="'.$servant->site()->language().'">
 	<head>
 		';
 

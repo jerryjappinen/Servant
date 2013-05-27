@@ -3,7 +3,7 @@
 // HTML headers
 $output = '
 <!DOCTYPE html>
-<html>
+<html lang="'.$servant->site()->language().'">
 	<head>
 		';
 
