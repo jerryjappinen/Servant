@@ -1,0 +1,40 @@
+
+.frame-footer {
+
+	// Main text style
+	font-size: 0.8em;
+	color: @grey-35;
+	a {
+		color: @grey-35;
+		&:hover {
+			color: @black;
+		}
+	}
+
+	// Columns
+	dl {
+		width: 14em;
+		float: left;
+		clear: none;
+		height: 15em;
+		overflow: hidden;
+		@media handheld, only screen and (max-width: @bb-stack) {
+			width: 50%;
+		}
+	}
+	dt {
+		font-size: 1em;
+		text-transform: uppercase;
+		font-weight: inherit;
+	}
+	dd {
+	}
+
+	// Links
+	a {
+		padding: 0.2em 0;
+		display: block;
+	}
+
+
+}

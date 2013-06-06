@@ -10,6 +10,6 @@ if ($servant->action()->id() === 'read') {
 echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.$temp.'"></script>';
 
 // End it all
-echo '</body></html>';
+echo '</div></body></html>';
 
 ?>

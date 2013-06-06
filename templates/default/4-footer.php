@@ -38,6 +38,6 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	// echo html_dump($servant->site()->language());
 
 // Close footer
-echo '</div></div>';
+echo '</div></div><div class="clear"></div>';
 
 ?>

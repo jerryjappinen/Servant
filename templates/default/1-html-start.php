@@ -76,7 +76,7 @@ foreach ($tree as $value) {
 unset($tree, $i);
 
 // Body tag
-echo '<body class="site-'.$servant->site()->id().' level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">';
+echo '<body class="site-'.$servant->site()->id().' level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'"><div class="frame">';
 unset($classes);
 
 ?>

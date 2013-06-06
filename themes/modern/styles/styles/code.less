@@ -1,0 +1,34 @@
+
+/*Code highlighting*/
+code {
+	display: inline-block;
+	padding: 0.1em 0.4em 0 0.4em;
+	font-weight: normal;
+}
+
+pre {
+	border-left-width: 0.3em;
+	border-style: solid;
+	border-color: @black;
+	background-color: @grey-2;
+	padding: 1.34em;
+}
+
+	pre code, th[scope="col"] code, h1 code, h2 code, h5 code {
+		display: inline;
+		padding: 0;
+		background-color: transparent;
+		font-weight: inherit;
+	}
+
+	td pre {
+		margin: 0;
+		padding: 0;
+		background-color: transparent;
+		code {
+			display: inline-block;
+			padding: 0.1em 0.4em 0 0.4em;
+			background-color: @grey-2;
+			font-weight: normal;
+		}
+	}
