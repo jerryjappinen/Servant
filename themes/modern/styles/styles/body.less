@@ -1,0 +1,46 @@
+
+// Sidebar
+body.level-2, body.level-3 {
+	.frame-sidebar, .frame-article {
+		float: left;
+		clear: none;
+	}
+	.frame-sidebar {
+		width: 20%;
+	}
+	.frame-article {
+		width: 80%;
+	}
+
+	// Override menu
+	.frame-sidebar .menu-2 {
+		.close;
+		clear: none;
+		list-style: none;
+		padding: 0;
+
+		// List items
+		li a {
+			display: block;
+			padding: 0.3em 0.5em;
+			color: @grey-35;
+			text-transform: uppercase;
+			&:hover {
+				color: @black;
+			}
+		}
+	}
+
+}
+
+// Article
+.frame-article {
+
+	// Keep the first title close to the top
+	> h1, > h2, > h3, > h4 {
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+}
