@@ -1,21 +1,24 @@
 
 body {
-	padding: 2% 5%;
-	background-color: @white;
+	background-color: @grey-3;
 }
 
-.frame {
-	width: 78%;
-	max-width: 70em;
-	margin: 0 auto;
-	padding: 2% 6% 5% 6%;
+.frame-header {
+	margin-top: 5%;
 }
 
 .frame-container {
-	margin: 1% auto;
-	padding-top: 1%;
-	padding-bottom: 1%;
+	width: 80%;
+	max-width: 60em;
+	margin: 0 auto;
+	padding: 4% 8%;
+	background-color: @white;
 }
-	.frame-footer {
-		margin-top: 5%;
+	.frame-header .frame-container {
+		padding-bottom: 0;
+	}
+	.frame-footer .frame-container {
+		background-color: @grey-3;
+		width: 100%;
+		max-width: 80em;
 	}

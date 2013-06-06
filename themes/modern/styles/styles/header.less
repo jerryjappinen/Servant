@@ -8,19 +8,20 @@
 		text-transform: uppercase;
 		text-align: left;
 		a {
+			display: inline-block;
+			padding: 0.3em 0.5em;
 			color: @grey-35;
-			font-weight: 200;
 		}
 	}
 	.menu-1 a {
 	}
 	h1, .menu-1 {
-		font-size: 1.4em;
+		font-size: 1.0em;
 	}
 }
 
 // Menus
-.frame-header .menu-1, .frame-sidebar .menu-2 {
+.frame-header .menu-1 {
 	.close;
 	clear: none;
 	list-style: none;
@@ -38,8 +39,41 @@
 		}
 	}
 	strong a {
-		font-weight: 200;
 		color: @black;
+	}
+
+}
+
+// Sidebar
+body.level-2, body.level-3 {
+	.frame-sidebar, .frame-article {
+		float: left;
+		clear: none;
+	}
+	.frame-sidebar {
+		width: 20%;
+	}
+	.frame-article {
+		width: 80%;
+	}
+
+	// Override menu
+	.frame-sidebar .menu-2 {
+		.close;
+		clear: none;
+		list-style: none;
+		padding: 0;
+
+		// List items
+		li a {
+			display: block;
+			padding: 0.3em 0.5em;
+			color: @grey-35;
+			text-transform: uppercase;
+			&:hover {
+				color: @black;
+			}
+		}
 	}
 
 }

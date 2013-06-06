@@ -4,14 +4,17 @@ code {
 	display: inline-block;
 	padding: 0.1em 0.4em 0 0.4em;
 	font-weight: normal;
+	background-color: @grey-3;
+	.rounded;
 }
 
 pre {
 	border-left-width: 0.3em;
 	border-style: solid;
 	border-color: @black;
-	background-color: @grey-2;
+	background-color: @grey-3;
 	padding: 1.34em;
+	.rounded;
 }
 
 	pre code, th[scope="col"] code, h1 code, h2 code, h5 code {
@@ -19,6 +22,7 @@ pre {
 		padding: 0;
 		background-color: transparent;
 		font-weight: inherit;
+		.unround;
 	}
 
 	td pre {
@@ -28,7 +32,8 @@ pre {
 		code {
 			display: inline-block;
 			padding: 0.1em 0.4em 0 0.4em;
-			background-color: @grey-2;
+			background-color: @grey-3;
 			font-weight: normal;
+			.rounded;
 		}
 	}
