@@ -26,9 +26,14 @@
 @grey-5: #f2f2f2;
 @grey-0: #fff;
 
-@black: @grey-100;
+// Use these in styles
 @white: @grey-0;
+@lightgrey: @grey-25;
+@grey: @grey-50;
+@darkgrey: @grey-75;
+@black: @grey-100;
 
 // Selectors
 @textfields: 'textarea, input[type=""], input:not([type]), input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"]';
-@buttons: '.button, button, html input[type="button"], input[type="reset"], input[type="submit"]';
+@buttons: '.button, button, input[type="button"], input[type="reset"], input[type="submit"]';
+@disabledbuttons: '.button.disabled, button.disabled, input[type="button"].disabled, input[type="reset"].disabled, input[type="submit"].disabled, .button[disabled], button[disabled], input[type="button"][disabled], input[type="reset"][disabled], input[type="submit"][disabled]';
