@@ -1,8 +1,0 @@
-
-%h1 This is HAML
-
-%ul#users
-	-foreach($servant->settings()->formats('templates') as $formats)
-		-foreach($formats as $format)
-			%li.format
-				= $format
