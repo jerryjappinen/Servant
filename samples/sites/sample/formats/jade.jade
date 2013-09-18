@@ -1,0 +1,15 @@
+
+h1 This is Jade
+
+ul#users
+	- foreach ($servant->settings()->formats('templates') as $formats):
+		- foreach ($formats as $format):
+			li.format= $format
+
+ul
+	li.first
+		a(href='#') foo
+	li
+		a(href='#') bar
+	li.last
+		a(href='#') baz
