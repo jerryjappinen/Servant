@@ -5,7 +5,13 @@ class ServantMain extends ServantObject {
 	/**
 	* Override default construction method
 	*/
-	public function __construct () {
+	public function __construct ($debug = false) {
+
+		// FLAG set debug mode here
+		if ($debug) {
+
+		}
+
 		return $this;
 	}
 

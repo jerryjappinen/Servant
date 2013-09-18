@@ -1,9 +1,21 @@
 <?php
 // Root of all problems
 error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 ini_set('error_log', 'errors.log');
 date_default_timezone_set('UTC');
+
+// Enable debug features when detecting localhost
+$debug = false;
+if (in_array($request['server address'], array('127.0.0.1', '::1'))) {
+	$debug = true;
+}
+
+// Debug error reporting
+if ($debug) {
+	ini_set('display_errors', '1');
+	error_reporting(error_reporting() & ~E_NOTICE);
+}
 
 
 
@@ -126,10 +138,10 @@ $input = $_GET;
 unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
 // Startup
-$servant = create_object(new ServantMain)->init($paths, $settings, $input);
+$servant = new ServantMain($debug);
+unset($debug);
+$servant->init($paths, $settings, $input);
 unset($paths, $settings, $input);
-
-// Run Servant
 $servant->execute();
 die();
 ?>
