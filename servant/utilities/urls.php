@@ -4,6 +4,7 @@
 * Manipulate URLs to point to right places on the domain
 *
 * FLAG
+*   - Should be classified and not provide global functions
 *   - Protocols should not be hardcoded
 *   - Doign a LOT of replacements here, more could probably be done in one go
 */
@@ -85,7 +86,7 @@ function manipulateCssUrls ($string, $rootPath, $relativePath = '', $actionsPath
 		// 3 url(/foo) - root-relative internal URLs
 		'/url\(\s*("|\')?(?:\/)(?!\/)([^"\')]*)("|\')?\)/',
 
-		// 4 url(/foo) - URLs to actions
+		// 4 url(//foo) - URLs to actions
 		'/url\(\s*("|\')?(?:\/\/)([^"\')]*)("|\')?\)/',
 
 		// 5 url(foo) - relative internal URLs

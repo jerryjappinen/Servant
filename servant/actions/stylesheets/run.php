@@ -23,7 +23,7 @@ $stylesheetSets = array(
 );
 
 // We need this for URL manipulations
-$actionsPath = $servant->paths()->root('domain').$servant->site()->id().'/';
+$actionsPath = $servant->paths()->root('domain');
 
 
 

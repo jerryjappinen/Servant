@@ -18,13 +18,13 @@ class ServantInput extends ServantObject {
 	public function initialize ($input = null) {
 
 		// Set defaults to all properties
-		$this->setAction('')->setArticle(array())->setSite('');
+		$this->setAction('')->setArticle(array());
 
 		// Select things if we have any
 		if (!empty($input) and is_array($input)) {
 
 			// Look for whatever we support
-			foreach (array('action', 'article', 'site') as $id) {
+			foreach (array('action', 'article') as $id) {
 
 				// Call setter if user has provided input
 				if (array_key_exists($id, $input)) {
