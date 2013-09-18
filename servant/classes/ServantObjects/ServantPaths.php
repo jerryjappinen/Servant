@@ -14,7 +14,7 @@ class ServantPaths extends ServantObject {
 	protected $propertyHelpers 		= null;
 	protected $propertyIndex 		= null;
 	protected $propertySettings 	= null;
-	protected $propertySites 		= null;
+	protected $propertySite 		= null;
 	protected $propertyTemp 		= null;
 	protected $propertyTemplates 	= null;
 	protected $propertyThemes 		= null;
@@ -38,7 +38,7 @@ class ServantPaths extends ServantObject {
 			'helpers',
 			'index',
 			'settings',
-			'sites',
+			'site',
 			'temp',
 			'templates',
 			'themes',
@@ -99,8 +99,8 @@ class ServantPaths extends ServantObject {
 	public function settings ($format = false) {
 		return $this->servant()->format()->path($this->get('settings'), $format);
 	}
-	public function sites ($format = false) {
-		return $this->servant()->format()->path($this->get('sites'), $format);
+	public function site ($format = false) {
+		return $this->servant()->format()->path($this->get('site'), $format);
 	}
 	public function temp ($format = false) {
 		return $this->servant()->format()->path($this->get('temp'), $format);

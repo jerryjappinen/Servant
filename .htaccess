@@ -29,8 +29,8 @@ RewriteEngine on
 #   ENDPOINTS
 #
 
-# Forward to default site and action
-RewriteRule ^$ %{REQUEST_URI}home/ [R=301,L]
+# Forward to default action
+# RewriteRule ^$ %{REQUEST_URI}read/ [R=301,L]
 
 # Load index.php at root
 DirectoryIndex servant/index.php
@@ -40,4 +40,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # Access actions of a site
-RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \servant/index.php?site=$1&action=$2&article=$3;$4;$5;$6;$7;$8;$9
+RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \servant/index.php?action=$1&article=$2;$3;$4;$5;$6;$7;$8;$9

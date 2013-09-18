@@ -95,39 +95,6 @@ class ServantSite extends ServantObject {
 	}
 
 	/**
-	* ID
-	*/
-	protected function setId () {
-
-		// Try using input
-		$id = $this->servant()->input()->site();
-
-		// Given ID is invalid
-		if (!$id or !$this->servant()->available()->site($id)) {
-
-			// Other options
-			$default = $this->servant()->settings()->defaults('site');
-			$first = $this->servant()->available()->sites(0);
-
-			// Global default
-			if ($this->servant()->available()->site($default)) {
-				$id = $default;
-
-			// Whatever's available
-			} else if (isset($first)) {
-				$id = $first;
-
-			// No sites
-			} else {
-				$this->fail('No sites available');
-			}
-
-		}
-
-		return $this->set('id', $id);
-	}
-
-	/**
 	* Language
 	*
 	* FLAG
@@ -159,16 +126,20 @@ class ServantSite extends ServantObject {
 
 	/**
 	* Name comes from settings or is created from ID
+	*
+	* FLAG
+	*   - Hardcoded default name
 	*/
 	protected function setName () {
-		return $this->set('name', $this->servant()->format()->name($this->id(), $this->settings('names')));
+		$name = $this->settings('name');
+		return $this->set('name', $name ? $name : 'Home');
 	}
 
 	/**
 	* Path
 	*/
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->sites('plain').$this->id().'/');
+		return $this->set('path', $this->servant()->paths()->site('plain'));
 	}
 
 	/**
@@ -180,6 +151,7 @@ class ServantSite extends ServantObject {
 		$settings = array(
 			'icon' => '',
 			'language' => '',
+			'name' => '',
 			'names' => array(),
 			'template' => '',
 			'theme' => ''

@@ -9,7 +9,6 @@ class ServantAvailable extends ServantObject {
 	protected $propertyArticles 	= null;
 	protected $propertyContentTypes = null;
 	protected $propertyPatterns 	= null;
-	protected $propertySites 		= null;
 	protected $propertyStatuses 	= null;
 	protected $propertyTemplates 	= null;
 	protected $propertyThemes 		= null;
@@ -45,9 +44,6 @@ class ServantAvailable extends ServantObject {
 	public function pattern ($id) {
 		return in_array($id, $this->patterns());
 	}
-	public function site ($id) {
-		return in_array($id, $this->sites());
-	}
 	public function status ($id) {
 		return in_array($id, $this->statuses());
 	}
@@ -77,10 +73,6 @@ class ServantAvailable extends ServantObject {
 
 	protected function setPatterns () {
 		return $this->set('patterns', array_keys($this->servant()->settings()->patterns()));
-	}
-
-	protected function setSites () {
-		return $this->set('sites', $this->findDirectories('sites'));
 	}
 
 	protected function setStatuses () {

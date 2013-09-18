@@ -9,7 +9,6 @@ class ServantInput extends ServantObject {
 	*/
 	protected $propertyAction 	= null;
 	protected $propertyArticle 	= null;
-	protected $propertySite 	= null;
 
 
 
@@ -49,9 +48,6 @@ class ServantInput extends ServantObject {
 	}
 	public function article () {
 		return $this->get('article');
-	}
-	public function site () {
-		return $this->get('site');
 	}
 
 
@@ -108,17 +104,6 @@ class ServantInput extends ServantObject {
 		}
 
 		return $this->set('article', $results);
-	}
-
-	/**
-	* Site
-	*/
-	protected function setSite ($value) {
-		$result = '';
-		if ($this->acceptable($value)) {
-			$result = $this->normalizeString($value);
-		}
-		return $this->set('site', $result);
 	}
 
 

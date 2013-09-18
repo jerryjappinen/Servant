@@ -124,7 +124,7 @@ class ServantArticle extends ServantObject {
 		$srcUrl = $this->site()->path('domain');
 
 		// Root path for hrefs
-		$hrefUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/'.$this->servant()->action()->id().'/';
+		$hrefUrl = $this->servant()->paths()->root('domain').$this->servant()->action()->id().'/';
 
 		// Relative location for SRC urls
 		$relativeSrcUrl = unprefix(dirname($this->path('plain')), $this->site()->path('plain'), true);
@@ -139,7 +139,7 @@ class ServantArticle extends ServantObject {
 		}
 
 		// Base URL to point to actions on the domain
-		$actionsUrl = $this->servant()->paths()->root('domain').$this->site()->id().'/';
+		$actionsUrl = $this->servant()->paths()->root('domain');
 
 		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 	}

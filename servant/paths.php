@@ -8,7 +8,7 @@ $paths = array(
 	// 'root' 			=> 'eiskis.net/www/',
 
 	// User-facing content
-	'sites' 		=> 'sites/',
+	'site' 			=> 'site/',
 	'themes' 		=> 'themes/',
 	'templates' 	=> 'templates/',
 

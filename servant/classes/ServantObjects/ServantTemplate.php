@@ -97,9 +97,6 @@ class ServantTemplate extends ServantObject {
 			// Template defined in site settings
 			$this->servant()->site()->settings('template'),
 
-			// Template with the same name as site
-			$this->servant()->site()->id(),
-
 			// Default from global settings
 			$this->servant()->settings()->defaults('template'),
 

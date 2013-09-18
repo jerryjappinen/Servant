@@ -103,9 +103,6 @@ class ServantTheme extends ServantObject {
 			// Theme defined in site settings
 			$this->servant()->site()->settings('theme'),
 
-			// Theme with the same name as site
-			$this->servant()->site()->id(),
-
 			// Theme with the same name as template
 			$this->servant()->template()->id(),
 
