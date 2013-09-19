@@ -113,7 +113,7 @@ unset($includePaths);
 * Running Servant
 */
 
-// Get rid of hazardous things
+// Get rid of hazardous globals
 $input = $_GET;
 unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
@@ -121,6 +121,6 @@ unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 $servant = new ServantMain();
 $servant->init($paths, $settings, $input);
 unset($paths, $settings, $input);
-$servant->execute();
+$servant->run();
 die();
 ?>

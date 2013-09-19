@@ -22,7 +22,7 @@ class ServantMain extends ServantObject {
 	/**
 	* Execute Servant to generate a response
 	*/
-	public function execute () {
+	public function run () {
 		$this->response()->serve();
 		return $this;
 	}
