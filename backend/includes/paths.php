@@ -10,7 +10,7 @@ $paths = array(
 	'index' 		=> 'backend/',
 
 	// User-facing directories
-	'site' 			=> 'site/',
+	'site' 			=> 'pages/',
 	'template' 		=> 'template/',
 	'theme' 		=> 'theme/',
 
