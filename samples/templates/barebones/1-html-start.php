@@ -45,7 +45,7 @@
 		<?php
 		// Stylesheets, possibly article-specific
 		// FLAG I really shouldn't hardcode the name of read action...
-		$temp = $servant->paths()->root('domain').$servant->site()->id().'/stylesheets/';
+		$temp = $servant->paths()->root('domain').'stylesheets/';
 		if ($servant->action()->id() === 'read') {
 			$temp .= implode('/', $servant->site()->article()->tree()).'/';
 		}
@@ -67,4 +67,4 @@ foreach ($tree as $value) {
 unset($tree, $i);
 ?>
 
-<body class="site-<?= $servant->site()->id() ?> level-<?= count($servant->article()->tree())?> index-<?= $servant->article()->index()?> <?= implode(' ', $classes) ?>">
+<body class="level-<?= count($servant->article()->tree())?> index-<?= $servant->article()->index()?> <?= implode(' ', $classes) ?>">

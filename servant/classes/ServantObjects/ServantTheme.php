@@ -6,22 +6,9 @@ class ServantTheme extends ServantObject {
 	* Properties
 	*/
 	protected $propertyIcon			= null;
-	protected $propertyId 			= null;
 	protected $propertyPath 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertyStylesheets 	= null;
-
-
-
-	/**
-	* Select ID when initializing
-	*/
-	public function initialize ($id = false) {
-		if ($id) {
-			$this->setId($id);
-		}
-		return $this;
-	}
 
 
 
@@ -89,54 +76,13 @@ class ServantTheme extends ServantObject {
 		return $this->set('icon', $result);
 	}
 
-	/**
-	* Theme identity
-	*/
-	protected function setId ($input = null) {
-
-		// List our options, in order of preference
-		$preferredIds = array(
-
-			// Whatever we got as input parameter here
-			$input,
-
-			// Theme defined in site settings
-			$this->servant()->site()->settings('theme'),
-
-			// Theme with the same name as template
-			$this->servant()->template()->id(),
-
-			// Default from global settings
-			$this->servant()->settings()->defaults('theme'),
-
-			// Whatever's available
-			$id = $this->servant()->available()->themes(0)
-
-		);
-
-		// Go through our options, try to find a theme
-		foreach ($preferredIds as $id) {
-			if ($this->servant()->available()->theme($id)) {
-				break;
-			}
-		}
-
-		// Require a valid theme
-		// FLAG I want Servant to work without a theme
-		if ($id === null) {
-			$this->fail('No themes available');
-		}
-
-		return $this->set('id', $id);
-	}
-
 
 
 	/**
 	* Theme is a folder under the themes directory
 	*/
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->themes().$this->id().'/');
+		return $this->set('path', $this->servant()->paths()->theme());
 	}
 
 

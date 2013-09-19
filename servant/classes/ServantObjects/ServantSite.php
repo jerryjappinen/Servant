@@ -152,9 +152,7 @@ class ServantSite extends ServantObject {
 			'icon' => '',
 			'language' => '',
 			'name' => '',
-			'names' => array(),
-			'template' => '',
-			'theme' => ''
+			'names' => array()
 		);
 
 		// Look for settings file
@@ -281,7 +279,7 @@ class ServantSite extends ServantObject {
 		if (is_file($path)) {
 			$files[] = $this->path('plain');
 
-		// All template files in directory
+		// All files in directory
 		} else if (is_dir($path)) {
 			foreach (rglob_files($path, $formats) as $file) {
 				$files[] = $this->servant()->format()->path($file, false, 'server');

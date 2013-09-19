@@ -10,8 +10,6 @@ class ServantAvailable extends ServantObject {
 	protected $propertyContentTypes = null;
 	protected $propertyPatterns 	= null;
 	protected $propertyStatuses 	= null;
-	protected $propertyTemplates 	= null;
-	protected $propertyThemes 		= null;
 	protected $propertyUtilities 	= null;
 
 
@@ -47,12 +45,6 @@ class ServantAvailable extends ServantObject {
 	public function status ($id) {
 		return in_array($id, $this->statuses());
 	}
-	public function template ($id) {
-		return in_array($id, $this->templates());
-	}
-	public function theme ($id) {
-		return in_array($id, $this->themes());
-	}
 	public function utility ($id) {
 		return in_array($id, $this->utilities());
 	}
@@ -77,29 +69,6 @@ class ServantAvailable extends ServantObject {
 
 	protected function setStatuses () {
 		return $this->set('statuses', array_keys($this->servant()->settings()->statuses()));
-	}
-
-	/**
-	* Templates
-	*
-	* Single template files or directories
-	*/
-	protected function setTemplates () {
-		$formats = $this->servant()->settings()->formats('templates');
-		return $this->set('templates', $this->findDirectories('templates', $formats));
-	}
-
-	/**
-	* Themes
-	*
-	* Single files or directories of stylesheets and scripts
-	*/
-	protected function setThemes () {
-		$formats = array_merge(
-			array_flatten($this->servant()->settings()->formats('stylesheets')),
-			array_flatten($this->servant()->settings()->formats('scripts'))
-		);
-		return $this->set('themes', $this->findDirectories('themes', $formats));
 	}
 
 	/**

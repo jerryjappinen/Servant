@@ -106,9 +106,6 @@ class ServantSettings extends ServantObject {
 		$results = array(
 			'action' => null,
 			'language' => null,
-			'site' => null,
-			'template' => null,
-			'theme' => null,
 		);
 
 		// Pick defaults

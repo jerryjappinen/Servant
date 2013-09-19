@@ -15,20 +15,20 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	}
 
 	// Pages & generic stuff
-	echo '<dl><dt><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/">'.$servant->site()->name().'</a></dt><dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.implode('/', $servant->site()->article()->tree()).'/'.'">Sitemap</a></dd>
+	echo '<dl><dt><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></dt><dd><a href="'.$servant->paths()->root('domain').'sitemap/'.implode('/', $servant->site()->article()->tree()).'/'.'">Sitemap</a></dd>
 	';
 
 	// Create footer links for articles
 	foreach ($pages as $id) {
-		echo '<dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$id.'/">'.$servant->format()->name($id).'</a></dd>';
+		echo '<dd><a href="'.$servant->paths()->root('domain').'read/'.$id.'/">'.$servant->format()->name($id).'</a></dd>';
 	}
 	echo '</dl>';
 
 	// Create footer links for categories
 	foreach ($categories as $category) {
-		echo '<dl><dt><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$category.'/">'.$servant->format()->name($category).'</a></dt>';
+		echo '<dl><dt><a href="'.$servant->paths()->root('domain').'read/'.$category.'/">'.$servant->format()->name($category).'</a></dt>';
 		foreach ($servant->site()->articles($category) as $id => $value) {
-			echo '<dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$category.'/'.$id.'/">'.$servant->format()->name($id).'</a></dd>';
+			echo '<dd><a href="'.$servant->paths()->root('domain').'read/'.$category.'/'.$id.'/">'.$servant->format()->name($id).'</a></dd>';
 		}
 		echo '</dl>';
 	}

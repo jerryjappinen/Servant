@@ -3,15 +3,9 @@
 class ServantMain extends ServantObject {
 
 	/**
-	* Override default construction method
+	* Override construction method
 	*/
-	public function __construct ($debug = false) {
-
-		// FLAG set debug mode here
-		if ($debug) {
-
-		}
-
+	public function __construct () {
 		return $this;
 	}
 
@@ -20,7 +14,7 @@ class ServantMain extends ServantObject {
 	*/
 	public function initialize ($paths, $settings, $input = null) {
 
-		// FLAG clear temp directory
+		// FLAG clear temp directory at this point
 
 		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}

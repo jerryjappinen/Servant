@@ -7,7 +7,7 @@ foreach ($images as $key => $value) {
 
 	// Treat URL for linking
 	$url = $servant->format()->path($value, 'plain', 'server');
-	$url = unprefix($url, $servant->paths()->sites().$servant->site()->id().'/');
+	$url = unprefix($url, $servant->paths()->sites());
 
 	echo '
 	<h4>'.$servant->format()->name(pathinfo($value, PATHINFO_FILENAME)).'</h4>

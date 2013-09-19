@@ -112,6 +112,9 @@ class ServantResponse extends ServantObject {
 
 	/**
 	* Get content type from action
+	*
+	* FLAG
+	*   - request settings()->defaults('contentType')?
 	*/
 	protected function setContentType () {
 

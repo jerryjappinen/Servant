@@ -57,7 +57,7 @@ echo '
 		} else {
 			$temp = '';
 		}
-		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.$temp.'" media="screen">';
+		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').'stylesheets/'.$temp.'" media="screen">';
 
 		echo '
 	</head>
@@ -76,7 +76,7 @@ foreach ($tree as $value) {
 unset($tree, $i);
 
 // Body tag
-echo '<body class="site-'.$servant->site()->id().' level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'"><div class="frame">';
+echo '<body class="level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'"><div class="frame">';
 unset($classes);
 
 ?>

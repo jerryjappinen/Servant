@@ -11,10 +11,7 @@
 
 	"defaults": {
 		"action": "read",
-		"language": "en",
-		"site": "home",
-		"template": "default",
-		"theme": "default"
+		"language": "en"
 	},
 
 	"namingConvention": {

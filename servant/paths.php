@@ -9,8 +9,8 @@ $paths = array(
 
 	// User-facing content
 	'site' 			=> 'site/',
-	'themes' 		=> 'themes/',
-	'templates' 	=> 'templates/',
+	'theme' 		=> 'assets/',
+	'template' 		=> 'template/',
 
 	// Backend
 	'index' 		=> 'servant/',

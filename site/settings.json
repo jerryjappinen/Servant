@@ -1,8 +1,8 @@
 {
+	"icon": "about/logo.png",
+	"language": "en",
 	"name": "Servant",
 	"names": {
 		"text-and-markdown": "Text & Markdown"
-	},
-	"theme": "default",
-	"template": "default"
+	}
 }

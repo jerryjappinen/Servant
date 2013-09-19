@@ -6,7 +6,6 @@ class ServantTemplate extends ServantObject {
 	* Properties
 	*/
 	protected $propertyFiles 	= null;
-	protected $propertyId 		= null;
 	protected $propertyContent 	= null;
 	protected $propertyOutput 	= null;
 	protected $propertyPath 	= null;
@@ -14,21 +13,12 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Select ID when initializing
-	*/
-	public function initialize ($id = null) {
-		if ($id) {
-			$this->setId($id);
-		}
-		return $this;
-	}
-
-
-
-	/**
 	* Public getters
 	*/
 
+	/**
+	* This gives content to a template as a convenience
+	*/
 	public function content () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->servant()->action(), 'output'), $arguments);
@@ -84,47 +74,7 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Name of the template (file or folder in the templates directory)
-	*/
-	protected function setId ($input = null) {
-
-		// List our options, in order of preference
-		$preferredIds = array(
-
-			// Whatever we got as input parameter here
-			$input,
-
-			// Template defined in site settings
-			$this->servant()->site()->settings('template'),
-
-			// Default from global settings
-			$this->servant()->settings()->defaults('template'),
-
-			// Whatever's available
-			$id = $this->servant()->available()->templates(0)
-
-		);
-
-		// Go through our options, try to find a template
-		foreach ($preferredIds as $id) {
-			if ($this->servant()->available()->template($id)) {
-				break;
-			}
-		}
-
-		// Require a valid template
-		// FLAG I want Servant to work without a template
-		if ($id === null) {
-			$this->fail('No templates available');
-		}
-
-		return $this->set('id', $id);
-	}
-
-
-
-	/**
-	* Output content
+	* Full output
 	*/
 	protected function setOutput () {
 		$result = '';
@@ -140,7 +90,7 @@ class ServantTemplate extends ServantObject {
 	* Template is either a file or a folder within the templates directory
 	*/
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->templates('plain').$this->id().'/');
+		return $this->set('path', $this->servant()->paths()->template('plain'));
 	}
 
 }

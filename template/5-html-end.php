@@ -7,7 +7,7 @@ if ($servant->action()->id() === 'read') {
 } else {
 	$temp = '';
 }
-echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.$temp.'"></script>';
+echo '<script src="'.$servant->paths()->root('domain').'scripts/'.$temp.'"></script>';
 
 // End it all
 echo '</div></body></html>';
