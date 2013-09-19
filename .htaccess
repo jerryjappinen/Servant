@@ -3,8 +3,8 @@
 #   NOTES
 #
 #   Please note that there is another .htaccess file under
-#   servant/ ("servant/.htaccess"), which denies direct
-#   access to the folder and its contents.
+#   backend/ ("backend/.htaccess"), which denies direct
+#   access to that folder and its contents.
 #
 
 
@@ -33,11 +33,11 @@ RewriteEngine on
 # RewriteRule ^$ %{REQUEST_URI}read/ [R=301,L]
 
 # Load index.php at root
-DirectoryIndex servant/index.php
+DirectoryIndex backend/index.php
 
 # Respect natural paths
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# Access actions of a site
-RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \servant/index.php?action=$1&article=$2;$3;$4;$5;$6;$7;$8;$9
+# Actions
+RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?action=$1&article=$2;$3;$4;$5;$6;$7;$8;$9

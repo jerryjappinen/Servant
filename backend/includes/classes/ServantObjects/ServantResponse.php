@@ -51,7 +51,11 @@ class ServantResponse extends ServantObject {
 			}
 
 			// Get action's output, possibly via template
-			$output = $this->servant()->action()->outputViaTemplate() ? $this->servant()->template()->output() : $this->servant()->action()->output();
+			if ($this->servant()->action()->outputViaTemplate()) {
+				$output = $this->servant()->template()->output();
+			} else {
+				$output = $this->servant()->action()->output();
+			}
 
 			// Store if needed
 			if ($this->contentType() < 400 and $cacheEnabled and !$this->existing()) {
