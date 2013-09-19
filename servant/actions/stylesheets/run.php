@@ -4,6 +4,7 @@
 * FLAG
 *   - Not very elegant or dynamic
 */
+$urlManipulator = new UrlManipulator();
 
 // Allowed superset file extensions, mapped to their format
 $allowedFormats = array();
@@ -59,7 +60,7 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->theme()->path('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$stylesheetSets['theme']['content'] .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
+	$stylesheetSets['theme']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 
@@ -94,7 +95,7 @@ foreach ($servant->site()->article()->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->site()->path('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$stylesheetSets['site']['content'] .= manipulateCSSUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
+	$stylesheetSets['site']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 

@@ -13,7 +13,7 @@
 	<div class="column four">
 		<p class="close"><img src="file.png" alt="Files" title="Files" class="blue"></p>
 		<h3 class="squeeze">Text files just work</h3>
-		<p>Plain text, HTML, Textile and Markdown documents are supported. Stock PHP can also be used for scripting, as are HAML and Twig. Take your pick.</p>
+		<p>Plain text, HTML, Textile and Markdown documents are supported. Stock PHP can also be used for scripting, as can HAML and Twig. Take your pick.</p>
 	</div>
 
 	<div class="column four">
@@ -52,19 +52,13 @@
 
 
 
-	<div class="column four">
+	<div class="column six">
 		<p class="close"><span class="placeholder"></span></p>
 		<h3 class="squeeze">Automatic caching</h3>
 		<p>Responses are cached to speed up page loads. Cache files are created and updated automatically.</p>
 	</div>
 
-	<div class="column four">
-		<p class="close"><img src="servant.png" alt="Servant" title="Servant" class="green-dark"></p>
-		<h3 class="squeeze">One Servant, multiple sites</h3>
-		<p>One installation powers any number of sites. You only have to install Servant once, but can still create as many sites as you want, sharing templates and themes.</p>
-	</div>
-
-	<div class="column four last">
+	<div class="column six last">
 		<p class="close"><span class="placeholder magenta-dark"></span></p>
 		<h3 class="squeeze">Easy to set-up and publish</h3>
 		<p>Servant runs on commonplace PHP servers. It can be installed by simply copying the files from the download on a server. No wizard skills required.</p>

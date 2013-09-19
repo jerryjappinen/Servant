@@ -119,6 +119,7 @@ class ServantArticle extends ServantObject {
 	}
 
 	protected function setOutput () {
+		$urlManipulator = new UrlManipulator();
 
 		// Root path for src attributes
 		$srcUrl = $this->site()->path('domain');
@@ -141,7 +142,7 @@ class ServantArticle extends ServantObject {
 		// Base URL to point to actions on the domain
 		$actionsUrl = $this->servant()->paths()->root('domain');
 
-		return $this->set('output', manipulateHtmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
+		return $this->set('output', $urlManipulator->htmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 	}
 
 	// Parent nodes of this article in site's article tree, order is reversed
