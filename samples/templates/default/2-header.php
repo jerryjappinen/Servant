@@ -2,7 +2,7 @@
 
 // Header
 $output = '<div class="frame-header"><div class="frame-container">
-	<h1><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.'">'.$servant->site()->name().'</a></h1>';
+	<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>';
 
 
 
@@ -14,11 +14,11 @@ $output = '<div class="frame-header"><div class="frame-container">
 
 			// Selected
 			if ($servant->article()->tree(0) === $key) {
-				$output .= '<li><strong><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->title($key).'</a></strong></li>';
+				$output .= '<li><strong><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->articleName($key).'</a></strong></li>';
 
 			// Normal link
 			} else {
-				$output .= '<li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
+				$output .= '<li><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->articleName($key).'</a></li>';
 			}
 
 		}
