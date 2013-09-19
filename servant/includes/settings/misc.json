@@ -11,6 +11,8 @@
 
 	"defaults": {
 		"action": "read",
+		"contentType": "html",
+		"status": 200,
 		"language": "en"
 	},
 

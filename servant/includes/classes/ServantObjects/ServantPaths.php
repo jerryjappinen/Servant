@@ -126,6 +126,29 @@ class ServantPaths extends ServantObject {
 		return $this->getPath('utilities', $format);
 	}
 
+	/**
+	* Convenience getters
+	*/
+	public function action ($action, $format = null) {
+		return $this->actions($format).$action.'/';
+	}
+	public function userAction ($action, $format = null, $pathParameters) {
+
+		// Accept parameters as a single array or multiple independent values
+		$arguments = func_get_args();
+		array_shift($arguments);
+		array_shift($arguments);
+		$pathParameters = array_flatten($arguments);
+
+		// Add parameters to URL
+		$pathParameters = (empty($pathParameters) ? '' : implode('/', $pathParameters).'/');
+
+		return $this->userActions($format).$action.'/'.$pathParameters;
+	}
+	public function userActions ($format = null) {
+		return $this->root($format);
+	}
+
 
 
 	/**

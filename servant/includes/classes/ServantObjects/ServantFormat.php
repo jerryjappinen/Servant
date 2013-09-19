@@ -10,24 +10,39 @@
 */
 class ServantFormat extends ServantObject {
 
-	/**
-	* Create human-readable title from something like a filename
-	*/
-	public function name ($string, $replacements = null) {
 
-		// Use predefined replacement as name
+
+	/**
+	* Generate human-readable title for article from string
+	*/
+	public function articleName ($string) {
+		$name = $string;
+
+		// Explicit names given
+		$replacements = $this->servant()->site()->settings('articleNames');
 		$key = mb_strtolower($string);
-		if (is_array($replacements) and array_key_exists($key, $replacements)) {
+		if ($replacements and is_array($replacements) and array_key_exists($key, $replacements)) {
 			$name = $replacements[$key];
 
-		// Format a string into something human-readable automatically
+		// Generate
 		} else {
-			$conversions = $this->servant()->settings()->namingConvention();
-			$name = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));
+			$name = $this->name($string);
 		}
 
 		return $name;
 	}
+
+
+
+	/**
+	* Create human-readable title from something like a filename
+	*/
+	public function name ($string) {
+		$conversions = $this->servant()->settings()->namingConvention();
+		return ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));
+	}
+
+
 
 	/**
 	* Convert a path from one format to another
@@ -38,14 +53,17 @@ class ServantFormat extends ServantObject {
 		if ($resultFormat != $originalFormat) {
 
 			// Prefixes
-			$root = $this->servant()->paths()->root();
 			$documentRoot = $this->servant()->paths()->documentRoot();
+			$root = $this->servant()->paths()->root();
+			$host = $this->servant()->paths()->host();
 
 			// Strip to plain format
 			if ($originalFormat === 'server') {
 				$path = unprefix($path, $documentRoot.$root);
 			} else if ($originalFormat === 'domain') {
 				$path = unprefix($path, $root);
+			} else if ($originalFormat === 'url') {
+				$path = unprefix(unprefix($path, $host), $root);
 			}
 
 			// Add prefixes if needed
@@ -53,12 +71,16 @@ class ServantFormat extends ServantObject {
 				$path = $documentRoot.$root.$path;
 			} else if ($resultFormat === 'domain') {
 				$path = prefix($root.$path, '/');
+			} else if ($resultFormat === 'url') {
+				$path = $host.$root.$path;
 			}
 
 		}
 
 		return $path;
 	}
+
+
 
 }
 

@@ -55,7 +55,7 @@ class ServantSettings extends ServantObject {
 	*/
 	protected function setCache ($input = null) {
 
-		// Base format, with defaults
+		// Base format
 		$results = array(
 			'browser' => 0,
 			'server' => 0,
@@ -105,10 +105,12 @@ class ServantSettings extends ServantObject {
 		// Base format
 		$results = array(
 			'action' => null,
+			'contentType' => null,
 			'language' => null,
+			'status' => null,
 		);
 
-		// Pick defaults
+		// Pick values from input
 		if ($input) {
 			foreach ($results as $key => $value) {
 				if (isset($input[$key])) {
@@ -130,7 +132,7 @@ class ServantSettings extends ServantObject {
 
 	protected function setFormats ($input = null) {
 
-		// Base format with defaults
+		// Base format
 		$results = array(
 			'iconImages' => array(),
 			'templates' => array(),

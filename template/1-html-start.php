@@ -1,12 +1,15 @@
 <?php
 
+/**
+* HTML head
+*/
 echo '
 <!DOCTYPE html>
 <html lang="'.$servant->site()->language().'">
 	<head>
 		';
 
-		// Basic meta stuff - charset, scaling...
+		// Basic meta stuff
 		echo '
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,6 +25,8 @@ echo '
 		<title>'.$servant->site()->name().'</title>
 		<meta name="application-name" content="'.$servant->site()->name().'">
 		';
+
+
 
 		// Custom web site icon
 		$icon = $servant->site()->icon('domain');
@@ -51,19 +56,22 @@ echo '
 
 
 		// Stylesheets, possibly article-specific
-		// FLAG I really shouldn't hardcode the name of read action...
+		$tree = array();
 		if ($servant->action()->id() === 'read') {
-			$temp = implode('/', $servant->site()->article()->tree()).'/';
-		} else {
-			$temp = '';
+			$tree = $servant->site()->article()->tree();
 		}
-		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').'stylesheets/'.$temp.'" media="screen">';
+		echo '<link rel="stylesheet" href="'.$servant->paths()->userAction('stylesheets', 'domain', $tree).'" media="screen">';
 
 		echo '
 	</head>
 ';
 
 
+
+
+/**
+* Body starts
+*/
 
 // Create classes for body
 $i = 1;

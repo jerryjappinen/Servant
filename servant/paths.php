@@ -11,14 +11,14 @@ $paths = array(
 	// 'host' 			=> 'http://foo.net/',
 	'index' 		=> 'servant/',
 
-	// User-facing content
+	// User-facing stuff
+	'cache' 		=> 'cache/',
 	'site' 			=> 'site/',
 	'theme' 		=> 'assets/',
 	'template' 		=> 'template/',
 
 	// Backend
 	'actions' 		=> 'servant/actions/',
-	'cache' 		=> 'servant/cache/',
 	'temp' 			=> 'servant/temp/',
 	'utilities' 	=> 'servant/utilities/',
 

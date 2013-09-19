@@ -1,13 +1,11 @@
 <?php
 
 // Include scripts
-// FLAG I really shouldn't hardcode the name of read action...
+$tree = array();
 if ($servant->action()->id() === 'read') {
-	$temp = implode('/', $servant->site()->article()->tree()).'/';
-} else {
-	$temp = '';
+	$tree = $servant->site()->article()->tree();
 }
-echo '<script src="'.$servant->paths()->root('domain').'scripts/'.$temp.'"></script>';
+echo '<script src="'.$servant->paths()->userAction('scripts', 'domain', $tree).'"></script>';
 
 // End it all
 echo '</div></body></html>';

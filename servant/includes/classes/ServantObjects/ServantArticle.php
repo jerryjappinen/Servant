@@ -8,7 +8,7 @@
 * Dependencies
 *   - servant()->action()->id()
 *   - servant()->files()->read()
-*   - servant()->format()->name()
+*   - servant()->format()->articleName()
 *   - servant()->format()->path()
 *   - servant()->paths()->root()
 *   - servant()->site()
@@ -115,7 +115,7 @@ class ServantArticle extends ServantObject {
 
 	// Human-readable name, generated from ID
 	protected function setName () {
-		return $this->set('name', $this->servant()->format()->name($this->id(), $this->site()->settings('articleNames')));
+		return $this->set('name', $this->servant()->format()->articleName($this->id()));
 	}
 
 	protected function setOutput () {

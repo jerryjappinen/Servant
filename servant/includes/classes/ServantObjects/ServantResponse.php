@@ -235,7 +235,7 @@ class ServantResponse extends ServantObject {
 
 		// Invalid status
 		if (!$this->servant()->settings()->statuses($status)) {
-			$this->fail('No valid status code given');
+			$this->fail('Invalid status code given');
 
 		// Valid status
 		} else {

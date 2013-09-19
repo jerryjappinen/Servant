@@ -4,6 +4,9 @@
 * Welcome to Servant
 *
 * This script is where we route all requests to. It creates a Servant instance and runs it to serve a response.
+*
+* FLAG
+*   - classify all this so we don't leave globals for scripts
 */
 
 
@@ -75,23 +78,23 @@ if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
 /**
 * Includes
 */
-
-// Paths
-$includePaths = array(
+$includes = array(
 	'paths' => 'includes/paths.php',
 	'helpers' => 'includes/helpers/',
 	'classes' => 'includes/classes/',
 	'settings' => 'includes/settings/',
 );
-require $includePaths['paths'];
+
+// Paths
+require $includes['paths'];
 
 // Helpers
-foreach (glob($includePaths['helpers'].'*.php') as $path) {
+foreach (glob($includes['helpers'].'*.php') as $path) {
 	require_once $path;
 }
 
 // Servant classes
-foreach (rglob_files($includePaths['classes'], 'php') as $path) {
+foreach (rglob_files($includes['classes'], 'php') as $path) {
 	require_once $path;
 }
 unset($path);
@@ -101,11 +104,11 @@ unset($path);
 // JSON settings
 // FLAG I should keep these settings as PHP or parse the JSON in ServantSettings (things go FUBAR if JSON parsing fails here)
 $settings = array();
-foreach (rglob_files($includePaths['settings'], 'json') as $path) {
+foreach (rglob_files($includes['settings'], 'json') as $path) {
 	$settings = array_merge($settings, json_decode(file_get_contents($path), true));
 }
 unset($path);
-unset($includePaths);
+unset($includes);
 
 
 
@@ -117,10 +120,11 @@ unset($includePaths);
 $input = $_GET;
 unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
-// Startup
+// Startup & execution
 $servant = new ServantMain();
 $servant->init($paths, $settings, $input);
 unset($paths, $settings, $input);
 $servant->run();
 die();
+
 ?>

@@ -57,7 +57,9 @@ class ServantAction extends ServantObject {
 	* Defaults are set here, and can be overridden by action's code.
 	*/
 	public function initialize () {
-		return $this->contentType('html')->status(200)->outputViaTemplate(false)->output('');
+		$contentType = $this->servant()->settings()->defaults('contentType');
+		$status = $this->servant()->settings()->defaults('status');
+		return $this->contentType($contentType)->status($status)->outputViaTemplate(false)->output('');
 	}
 
 
@@ -115,7 +117,7 @@ class ServantAction extends ServantObject {
 	/**
 	* Content type
 	*
-	* A code for content type, available in settings. Must be available in settings.
+	* A code for content type, available in settings. Should be available in settings.
 	*/
 	protected function setContentType ($contentType) {
 		return $this->set('contentType', $contentType);
@@ -215,7 +217,7 @@ class ServantAction extends ServantObject {
 	/**
 	* Status
 	*
-	* Three-digit HTTP status code that indicates what happened in action. Must be available in settings.
+	* Three-digit HTTP status code that indicates what happened in action. Should be available in settings.
 	*/
 	protected function setStatus ($status) {
 		return $this->set('status', $status);
