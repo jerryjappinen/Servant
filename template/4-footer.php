@@ -35,7 +35,7 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	echo '<div class="clear"></div>';
 
 	// Debug stuff
-	// echo html_dump();
+	// echo html_dump($servant->utilities()->available());
 
 // Close footer
 echo '</div></div><div class="clear"></div>';

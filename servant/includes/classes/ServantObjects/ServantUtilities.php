@@ -7,6 +7,7 @@
 *
 * Dependencies
 *   - available()->utility()
+*   - available()->utilities()
 *   - format()->path()
 *   - paths()->utilities()
 */
@@ -15,8 +16,9 @@ class ServantUtilities extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyLoaded 	= null;
-	protected $propertyPath 	= null;
+	protected $propertyAvailable 	= null;
+	protected $propertyLoaded 		= null;
+	protected $propertyPath 		= null;
 
 
 
@@ -66,6 +68,13 @@ class ServantUtilities extends ServantObject {
 	/**
 	* Public getters
 	*/
+
+	/**
+	* Available
+	*/
+	public function available () {
+		return $this->servant()->available()->utilities();
+	}
 
 	/**
 	* Loaded

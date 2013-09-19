@@ -1,5 +1,8 @@
 <?php
 
+/**
+* FLAG Only utilities and actions are used - remove this class
+*/
 class ServantAvailable extends ServantObject {
 
 	/**
@@ -7,9 +10,6 @@ class ServantAvailable extends ServantObject {
 	*/
 	protected $propertyActions 		= null;
 	protected $propertyArticles 	= null;
-	protected $propertyContentTypes = null;
-	protected $propertyPatterns 	= null;
-	protected $propertyStatuses 	= null;
 	protected $propertyUtilities 	= null;
 
 
@@ -36,15 +36,6 @@ class ServantAvailable extends ServantObject {
 	public function action ($id) {
 		return in_array($id, $this->actions());
 	}
-	public function contentType ($id) {
-		return in_array($id, $this->contentTypes());
-	}
-	public function pattern ($id) {
-		return in_array($id, $this->patterns());
-	}
-	public function status ($id) {
-		return in_array($id, $this->statuses());
-	}
 	public function utility ($id) {
 		return in_array($id, $this->utilities());
 	}
@@ -57,18 +48,6 @@ class ServantAvailable extends ServantObject {
 
 	protected function setActions () {
 		return $this->set('actions', array_merge($this->findFiles('actions', 'php'), $this->findDirectories('actions')));
-	}
-
-	protected function setContentTypes () {
-		return $this->set('contentTypes', array_keys($this->servant()->settings()->contentTypes()));
-	}
-
-	protected function setPatterns () {
-		return $this->set('patterns', array_keys($this->servant()->settings()->patterns()));
-	}
-
-	protected function setStatuses () {
-		return $this->set('statuses', array_keys($this->servant()->settings()->statuses()));
 	}
 
 	/**
@@ -88,7 +67,7 @@ class ServantAvailable extends ServantObject {
 
 	private function findFiles ($dir, $types) {
 		$items = array();
-		$files = glob_files($this->servant()->paths()->$dir('server'), to_array($types));
+		$files = glob_files($this->servant()->paths()->$dir('server'), $types);
 		foreach ($files as $path) {
 			$items[] = pathinfo($path, PATHINFO_FILENAME);
 		}

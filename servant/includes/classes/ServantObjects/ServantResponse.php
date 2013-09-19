@@ -128,7 +128,7 @@ class ServantResponse extends ServantObject {
 		}
 
 		// Invalid
-		if (!$this->servant()->available()->contentType($contentType)) {
+		if (!$this->servant()->settings()->contentTypes($contentType)) {
 			$this->fail('No valid content type determined');
 
 		// Valid
@@ -234,7 +234,7 @@ class ServantResponse extends ServantObject {
 
 
 		// Invalid status
-		if (!$this->servant()->available()->status($status)) {
+		if (!$this->servant()->settings()->statuses($status)) {
 			$this->fail('No valid status code given');
 
 		// Valid status
