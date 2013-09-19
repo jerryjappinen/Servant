@@ -11,17 +11,13 @@
 /**
 * Error handling & debug features
 */
-
-// The basics
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '0');
 ini_set('error_log', 'errors.log');
 date_default_timezone_set('UTC');
 
 // Debug features on localhost
-$debug = false;
 if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
-	$debug = true;
 	ini_set('display_errors', '1');
 	error_reporting(error_reporting() & ~E_NOTICE);
 
@@ -77,62 +73,39 @@ if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
 
 
 /**
-* Paths
+* Includes
 */
-require 'paths.php';
 
-// Auto setect document root
-if (!isset($paths['documentRoot'])) {
-	$paths['documentRoot'] = $_SERVER['DOCUMENT_ROOT'];
-}
+// Paths
+$includePaths = array(
+	'paths' => 'includes/paths.php',
+	'helpers' => 'includes/helpers/',
+	'classes' => 'includes/classes/',
+	'settings' => 'includes/settings/',
+);
+require $includePaths['paths'];
 
-// Auto detect root
-if (!isset($paths['root'])) {
-	$paths['root'] = substr($_SERVER['SCRIPT_NAME'], 0, -(strlen($paths['index'].'index.php')));
-	if (substr($paths['root'], 0, 1) == '/') {
-		$paths['root'] = substr($paths['root'], 1);
-	}
-}
-
-// Sanitize path formatting
-foreach ($paths as $key => $path) {
-	if (substr($paths[$key], 0, 1) === '/') {
-		$paths[$key] = substr($paths[$key], 1);
-	}
-	if (substr($paths[$key], -1) !== '/') {
-		$paths[$key] = $paths[$key].'/';
-	}
-}
-$paths['documentRoot'] = '/'.$paths['documentRoot'];
-unset($key, $path);
-
-
-
-/**
-* Load helpers & Servant's classes
-*/
-foreach (glob($paths['documentRoot'].$paths['root'].$paths['helpers'].'*.php') as $path) {
+// Helpers
+foreach (glob($includePaths['helpers'].'*.php') as $path) {
 	require_once $path;
 }
-foreach (rglob_files($paths['documentRoot'].$paths['root'].$paths['classes'], 'php') as $path) {
+
+// Servant classes
+foreach (rglob_files($includePaths['classes'], 'php') as $path) {
 	require_once $path;
 }
 unset($path);
 
 
 
-/**
-* Include JSON settings
-*
-* FLAG
-*   - I should throw errors when parsing JSON fails, but I don't know how to at this point
-*   - I should parse JSON within ServantSettings
-*/
+// JSON settings
+// FLAG I should keep these settings as PHP or parse the JSON in ServantSettings (things go FUBAR if JSON parsing fails here)
 $settings = array();
-foreach (rglob_files($paths['documentRoot'].$paths['root'].$paths['settings'], 'json') as $path) {
+foreach (rglob_files($includePaths['settings'], 'json') as $path) {
 	$settings = array_merge($settings, json_decode(file_get_contents($path), true));
 }
 unset($path);
+unset($includePaths);
 
 
 
@@ -140,7 +113,7 @@ unset($path);
 * Running Servant
 */
 
-//Clear some things to prevent abuse
+// Get rid of hazardous things
 $input = $_GET;
 unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 

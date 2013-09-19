@@ -193,6 +193,13 @@ class ServantObject {
 		return $this;
 	}
 
+	/**
+	* See if a property has a dedicated setter
+	*/
+	protected function setterExists ($id) {
+		return method_exists($this, $this->setterName($id));
+	}
+
 
 
 	/**
