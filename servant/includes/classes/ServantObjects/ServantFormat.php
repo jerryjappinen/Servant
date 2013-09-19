@@ -26,7 +26,7 @@ class ServantFormat extends ServantObject {
 
 		// Generate
 		} else {
-			$name = $this->name($string);
+			$name = $this->title($string);
 		}
 
 		return $name;
@@ -37,7 +37,7 @@ class ServantFormat extends ServantObject {
 	/**
 	* Create human-readable title from something like a filename
 	*/
-	public function name ($string) {
+	public function title ($string) {
 		$conversions = $this->servant()->settings()->namingConvention();
 		return ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));
 	}

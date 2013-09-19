@@ -60,7 +60,7 @@ $output = '
 
 				// Dropdown menu
 				if ($dropdown) {
-					$output .= '<a href="." class="dropdown-toggle" data-toggle="dropdown">'.$servant->format()->name($key).' <b class="caret"></b></a>
+					$output .= '<a href="." class="dropdown-toggle" data-toggle="dropdown">'.$servant->format()->title($key).' <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Action</a></li>
 							<li><a href="#">Another action</a></li>
@@ -73,7 +73,7 @@ $output = '
 
 				// Link
 				} else {
-					$output .= '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->name($key).'</a>';
+					$output .= '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->title($key).'</a>';
 				}
 
 				$output .= '</li>';
@@ -110,7 +110,7 @@ $output = '
 				foreach ($level2 as $key => $value) {
 
 					// Link HTML
-					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a>';
+					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
 
 					// Selected item
 					if ($servant->article()->tree(1) === $key) {
@@ -132,7 +132,7 @@ $output = '
 								}
 
 								// Child item HTML
-								$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
+								$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
 								if ($servant->article()->tree(2) === $key2) {
 									$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
 								} else {

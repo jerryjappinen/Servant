@@ -87,7 +87,7 @@ $output .= '
 					$level1 = $servant->site()->articles();
 					if (!empty($level1)) {
 						foreach ($level1 as $key => $value) {
-							$output .= '<li class="reset'.($servant->article()->tree(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="reset'.($servant->article()->tree(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
 						}
 					}
 					unset($level1, $key, $value);
@@ -113,7 +113,7 @@ $output .= '
 					$level2 = $servant->site()->articles($servant->article()->tree(0));
 					if (!empty($level2) and is_array($level2)) {
 						foreach ($level2 as $key => $value) {
-							$output .= '<li class="reset'.($servant->article()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+							$output .= '<li class="reset'.($servant->article()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
 						}
 					}
 					unset($level2, $key, $value);
@@ -128,15 +128,15 @@ $output .= '
 
 						// First-level article
 						if (is_string($value) or is_array($value) and count($value) === 1) {
-							$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->name($key).'</option>';
+							$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->title($key).'</option>';
 
 						// Nested
 						} else if (is_array($value)) {
 
 							// Wrap in optgroup
-							$output .= '<optgroup label="'.$servant->format()->name($key).'">';
+							$output .= '<optgroup label="'.$servant->format()->title($key).'">';
 							foreach ($value as $key2 => $value2) {
-								$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</option>';
+								$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</option>';
 							}
 							$output .= '</optgroup>';
 
@@ -182,7 +182,7 @@ $output .= '
 							$level3 = $servant->site()->articles($servant->article()->tree(0), $servant->article()->tree(1));
 							if (!empty($level3) and is_array($level3)) {
 								foreach ($level3 as $key => $value) {
-									$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->name($key).'</a></li>';
+									$output .= '<li class="reset'.($servant->article()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->article()->tree(0).'/'.$servant->article()->tree(1).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
 								}
 							}
 							unset($level3, $key, $value);

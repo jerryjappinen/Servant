@@ -15,7 +15,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 			foreach ($level2 as $key => $value) {
 
 				// Link HTML
-				$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->name($key).'</a>';
+				$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
 
 				// Selected item or group
 				if ($servant->article()->tree(1) === $key) {
@@ -44,7 +44,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 					foreach ($value as $key2 => $value2) {
 
 						// Child item HTML
-						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->name($key2).'</a>';
+						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
 						if ($servant->article()->tree(1) === $key and $servant->article()->tree(2) === $key2) {
 							$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
 						} else {

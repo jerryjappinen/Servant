@@ -10,7 +10,7 @@ foreach ($images as $key => $value) {
 	$url = unprefix($url, $servant->paths()->sites());
 
 	echo '
-	<h4>'.$servant->format()->name(pathinfo($value, PATHINFO_FILENAME)).'</h4>
+	<h4>'.$servant->format()->title(pathinfo($value, PATHINFO_FILENAME)).'</h4>
 	<p><img src="'.basename($value).'"></p>
 	';
 }

@@ -20,15 +20,15 @@ echo '<div class="frame-footer"><div class="frame-container">';
 
 	// Create footer links for articles
 	foreach ($pages as $id) {
-		echo '<dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$id.'/">'.$servant->format()->name($id).'</a></dd>';
+		echo '<dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$id.'/">'.$servant->format()->title($id).'</a></dd>';
 	}
 	echo '</dl>';
 
 	// Create footer links for categories
 	foreach ($categories as $category) {
-		echo '<dl><dt><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$category.'/">'.$servant->format()->name($category).'</a></dt>';
+		echo '<dl><dt><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$category.'/">'.$servant->format()->title($category).'</a></dt>';
 		foreach ($servant->site()->articles($category) as $id => $value) {
-			echo '<dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$category.'/'.$id.'/">'.$servant->format()->name($id).'</a></dd>';
+			echo '<dd><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$category.'/'.$id.'/">'.$servant->format()->title($id).'</a></dd>';
 		}
 		echo '</dl>';
 	}

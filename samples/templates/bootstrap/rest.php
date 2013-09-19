@@ -19,7 +19,7 @@ echo '<div class="footer container">';
 
 		// Create footer links for articles
 		foreach ($pages as $id) {
-			echo '<li><a href=".">'.$servant->format()->name($id).'</a></li>';
+			echo '<li><a href=".">'.$servant->format()->title($id).'</a></li>';
 		}
 		echo '</ul></div>';
 
@@ -27,9 +27,9 @@ echo '<div class="footer container">';
 		$i = 2;
 		foreach ($categories as $id) {
 			echo $i === 1 ? '<div class="row">' : '';
-			echo '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->name($id).'</li>';
+			echo '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->title($id).'</li>';
 			foreach ($servant->site()->articles($id) as $key => $value) {
-				echo '<li><a href=".">'.$servant->format()->name($key).'</a></li>';
+				echo '<li><a href=".">'.$servant->format()->title($key).'</a></li>';
 			}
 			echo '</ul></div>';
 
