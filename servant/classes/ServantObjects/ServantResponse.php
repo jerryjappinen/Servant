@@ -30,7 +30,7 @@ class ServantResponse extends ServantObject {
 	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
 	*/
 	public function serve () {
-		$cacheEnabled = $this->servant()->settings()->cache('server') > 0;	
+		$cacheEnabled = $this->servant()->settings()->cache('server') > 0;
 
 		// Response has been saved
 		if ($cacheEnabled and $this->existing()) {

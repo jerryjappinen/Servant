@@ -17,11 +17,7 @@
 	"namingConvention": {
 		"-": " ",
 		"_": " ",
-		" and ": " &amp; ",
-		"+": " &amp; ",
-		"url": "URL",
-		"jquery": "jQuery",
-		"js ": "JS "
+		"+": " &amp; "
 	}
 
 }

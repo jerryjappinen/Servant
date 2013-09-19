@@ -115,7 +115,7 @@ class ServantArticle extends ServantObject {
 
 	// Human-readable name, generated from ID
 	protected function setName () {
-		return $this->set('name', $this->servant()->format()->name($this->id(), $this->site()->settings('names')));
+		return $this->set('name', $this->servant()->format()->name($this->id(), $this->site()->settings('articleNames')));
 	}
 
 	protected function setOutput () {

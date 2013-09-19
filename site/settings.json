@@ -2,7 +2,7 @@
 	"icon": "about/logo.png",
 	"language": "en",
 	"name": "Servant",
-	"names": {
+	"articleNames": {
 		"text-and-markdown": "Text & Markdown"
 	}
 }

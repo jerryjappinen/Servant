@@ -9,11 +9,11 @@ if (!function_exists('createNestedLists')) {
 			// Children
 			// FLAG doesn't detect arrays with only one item (these should be presented as individual articles)
 			if (is_array($value)) {
-				$result .= '<li>'.$servant->format()->name($key).createNestedLists($servant, $value).'</li>';
+				$result .= '<li>'.$servant->format()->name($key, $servant()->site()->settings('articleNames')).createNestedLists($servant, $value).'</li>';
 
 			// Articles
 			} else {
-				$result .= '<li>'.$servant->format()->name($key).'</li>';
+				$result .= '<li>'.$servant->format()->name($key, $servant()->site()->settings('articleNames')).'</li>';
 			}
 
 		}

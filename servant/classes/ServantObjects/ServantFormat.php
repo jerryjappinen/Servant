@@ -15,17 +15,12 @@ class ServantFormat extends ServantObject {
 	*/
 	public function name ($string, $replacements = null) {
 
-		// Fallback to site replacement settings
-		if (!is_array($replacements)) {
-			$replacements = $this->servant()->site()->settings('names');
-		}
-
 		// Use predefined replacement as name
 		$key = mb_strtolower($string);
-		if (array_key_exists($key, $replacements)) {
+		if (is_array($replacements) and array_key_exists($key, $replacements)) {
 			$name = $replacements[$key];
 
-		// Format ID into something human-readable automatically
+		// Format a string into something human-readable automatically
 		} else {
 			$conversions = $this->servant()->settings()->namingConvention();
 			$name = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));

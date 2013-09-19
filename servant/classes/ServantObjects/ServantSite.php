@@ -7,14 +7,14 @@ class ServantSite extends ServantObject {
 	*/
 	protected $propertyArticle 		= null;
 	protected $propertyArticles 	= null;
-	protected $propertySettings		= null;
 	protected $propertyIcon 		= null;
 	protected $propertyId 			= null;
 	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
 	protected $propertyPath 		= null;
-	protected $propertyStylesheets 	= null;
 	protected $propertyScripts 		= null;
+	protected $propertySettings		= null;
+	protected $propertyStylesheets 	= null;
 
 
 
@@ -152,7 +152,7 @@ class ServantSite extends ServantObject {
 			'icon' => '',
 			'language' => '',
 			'name' => '',
-			'names' => array()
+			'articleNames' => array(),
 		);
 
 		// Look for settings file
@@ -183,12 +183,12 @@ class ServantSite extends ServantObject {
 		}
 
 		// Normalize name conversions array
-		if (!empty($settings['names'])) {
+		if (!empty($settings['articleNames'])) {
 			$temp = array();
-			foreach (array_flatten($settings['names'], false, true) as $key => $value) {
+			foreach (array_flatten($settings['articleNames'], false, true) as $key => $value) {
 				$temp[mb_strtolower($key)] = $value;
 			}
-			$settings['names'] = $temp;
+			$settings['articleNames'] = $temp;
 		}
 
 		return $this->set('settings', $settings);
