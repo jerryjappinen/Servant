@@ -10,9 +10,9 @@ $paths = array(
 	'index' 		=> 'backend/',
 
 	// User-facing directories
-	'site' 			=> 'pages/',
-	'template' 		=> 'template/',
-	'theme' 		=> 'theme/',
+	'articles' 		=> 'site/pages/',
+	'template' 		=> 'site/template/',
+	'theme' 		=> 'site/theme/',
 
 	// Backend
 	'actions' 		=> 'backend/actions/',
@@ -37,8 +37,8 @@ if (!isset($paths['root'])) {
 	}
 }
 
-// Domain auto detect
-// If you need to add port, use this:		.':'.$_SERVER['SERVER_PORT'])
+// Detect domain
+// If you need to add port, use this:			.':'.$_SERVER['SERVER_PORT'])
 if (!isset($paths['host'])) {
 	$paths['host'] = strtolower(substr($_SERVER['SERVER_PROTOCOL'], 0, strpos($_SERVER['SERVER_PROTOCOL'], '/'))).'://'.$_SERVER['HTTP_HOST'].'/';
 }

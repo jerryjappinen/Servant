@@ -29,15 +29,16 @@ class ServantPaths extends ServantObject {
 		$pathKeys = array(
 			'documentRoot',
 			'root',
-			'index',
 			'host',
+			'index',
+
+			'articles',
+			'template',
+			'theme',
 
 			'actions',
 			'cache',
-			'site',
 			'temp',
-			'template',
-			'theme',
 			'utilities',
 		);
 

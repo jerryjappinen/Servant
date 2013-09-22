@@ -139,7 +139,7 @@ class ServantSite extends ServantObject {
 	* Path
 	*/
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->site('plain'));
+		return $this->set('path', $this->servant()->paths()->articles('plain'));
 	}
 
 	/**
