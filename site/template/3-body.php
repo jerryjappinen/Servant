@@ -68,13 +68,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 
 
 	// Content
-	$output .= '<div class="frame-page">'.
-
-	// Debug
-	html_dump($servant->pages()->map('technical-docs', 'theme-packages', 'how-themes-work')->dump()).
-	// html_dump($servant->pages()->files()).
-
-	$servant->template()->content().'</div>';
+	$output .= '<div class="frame-article">'.$servant->template()->content().'</div>';
 
 
 

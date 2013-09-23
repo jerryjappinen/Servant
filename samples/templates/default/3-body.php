@@ -68,7 +68,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 
 
 	// Content
-	$output .= '<div class="frame-page">'.$servant->template()->content().'</div>';
+	$output .= '<div class="frame-article">'.$servant->template()->content().'</div>';
 
 
 

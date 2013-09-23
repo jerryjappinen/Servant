@@ -178,9 +178,9 @@ class ServantPage extends ServantObject {
 		return $this->set('stylesheets', $this->filterSiteFiles('stylesheets'));
 	}
 
-	protected function setTree ($tree = null) {
-		$tree = $this->selectPage($this->site()->pages(), to_array($tree));
-		return $this->set('tree', $tree);
+	protected function setTree ($treeInput = null) {
+		$resultTree = $this->selectPage($this->site()->pages(), to_array($treeInput));
+		return $this->set('tree', $resultTree);
 	}
 
 	protected function setType () {

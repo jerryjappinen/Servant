@@ -16,6 +16,11 @@ class ServantPages extends ServantObject {
 	* Public getters
 	*/
 
+	// Return current page object
+	public function current () {
+		return $this->map($this->getAndSet('current'));
+	}
+
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -31,25 +36,28 @@ class ServantPages extends ServantObject {
 	*/
 
 	/**
-	* Current page
+	* Tree keys of selected page
 	*/
 	protected function setCurrent () {
 
-		// Select page based on input
-		$selectedPage = $this->servant()->input()->page();
+		// Get user input
+		$input = $this->servant()->input()->page();
 
-		return $this->set('page', create_object(new ServantPage($this->servant()))->init($this, $selectedPage));
+		// Select the page most closely matching input
+		$resultTree = $this->selectPage($this->files(), $input);
+
+		return $this->set('current', $resultTree);
 	}
 
 	/**
-	* All pages, recursively in a map, with file paths
+	* All available files that can be converted to pages, recursively and with paths
 	*/
 	protected function setFiles () {
-		return $this->set('files', $this->findPages($this->path('server'), $this->servant()->settings()->formats('templates')));
+		return $this->set('files', $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
 	/**
-	* Full map with page objects
+	* All available pages as page objects
 	*/
 	public function setMap () {
 		return $this->set('map', $this->generatePathObjects($this->files()));
@@ -71,10 +79,56 @@ class ServantPages extends ServantObject {
 
 
 	/**
-	* Create page tree with actual objects
+	* List available pages recursively
 	*
 	* FLAG
-	*   - is this an overkill?
+	*   - exclusion of settings file is a bit laborious
+	*/
+	private function findPageFiles ($path, $filetypes = array()) {
+		$results = array();
+		$blacklist = array();
+
+		// Blacklist site settings file
+		$blacklist[] = $this->path('plain').$this->servant()->settings()->packageContents('siteSettingsFile');
+
+		// Files on this level
+		foreach (glob_files($path, $filetypes) as $file) {
+
+			// Check path against blacklisted values
+			$value = $this->servant()->format()->path($file, 'plain', 'server');
+			if (!in_array($value, $blacklist)) {
+				$results[pathinfo($file, PATHINFO_FILENAME)] = $value;
+			}
+
+		}
+		unset($value);
+
+		// Non-empty child directories
+		foreach (glob_dir($path) as $subdir) {
+			$value = $this->findPageFiles($subdir, $filetypes);
+			if (!empty($value)) {
+
+				// Represent arrays with only one item as pages
+				// NOTE the directory name is used as the key, not the filename
+				if (count($value) < 2) {
+					$keys = array_keys($value);
+					$value = $value[$keys[0]];
+				}
+
+				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $value;
+			}
+		}
+
+		// Mix sort directories and files
+		uksort($results, 'strcasecmp');
+
+		return $results;
+	}
+
+
+
+	/**
+	* Create page tree with actual objects
 	*/
 	private function generatePathObjects ($fileMap = array(), $parents = array()) {
 		$result = $fileMap;
@@ -98,51 +152,34 @@ class ServantPages extends ServantObject {
 		return $result;
 	}
 
+
+
 	/**
-	* List available pages recursively
-	*
-	* FLAG
-	*   - exclusion of settings file is a bit laborious
+	* Choose one page from those available, preferring the one detailed in $tree
 	*/
-	private function findPages ($path, $filetypes = array()) {
-		$results = array();
-		$blacklist = array();
+	private function selectPage ($filesOnThisLevel, $tree, $level = 0) {
+ 
+		// No preference or preferred item doesn't exist: auto select
+		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $filesOnThisLevel)) {
 
-		// Blacklist site settings file
-		$blacklist[] = $this->path('plain').$this->servant()->settings()->packageContents('siteSettingsFile');
+			// Cut out the rest of the preferred items
+			$tree = array_slice($tree, 0, $level);
 
-		// Files on this level
-		foreach (glob_files($path, $filetypes) as $file) {
-
-			// Check path against blacklisted values
-			$value = $this->servant()->format()->path($file, 'plain', 'server');
-			if (!in_array($value, $blacklist)) {
-				$results[pathinfo($file, PATHINFO_FILENAME)] = $value;
-			}
+			// Auto select first item on this level
+			$keys = array_keys($filesOnThisLevel);
+			$tree[] = $keys[0];
 
 		}
-		unset($value);
 
-		// Non-empty child directories
-		foreach (glob_dir($path) as $subdir) {
-			$value = $this->findPages($subdir, $filetypes);
-			if (!empty($value)) {
+		// We need to go deeper
+		if (is_array($filesOnThisLevel[$tree[$level]])) {
+			return $this->selectPage($filesOnThisLevel[$tree[$level]], $tree, $level+1);
 
-				// Represent arrays with only one item as pages
-				// NOTE the directory name is used as the key, not the filename
-				if (count($value) < 2) {
-					$keys = array_keys($value);
-					$value = $value[$keys[0]];
-				}
-
-				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $value;
-			}
+		// That was it
+		} else {
+			return array_slice($tree, 0, $level+1);
 		}
 
-		// Mix sort directories and files
-		uksort($results, 'strcasecmp');
-
-		return $results;
 	}
 
 }
