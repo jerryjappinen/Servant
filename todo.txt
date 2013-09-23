@@ -1,0 +1,8 @@
+
+To do
+=====
+
+- Site settings file location makes no sense
+- Servant doesn't have to treat global settings and site settings so differently
+- Add ServantPages with proper node system and any number of page objects
+- Make ServantPage just a shortcut to the current page of SevantPaths

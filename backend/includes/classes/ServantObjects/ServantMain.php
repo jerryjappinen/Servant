@@ -39,6 +39,7 @@ class ServantMain extends ServantObject {
 	protected $propertyFormat 		= null;
 	protected $propertyHttpHeaders 	= null;
 	protected $propertyInput 		= null;
+	protected $propertyPages 		= null;
 	protected $propertyParse 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertyResponse 	= null;
@@ -74,6 +75,9 @@ class ServantMain extends ServantObject {
 	}
 	protected function setInput ($input) {
 		return $this->set('input', create_object(new ServantInput($this))->init($input));
+	}
+	protected function setPages () {
+		return $this->set('pages', create_object(new ServantPages($this))->init());
 	}
 	protected function setParse () {
 		return $this->set('parse', create_object(new ServantParse($this))->init());

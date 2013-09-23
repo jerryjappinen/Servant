@@ -5,12 +5,11 @@ class ServantSite extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyPage 		= null;
-	protected $propertyPages 		= null;
 	protected $propertyIcon 		= null;
-	protected $propertyId 			= null;
 	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
+	protected $propertyPage 		= null;
+	protected $propertyPages 		= null;
 	protected $propertyPath 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertySettings		= null;
@@ -65,24 +64,6 @@ class ServantSite extends ServantObject {
 	*/
 
 	/**
-	* Selected page as child object
-	*/
-	protected function setPage () {
-
-		// Select page based on input
-		$selectedPage = $this->servant()->input()->page();
-
-		return $this->set('page', create_object(new ServantPage($this->servant()))->init($this, $selectedPage));
-	}
-
-	/**
-	* Pages of this site
-	*/
-	protected function setPages () {
-		return $this->set('pages', $this->findPages($this->path('server'), $this->servant()->settings()->formats('templates')));
-	}
-
-	/**
 	* Path to site icon comes from settings or remains an empty string
 	*/
 	protected function setIcon () {
@@ -133,6 +114,24 @@ class ServantSite extends ServantObject {
 	protected function setName () {
 		$name = $this->settings('name');
 		return $this->set('name', $name ? $name : 'Home');
+	}
+
+	/**
+	* Current page as child object
+	*/
+	protected function setPage () {
+
+		// Select page based on input
+		$selectedPage = $this->servant()->input()->page();
+
+		return $this->set('page', create_object(new ServantPage($this->servant()))->init($this, $selectedPage));
+	}
+
+	/**
+	* Pages of this site
+	*/
+	protected function setPages () {
+		return $this->set('pages', $this->findPages($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
 	/**

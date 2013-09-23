@@ -31,9 +31,6 @@ class ServantObject {
 	* When calling an inaccessible method, the fallback is getAndSet()
 	*/
 	public function __call ($id, $arguments) {
-		if ($id === 'fail') {
-			log_dump($this->dump());
-		}
 		return $this->getAndSet($id, $arguments);
 	}
 
@@ -118,7 +115,7 @@ class ServantObject {
 	/**
 	* Output object content for debugging
 	*/
-	protected function dump () {
+	public function dump () {
 		$results = array();
 
 		// Accept input in various ways
@@ -143,7 +140,7 @@ class ServantObject {
 		foreach ($properties as $property) {
 			$value = $this->get($property);
 
-			// Call dump() for children, too
+			// call __toString() of child ServantObjects
 			if (is_object($value) and is_subclass_of($value, 'ServantObject')) {
 				$results[$property] = ''.$value;
 			} else {
