@@ -12,24 +12,28 @@ date_default_timezone_set('UTC');
 * This script is where we route all dynamic requests to. It creates an instance of Servant and runs it to serve a response.
 */
 class Index {
-
-	/**
-	* Run a program cleanly with globals gone
-	*/
 	public function __construct () {
 		if (isset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES)) {
+			try {
 
-			// Arbitrary preparations
-			$arguments = func_get_args();
-			$preparation = call_user_func_array(array($this, 'prepare'), $arguments);
+				// Arbitrary preparations
+				$arguments = func_get_args();
+				$preparation = call_user_func_array(array($this, 'prepare'), $arguments);
 
-			// Get rid of hazardous globals
-			unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
+				// Get rid of hazardous globals
+				unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
-			// Run program
-			call_user_func_array(array($this, 'run'), $preparation);
+				// Run program
+				call_user_func_array(array($this, 'run'), $preparation);
+				return $this;
+
+			} catch (Exception $e) {
+				die();				
+			}
 		}
 	}
+
+
 
 	/**
 	* Prepare parameters for program's initialization before superglobals are cleared
