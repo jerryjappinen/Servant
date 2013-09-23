@@ -18,7 +18,17 @@ class ServantSettings extends ServantObject {
 	/**
 	* Take original settings in during initialization (all are optional)
 	*/
-	public function initialize ($settings = null) {
+	public function initialize ($json = null) {
+		$input = array();
+
+		// Read input JSON, turn into an array
+		if (is_string($json)) {
+			$decode = json_decode(suffix(prefix(trim($json), '{'), '}'), true);
+			if (is_array($decode)) {
+				$input = $decode;
+			}
+			unset($decode);
+		}
 
 		// This is what we can set
 		$properties = array(
@@ -32,11 +42,11 @@ class ServantSettings extends ServantObject {
 		);
 
 		// Run setters if values are given
-		if (is_array($settings) and !empty($settings)) {
+		if ($input and is_array($input)) {
 			foreach ($properties as $key) {
 				$parameters = array();
-				if (isset($settings[$key]) and !empty($settings[$key])) {
-					$parameters[] = to_array($settings[$key]);
+				if (isset($input[$key]) and !empty($input[$key])) {
+					$parameters[] = to_array($input[$key]);
 				}
 				$this->callSetter($key, $parameters);
 			}

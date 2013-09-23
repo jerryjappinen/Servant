@@ -32,7 +32,7 @@ class Index {
 	}
 
 	/**
-	* Prepare for the program
+	* Prepare parameters for program's initialization before superglobals are cleared
 	*/
 	private function prepare ($errorHandlerFile, $helpersDirectory, $classesDirectory, $pathsFile, $constantsDirectory) {
 
@@ -43,13 +43,11 @@ class Index {
 		foreach (glob($helpersDirectory.'*.php') as $path) {
 			require_once $path;
 		}
-		unset($path);
 
 		// Load servant classes
 		foreach (rglob_files($classesDirectory, 'php') as $path) {
 			require_once $path;
 		}
-		unset($path);
 
 
 
@@ -58,13 +56,11 @@ class Index {
 		require $pathsFile;
 
 		// JSON settings
-		// FLAG I should keep these settings as PHP or parse the JSON in ServantSettings (things go FUBAR if JSON parsing fails here)
-		$constants = array();
+		$jsons = array();
 		foreach (rglob_files($constantsDirectory, 'json') as $path) {
-			$constants = array_merge($constants, json_decode(file_get_contents($path), true));
+			$jsons[] = unsuffix(unprefix(file_get_contents($path), '{'), '}');
 		}
-		unset($path);
-		unset($includes);
+		$constantsJson = '{'.implode(',', $jsons).'}';
 
 		// User input
 		$input = $_GET;
@@ -72,7 +68,7 @@ class Index {
 
 
 		// These will be passed to the runner
-		return array($paths, $constants, $input);
+		return array($paths, $constantsJson, $input);
 	}
 
 

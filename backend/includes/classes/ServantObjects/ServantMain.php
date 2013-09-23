@@ -14,7 +14,7 @@ class ServantMain extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize ($paths, $settings, $input = null) {
+	public function initialize ($paths, $settings = null, $input = null) {
 
 		// FLAG clear temp directory at this point
 
@@ -92,7 +92,7 @@ class ServantMain extends ServantObject {
 	protected function setResponse () {
 		return $this->set('response', create_object(new ServantResponse($this))->init());
 	}
-	protected function setSettings ($settings = array()) {
+	protected function setSettings ($settings = null) {
 		return $this->set('settings', create_object(new ServantSettings($this))->init($settings));
 	}
 	protected function setSite () {
