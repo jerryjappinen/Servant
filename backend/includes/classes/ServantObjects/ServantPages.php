@@ -16,7 +16,7 @@ class ServantPages extends ServantObject {
 	* Public getters
 	*/
 
-	// Return current page object
+	// Getter returns page object (while tree is stored in the prameter)
 	public function current () {
 		return $this->map($this->getAndSet('current'));
 	}

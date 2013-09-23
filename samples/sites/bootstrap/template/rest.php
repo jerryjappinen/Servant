@@ -45,7 +45,7 @@ echo '<div class="footer container">';
 echo '</div>';
 
 // Include scripts
-echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->pages()->current()->tree()).'/'.'"></script>';
+echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->page()->tree()).'/'.'"></script>';
 
 // End it all
 echo '

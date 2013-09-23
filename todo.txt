@@ -2,9 +2,9 @@
 To do
 =====
 
+- Parse global settings from JSON in ServantSettings (not index.php wrapper)
 - Site settings file location makes no sense
-- Servant doesn't have to treat global settings and site settings so differently
-- Add name of important actions to settings (at least 'read' has to be separated from others)
 
-- Add ServantPages with proper node system and any number of page objects
-- Make ServantPage just a shortcut to the current page of SevantPaths
+- Servant doesn't have to treat global settings and site settings so differently
+
+- Add name of important actions to settings (at least 'read' has to be separated from others)

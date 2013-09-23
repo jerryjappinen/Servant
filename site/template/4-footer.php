@@ -15,7 +15,7 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	}
 
 	// Pages & generic stuff
-	echo '<dl><dt><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></dt><dd><a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->pages()->current()->tree()).'">Sitemap</a></dd>
+	echo '<dl><dt><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></dt><dd><a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->page()->tree()).'">Sitemap</a></dd>
 	';
 
 	// Create footer links for pages

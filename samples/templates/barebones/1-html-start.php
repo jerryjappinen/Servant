@@ -47,7 +47,7 @@
 		// FLAG I really shouldn't hardcode the name of read action...
 		$temp = $servant->paths()->root('domain').'stylesheets/';
 		if ($servant->action()->id() === 'read') {
-			$temp .= implode('/', $servant->pages()->current()->tree()).'/';
+			$temp .= implode('/', $servant->page()->tree()).'/';
 		}
 		?>
 		<link rel="stylesheet" href="<?= $temp ?>" media="screen">

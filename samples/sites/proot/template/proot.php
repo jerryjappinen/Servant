@@ -52,7 +52,7 @@ $output = '
 
 
 		// Stylesheets
-		$output .= '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->pages()->current()->tree()).'/'.'" media="screen">';
+		$output .= '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->page()->tree()).'/'.'" media="screen">';
 
 		$output .= '
 	</head>
@@ -265,7 +265,7 @@ $output .= '
 		';
 
 		// Include scripts
-		echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->pages()->current()->tree()).'/'.'"></script>';
+		echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->page()->tree()).'/'.'"></script>';
 
 		$output .= '
 	</body>
