@@ -1,13 +1,9 @@
 <?php
 
-// Main paths for internal use
+/**
+* Main paths for internal use
+*/
 $paths = array(
-
-	// Uncomment to override auto detection
-	// 'documentRoot' 	=> '/Users/jjappinen/Documents/Development/',
-	// 'root' 			=> 'foo.net/www/',
-	// 'host' 			=> 'http://foo.net/',
-	'index' 		=> 'backend/',
 
 	// User-facing locations
 	'pages' 		=> 'site/pages/',
@@ -20,6 +16,12 @@ $paths = array(
 	'cache' 		=> 'cache/',
 	'temp' 			=> 'backend/temp/',
 	'utilities' 	=> 'backend/utilities/',
+
+	// Roots (uncomment to override auto detection)
+	// 'documentRoot' 	=> '/Users/jjappinen/Documents/Development/',
+	// 'root' 			=> 'foo.net/www/',
+	// 'host' 			=> 'http://foo.net/',
+	'index' 		=> 'backend/',
 
 );
 

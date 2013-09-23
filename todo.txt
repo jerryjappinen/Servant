@@ -2,10 +2,10 @@
 To do
 =====
 
-- userAction is a silly name (in paths)
-
 - Parse global settings from JSON in ServantSettings (not index.php wrapper)
 
-- Servant doesn't have to treat global settings and site settings so differently
-
 - Add name of important actions to settings (at least 'read' has to be separated from others)
+
+- userAction is a silly name (in paths)
+
+- Servant doesn't have to treat global settings and site settings so differently
