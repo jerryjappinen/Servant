@@ -1,6 +1,0 @@
-
-To do
-=====
-
-- Add names of important actions to settings (at least 'read' has to be separated from others)
-- userAction is a silly name (in paths)
