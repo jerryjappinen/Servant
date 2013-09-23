@@ -2,15 +2,17 @@
 
 class ServantMain extends ServantObject {
 
+
+
 	/**
-	* Override construction method
+	* Override construction (no automatic initialization)
 	*/
 	public function __construct () {
 		return $this;
 	}
 
 	/**
-	* Startup
+	* Initialization
 	*/
 	public function initialize ($paths, $settings, $input = null) {
 
@@ -49,10 +51,12 @@ class ServantMain extends ServantObject {
 	protected $propertyTheme 		= null;
 	protected $propertyUtilities 	= null;
 
+
+
 	// Public getters for children
 	public function page () {
 		$arguments = func_get_args();
-		return call_user_func_array(array($this->site(), 'page'), $arguments);
+		return call_user_func_array(array($this->pages(), 'current'), $arguments);
 	}
 
 

@@ -3,15 +3,12 @@
 /**
 * Page component
 *
-* The selected page in a ServantSite.
-*
 * Dependencies
 *   - servant()->action()->id()
 *   - servant()->files()->read()
 *   - servant()->format()->pageName()
 *   - servant()->format()->path()
 *   - servant()->paths()->root()
-*   - servant()->site()
 *   - servant()->utilities()->load()
 */
 class ServantPage extends ServantObject {
@@ -28,7 +25,7 @@ class ServantPage extends ServantObject {
 	protected $propertyParents 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertySiblings 	= null;
-	protected $propertySite 		= null;
+	protected $propertyPages 		= null;
 	protected $propertyStylesheets 	= null;
 	protected $propertyTree 		= null;
 	protected $propertyType 		= null;
@@ -38,15 +35,15 @@ class ServantPage extends ServantObject {
 	/**
 	* Select ID when initializing
 	*/
-	public function initialize ($site = null, $tree = null) {
+	public function initialize ($pages, $tree = null) {
 
 		// Load utilities
 		$this->servant()->utilities()->load('urls');
 
-		// Select things
-		if ($site) {
-			$this->setSite($site);
-		}
+		// Required items
+		$this->setPages($pages);
+
+		// Generate tree
 		if ($tree) {
 			$this->setTree($tree);
 		}
@@ -94,7 +91,7 @@ class ServantPage extends ServantObject {
 	* Setters
 	*
 	* NOTE
-	*   - ->site() and ->tree() determine most of these
+	*   - ->pages() and ->tree() determine most of these
 	*/
 
 	protected function setId () {
@@ -108,7 +105,7 @@ class ServantPage extends ServantObject {
 		return $this->set('index', $siblings[$this->id()]);
 	}
 
-	// Depth of this page in site's page tree
+	// Depth of this page in the page tree
 	protected function setLevel () {
 		return $this->set('level', count($this->tree()));
 	}
@@ -122,13 +119,13 @@ class ServantPage extends ServantObject {
 		$urlManipulator = new UrlManipulator();
 
 		// Root path for src attributes
-		$srcUrl = $this->site()->path('domain');
+		$srcUrl = $this->pages()->path('domain');
 
 		// Root path for hrefs
 		$hrefUrl = $this->servant()->paths()->root('domain').$this->servant()->action()->id().'/';
 
 		// Relative location for SRC urls
-		$relativeSrcUrl = unprefix(dirname($this->path('plain')), $this->site()->path('plain'), true);
+		$relativeSrcUrl = unprefix(dirname($this->path('plain')), $this->pages()->path('plain'), true);
 		if (!empty($relativeSrcUrl)) {
 			$relativeSrcUrl .= '/';
 		}
@@ -142,45 +139,49 @@ class ServantPage extends ServantObject {
 		// Base URL to point to actions on the domain
 		$actionsUrl = $this->servant()->paths()->root('domain');
 
-		return $this->set('output', $urlManipulator->htmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
+		// Read content from source file
+		$fileContent = $this->servant()->files()->read($this->path('server'));
+
+		// Save file content with manipulated URLs
+		return $this->set('output', $urlManipulator->htmlUrls($fileContent, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 	}
 
-	// Parent nodes of this page in site's page tree, order is reversed
+	// ServantPages object
+	protected function setPages ($pages) {
+		return $this->set('pages', $pages);
+	}
+
+	// Parent nodes of this page in the page tree, order is reversed
 	protected function setParents () {
 		$parents = array_reverse($this->tree());
 		array_shift($parents);
 		return $this->set('parents', $parents);
 	}
 
-	// Site scripts relevant to this page
+	// Scripts under pages relevant to this page
 	protected function setScripts () {
-		return $this->set('scripts', $this->filterSiteFiles('scripts'));
+		return $this->set('scripts', $this->filterPageFiles('scripts'));
 	}
 
-	// All pages on this level of the site page tree. Includes this page.
+	// All pages on this level of the page tree. Includes this page.
 	protected function setSiblings () {
-		$siblings = array_keys($this->site()->pages(array_reverse($this->parents())));
+		$siblings = array_keys($this->pages()->files(array_reverse($this->parents())));
 		return $this->set('siblings', empty($siblings) ? array() : $siblings);
 	}
 
-	protected function setSite ($site = null) {
+	// Stylesheets under pages relevant to this page
+	protected function setStylesheets () {
+		return $this->set('stylesheets', $this->filterPageFiles('stylesheets'));
+	}
 
-		// Fall back to primary site
-		if (!$site or get_class($site) !== 'ServantSite') {
-			$site = $this->servant()->site();
+	protected function setTree ($tree = array()) {
+
+		// No source file, so we can't really do this
+		if (!$this->pages()->files($tree)) {
+			$this->fail('This page does not exist');
 		}
 
-		return $this->set('site', $site);
-	}
-
-	// Site stylesheet relevant to this page
-	protected function setStylesheets () {
-		return $this->set('stylesheets', $this->filterSiteFiles('stylesheets'));
-	}
-
-	protected function setTree ($treeInput = null) {
-		$resultTree = $this->selectPage($this->site()->pages(), to_array($treeInput));
-		return $this->set('tree', $resultTree);
+		return $this->set('tree', $tree);
 	}
 
 	protected function setType () {
@@ -188,42 +189,25 @@ class ServantPage extends ServantObject {
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->site()->pages($this->tree()));
+		return $this->set('path', $this->pages()->files($this->tree()));
 	}
 
 
 
-	// Private helpers
+	/**
+	* Private helpers
+	*/
 
-	// Choose one page from those available, preferring the one detailed in $tree
-	private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
- 
-		// No preference or preferred item doesn't exist: auto select
-		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
-
-			// Cut out the rest of the preferred items
-			$tree = array_slice($tree, 0, $level);
-
-			// Auto select first item on this level
-			$keys = array_keys($pagesOnThisLevel);
-			$tree[] = $keys[0];
-
-		}
-
-		// We need to go deeper
-		if (is_array($pagesOnThisLevel[$tree[$level]])) {
-			return $this->selectPage($pagesOnThisLevel[$tree[$level]], $tree, $level+1);
-
-		// That was it
-		} else {
-			return array_slice($tree, 0, $level+1);
-		}
-
-	}
-
-	// Select the files from site() that are relevant for this page
-	private function filterSiteFiles ($type) {
+	// Select the files under pages that are relevant for this page (i.e. stylesheets or scripts)
+	private function filterPageFiles ($type) {
 		$results = array();
+
+		// FLAG legacy, don't need to traverse all files
+		$formats = $this->servant()->settings()->formats($type);
+		$allFiles = array();
+		foreach (rglob_files($this->pages()->path('server'), $formats) as $file) {
+			$allFiles[] = $this->servant()->format()->path($file, false, 'server');
+		}
 
 		// Allowed paths
 		$allowed = array();
@@ -238,9 +222,9 @@ class ServantPage extends ServantObject {
 		array_unshift($allowed, '');
 		unset($key, $path);
 
-		// Traverse site's files, accept the ones on allowed levels
-		foreach ($this->site()->$type() as $value) {
-			$base = unprefix(dirname($value).'/', $this->site()->path(), true);
+		// Traverse all files, accept the ones on allowed levels
+		foreach ($allFiles as $value) {
+			$base = unprefix(dirname($value).'/', $this->pages()->path(), true);
 			if (in_array($base, $allowed)) {
 				$results[] = $value;
 			}

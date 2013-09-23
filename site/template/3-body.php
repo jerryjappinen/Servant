@@ -3,6 +3,8 @@
 // Body content
 $output = '<div class="frame-body"><div class="frame-container">';
 
+	// echo '<br><br><br><br><br>'.html_dump($servant->page()->stylesheets());
+
 	// FLAG I really shouldn't hardcode the name of read action...
 	if ($servant->action()->id() === 'read') {
 

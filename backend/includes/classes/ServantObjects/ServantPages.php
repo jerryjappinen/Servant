@@ -36,21 +36,18 @@ class ServantPages extends ServantObject {
 	*/
 
 	/**
-	* Tree keys of selected page
+	* Tree of selected page
 	*/
 	protected function setCurrent () {
 
-		// Get user input
-		$input = $this->servant()->input()->page();
+		// Select the page most closely matching user input
+		$tree = $this->selectPage($this->files(), $this->servant()->input()->page());
 
-		// Select the page most closely matching input
-		$resultTree = $this->selectPage($this->files(), $input);
-
-		return $this->set('current', $resultTree);
+		return $this->set('current', $tree);
 	}
 
 	/**
-	* All available files that can be converted to pages, recursively and with paths
+	* All available template files that can be converted to pages, recursively and with paths
 	*/
 	protected function setFiles () {
 		return $this->set('files', $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates')));
@@ -60,7 +57,7 @@ class ServantPages extends ServantObject {
 	* All available pages as page objects
 	*/
 	public function setMap () {
-		return $this->set('map', $this->generatePathObjects($this->files()));
+		return $this->set('map', $this->generatePageObjects($this->files()));
 	}
 
 	/**
@@ -130,7 +127,7 @@ class ServantPages extends ServantObject {
 	/**
 	* Create page tree with actual objects
 	*/
-	private function generatePathObjects ($fileMap = array(), $parents = array()) {
+	private function generatePageObjects ($fileMap = array(), $parents = array()) {
 		$result = $fileMap;
 
 		foreach ($result as $id => $value) {
@@ -139,12 +136,11 @@ class ServantPages extends ServantObject {
 
 			// Convert to page object
 			if (is_string($value)) {
-				// $result[$id] = implode(' > ', $tree);
-				$result[$id] = create_object(new ServantPage($this->servant()))->init($this->servant()->site(), $tree);
+				$result[$id] = create_object(new ServantPage($this->servant()))->init($this, $tree);
 
 			// Children are treated recursively
 			} else if (is_array($value)) {
-				$result[$id] = $this->generatePathObjects($value, $tree);
+				$result[$id] = $this->generatePageObjects($value, $tree);
 			}
 
 		}

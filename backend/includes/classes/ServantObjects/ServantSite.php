@@ -8,12 +8,26 @@ class ServantSite extends ServantObject {
 	protected $propertyIcon 		= null;
 	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
-	protected $propertyPage 		= null;
-	protected $propertyPages 		= null;
-	protected $propertyPath 		= null;
-	protected $propertyScripts 		= null;
 	protected $propertySettings		= null;
-	protected $propertyStylesheets 	= null;
+
+
+
+	/**
+	* FLAG legacy
+	*/
+
+	public function page () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->servant()->pages(), 'current'), $arguments);
+	}
+	public function pages () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->servant()->pages(), 'files'), $arguments);
+	}
+	public function path () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->servant()->pages(), 'path'), $arguments);
+	}
 
 
 
@@ -27,34 +41,6 @@ class ServantSite extends ServantObject {
 			$icon = $this->servant()->format()->path($icon, $format);
 		}
 		return $icon;
-	}
-
-	public function path ($format = null) {
-		$path = $this->getAndSet('path');
-		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
-		}
-		return $path;
-	}
-
-	public function scripts ($format = false) {
-		$files = $this->getAndSet('scripts');
-		if ($format) {
-			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
-			}
-		}
-		return $files;
-	}
-
-	public function stylesheets ($format = false) {
-		$files = $this->getAndSet('stylesheets');
-		if ($format) {
-			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
-			}
-		}
-		return $files;
 	}
 
 
@@ -117,31 +103,6 @@ class ServantSite extends ServantObject {
 	}
 
 	/**
-	* Current page as child object
-	*/
-	protected function setPage () {
-
-		// Select page based on input
-		$selectedPage = $this->servant()->input()->page();
-
-		return $this->set('page', create_object(new ServantPage($this->servant()))->init($this, $selectedPage));
-	}
-
-	/**
-	* Pages of this site
-	*/
-	protected function setPages () {
-		return $this->set('pages', $this->findPages($this->path('server'), $this->servant()->settings()->formats('templates')));
-	}
-
-	/**
-	* Path
-	*/
-	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->pages('plain'));
-	}
-
-	/**
 	* Site's settings
 	*/
 	protected function setSettings () {
@@ -191,101 +152,6 @@ class ServantSite extends ServantObject {
 		}
 
 		return $this->set('settings', $settings);
-	}
-
-	/**
-	* Stylesheet files
-	*/
-	protected function setStylesheets () {
-		return $this->set('stylesheets', $this->findFiles($this->servant()->settings()->formats('stylesheets')));
-	}
-
-	/**
-	* Script files
-	*/
-	protected function setScripts () {
-		return $this->set('scripts', $this->findFiles($this->servant()->settings()->formats('scripts')));
-	}
-
-
-
-	/**
-	* Private helpers
-	**/
-
-	/**
-	* List available pages recursively
-	*
-	* FLAG
-	*   - exclusion of settings file is a bit laborious
-	*/
-	private function findPages ($path, $filetypes = array()) {
-		$results = array();
-		$blacklist = array();
-
-		// Blacklist site settings file
-		$blacklist[] = $this->path('plain').$this->servant()->settings()->packageContents('siteSettingsFile');
-
-		// Blacklist site icon
-		$iconPath = $this->settings('icon');
-		if (!empty($iconPath)) {
-			$blacklist[] = $this->path('plain').$iconPath;
-		}
-		unset($iconPath);
-
-		// Files on this level
-		foreach (glob_files($path, $filetypes) as $file) {
-
-			// Check path against blacklisted values
-			$value = $this->servant()->format()->path($file, 'plain', 'server');
-			if (!in_array($value, $blacklist)) {
-				$results[pathinfo($file, PATHINFO_FILENAME)] = $value;
-			}
-
-		}
-		unset($value);
-
-		// Non-empty child directories
-		foreach (glob_dir($path) as $subdir) {
-			$value = $this->findPages($subdir, $filetypes);
-			if (!empty($value)) {
-
-				// Represent arrays with only one item as pages
-				// NOTE the directory name is used as the key, not the filename
-				if (count($value) < 2) {
-					$keys = array_keys($value);
-					$value = $value[$keys[0]];
-				}
-
-				$results[pathinfo($subdir, PATHINFO_FILENAME)] = $value;
-			}
-		}
-
-		// Mix sort directories and files
-		uksort($results, 'strcasecmp');
-
-		return $results;
-	}
-
-	/**
-	* Helper to find any files, returns them uncategorized
-	*/
-	private function findFiles ($formats = array()) {
-		$files = array();
-		$path = $this->path('server');
-
-		// Individual file
-		if (is_file($path)) {
-			$files[] = $this->path('plain');
-
-		// All files in directory
-		} else if (is_dir($path)) {
-			foreach (rglob_files($path, $formats) as $file) {
-				$files[] = $this->servant()->format()->path($file, false, 'server');
-			}
-		}
-
-		return $files;
 	}
 
 }

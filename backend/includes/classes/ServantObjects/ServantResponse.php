@@ -259,7 +259,17 @@ class ServantResponse extends ServantObject {
 	* Includes cache folder path, site ID, action ID and page tree. Used by path() and existing().
 	*/
 	private function basePath ($format = null) {
-		return $this->servant()->paths()->cache($format).$this->servant()->action()->id().'/'.implode('/', $this->servant()->site()->page()->tree());
+
+		// Base dir from settings
+		$path = $this->servant()->paths()->cache($format);
+
+		// Action's get their own dir
+		$path .= $this->servant()->action()->id().'/';
+
+		// Each page gets their own file
+		$path .= implode('/', $this->servant()->pages()->current()->tree());
+
+		return $path;
 	}
 
 	/**

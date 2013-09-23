@@ -16,7 +16,7 @@ $paths = array(
 
 	// Backend
 	'actions' 		=> 'backend/actions/',
-	'cache' 		=> 'backend/cache/',
+	'cache' 		=> 'cache/',
 	'temp' 			=> 'backend/temp/',
 	'utilities' 	=> 'backend/utilities/',
 
