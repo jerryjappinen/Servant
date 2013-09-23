@@ -7,18 +7,18 @@ $output = '<div class="frame-header"><div class="frame-container">
 
 
 	// Level 1 menu
-	$level1 = $servant->site()->articles();
+	$level1 = $servant->site()->pages();
 	if (count($level1) > 1) {
 		$output .= '<div id="responsive-menu"><ul class="menu-1">';
 		foreach ($level1 as $key => $value) {
 
 			// Selected
-			if ($servant->article()->tree(0) === $key) {
-				$output .= '<li><strong><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->articleName($key).'</a></strong></li>';
+			if ($servant->page()->tree(0) === $key) {
+				$output .= '<li><strong><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->pageName($key).'</a></strong></li>';
 
 			// Normal link
 			} else {
-				$output .= '<li><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->articleName($key).'</a></li>';
+				$output .= '<li><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->pageName($key).'</a></li>';
 			}
 
 		}

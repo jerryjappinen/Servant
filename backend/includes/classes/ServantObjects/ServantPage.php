@@ -1,20 +1,20 @@
 <?php
 
 /**
-* Article component
+* Page component
 *
-* The selected article in a ServantSite.
+* The selected page in a ServantSite.
 *
 * Dependencies
 *   - servant()->action()->id()
 *   - servant()->files()->read()
-*   - servant()->format()->articleName()
+*   - servant()->format()->pageName()
 *   - servant()->format()->path()
 *   - servant()->paths()->root()
 *   - servant()->site()
 *   - servant()->utilities()->load()
 */
-class ServantArticle extends ServantObject {
+class ServantPage extends ServantObject {
 
 	/**
 	* Properties
@@ -102,20 +102,20 @@ class ServantArticle extends ServantObject {
 		return $this->set('id', end($tree));
 	}
 
-	// Location of this article relative to its siblings
+	// Location of this page relative to its siblings
 	protected function setIndex () {
 		$siblings = array_flip($this->siblings());
 		return $this->set('index', $siblings[$this->id()]);
 	}
 
-	// Depth of this article in site's article tree
+	// Depth of this page in site's page tree
 	protected function setLevel () {
 		return $this->set('level', count($this->tree()));
 	}
 
 	// Human-readable name, generated from ID
 	protected function setName () {
-		return $this->set('name', $this->servant()->format()->articleName($this->id()));
+		return $this->set('name', $this->servant()->format()->pageName($this->id()));
 	}
 
 	protected function setOutput () {
@@ -145,21 +145,21 @@ class ServantArticle extends ServantObject {
 		return $this->set('output', $urlManipulator->htmlUrls($this->servant()->files()->read($this->path('server')), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 	}
 
-	// Parent nodes of this article in site's article tree, order is reversed
+	// Parent nodes of this page in site's page tree, order is reversed
 	protected function setParents () {
 		$parents = array_reverse($this->tree());
 		array_shift($parents);
 		return $this->set('parents', $parents);
 	}
 
-	// Site scripts relevant to this article
+	// Site scripts relevant to this page
 	protected function setScripts () {
 		return $this->set('scripts', $this->filterSiteFiles('scripts'));
 	}
 
-	// All articles on this level of the site article tree. Includes this article.
+	// All pages on this level of the site page tree. Includes this page.
 	protected function setSiblings () {
-		$siblings = array_keys($this->site()->articles(array_reverse($this->parents())));
+		$siblings = array_keys($this->site()->pages(array_reverse($this->parents())));
 		return $this->set('siblings', empty($siblings) ? array() : $siblings);
 	}
 
@@ -173,13 +173,13 @@ class ServantArticle extends ServantObject {
 		return $this->set('site', $site);
 	}
 
-	// Site stylesheet relevant to this article
+	// Site stylesheet relevant to this page
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->filterSiteFiles('stylesheets'));
 	}
 
 	protected function setTree ($tree = null) {
-		$tree = $this->selectArticle($this->site()->articles(), to_array($tree));
+		$tree = $this->selectPage($this->site()->pages(), to_array($tree));
 		return $this->set('tree', $tree);
 	}
 
@@ -188,31 +188,31 @@ class ServantArticle extends ServantObject {
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->site()->articles($this->tree()));
+		return $this->set('path', $this->site()->pages($this->tree()));
 	}
 
 
 
 	// Private helpers
 
-	// Choose one article from those available, preferring the one detailed in $tree
-	private function selectArticle ($articlesOnThisLevel, $tree, $level = 0) {
+	// Choose one page from those available, preferring the one detailed in $tree
+	private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
  
 		// No preference or preferred item doesn't exist: auto select
-		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $articlesOnThisLevel)) {
+		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
 
 			// Cut out the rest of the preferred items
 			$tree = array_slice($tree, 0, $level);
 
 			// Auto select first item on this level
-			$keys = array_keys($articlesOnThisLevel);
+			$keys = array_keys($pagesOnThisLevel);
 			$tree[] = $keys[0];
 
 		}
 
 		// We need to go deeper
-		if (is_array($articlesOnThisLevel[$tree[$level]])) {
-			return $this->selectArticle($articlesOnThisLevel[$tree[$level]], $tree, $level+1);
+		if (is_array($pagesOnThisLevel[$tree[$level]])) {
+			return $this->selectPage($pagesOnThisLevel[$tree[$level]], $tree, $level+1);
 
 		// That was it
 		} else {
@@ -221,7 +221,7 @@ class ServantArticle extends ServantObject {
 
 	}
 
-	// Select the files from site() that are relevant for this article
+	// Select the files from site() that are relevant for this page
 	private function filterSiteFiles ($type) {
 		$results = array();
 

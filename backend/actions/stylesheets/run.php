@@ -68,7 +68,7 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 /**
 * Site's style files
 */
-foreach ($servant->site()->article()->stylesheets('plain') as $path) {
+foreach ($servant->site()->page()->stylesheets('plain') as $path) {
 
 	// Special format is used
 	$extension = pathinfo($path, PATHINFO_EXTENSION);

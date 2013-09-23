@@ -18,7 +18,7 @@ Pages can contain things like titles, subtitles, lists, links and images. [Theme
 
 ## Links & images
 
-Pointing to other documents with links, or adding images to a page is really easy. Different formats allow you to write links and images in different ways, but the URLs work the same way for every article. Here are some examples in [Markdown](text-and-markdown).
+Pointing to other documents with links, or adding images to a page is really easy. Different formats allow you to write links and images in different ways, but the URLs work the same way for every page. Here are some examples in [Markdown](text-and-markdown).
 
 ### Relative URLs
 

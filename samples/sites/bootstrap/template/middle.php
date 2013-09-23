@@ -3,16 +3,16 @@
 // Create classes for body class
 $i = 1;
 $classes = array();
-$tree = $servant->article()->tree();
+$tree = $servant->page()->tree();
 foreach ($tree as $value) {
-	$classes[] = 'article-'.implode('-', array_slice($tree, 0, $i));
+	$classes[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
 unset($tree, $i);
 
 // FLAG "language-javascript" really doesn't belong here
 $output = '
-	<body class="level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'">
+	<body class="level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $classes).'">
 		';
 		unset($classes);
 
@@ -33,7 +33,7 @@ $output = '
 
 
 		// Level 1 menu
-		$level1 = $servant->site()->articles();
+		$level1 = $servant->site()->pages();
 		if (count($level1) > 1) {
 			$output .= '<div class="nav-collapse collapse"><ul class="nav">';
 			foreach ($level1 as $key => $value) {
@@ -44,7 +44,7 @@ $output = '
 				$dropdown = false;
 
 				// Selected
-				if ($servant->article()->tree(0) === $key) {
+				if ($servant->page()->tree(0) === $key) {
 					$selected = true;
 					$classes[] = 'active';
 				}
@@ -102,7 +102,7 @@ $output = '
 
 
 			// Submenu in a sidebar
-			$level2 = $servant->site()->articles($servant->article()->tree(0));
+			$level2 = $servant->site()->pages($servant->page()->tree(0));
 			if (is_array($level2)) {
 				$output .= '<div id="sidebar"><ul class="menu-2">';
 
@@ -110,10 +110,10 @@ $output = '
 				foreach ($level2 as $key => $value) {
 
 					// Link HTML
-					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
+					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->page()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
 
 					// Selected item
-					if ($servant->article()->tree(1) === $key) {
+					if ($servant->page()->tree(1) === $key) {
 						$output .= '<li class="selected"><strong>'.$link.'</strong>';
 						unset($link);
 
@@ -132,8 +132,8 @@ $output = '
 								}
 
 								// Child item HTML
-								$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->article()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
-								if ($servant->article()->tree(2) === $key2) {
+								$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->page()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
+								if ($servant->page()->tree(2) === $key2) {
 									$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
 								} else {
 									$output .= '<li>'.$link.'</li>';

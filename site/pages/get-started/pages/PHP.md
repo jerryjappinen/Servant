@@ -7,7 +7,7 @@ Servant runs on PHP, and **scriptable PHP pages** are supported out of the box. 
 
 ## Basic example
 
-##### sites/sitename/category/article.php
+##### site/pages/some-category/some-page.php
 
 	<h1>Welcome!</h1>
 
@@ -17,9 +17,9 @@ Servant runs on PHP, and **scriptable PHP pages** are supported out of the box. 
 
 ## Example using the `$servant` object
 
-##### sites/sitename/category/article.php
+##### site/pages/some-category/some-page.php
 
-	<h1><?= $servant()->article()->name() ?></h1>
+	<h1><?= $servant()->page()->name() ?></h1>
 
 	<h3>Other available sites</h3>
 

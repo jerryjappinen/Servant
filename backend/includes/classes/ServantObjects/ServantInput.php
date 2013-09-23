@@ -8,7 +8,7 @@ class ServantInput extends ServantObject {
 	* Properties
 	*/
 	protected $propertyAction 	= null;
-	protected $propertyArticle 	= null;
+	protected $propertyPage 	= null;
 
 
 
@@ -18,13 +18,13 @@ class ServantInput extends ServantObject {
 	public function initialize ($input = null) {
 
 		// Set defaults to all properties
-		$this->setAction('')->setArticle(array());
+		$this->setAction('')->setPage(array());
 
 		// Select things if we have any
 		if (!empty($input) and is_array($input)) {
 
 			// Look for whatever we support
-			foreach (array('action', 'article') as $id) {
+			foreach (array('action', 'page') as $id) {
 
 				// Call setter if user has provided input
 				if (array_key_exists($id, $input)) {
@@ -46,8 +46,8 @@ class ServantInput extends ServantObject {
 	public function action () {
 		return $this->get('action');
 	}
-	public function article () {
-		return $this->get('article');
+	public function page () {
+		return $this->get('page');
 	}
 
 
@@ -68,11 +68,11 @@ class ServantInput extends ServantObject {
 	}
 
 	/**
-	* Article
+	* Page
 	*
-	* List of article names to select one in the article tree
+	* List of page names to select one in the page tree
 	*/
-	protected function setArticle ($values) {
+	protected function setPage ($values) {
 		$results = array();
 
 		// Sanitize each item
@@ -103,7 +103,7 @@ class ServantInput extends ServantObject {
 
 		}
 
-		return $this->set('article', $results);
+		return $this->set('page', $results);
 	}
 
 

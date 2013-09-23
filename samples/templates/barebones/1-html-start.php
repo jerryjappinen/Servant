@@ -43,11 +43,11 @@
 
 
 		<?php
-		// Stylesheets, possibly article-specific
+		// Stylesheets, possibly page-specific
 		// FLAG I really shouldn't hardcode the name of read action...
 		$temp = $servant->paths()->root('domain').'stylesheets/';
 		if ($servant->action()->id() === 'read') {
-			$temp .= implode('/', $servant->site()->article()->tree()).'/';
+			$temp .= implode('/', $servant->site()->page()->tree()).'/';
 		}
 		?>
 		<link rel="stylesheet" href="<?= $temp ?>" media="screen">
@@ -59,12 +59,12 @@
 // Create classes for body
 $i = 1;
 $classes = array();
-$tree = $servant->article()->tree();
+$tree = $servant->page()->tree();
 foreach ($tree as $value) {
-	$classes[] = 'article-'.implode('-', array_slice($tree, 0, $i));
+	$classes[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
 unset($tree, $i);
 ?>
 
-<body class="level-<?= count($servant->article()->tree())?> index-<?= $servant->article()->index()?> <?= implode(' ', $classes) ?>">
+<body class="level-<?= count($servant->page()->tree())?> index-<?= $servant->page()->index()?> <?= implode(' ', $classes) ?>">

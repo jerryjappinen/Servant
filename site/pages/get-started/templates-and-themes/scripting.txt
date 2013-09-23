@@ -5,8 +5,8 @@ For more advanced use cases, PHP templates are supported. They allow you to writ
 
 ## Examples
 
-#### Dynamic details of current article
+#### Dynamic details of current page
 
 	// Dynamic title
-	$parents = $servant->article()->parents();
-	echo '<h1>'.(!empty($parents) ? $parents : $servant->site()->name()).': '.$servant->article()->name().'</h1>'
+	$parents = $servant->page()->parents();
+	echo '<h1>'.(!empty($parents) ? $parents : $servant->site()->name()).': '.$servant->page()->name().'</h1>'

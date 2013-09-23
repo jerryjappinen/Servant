@@ -32,7 +32,7 @@ class ServantPaths extends ServantObject {
 			'host',
 			'index',
 
-			'articles',
+			'pages',
 			'template',
 			'theme',
 

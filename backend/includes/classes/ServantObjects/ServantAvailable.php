@@ -9,7 +9,7 @@ class ServantAvailable extends ServantObject {
 	* Properties
 	*/
 	protected $propertyActions 		= null;
-	protected $propertyArticles 	= null;
+	protected $propertyPages 		= null;
 	protected $propertyUtilities 	= null;
 
 
@@ -19,15 +19,15 @@ class ServantAvailable extends ServantObject {
 	*/
 
 	/**
-	* Articles are dependent on current site
+	* Pages are dependent on current site
 	*/
-	public function article () {
+	public function page () {
 		$arguments = func_get_args();
-		return $this->assert('articles', $arguments);
+		return $this->assert('pages', $arguments);
 	}
-	public function articles () {
+	public function pages () {
 		$arguments = func_get_args();
-		return call_user_func_array(array($this->servant()->site(), 'articles'), $arguments);
+		return call_user_func_array(array($this->servant()->site(), 'pages'), $arguments);
 	}
 
 	/**

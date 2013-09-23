@@ -3,10 +3,10 @@
 // Footer
 echo '<div class="footer container">';
 
-		// Sort articles into pages and categories
+		// Sort pages into pages and categories
 		$pages = array();
 		$categories = array();
-		foreach ($servant->site()->articles() as $key => $value) {
+		foreach ($servant->site()->pages() as $key => $value) {
 			if (is_array($value)) {
 				$categories[] = $key;
 			} else if (is_string($value)) {
@@ -17,7 +17,7 @@ echo '<div class="footer container">';
 		// Pages & generic stuff
 		echo '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></li>';
 
-		// Create footer links for articles
+		// Create footer links for pages
 		foreach ($pages as $id) {
 			echo '<li><a href=".">'.$servant->format()->title($id).'</a></li>';
 		}
@@ -28,7 +28,7 @@ echo '<div class="footer container">';
 		foreach ($categories as $id) {
 			echo $i === 1 ? '<div class="row">' : '';
 			echo '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->title($id).'</li>';
-			foreach ($servant->site()->articles($id) as $key => $value) {
+			foreach ($servant->site()->pages($id) as $key => $value) {
 				echo '<li><a href=".">'.$servant->format()->title($key).'</a></li>';
 			}
 			echo '</ul></div>';
@@ -45,7 +45,7 @@ echo '<div class="footer container">';
 echo '</div>';
 
 // Include scripts
-echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->site()->article()->tree()).'/'.'"></script>';
+echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->site()->page()->tree()).'/'.'"></script>';
 
 // End it all
 echo '

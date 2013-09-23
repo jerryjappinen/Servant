@@ -2,7 +2,7 @@
 	"icon": "servant.ico",
 	"language": "en",
 	"name": "Servant",
-	"articleNames": {
+	"pageNames": {
 		"text-and-markdown": "Text & Markdown"
 	}
 }

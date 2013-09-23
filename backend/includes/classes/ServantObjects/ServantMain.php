@@ -49,9 +49,9 @@ class ServantMain extends ServantObject {
 	protected $propertyUtilities 	= null;
 
 	// Public getters for children
-	public function article () {
+	public function page () {
 		$arguments = func_get_args();
-		return call_user_func_array(array($this->site(), 'article'), $arguments);
+		return call_user_func_array(array($this->site(), 'page'), $arguments);
 	}
 
 

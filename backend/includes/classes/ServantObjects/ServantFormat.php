@@ -13,13 +13,13 @@ class ServantFormat extends ServantObject {
 
 
 	/**
-	* Generate human-readable title for article from string
+	* Generate human-readable title for page from string
 	*/
-	public function articleName ($string) {
+	public function pageName ($string) {
 		$name = $string;
 
 		// Explicit names given
-		$replacements = $this->servant()->site()->settings('articleNames');
+		$replacements = $this->servant()->site()->settings('pageNames');
 		$key = mb_strtolower($string);
 		if ($replacements and is_array($replacements) and array_key_exists($key, $replacements)) {
 			$name = $replacements[$key];

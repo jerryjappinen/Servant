@@ -31,8 +31,8 @@ Getting started
 ---------------
 
 1. Each directory under *sites/* is a site.
-2. All .txt, .html, .md, .textile, .rst, .wiki and .php files under a site folder are articles.
-3. Servant creates a web site with articles as pages.
+2. All .txt, .html, .md, .textile, .rst, .wiki and .php files under a site folder are pages.
+3. Servant compiles all pages into a web site.
 4. You can choose a template and template for each site, to customize format and look of each site.
 5. Styles and scripts from a site will also be loaded.
 

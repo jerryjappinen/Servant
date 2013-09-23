@@ -6,15 +6,15 @@ Servant automatically manipulates URLs in HTML, Markdown etc. (`href` and `src` 
 These are the basic rules:
 
 - Absolute URLs are never touched.
-- HTML: relative `href` points to a sibling article on the same level.
+- HTML: relative `href` points to a sibling page on the same level.
 - HTML: relative `src` points to a file in the same directory.
-- HTML: root-relative `href` or `src` (starts with a `/`) points to a file/article in the root directory/level of the site.
+- HTML: root-relative `href` or `src` (starts with a `/`) points to a file/page in the root directory/level of the site.
 
 ### Relative URLs
 
 
 
-##### Relative link URL on this article
+##### Relative link URL on this page
 
 <pre>
 	&lt;!-- Original --&gt;
@@ -24,7 +24,7 @@ These are the basic rules:
 	&lt;a href="foo.jpg"&gt;
 </pre>
 
-##### Relative image URL on this article
+##### Relative image URL on this page
 
 <pre>
 	&lt;!-- Original --&gt;
@@ -38,7 +38,7 @@ These are the basic rules:
 
 ### Root-relative URLs
 
-##### Root-relative link URL on this article
+##### Root-relative link URL on this page
 
 <pre>
 	&lt;!-- Original --&gt;
@@ -48,7 +48,7 @@ These are the basic rules:
 	&lt;a href="/foo.jpg"&gt;
 </pre>
 
-##### Root-relative image URL on this article
+##### Root-relative image URL on this page
 
 <pre>
 	&lt;!-- Original --&gt;

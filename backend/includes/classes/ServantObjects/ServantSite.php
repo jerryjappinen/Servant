@@ -5,8 +5,8 @@ class ServantSite extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyArticle 		= null;
-	protected $propertyArticles 	= null;
+	protected $propertyPage 		= null;
+	protected $propertyPages 		= null;
 	protected $propertyIcon 		= null;
 	protected $propertyId 			= null;
 	protected $propertyLanguage 	= null;
@@ -65,21 +65,21 @@ class ServantSite extends ServantObject {
 	*/
 
 	/**
-	* Selected article as child object
+	* Selected page as child object
 	*/
-	protected function setArticle () {
+	protected function setPage () {
 
-		// Select article based on input
-		$selectedArticle = $this->servant()->input()->article();
+		// Select page based on input
+		$selectedPage = $this->servant()->input()->page();
 
-		return $this->set('article', create_object(new ServantArticle($this->servant()))->init($this, $selectedArticle));
+		return $this->set('page', create_object(new ServantPage($this->servant()))->init($this, $selectedPage));
 	}
 
 	/**
-	* Articles of this site
+	* Pages of this site
 	*/
-	protected function setArticles () {
-		return $this->set('articles', $this->findArticles($this->path('server'), $this->servant()->settings()->formats('templates')));
+	protected function setPages () {
+		return $this->set('pages', $this->findPages($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
 	/**
@@ -139,7 +139,7 @@ class ServantSite extends ServantObject {
 	* Path
 	*/
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->articles('plain'));
+		return $this->set('path', $this->servant()->paths()->pages('plain'));
 	}
 
 	/**
@@ -152,7 +152,7 @@ class ServantSite extends ServantObject {
 			'icon' => '',
 			'language' => '',
 			'name' => '',
-			'articleNames' => array(),
+			'pageNames' => array(),
 		);
 
 		// Look for settings file
@@ -183,12 +183,12 @@ class ServantSite extends ServantObject {
 		}
 
 		// Normalize name conversions array
-		if (!empty($settings['articleNames'])) {
+		if (!empty($settings['pageNames'])) {
 			$temp = array();
-			foreach (array_flatten($settings['articleNames'], false, true) as $key => $value) {
+			foreach (array_flatten($settings['pageNames'], false, true) as $key => $value) {
 				$temp[mb_strtolower($key)] = $value;
 			}
-			$settings['articleNames'] = $temp;
+			$settings['pageNames'] = $temp;
 		}
 
 		return $this->set('settings', $settings);
@@ -215,12 +215,12 @@ class ServantSite extends ServantObject {
 	**/
 
 	/**
-	* List available articles recursively
+	* List available pages recursively
 	*
 	* FLAG
-	*   - The implementation of settings file exclusion is a bit laborious
+	*   - exclusion of settings file is a bit laborious
 	*/
-	private function findArticles ($path, $filetypes = array()) {
+	private function findPages ($path, $filetypes = array()) {
 		$results = array();
 		$blacklist = array();
 
@@ -248,10 +248,10 @@ class ServantSite extends ServantObject {
 
 		// Non-empty child directories
 		foreach (glob_dir($path) as $subdir) {
-			$value = $this->findArticles($subdir, $filetypes);
+			$value = $this->findPages($subdir, $filetypes);
 			if (!empty($value)) {
 
-				// Represent arrays with only one item as articles
+				// Represent arrays with only one item as pages
 				// NOTE the directory name is used as the key, not the filename
 				if (count($value) < 2) {
 					$keys = array_keys($value);

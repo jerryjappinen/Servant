@@ -55,10 +55,10 @@ echo '
 
 
 
-		// Stylesheets, possibly article-specific
+		// Stylesheets, possibly page-specific
 		$tree = array();
 		if ($servant->action()->id() === 'read') {
-			$tree = $servant->site()->article()->tree();
+			$tree = $servant->site()->page()->tree();
 		}
 		echo '<link rel="stylesheet" href="'.$servant->paths()->userAction('stylesheets', 'domain', $tree).'" media="screen">';
 
@@ -76,15 +76,15 @@ echo '
 // Create classes for body
 $i = 1;
 $classes = array();
-$tree = $servant->article()->tree();
+$tree = $servant->page()->tree();
 foreach ($tree as $value) {
-	$classes[] = 'article-'.implode('-', array_slice($tree, 0, $i));
+	$classes[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
 unset($tree, $i);
 
 // Body tag
-echo '<body class="level-'.count($servant->article()->tree()).' index-'.$servant->article()->index().' '.implode(' ', $classes).'"><div class="frame">';
+echo '<body class="level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $classes).'"><div class="frame">';
 unset($classes);
 
 ?>

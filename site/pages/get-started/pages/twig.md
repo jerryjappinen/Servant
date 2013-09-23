@@ -15,12 +15,12 @@ Read more about it on [Twig's site](http://twig.sensiolabs.org/doc/templates.htm
 
 ## Basic example
 
-##### sites/sitename/category/article.php
+##### site/pages/some-category/some-page.twig
 
-	<h1>{{ servant.article().name() }}</h1>
+	<h1>{{ servant.page().name() }}</h1>
 
 	<ul id="navigation">
-	{% for id in servant.article().siblings() %}
+	{% for id in servant.page().siblings() %}
 		<li><a href="{{ id }}">{{ servant.format().name(id) }}</a></li>
 	{% endfor %}
 	</ul>
