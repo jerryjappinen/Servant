@@ -13,25 +13,6 @@ class ServantSite extends ServantObject {
 
 
 	/**
-	* FLAG legacy
-	*/
-
-	public function page () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->servant()->pages(), 'current'), $arguments);
-	}
-	public function pages () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->servant()->pages(), 'files'), $arguments);
-	}
-	public function path () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->servant()->pages(), 'path'), $arguments);
-	}
-
-
-
-	/**
 	* Public getters
 	*/
 
@@ -55,8 +36,8 @@ class ServantSite extends ServantObject {
 	protected function setIcon () {
 		$result = '';
 		$setting = $this->settings('icon');
-		if (!empty($setting) and in_array(pathinfo($setting, PATHINFO_EXTENSION), $this->servant()->settings()->formats('iconImages')) and is_file($this->path('server').$setting)) {
-			$result = $this->path('plain').$setting;
+		if (!empty($setting) and in_array(pathinfo($setting, PATHINFO_EXTENSION), $this->servant()->settings()->formats('iconImages')) and is_file($this->servant()->pages()->path('server').$setting)) {
+			$result = $this->servant()->pages()->path('plain').$setting;
 		}
 		return $this->set('icon', $result);
 	}
@@ -116,7 +97,7 @@ class ServantSite extends ServantObject {
 		);
 
 		// Look for settings file
-		$path = $this->path('server').$this->servant()->settings()->packageContents('siteSettingsFile');
+		$path = $this->servant()->pages()->path('server').$this->servant()->settings()->packageContents('siteSettingsFile');
 		if (is_file($path)) {
 
 			// Read settings file, turn into an array

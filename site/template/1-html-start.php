@@ -58,7 +58,7 @@ echo '
 		// Stylesheets, possibly page-specific
 		$tree = array();
 		if ($servant->action()->id() === 'read') {
-			$tree = $servant->site()->page()->tree();
+			$tree = $servant->pages()->current()->tree();
 		}
 		echo '<link rel="stylesheet" href="'.$servant->paths()->userAction('stylesheets', 'domain', $tree).'" media="screen">';
 

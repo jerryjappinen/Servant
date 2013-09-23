@@ -51,7 +51,7 @@ echo '
 
 
 		// Stylesheets
-		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->site()->page()->tree()).'/'.'" media="screen">';
+		echo '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->pages()->current()->tree()).'/'.'" media="screen">';
 
 		echo '
 	</head>

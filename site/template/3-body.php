@@ -9,7 +9,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 	if ($servant->action()->id() === 'read') {
 
 		// Submenu in a sidebar
-		$level2 = $servant->site()->pages($servant->page()->tree(0));
+		$level2 = $servant->pages()->files($servant->page()->tree(0));
 		if (is_array($level2)) {
 			$output .= '<div class="frame-sidebar"><ul class="menu-2">';
 

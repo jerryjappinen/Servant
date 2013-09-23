@@ -7,7 +7,7 @@ $output = '<div class="frame-header"><div class="frame-container">
 
 
 	// Level 1 menu
-	$level1 = $servant->site()->pages();
+	$level1 = $servant->pages()->files();
 	if (count($level1) > 1) {
 		$output .= '<div id="responsive-menu"><ul class="menu-1">';
 		foreach ($level1 as $key => $value) {

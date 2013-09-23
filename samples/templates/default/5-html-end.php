@@ -3,7 +3,7 @@
 // Include scripts
 $tree = array();
 if ($servant->action()->id() === 'read') {
-	$tree = $servant->site()->page()->tree();
+	$tree = $servant->pages()->current()->tree();
 }
 echo '<script src="'.$servant->paths()->userAction('scripts', 'domain', $tree).'"></script>';
 

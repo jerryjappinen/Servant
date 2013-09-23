@@ -12,7 +12,6 @@ class ServantPaths extends ServantObject {
 
 	protected $propertyActions 		= null;
 	protected $propertyCache 		= null;
-	protected $propertySite 		= null;
 	protected $propertyTemp 		= null;
 	protected $propertyTemplate 	= null;
 	protected $propertyTheme 		= null;
@@ -110,9 +109,6 @@ class ServantPaths extends ServantObject {
 	}
 	public function cache ($format = null) {
 		return $this->getPath('cache', $format);
-	}
-	public function site ($format = null) {
-		return $this->getPath('site', $format);
 	}
 	public function temp ($format = null) {
 		return $this->getPath('temp', $format);
