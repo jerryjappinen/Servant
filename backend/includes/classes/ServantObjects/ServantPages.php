@@ -79,28 +79,14 @@ class ServantPages extends ServantObject {
 
 	/**
 	* List available pages recursively
-	*
-	* FLAG
-	*   - exclusion of settings file is a bit laborious
 	*/
 	private function findPageFiles ($path, $filetypes = array()) {
 		$results = array();
-		$blacklist = array();
-
-		// Blacklist site settings file
-		$blacklist[] = $this->path('plain').$this->servant()->settings()->packageContents('siteSettingsFile');
 
 		// Files on this level
 		foreach (glob_files($path, $filetypes) as $file) {
-
-			// Check path against blacklisted values
-			$value = $this->servant()->format()->path($file, 'plain', 'server');
-			if (!in_array($value, $blacklist)) {
-				$results[pathinfo($file, PATHINFO_FILENAME)] = $value;
-			}
-
+			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->format()->path($file, 'plain', 'server');
 		}
-		unset($value);
 
 		// Non-empty child directories
 		foreach (glob_dir($path) as $subdir) {

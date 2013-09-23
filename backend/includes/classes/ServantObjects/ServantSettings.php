@@ -27,7 +27,6 @@ class ServantSettings extends ServantObject {
 			'defaults',
 			'formats',
 			'namingConvention',
-			'packageContents',
 			'patterns',
 			'statuses',
 		);
@@ -166,10 +165,6 @@ class ServantSettings extends ServantObject {
 
 	protected function setNamingConvention ($input = null) {
 		return $this->set('namingConvention', $this->takeInAssociativeArray($input));
-	}
-
-	protected function setPackageContents ($input = null) {
-		return $this->set('packageContents', $this->takeInAssociativeArray($input));
 	}
 
 	protected function setPatterns ($input = null) {

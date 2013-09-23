@@ -9,8 +9,9 @@ $paths = array(
 	// 'host' 			=> 'http://foo.net/',
 	'index' 		=> 'backend/',
 
-	// User-facing directories
+	// User-facing locations
 	'pages' 		=> 'site/pages/',
+	'siteSettings' 	=> 'site/settings.json',
 	'template' 		=> 'site/template/',
 	'theme' 		=> 'site/theme/',
 

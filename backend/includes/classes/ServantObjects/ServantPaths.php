@@ -10,11 +10,14 @@ class ServantPaths extends ServantObject {
 	protected $propertyIndex 		= null;
 	protected $propertyHost 		= null;
 
+	protected $propertyPages 		= null;
+	protected $propertySiteSettings = null;
+	protected $propertyTemplate 	= null;
+	protected $propertyTheme 		= null;
+
 	protected $propertyActions 		= null;
 	protected $propertyCache 		= null;
 	protected $propertyTemp 		= null;
-	protected $propertyTemplate 	= null;
-	protected $propertyTheme 		= null;
 	protected $propertyUtilities 	= null;
 
 
@@ -32,6 +35,7 @@ class ServantPaths extends ServantObject {
 			'index',
 
 			'pages',
+			'siteSettings',
 			'template',
 			'theme',
 
@@ -83,6 +87,7 @@ class ServantPaths extends ServantObject {
 	/**
 	* Root paths
 	*/
+
 	public function documentRoot () {
 		return $this->get('documentRoot');
 	}
@@ -94,12 +99,16 @@ class ServantPaths extends ServantObject {
 			return $this->servant()->format()->path('', $format);
 		}
 	}
+
 	public function index ($format = null) {
 		return $this->getPath('index', $format);
 	}
+
 	public function host ($format = null) {
 		return $this->getPath('host', $format);
 	}
+
+
 
 	/**
 	* Other paths
@@ -109,6 +118,9 @@ class ServantPaths extends ServantObject {
 	}
 	public function cache ($format = null) {
 		return $this->getPath('cache', $format);
+	}
+	public function siteSettings ($format = null) {
+		return $this->getPath('siteSettings', $format);
 	}
 	public function temp ($format = null) {
 		return $this->getPath('temp', $format);
@@ -123,12 +135,16 @@ class ServantPaths extends ServantObject {
 		return $this->getPath('utilities', $format);
 	}
 
+
+
 	/**
 	* Convenience getters
 	*/
+
 	public function action ($action, $format = null) {
 		return $this->actions($format).$action.'/';
 	}
+
 	public function userAction ($action, $format = null, $pathParameters) {
 
 		// Accept parameters as a single array or multiple independent values
@@ -142,6 +158,7 @@ class ServantPaths extends ServantObject {
 
 		return $this->userActions($format).$action.'/'.$pathParameters;
 	}
+
 	public function userActions ($format = null) {
 		return $this->root($format);
 	}
@@ -151,8 +168,13 @@ class ServantPaths extends ServantObject {
 	/**
 	* Setters
 	*/
+
 	protected function setDocumentRoot ($input) {
 		return $this->set('documentRoot', $this->sanitize($input, true));
+	}
+
+	protected function setSiteSettings ($input) {
+		return $this->set('siteSettings', $this->sanitize($input, false, false));
 	}
 
 
@@ -172,7 +194,7 @@ class ServantPaths extends ServantObject {
 	/**
 	* Sanitize path formatting (results: '', 'foo/', 'foo/bar/')
 	*/
-	private function sanitize ($path = '', $isRootPath = false) {
+	private function sanitize ($path = '', $leadingSlash = false, $trailingSlash = true) {
 
 		// Meaningful starting value
 		if (is_string($path)) {
@@ -182,14 +204,14 @@ class ServantPaths extends ServantObject {
 		}
 
 		// Slash prefix
-		if ($isRootPath) {
+		if ($leadingSlash) {
 			$result = prefix($result, '/');
 		} else {
 			$result = unprefix($result, '/');
 		}
 
 		// Valid paths get a trailing slash
-		if (!empty($result)) {
+		if (!empty($result) and $trailingSlash) {
 			$result = suffix($result, '/');
 		}
 

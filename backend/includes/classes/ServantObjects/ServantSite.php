@@ -97,10 +97,11 @@ class ServantSite extends ServantObject {
 		);
 
 		// Look for settings file
-		$path = $this->servant()->pages()->path('server').$this->servant()->settings()->packageContents('siteSettingsFile');
+		$path = $this->servant()->paths()->siteSettings('server');
+		log_dump($path);
 		if (is_file($path)) {
 
-			// Read settings file, turn into an array
+			// Read settings file as JSON, turn into an array
 			$temp = json_decode(suffix(prefix(trim(file_get_contents($path)), '{'), '}'), true);
 			if (is_array($temp)) {
 				foreach ($settings as $key => $default) {

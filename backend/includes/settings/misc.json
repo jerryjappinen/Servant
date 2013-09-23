@@ -5,10 +5,6 @@
 		"server": "0*7*24*60"
 	},
 
-	"packageContents": {
-		"siteSettingsFile": "settings.json"
-	},
-
 	"defaults": {
 		"action": "read",
 		"contentType": "html",
