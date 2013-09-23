@@ -60,9 +60,6 @@ class ServantTheme extends ServantObject {
 
 	/**
 	* Path to theme's fallback site icon
-	*
-	* FLAG
-	*   - This behavior is a bit weird
 	*/
 	protected function setIcon () {
 		$result = '';
@@ -76,20 +73,12 @@ class ServantTheme extends ServantObject {
 		return $this->set('icon', $result);
 	}
 
-
-
 	/**
 	* Theme is a folder under the themes directory
 	*/
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->theme());
 	}
-
-
-
-	/**
-	* Files
-	*/
 
 	/**
 	* Stylesheet files
@@ -105,9 +94,12 @@ class ServantTheme extends ServantObject {
 		return $this->set('scripts', $this->findFiles($this->servant()->settings()->formats('scripts')));
 	}
 
+
+
 	/**
-	* Helper to find files
+	* Private helpers
 	*/
+
 	private function findFiles ($formats) {
 		$files = array();
 
@@ -118,6 +110,8 @@ class ServantTheme extends ServantObject {
 
 		return $files;
 	}
+
+
 
 }
 

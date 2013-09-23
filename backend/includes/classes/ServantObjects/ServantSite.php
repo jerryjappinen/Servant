@@ -8,7 +8,40 @@ class ServantSite extends ServantObject {
 	protected $propertyIcon 		= null;
 	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
-	protected $propertySettings		= null;
+	protected $propertyPageNames 	= null;
+
+
+
+	/**
+	* Take original settings in during initialization (all are optional)
+	*/
+	public function initialize () {
+
+		// Read settings from JSON
+		$manifest = $this->readJsonFile($this->servant()->paths()->manifest('server'));
+		if ($manifest) {
+
+			// This is what we can set
+			$properties = array(
+				'icon',
+				'language',
+				'name',
+				'pageNames',
+			);
+
+			// Run setters if values are given
+			foreach ($properties as $key) {
+				$parameters = array();
+				if (isset($manifest[$key]) and !empty($manifest[$key])) {
+					$parameters[] = $manifest[$key];
+					$this->callSetter($key, $parameters);
+				}
+			}
+
+		}
+
+		return $this;
+	}
 
 
 
@@ -33,12 +66,28 @@ class ServantSite extends ServantObject {
 	/**
 	* Path to site icon comes from settings or remains an empty string
 	*/
-	protected function setIcon () {
+	protected function setIcon ($input = null) {
 		$result = '';
-		$setting = $this->settings('icon');
-		if (!empty($setting) and in_array(pathinfo($setting, PATHINFO_EXTENSION), $this->servant()->settings()->formats('iconImages')) and is_file($this->servant()->pages()->path('server').$setting)) {
-			$result = $this->servant()->pages()->path('plain').$setting;
+
+		// A string will do
+		if ($input and is_string($input)) {
+
+			// Sanitize input
+			$path = unprefix(unsuffix(trim_text($input, true), '/'), '/');
+
+			// File format must be acceptable
+			$extension = pathinfo($path, PATHINFO_EXTENSION);
+			if (in_array($extension, $this->servant()->settings()->formats('iconImages'))) {
+
+				// File must exist
+				if (is_file($this->servant()->format()->path($path, 'server'))) {
+					$result = $path;
+				}
+
+			}
+
 		}
+
 		return $this->set('icon', $result);
 	}
 
@@ -46,30 +95,25 @@ class ServantSite extends ServantObject {
 	* Language
 	*
 	* FLAG
-	*   - This should be a list of supported languages in order of preference
 	*   - Hardcoded default
+	*   - Should this be a list of supported languages in order of preference?
 	*/
-	protected function setLanguage () {
-
-		// Hardcoded fallback -_-
-		$default = 'en';
-		$language = '';
+	protected function setLanguage ($input = null) {
+		$result = 'en';
 
 		// Language from site settings
-		if ($this->settings('language')) {
-			$language = $this->settings('language');
+		if ($input and is_string($input)) {
+			$result = $input;
 
 		// Global default
-		} else if ($this->servant()->settings()->defaults('language')) {
-			$language = $this->servant()->settings()->defaults('language');
+		} else {
+			$globalDefault = $this->servant()->settings()->defaults('language');
+			if ($globalDefault and is_string($globalDefault)) {
+				$result = $globalDefault;
+			}
 		}
 
-		// Validate language string
-		if (!is_string($language) or mb_strlen($language) != 2) {
-			$language = $default;
-		}
-
-		return $this->set('language', $language);
+		return $this->set('language', trim_text($result, true));
 	}
 
 	/**
@@ -78,62 +122,53 @@ class ServantSite extends ServantObject {
 	* FLAG
 	*   - Hardcoded default name
 	*/
-	protected function setName () {
-		$name = $this->settings('name');
-		return $this->set('name', $name ? $name : 'Home');
+	protected function setName ($input = null) {
+		$result = 'Home';
+
+		// A string will do
+		if ($input and is_string($input)) {
+			$result = $input;
+		}
+
+		return $this->set('name', trim_text($result, true));
 	}
 
 	/**
-	* Site's settings
+	* Overrides for page naming
 	*/
-	protected function setSettings () {
+	protected function setPageNames ($input = null) {
+		$pageNames = array();
 
-		// Basic format of site settings
-		$settings = array(
-			'icon' => '',
-			'language' => '',
-			'name' => '',
-			'pageNames' => array(),
-		);
+		// A flat array will do
+		if ($input and is_array($input)) {
+			$pageNames = array_flatten($input, false, true);
+		}
 
-		// Look for settings file
-		$path = $this->servant()->paths()->siteSettings('server');
-		log_dump($path);
+		return $this->set('pageNames', $pageNames);
+	}
+
+
+
+	/**
+	* Private helpers
+	*/
+
+	private function readJsonFile ($path) {
+		$result = array();
+
+		// Look for a settings file
 		if (is_file($path)) {
 
 			// Read settings file as JSON, turn into an array
 			$temp = json_decode(suffix(prefix(trim(file_get_contents($path)), '{'), '}'), true);
 			if (is_array($temp)) {
-				foreach ($settings as $key => $default) {
-
-					// Only accept non-empty values
-					if (array_key_exists($key, $temp) and !empty($temp[$key])) {
-
-						// Numerical entries can be turned into strings by us
-						if (is_string($default) and (is_string($temp[$key])) or is_numeric($temp[$key])) {
-							$settings[$key] = trim_text(strval($temp[$key]), true);
-
-						// Otherwise type must match
-						} else if (gettype($default) === gettype($temp[$key])) {
-							$settings[$key] = $temp[$key];
-						}
-
-					}
-				}
+				$result = $temp;
 			}
+			unset($temp);
 
 		}
 
-		// Normalize name conversions array
-		if (!empty($settings['pageNames'])) {
-			$temp = array();
-			foreach (array_flatten($settings['pageNames'], false, true) as $key => $value) {
-				$temp[mb_strtolower($key)] = $value;
-			}
-			$settings['pageNames'] = $temp;
-		}
-
-		return $this->set('settings', $settings);
+		return $result;
 	}
 
 }

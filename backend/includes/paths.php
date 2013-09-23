@@ -11,7 +11,7 @@ $paths = array(
 
 	// User-facing locations
 	'pages' 		=> 'site/pages/',
-	'siteSettings' 	=> 'site/settings.json',
+	'manifest' 		=> 'site/settings.json',
 	'template' 		=> 'site/template/',
 	'theme' 		=> 'site/theme/',
 

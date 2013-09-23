@@ -3,12 +3,12 @@
 /**
 * Files component
 *
-* Reading files in various formats into target format
+* Read content of files of various formats
 *
 * Dependencies
-*   - settings()->formats()
-*   - parse()
-*   - paths()->temp()
+*   - servant()->settings()->formats()
+*   - servant()->parse()
+*   - servant()->paths()->temp()
 *
 * FLAG
 *   - Is there a better name for this?

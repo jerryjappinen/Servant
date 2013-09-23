@@ -16,9 +16,9 @@ class ServantSettings extends ServantObject {
 
 
 	/**
-	* Take original settings in during initialization
+	* Take original settings in during initialization (all are optional)
 	*/
-	public function initialize ($settings) {
+	public function initialize ($settings = null) {
 
 		// This is what we can set
 		$properties = array(
@@ -32,12 +32,14 @@ class ServantSettings extends ServantObject {
 		);
 
 		// Run setters if values are given
-		foreach ($properties as $key) {
-			$parameters = array();
-			if (isset($settings[$key]) and !empty($settings[$key])) {
-				$parameters[] = to_array($settings[$key]);
+		if (is_array($settings) and !empty($settings)) {
+			foreach ($properties as $key) {
+				$parameters = array();
+				if (isset($settings[$key]) and !empty($settings[$key])) {
+					$parameters[] = to_array($settings[$key]);
+				}
+				$this->callSetter($key, $parameters);
 			}
-			$this->callSetter($key, $parameters);
 		}
 
 		return $this;
@@ -114,7 +116,7 @@ class ServantSettings extends ServantObject {
 			foreach ($results as $key => $value) {
 				if (isset($input[$key])) {
 
-					// Normalize subarray
+					// First item of subarray
 					if (is_array($input[$key])) {
 						$keys = array_keys($input[$key]);
 						$input[$key] = $input[$key][$keys[0]];

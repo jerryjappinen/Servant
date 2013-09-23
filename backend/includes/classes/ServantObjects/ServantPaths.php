@@ -11,7 +11,7 @@ class ServantPaths extends ServantObject {
 	protected $propertyHost 		= null;
 
 	protected $propertyPages 		= null;
-	protected $propertySiteSettings = null;
+	protected $propertyManifest 	= null;
 	protected $propertyTemplate 	= null;
 	protected $propertyTheme 		= null;
 
@@ -35,7 +35,7 @@ class ServantPaths extends ServantObject {
 			'index',
 
 			'pages',
-			'siteSettings',
+			'manifest',
 			'template',
 			'theme',
 
@@ -119,8 +119,8 @@ class ServantPaths extends ServantObject {
 	public function cache ($format = null) {
 		return $this->getPath('cache', $format);
 	}
-	public function siteSettings ($format = null) {
-		return $this->getPath('siteSettings', $format);
+	public function manifest ($format = null) {
+		return $this->getPath('manifest', $format);
 	}
 	public function temp ($format = null) {
 		return $this->getPath('temp', $format);
@@ -173,8 +173,8 @@ class ServantPaths extends ServantObject {
 		return $this->set('documentRoot', $this->sanitize($input, true));
 	}
 
-	protected function setSiteSettings ($input) {
-		return $this->set('siteSettings', $this->sanitize($input, false, false));
+	protected function setManifest ($input) {
+		return $this->set('manifest', $this->sanitize($input, false, false));
 	}
 
 

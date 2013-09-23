@@ -4,7 +4,7 @@
 * Formatting service
 *
 * Dependencies
-*   - servant()->site()->settings()
+*   - servant()->site()->pageNames()
 *   - servant()->paths()->documentRoot()
 *   - servant()->paths()->root()
 */
@@ -19,7 +19,7 @@ class ServantFormat extends ServantObject {
 		$name = $string;
 
 		// Explicit names given
-		$replacements = $this->servant()->site()->settings('pageNames');
+		$replacements = $this->servant()->site()->pageNames();
 		$key = mb_strtolower($string);
 		if ($replacements and is_array($replacements) and array_key_exists($key, $replacements)) {
 			$name = $replacements[$key];
