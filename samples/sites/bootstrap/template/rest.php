@@ -6,7 +6,7 @@ echo '<div class="footer container">';
 		// Sort pages into pages and categories
 		$pages = array();
 		$categories = array();
-		foreach ($servant->pages()->files() as $key => $value) {
+		foreach ($servant->pages()->templates() as $key => $value) {
 			if (is_array($value)) {
 				$categories[] = $key;
 			} else if (is_string($value)) {
@@ -28,7 +28,7 @@ echo '<div class="footer container">';
 		foreach ($categories as $id) {
 			echo $i === 1 ? '<div class="row">' : '';
 			echo '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->title($id).'</li>';
-			foreach ($servant->pages()->files($id) as $key => $value) {
+			foreach ($servant->pages()->templates($id) as $key => $value) {
 				echo '<li><a href=".">'.$servant->format()->title($key).'</a></li>';
 			}
 			echo '</ul></div>';

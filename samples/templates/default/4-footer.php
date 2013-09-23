@@ -6,7 +6,7 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	// Sort pages into pages and categories
 	$pages = array();
 	$categories = array();
-	foreach ($servant->pages()->files() as $key => $value) {
+	foreach ($servant->pages()->templates() as $key => $value) {
 		if (is_array($value)) {
 			$categories[] = $key;
 		} else if (is_string($value)) {
@@ -28,7 +28,7 @@ echo '<div class="frame-footer"><div class="frame-container">';
 	foreach ($categories as $category) {
 		$categoryUrl = $servant->paths()->userAction('read', 'domain', $category);
 		echo '<dl><dt><a href="'.$categoryUrl.'">'.$servant->format()->pageName($category).'</a></dt>';
-		foreach ($servant->pages()->files($category) as $id => $value) {
+		foreach ($servant->pages()->templates($category) as $id => $value) {
 			echo '<dd><a href="'.$categoryUrl.$id.'/">'.$servant->format()->pageName($id).'</a></dd>';
 		}
 		echo '</dl>';

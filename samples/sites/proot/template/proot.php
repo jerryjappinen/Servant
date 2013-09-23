@@ -84,7 +84,7 @@ $output .= '
 					';
 
 					// Level 1 menu
-					$level1 = $servant->pages()->files();
+					$level1 = $servant->pages()->templates();
 					if (!empty($level1)) {
 						foreach ($level1 as $key => $value) {
 							$output .= '<li class="reset'.($servant->page()->tree(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
@@ -110,7 +110,7 @@ $output .= '
 					';
 
 					// Level 2 menu
-					$level2 = $servant->pages()->files($servant->page()->tree(0));
+					$level2 = $servant->pages()->templates($servant->page()->tree(0));
 					if (!empty($level2) and is_array($level2)) {
 						foreach ($level2 as $key => $value) {
 							$output .= '<li class="reset'.($servant->page()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->page()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
@@ -124,7 +124,7 @@ $output .= '
 
 					// Two-level dropdown menu
 					$output .= '<select class="menu-1 menu-2 menu-1-2" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')">';
-					foreach ($servant->pages()->files() as $key => $value) {
+					foreach ($servant->pages()->templates() as $key => $value) {
 
 						// First-level page
 						if (is_string($value) or is_array($value) and count($value) === 1) {
@@ -179,7 +179,7 @@ $output .= '
 							';
 
 							// Level 3 menu
-							$level3 = $servant->pages()->files($servant->page()->tree(0), $servant->page()->tree(1));
+							$level3 = $servant->pages()->templates($servant->page()->tree(0), $servant->page()->tree(1));
 							if (!empty($level3) and is_array($level3)) {
 								foreach ($level3 as $key => $value) {
 									$output .= '<li class="reset'.($servant->page()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->page()->tree(0).'/'.$servant->page()->tree(1).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';

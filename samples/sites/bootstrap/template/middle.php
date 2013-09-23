@@ -33,7 +33,7 @@ $output = '
 
 
 		// Level 1 menu
-		$level1 = $servant->pages()->files();
+		$level1 = $servant->pages()->templates();
 		if (count($level1) > 1) {
 			$output .= '<div class="nav-collapse collapse"><ul class="nav">';
 			foreach ($level1 as $key => $value) {
@@ -102,7 +102,7 @@ $output = '
 
 
 			// Submenu in a sidebar
-			$level2 = $servant->pages()->files($servant->page()->tree(0));
+			$level2 = $servant->pages()->templates($servant->page()->tree(0));
 			if (is_array($level2)) {
 				$output .= '<div id="sidebar"><ul class="menu-2">';
 

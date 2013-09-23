@@ -165,7 +165,7 @@ class ServantPage extends ServantObject {
 
 	// All pages on this level of the page tree. Includes this page.
 	protected function setSiblings () {
-		$siblings = array_keys($this->pages()->files(array_reverse($this->parents())));
+		$siblings = array_keys($this->pages()->templates(array_reverse($this->parents())));
 		return $this->set('siblings', empty($siblings) ? array() : $siblings);
 	}
 
@@ -177,7 +177,7 @@ class ServantPage extends ServantObject {
 	protected function setTree ($tree = array()) {
 
 		// No source file, so we can't really do this
-		if (!$this->pages()->files($tree)) {
+		if (!$this->pages()->templates($tree)) {
 			$this->fail('This page does not exist');
 		}
 
@@ -189,7 +189,7 @@ class ServantPage extends ServantObject {
 	}
 
 	protected function setPath () {
-		return $this->set('path', $this->pages()->files($this->tree()));
+		return $this->set('path', $this->pages()->templates($this->tree()));
 	}
 
 

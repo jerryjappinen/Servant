@@ -6,7 +6,7 @@ class ServantPages extends ServantObject {
 	* Properties
 	*/
 	protected $propertyCurrent 		= null;
-	protected $propertyFiles 		= null;
+	protected $propertyTemplates 	= null;
 	protected $propertyMap 			= null;
 	protected $propertyPath 		= null;
 
@@ -41,23 +41,25 @@ class ServantPages extends ServantObject {
 	protected function setCurrent () {
 
 		// Select the page most closely matching user input
-		$tree = $this->selectPage($this->files(), $this->servant()->input()->page());
+		$tree = $this->selectPage($this->templates(), $this->servant()->input()->page());
 
 		return $this->set('current', $tree);
 	}
 
 	/**
-	* All available template files that can be converted to pages, recursively and with paths
+	* All available template templates that can be converted to pages, recursively and with paths
+	*
+	* FLAG legacy
 	*/
-	protected function setFiles () {
-		return $this->set('files', $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates')));
+	protected function setTemplates () {
+		return $this->set('templates', $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates')));
 	}
 
 	/**
 	* All available pages as page objects
 	*/
 	public function setMap () {
-		return $this->set('map', $this->generatePageObjects($this->files()));
+		return $this->set('map', $this->generatePageObjects($this->templates()));
 	}
 
 	/**
