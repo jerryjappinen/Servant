@@ -17,8 +17,7 @@ if ($servant->action()->isRead()) {
 			// Children
 			$submenu = '';
 			$subItems = array();
-			if ($page->children()) {
-
+			if ($page->children() and $page->level() > 1) {
 				// Rename category
 				$name = $page->categoryName(1);
 
