@@ -18,14 +18,15 @@ class ServantPage extends ServantObject {
 	*/
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
+	protected $propertyIsCurrent 	= null;
 	protected $propertyLevel 		= null;
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
+	protected $propertyPages 		= null;
 	protected $propertyPath 		= null;
 	protected $propertyParents 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertySiblings 	= null;
-	protected $propertyPages 		= null;
 	protected $propertyStylesheets 	= null;
 	protected $propertyTree 		= null;
 	protected $propertyType 		= null;
@@ -105,16 +106,30 @@ class ServantPage extends ServantObject {
 		return $this->set('index', $siblings[$this->id()]);
 	}
 
-	// Depth of this page in the page tree
+	// Is this the current page?
+	protected function setIsCurrent () {
+		return $this->set('isCurrent', $this->pages()->current() === $this);
+	}
+
+	// Depth of this page in the page tree (starts from 1)
 	protected function setLevel () {
-		return $this->set('level', count($this->tree()));
+		return $this->set('level', (count($this->tree()) -1));
 	}
 
 	// Human-readable name, generated from ID
 	protected function setName () {
-		return $this->set('name', $this->servant()->format()->pageName($this->id()));
+		$id = $this->id();
+
+		// Use category as name
+		if ($this->index() === 0 and $this->level() > 0) {
+			$parents = $this->parents();
+			$id = end($parents);
+		}
+
+		return $this->set('name', $this->servant()->format()->pageName($id));
 	}
 
+	// FLAG should the manipulation be done in read action? That's how it is for stylesheets, too
 	protected function setOutput () {
 		$urlManipulator = new UrlManipulator();
 

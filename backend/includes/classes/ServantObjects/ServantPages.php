@@ -1,5 +1,11 @@
 <?php
 
+/**
+* Pages component
+*
+* FLAG
+*   - add list() that returns flat lists of each level, with categories normalized into pages
+*/
 class ServantPages extends ServantObject {
 
 	/**
@@ -9,6 +15,35 @@ class ServantPages extends ServantObject {
 	protected $propertyTemplates 	= null;
 	protected $propertyMap 			= null;
 	protected $propertyPath 		= null;
+
+
+
+	/**
+	* Convenience
+	*/
+
+	public function level () {
+		$pages = array();
+
+		// Allow tree traversal
+		$arguments = func_get_args();
+
+		// Pick pages on this level
+		foreach ($this->map(array_flatten($arguments)) as $id => $value) {
+
+			// Normalize pages with children
+			if (is_array($value)) {
+				$subPages = $this->level($arguments, $id);
+				$subPagesKeys = array_keys($subPages);
+				$pages[] = $subPages[$subPagesKeys[0]];
+			} else {
+				$pages[] = $value;
+			}
+
+		}
+
+		return $pages;
+	}
 
 
 
@@ -41,7 +76,7 @@ class ServantPages extends ServantObject {
 	protected function setCurrent () {
 
 		// Select the page most closely matching user input
-		$tree = $this->selectPage($this->templates(), $this->servant()->input()->page());
+		$tree = $this->selectPage($this->map(), $this->servant()->input()->page());
 
 		return $this->set('current', $tree);
 	}
@@ -141,23 +176,23 @@ class ServantPages extends ServantObject {
 	/**
 	* Choose one page from those available, preferring the one detailed in $tree
 	*/
-	private function selectPage ($filesOnThisLevel, $tree, $level = 0) {
+	private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
  
 		// No preference or preferred item doesn't exist: auto select
-		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $filesOnThisLevel)) {
+		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
 
 			// Cut out the rest of the preferred items
 			$tree = array_slice($tree, 0, $level);
 
 			// Auto select first item on this level
-			$keys = array_keys($filesOnThisLevel);
+			$keys = array_keys($pagesOnThisLevel);
 			$tree[] = $keys[0];
 
 		}
 
 		// We need to go deeper
-		if (is_array($filesOnThisLevel[$tree[$level]])) {
-			return $this->selectPage($filesOnThisLevel[$tree[$level]], $tree, $level+1);
+		if (is_array($pagesOnThisLevel[$tree[$level]])) {
+			return $this->selectPage($pagesOnThisLevel[$tree[$level]], $tree, $level+1);
 
 		// That was it
 		} else {

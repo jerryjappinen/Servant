@@ -30,10 +30,10 @@ echo '
 
 		// Custom web site icon
 		$icon = $servant->site()->icon('domain');
-		if (empty($icon)) {
+		if (!$icon) {
 			$icon = $servant->theme()->icon('domain');
 		}
-		if (!empty($icon)) {
+		if ($icon) {
 			$extension = pathinfo($icon, PATHINFO_EXTENSION);
 
 			// .ico for browsers
@@ -61,11 +61,11 @@ echo '
 			$tree = $servant->page()->tree();
 		}
 		echo '<link rel="stylesheet" href="'.$servant->paths()->userAction('stylesheets', 'domain', $tree).'" media="screen">';
+		unset($tree);
 
 		echo '
 	</head>
 ';
-
 
 
 
@@ -81,7 +81,7 @@ foreach ($tree as $value) {
 	$classes[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
-unset($tree, $i);
+unset($tree, $i, $value);
 
 // Body tag
 echo '<body class="level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $classes).'"><div class="frame">';

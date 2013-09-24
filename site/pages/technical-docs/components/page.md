@@ -18,7 +18,7 @@ Property name   | Description | Return values
 `output()`      |  | 
 `path($format)` | Path to the page file. [Formattable](/technical-docs/about/paths/). | String.
 `parents()`     | List possible parent nodes in `tree()`. `parents(0)` will return the direct parent if one exists. | List of parent node IDs (reversed order).
-`siblings()`    | Lists all pages on the same level, but not the page itself. | List of sitemap node IDs.
+`siblings()`    | Lists all pages on the same level, including the page itself. | List of sitemap node IDs.
 `site()`        |  | [ServantSite object](site)
 `tree()`        |  | 
 `type()`        |  | 

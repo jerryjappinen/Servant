@@ -3,8 +3,6 @@
 // Body content
 $output = '<div class="frame-body"><div class="frame-container">';
 
-	// echo '<br><br><br><br><br>'.html_dump($servant->page()->stylesheets());
-
 	// FLAG I really shouldn't hardcode the name of read action...
 	if ($servant->action()->id() === 'read') {
 
@@ -24,7 +22,7 @@ $output = '<div class="frame-body"><div class="frame-container">';
 					$output .= '<li class="selected">';
 
 					// This specific link is selected
-					if ($servant->page()->level() === 2) {
+					if ($servant->page()->level() === 1) {
 						$output .= '<strong>'.$link.'</strong>';
 					} else {
 						$output .= $link;
