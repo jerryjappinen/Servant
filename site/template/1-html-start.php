@@ -22,7 +22,7 @@ echo '
 
 		// Site title
 		echo '
-		<title>'.$servant->site()->name().'</title>
+		<title>'.(!$servant->page()->isHome() ? $servant->page()->name().' &ndash; ' : '').$servant->site()->name().'</title>
 		<meta name="application-name" content="'.$servant->site()->name().'">
 		';
 

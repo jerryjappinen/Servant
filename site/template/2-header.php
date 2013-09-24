@@ -11,16 +11,16 @@ $output = '<div class="frame-header"><div class="frame-container">
 	$pages = $servant->pages()->level();
 	if ($pages) {
 		$output .= '<div id="responsive-menu"><ul class="menu-1">';
-		foreach ($pages as $index => $page) {
+		foreach ($pages as $page) {
 
 			// Link in a list item, possibly selected
-			$link = '<a href="'.$servant->paths()->userAction('read', 'domain', $page->tree()).'">'.$page->name().'</a>';
+			$link = '<a href="'.$servant->paths()->userAction('read', 'domain', $page->tree()).'">'.$page->categoryName(0).'</a>';
 			$output .= '<li>'.($page->tree(0) === $servant->pages()->current()->tree(0) ? '<strong>'.$link.'</strong>' : $link).'</li>';
 
 		}
 		$output .= '</ul></div>';
 	}
-	unset($pages, $index, $link, $page);
+	unset($pages, $link, $page);
 
 
 

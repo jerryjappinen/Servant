@@ -16,9 +16,11 @@ class ServantPage extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyChildren 	= null;
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
 	protected $propertyIsCurrent 	= null;
+	protected $propertyIsHome 		= null;
 	protected $propertyLevel 		= null;
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
@@ -50,6 +52,25 @@ class ServantPage extends ServantObject {
 		}
 
 		return $this;
+	}
+
+
+
+	/**
+	* Convenience
+	*/
+
+	/**
+	* Generate a name based on one of the top-level parents
+	*/
+	public function categoryName ($level = 0) {
+		$parent = $this->tree($level);
+		if (isset($parent)) {
+			$name = $this->servant()->format()->pageName($parent);
+		} else {
+			$name = $this->name();
+		}
+		return $name;
 	}
 
 
@@ -95,6 +116,15 @@ class ServantPage extends ServantObject {
 	*   - ->pages() and ->tree() determine most of these
 	*/
 
+	protected function setChildren () {
+		$children = array();
+		if ($this->level() > 0 and $this->index() === 0 and $this->siblings()) {
+			$children = $this->siblings();
+			array_shift($children);
+		}
+		return $this->set('children', $children);
+	}
+
 	protected function setId () {
 		$tree = $this->tree();
 		return $this->set('id', end($tree));
@@ -111,6 +141,13 @@ class ServantPage extends ServantObject {
 		return $this->set('isCurrent', $this->pages()->current() === $this);
 	}
 
+	// Is this the home page?
+	protected function setIsHome () {
+		$pages = $this->pages()->level();
+		$pageKeys = array_keys($pages);
+		return $this->set('isHome',  $pages[$pageKeys[0]] === $this);
+	}
+
 	// Depth of this page in the page tree (starts from 1)
 	protected function setLevel () {
 		return $this->set('level', (count($this->tree()) -1));
@@ -118,15 +155,7 @@ class ServantPage extends ServantObject {
 
 	// Human-readable name, generated from ID
 	protected function setName () {
-		$id = $this->id();
-
-		// Use category as name
-		if ($this->index() === 0 and $this->level() > 0) {
-			$parents = $this->parents();
-			$id = end($parents);
-		}
-
-		return $this->set('name', $this->servant()->format()->pageName($id));
+		return $this->set('name', $this->servant()->format()->pageName($this->id()));
 	}
 
 	// FLAG should the manipulation be done in read action? That's how it is for stylesheets, too

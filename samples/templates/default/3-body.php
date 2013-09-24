@@ -1,79 +1,89 @@
 <?php
+/*
+*/
+// Submmenu for read action
+$menu = '';
+if ($servant->action()->isRead()) {
 
-// Body content
-$output = '<div class="frame-body"><div class="frame-container">';
+	// Generate menu
+	$pages = $servant->pages()->level($servant->page()->tree(0));
+	if ($pages) {
+		$items = array();
+		foreach ($pages as $page) {
 
-	// FLAG I really shouldn't hardcode the name of read action...
-	if ($servant->action()->id() === 'read') {
+			// Name
+			$name = $page->name();
 
-		// Submenu in a sidebar
-		$level2 = $servant->pages()->templates($servant->page()->tree(0));
-		if (is_array($level2)) {
-			$output .= '<div class="frame-sidebar"><ul class="menu-2">';
+			// Children
+			$submenu = '';
+			$subItems = array();
+			if ($page->children()) {
 
-			// List items
-			foreach ($level2 as $key => $value) {
+				// Rename category
+				$name = $page->categoryName(1);
 
-				// Link HTML
-				$link = '<a href="'.$servant->paths()->userAction('read', 'domain', $servant->page()->tree(0), $key).'">'.$servant->format()->pageName($key).'</a>';
+				// Include all pages on this level
+				foreach ($servant->pages()->map(array_reverse($page->parents())) as $subPage) {
 
-				// Selected item or group
-				if ($servant->page()->tree(1) === $key) {
-					$output .= '<li class="selected">';
+					// Child page HTML
+					$url = $servant->paths()->userAction('read', 'domain', $subPage->tree());
+					$output = '<a href="'.$url.'">'.$subPage->name().'</a>';
 
-					// This specific link is selected
-					if ($servant->page()->level() === 1) {
-						$output .= '<strong>'.$link.'</strong>';
+					// Mark selected subpage
+					if ($servant->page()->tree(1) === $subPage->parents(0) and $servant->page()->tree(2) === $subPage->id()) {
+						$output = '<li class="selected"><strong>'.$output.'</strong>';
 					} else {
-						$output .= $link;
+						$output = '<li>'.$output;
 					}
 
-					unset($link);
+					// Close HTML
+					$output .= '</li>';
 
-				// Link only
-				} else {
-					$output .= '<li>'.$link;
+					// Add item to submenu
+					$subItems[] = $output;
+					unset($output);
 				}
-				unset($link);
 
-				// Possible children
-				if (is_array($value)) {
-					$output .= '<ul class="menu-3">';
-
-					// Child pages in array
-					foreach ($value as $key2 => $value2) {
-
-						// Child item HTML
-						$link = '<a href="'.$servant->paths()->userAction('read', 'domain', $servant->page()->tree(0), $key, $key2).'">'.$servant->format()->pageName($key2).'</a>';
-						if ($servant->page()->tree(1) === $key and $servant->page()->tree(2) === $key2) {
-							$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
-						} else {
-							$output .= '<li>'.$link.'</li>';
-						}
-					}
-					unset($level3, $key2, $value2);
-
-					$output .= '</ul>';
-				}
-				$output .= '</li>';
-
+				$submenu = '<ul class="menu-3">'.implode($subItems).'</ul>';
 			}
 
-			$output .= '</ul></div>';
+			// Link HTML
+			$url = $servant->paths()->userAction('read', 'domain', $page->tree());
+			$output = '<a href="'.$url.'">'.$name.'</a>';
+
+			// Mark selected page
+			if ($servant->page()->tree(1) === $page->id()) {
+				$output = '<li class="selected"><strong>'.$output.'</strong>';
+			} else {
+				$output = '<li>'.$output;
+			}
+
+			// Close HTML
+			$output .= ($submenu ? $submenu : '').'</li>';
+
+			// Add item to menu
+			$items[] = $output;
+			unset($output);
+
 		}
-		unset($level2, $key, $value);
+
+		// Menu structure
+		$menu = '<ul class="menu-2">'.implode($items).'</ul>';
 
 	}
 
+}
 
+// Body content
+echo '
+<div class="frame-body">
+	<div class="frame-container">
+		'.($menu ? '<div class="frame-sidebar">'.$menu.'</div>' : '').'
+		<div class="frame-article">
+			'.$servant->template()->content().'
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>';
 
-	// Content
-	$output .= '<div class="frame-article">'.$servant->template()->content().'</div>';
-
-
-
-// End body
-$output .= '<div class="clear"></div></div></div>';
-
-echo $output;
 ?>

@@ -2,29 +2,25 @@
 
 // Header
 $output = '<div class="frame-header"><div class="frame-container">
+
 	<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>';
 
 
 
 	// Level 1 menu
-	$level1 = $servant->pages()->templates();
-	if (count($level1) > 1) {
+	$pages = $servant->pages()->level();
+	if ($pages) {
 		$output .= '<div id="responsive-menu"><ul class="menu-1">';
-		foreach ($level1 as $key => $value) {
+		foreach ($pages as $page) {
 
-			// Selected
-			if ($servant->page()->tree(0) === $key) {
-				$output .= '<li><strong><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->pageName($key).'</a></strong></li>';
-
-			// Normal link
-			} else {
-				$output .= '<li><a href="'.$servant->paths()->userAction('read', 'domain', $key).'">'.$servant->format()->pageName($key).'</a></li>';
-			}
+			// Link in a list item, possibly selected
+			$link = '<a href="'.$servant->paths()->userAction('read', 'domain', $page->tree()).'">'.$page->categoryName(0).'</a>';
+			$output .= '<li>'.($page->tree(0) === $servant->pages()->current()->tree(0) ? '<strong>'.$link.'</strong>' : $link).'</li>';
 
 		}
 		$output .= '</ul></div>';
 	}
-	unset($level1, $key, $value);
+	unset($pages, $link, $page);
 
 
 

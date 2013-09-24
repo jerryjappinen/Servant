@@ -25,6 +25,7 @@ class ServantAction extends ServantObject {
 	protected $propertyContentType 			= null;
 	protected $propertyFiles 				= null;
 	protected $propertyId 					= null;
+	protected $propertyIsRead 				= null;
 	protected $propertyPath 				= null;
 	protected $propertyOutput 				= null;
 	protected $propertyOutputViaTemplate 	= null;
@@ -173,6 +174,16 @@ class ServantAction extends ServantObject {
 		}
 
 		return $this->set('id', $id);
+	}
+
+	/**
+	* Whether or not this is the read action
+	*
+	* FLAG
+	*   - hardcode action name (should come from settings)
+	*/
+	protected function setIsRead () {
+		return $this->set('isRead', $this->id() === 'read');
 	}
 
 	/**
