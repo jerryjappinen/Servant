@@ -26,7 +26,6 @@ class ServantPage extends ServantObject {
 	protected $propertyOutput 		= null;
 	protected $propertyReadPath 	= null;
 	protected $propertyPages 		= null;
-	protected $propertyParents 		= null;
 	protected $propertyParentTree 	= null;
 	protected $propertySiblings 	= null;
 	protected $propertyTree 		= null;
@@ -231,15 +230,6 @@ class ServantPage extends ServantObject {
 		$tree = $this->tree();
 		array_pop($tree);
 		return $this->set('parentTree', $tree);
-	}
-
-	/**
-	* Parent nodes of this page in the page tree, order is reversed
-	*/
-	protected function setParents () {
-		$parents = array_reverse($this->tree());
-		array_shift($parents);
-		return $this->set('parents', $parents);
 	}
 
 	/**
