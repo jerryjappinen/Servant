@@ -24,14 +24,18 @@ class ServantPage extends ServantObject {
 	protected $propertyLevel 		= null;
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
+	protected $propertyReadPath 	= null;
 	protected $propertyPages 		= null;
 	protected $propertyParents 		= null;
-	protected $propertyScripts 		= null;
 	protected $propertySiblings 	= null;
-	protected $propertyStylesheets 	= null;
-	protected $propertyTemplate 	= null;
 	protected $propertyTree 		= null;
 	protected $propertyType 		= null;
+
+	// Files
+	protected $propertyScripts 		= null;
+	protected $propertyStylesheets 	= null;
+	protected $propertyTemplate 	= null;
+
 
 
 
@@ -78,6 +82,14 @@ class ServantPage extends ServantObject {
 	/**
 	* Public getters
 	*/
+
+	public function readPath ($format = false) {
+		$path = $this->getAndSet('readPath');
+		if ($format) {
+			$path = $this->servant()->format()->path($path, $format);
+		}
+		return $path;
+	}
 
 	public function scripts ($format = false) {
 		$files = $this->getAndSet('scripts');
@@ -143,9 +155,9 @@ class ServantPage extends ServantObject {
 
 	// Is this the home page?
 	protected function setIsHome () {
-		$pages = $this->pages()->level();
-		$pageKeys = array_keys($pages);
-		return $this->set('isHome',  $pages[$pageKeys[0]] === $this);
+		$topLevel = $this->pages()->level();
+		$pageKeys = array_keys($topLevel);
+		return $this->set('isHome',  $topLevel[$pageKeys[0]] === $this);
 	}
 
 	// Depth of this page in the page tree (starts from 1)
@@ -200,6 +212,11 @@ class ServantPage extends ServantObject {
 		$parents = array_reverse($this->tree());
 		array_shift($parents);
 		return $this->set('parents', $parents);
+	}
+
+	// Path to this page in read action
+	protected function setReadPath () {
+		return $this->set('readPath', $this->servant()->paths()->userAction('read', 'plain', $this->tree()));
 	}
 
 	// Paths to script files under pages, relevant to this page

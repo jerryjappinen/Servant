@@ -25,7 +25,7 @@ if ($servant->action()->isRead()) {
 				foreach ($servant->pages()->map(array_reverse($page->parents())) as $subPage) {
 
 					// Child page HTML
-					$url = $servant->paths()->userAction('read', 'domain', $subPage->tree());
+					$url = $subPage->readPath('domain');
 					$output = '<a href="'.$url.'">'.$subPage->name().'</a>';
 
 					// Mark selected subpage
@@ -47,7 +47,7 @@ if ($servant->action()->isRead()) {
 			}
 
 			// Link HTML
-			$url = $servant->paths()->userAction('read', 'domain', $page->tree());
+			$url = $page->readPath('domain');
 			$output = '<a href="'.$url.'">'.$name.'</a>';
 
 			// Mark selected page

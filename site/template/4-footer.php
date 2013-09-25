@@ -19,7 +19,7 @@ $footer[0] = array(
 	'<a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->page()->tree()).'">Sitemap</a>'
 );
 foreach ($pages as $page) {
-	$footer[0][] = '<a href="'.$servant->paths()->userAction('read', 'domain', $page->tree()).'">'.$page->categoryName(0).'</a>';
+	$footer[0][] = '<a href="'.$page->readPath('domain').'">'.$page->categoryName(0).'</a>';
 }
 unset($page);
 
@@ -35,8 +35,9 @@ foreach ($categories as $categoryId) {
 
 	// Subpages
 	foreach ($servant->pages()->level($categoryId) as $page) {
-		$footer[$i][] = '<a href="'.$servant->paths()->userAction('read', 'domain', $page->tree()).'/">'.$page->categoryName(1).'</a>';
+		$footer[$i][] = '<a href="'.$page->readPath('domain').'/">'.$page->categoryName(1).'</a>';
 	}
+	unset($page);
 
 	$i++;
 }
