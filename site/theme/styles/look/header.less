@@ -32,9 +32,19 @@
 			font-weight: 600;
 			color: @white;
 			.text-shadow(0 0 0.8em @grey-dark);
+
+			// Effects
+			.transition-property(color, text-shadow);
+			.transition-duration(0.2s);
 			&:hover {
 				text-decoration: none;
+				.text-shadow(0 0 2.4em @grey-light);
 			}
+			&:active {
+				color: @grey-light;
+				.text-shadow(0 0 4em @grey-light);
+			}
+
 		}
 	}
 
@@ -86,6 +96,11 @@
 			}
 		}
 
+		a {
+			.transition-property(color, text-shadow);
+			.transition-duration(0.2s);
+		}
+
 		// Text color
 		a, strong a:active {
 			color: @white;
@@ -93,11 +108,11 @@
 
 		// Effects
 		a:hover {
-			.text-shadow(0 0 1.2em @white);
+			.text-shadow(0 0 2.4em @grey-light);
 		}
 		a:active {
 			color: @grey-light;
-			.text-shadow(0 0 1.8em @white);
+			.text-shadow(0 0 4em @grey-light);
 		}
 
 		// Selected
