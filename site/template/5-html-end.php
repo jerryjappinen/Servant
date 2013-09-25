@@ -1,13 +1,17 @@
 <?php
 
-// Include scripts
+// Path to scripts action
 $tree = array();
-if ($servant->action()->id() === 'read') {
+if ($servant->action()->isRead()) {
 	$tree = $servant->page()->tree();
 }
-echo '<script src="'.$servant->paths()->userAction('scripts', 'domain', $tree).'"></script>';
 
 // End it all
-echo '</div></body></html>';
+echo '
+		<script src="'.$servant->paths()->userAction('scripts', 'domain', $tree).'"></script>
+		</div>
+	</body>
+</html>
+';
 
 ?>

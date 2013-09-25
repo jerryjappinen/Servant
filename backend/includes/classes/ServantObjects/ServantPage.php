@@ -25,11 +25,11 @@ class ServantPage extends ServantObject {
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
 	protected $propertyPages 		= null;
-	protected $propertyPath 		= null;
 	protected $propertyParents 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertySiblings 	= null;
 	protected $propertyStylesheets 	= null;
+	protected $propertyTemplate 	= null;
 	protected $propertyTree 		= null;
 	protected $propertyType 		= null;
 
@@ -79,14 +79,6 @@ class ServantPage extends ServantObject {
 	* Public getters
 	*/
 
-	public function path ($format = false) {
-		$path = $this->getAndSet('path');
-		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
-		}
-		return $path;
-	}
-
 	public function scripts ($format = false) {
 		$files = $this->getAndSet('scripts');
 		if ($format) {
@@ -105,6 +97,14 @@ class ServantPage extends ServantObject {
 			}
 		}
 		return $files;
+	}
+
+	public function template ($format = false) {
+		$path = $this->getAndSet('template');
+		if ($format) {
+			$path = $this->servant()->format()->path($path, $format);
+		}
+		return $path;
 	}
 
 
@@ -169,7 +169,7 @@ class ServantPage extends ServantObject {
 		$hrefUrl = $this->servant()->paths()->root('domain').$this->servant()->action()->id().'/';
 
 		// Relative location for SRC urls
-		$relativeSrcUrl = unprefix(dirname($this->path('plain')), $this->pages()->path('plain'), true);
+		$relativeSrcUrl = unprefix(dirname($this->template('plain')), $this->pages()->path('plain'), true);
 		if (!empty($relativeSrcUrl)) {
 			$relativeSrcUrl .= '/';
 		}
@@ -184,7 +184,7 @@ class ServantPage extends ServantObject {
 		$actionsUrl = $this->servant()->paths()->root('domain');
 
 		// Read content from source file
-		$fileContent = $this->servant()->files()->read($this->path('server'));
+		$fileContent = $this->servant()->files()->read($this->template('server'));
 
 		// Save file content with manipulated URLs
 		return $this->set('output', $urlManipulator->htmlUrls($fileContent, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
@@ -202,7 +202,7 @@ class ServantPage extends ServantObject {
 		return $this->set('parents', $parents);
 	}
 
-	// Scripts under pages relevant to this page
+	// Paths to script files under pages, relevant to this page
 	protected function setScripts () {
 		return $this->set('scripts', $this->filterPageFiles('scripts'));
 	}
@@ -213,9 +213,14 @@ class ServantPage extends ServantObject {
 		return $this->set('siblings', empty($siblings) ? array() : $siblings);
 	}
 
-	// Stylesheets under pages relevant to this page
+	// Paths to stylesheet files under pages, relevant to this page
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->filterPageFiles('stylesheets'));
+	}
+
+	// Path to the template file
+	protected function setTemplate () {
+		return $this->set('template', $this->pages()->templates($this->tree()));
 	}
 
 	protected function setTree ($tree = array()) {
@@ -229,11 +234,7 @@ class ServantPage extends ServantObject {
 	}
 
 	protected function setType () {
-		return $this->set('type', pathinfo($this->path(), PATHINFO_EXTENSION));
-	}
-
-	protected function setPath () {
-		return $this->set('path', $this->pages()->templates($this->tree()));
+		return $this->set('type', pathinfo($this->template(), PATHINFO_EXTENSION));
 	}
 
 
