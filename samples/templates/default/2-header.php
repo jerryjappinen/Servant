@@ -14,7 +14,7 @@ $output = '<div class="frame-header"><div class="frame-container">
 		foreach ($pages as $page) {
 
 			// Link in a list item, possibly selected
-			$link = '<a href="'.$servant->paths()->userAction('read', 'domain', $page->tree()).'">'.$page->categoryName(0).'</a>';
+			$link = '<a href="'.$page->readPath('domain').'">'.$page->categoryName(0).'</a>';
 			$output .= '<li>'.($page->tree(0) === $servant->pages()->current()->tree(0) ? '<strong>'.$link.'</strong>' : $link).'</li>';
 
 		}

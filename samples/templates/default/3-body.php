@@ -17,20 +17,21 @@ if ($servant->action()->isRead()) {
 			// Children
 			$submenu = '';
 			$subItems = array();
-			if ($page->children()) {
-
+			if ($page->children() and $page->level() > 1) {
 				// Rename category
 				$name = $page->categoryName(1);
 
 				// Include all pages on this level
-				foreach ($servant->pages()->map(array_reverse($page->parents())) as $subPage) {
+				foreach ($servant->pages()->map($page->parentTree()) as $subPage) {
 
 					// Child page HTML
-					$url = $servant->paths()->userAction('read', 'domain', $subPage->tree());
+					$url = $subPage->readPath('domain');
 					$output = '<a href="'.$url.'">'.$subPage->name().'</a>';
 
 					// Mark selected subpage
-					if ($servant->page()->tree(1) === $subPage->parents(0) and $servant->page()->tree(2) === $subPage->id()) {
+					$parents = $subPage->parentTree();
+					$parent = end($parents);
+					if ($servant->page()->tree(1) === $parent and $servant->page()->tree(2) === $subPage->id()) {
 						$output = '<li class="selected"><strong>'.$output.'</strong>';
 					} else {
 						$output = '<li>'.$output;
@@ -48,7 +49,7 @@ if ($servant->action()->isRead()) {
 			}
 
 			// Link HTML
-			$url = $servant->paths()->userAction('read', 'domain', $page->tree());
+			$url = $page->readPath('domain');
 			$output = '<a href="'.$url.'">'.$name.'</a>';
 
 			// Mark selected page

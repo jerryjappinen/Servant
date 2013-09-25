@@ -27,6 +27,7 @@ class ServantPage extends ServantObject {
 	protected $propertyReadPath 	= null;
 	protected $propertyPages 		= null;
 	protected $propertyParents 		= null;
+	protected $propertyParentTree 	= null;
 	protected $propertySiblings 	= null;
 	protected $propertyTree 		= null;
 	protected $propertyType 		= null;
@@ -142,35 +143,49 @@ class ServantPage extends ServantObject {
 		return $this->set('id', end($tree));
 	}
 
-	// Location of this page relative to its siblings
+	/**
+	* Location of this page relative to its siblings
+	*/
 	protected function setIndex () {
 		$siblings = array_flip($this->siblings());
 		return $this->set('index', $siblings[$this->id()]);
 	}
 
-	// Is this the current page?
+	/**
+	* Is this the current page?
+	*/
 	protected function setIsCurrent () {
 		return $this->set('isCurrent', $this->pages()->current() === $this);
 	}
 
-	// Is this the home page?
+	/**
+	* Is this the home page?
+	*/
 	protected function setIsHome () {
 		$topLevel = $this->pages()->level();
 		$pageKeys = array_keys($topLevel);
 		return $this->set('isHome',  $topLevel[$pageKeys[0]] === $this);
 	}
 
-	// Depth of this page in the page tree (starts from 1)
+	/**
+	* Depth of this page in the page tree (starts from 1)
+	*/
 	protected function setLevel () {
 		return $this->set('level', (count($this->tree()) -1));
 	}
 
-	// Human-readable name, generated from ID
+	/**
+	* Human-readable name, generated from ID
+	*/
 	protected function setName () {
 		return $this->set('name', $this->servant()->format()->pageName($this->id()));
 	}
 
-	// FLAG should the manipulation be done in read action? That's how it is for stylesheets, too
+	/**
+	* Return template content as a string
+	*
+	* FLAG URL manipulation should be done in read action (as in stylesheets and scripts)
+	*/
 	protected function setOutput () {
 		$urlManipulator = new UrlManipulator();
 
@@ -187,7 +202,7 @@ class ServantPage extends ServantObject {
 		}
 
 		// Relative location for HREF urls
-		$relativeHrefUrl = implode('/', array_reverse($this->parents()));
+		$relativeHrefUrl = implode('/', $this->parentTree());
 		if (!empty($relativeHrefUrl)) {
 			$relativeHrefUrl .= '/';
 		}
@@ -202,40 +217,66 @@ class ServantPage extends ServantObject {
 		return $this->set('output', $urlManipulator->htmlUrls($fileContent, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 	}
 
-	// ServantPages object
+	/**
+	* ServantPages object
+	*/
 	protected function setPages ($pages) {
 		return $this->set('pages', $pages);
 	}
 
-	// Parent nodes of this page in the page tree, order is reversed
+	/**
+	* Parent IDs
+	*/
+	protected function setParentTree () {
+		$tree = $this->tree();
+		array_pop($tree);
+		return $this->set('parentTree', $tree);
+	}
+
+	/**
+	* Parent nodes of this page in the page tree, order is reversed
+	*/
 	protected function setParents () {
 		$parents = array_reverse($this->tree());
 		array_shift($parents);
 		return $this->set('parents', $parents);
 	}
 
-	// Path to this page in read action
+	/**
+	* Path to this page in read action
+	*/
 	protected function setReadPath () {
 		return $this->set('readPath', $this->servant()->paths()->userAction('read', 'plain', $this->tree()));
 	}
 
-	// Paths to script files under pages, relevant to this page
+	/**
+	* Paths to script files under pages, relevant to this page
+	*/
 	protected function setScripts () {
 		return $this->set('scripts', $this->filterPageFiles('scripts'));
 	}
 
-	// All pages on this level of the page tree. Includes this page.
+	/**
+	* All pages on this level of the page tree. Includes this page.
+	*
+	* FLAG
+	*   - should contain page objects
+	*/
 	protected function setSiblings () {
-		$siblings = array_keys($this->pages()->templates(array_reverse($this->parents())));
+		$siblings = array_keys($this->pages()->templates($this->parentTree()));
 		return $this->set('siblings', empty($siblings) ? array() : $siblings);
 	}
 
-	// Paths to stylesheet files under pages, relevant to this page
+	/**
+	* Paths to stylesheet files under pages, relevant to this page
+	*/
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->filterPageFiles('stylesheets'));
 	}
 
-	// Path to the template file
+	/**
+	* Path to the template file
+	*/
 	protected function setTemplate () {
 		return $this->set('template', $this->pages()->templates($this->tree()));
 	}

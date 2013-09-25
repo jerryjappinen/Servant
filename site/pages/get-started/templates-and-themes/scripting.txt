@@ -7,6 +7,5 @@ For more advanced use cases, PHP templates are supported. They allow you to writ
 
 #### Dynamic details of current page
 
-	// Dynamic title
-	$parents = $servant->page()->parents();
-	echo '<h1>'.(!empty($parents) ? $parents : $servant->site()->name()).': '.$servant->page()->name().'</h1>'
+	// Print site name on home page, page name on others
+	echo '<h1>'.($servant->page()->isHome() ? $servant->site()->name() : $servant->page()->name()).'</h1>'
