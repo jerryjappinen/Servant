@@ -92,6 +92,9 @@ class ServantPages extends ServantObject {
 
 	/**
 	* All available pages as page objects
+	*
+	* FLAG
+	*   - I should create and init page only when they're actually called
 	*/
 	public function setMap () {
 		return $this->set('map', $this->generatePageObjects($this->templates()));

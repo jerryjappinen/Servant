@@ -22,7 +22,7 @@ if ($servant->action()->isRead()) {
 				$name = $page->categoryName(1);
 
 				// Include all pages on this level
-				foreach ($servant->pages()->map($page->parentTree()) as $subPage) {
+				foreach ($page->siblings() as $subPage) {
 
 					// Child page HTML
 					$url = $subPage->readPath('domain');

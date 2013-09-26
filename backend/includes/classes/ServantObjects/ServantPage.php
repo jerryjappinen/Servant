@@ -21,6 +21,7 @@ class ServantPage extends ServantObject {
 	protected $propertyIndex 		= null;
 	protected $propertyIsCurrent 	= null;
 	protected $propertyIsHome 		= null;
+	protected $propertyIsMaster 	= null;
 	protected $propertyLevel 		= null;
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
@@ -128,12 +129,18 @@ class ServantPage extends ServantObject {
 	*   - ->pages() and ->tree() determine most of these
 	*/
 
+	/**
+	* Siblings can be thought of as children if a page is master page
+	*/
 	protected function setChildren () {
 		$children = array();
+
+		// Is master page
 		if ($this->level() > 0 and $this->index() === 0 and $this->siblings()) {
 			$children = $this->siblings();
 			array_shift($children);
 		}
+
 		return $this->set('children', $children);
 	}
 
@@ -146,8 +153,8 @@ class ServantPage extends ServantObject {
 	* Location of this page relative to its siblings
 	*/
 	protected function setIndex () {
-		$siblings = array_flip($this->siblings());
-		return $this->set('index', $siblings[$this->id()]);
+		$keys = array_flip(array_keys($this->siblings()));
+		return $this->set('index', $keys[$this->id()]);
 	}
 
 	/**
@@ -163,7 +170,14 @@ class ServantPage extends ServantObject {
 	protected function setIsHome () {
 		$topLevel = $this->pages()->level();
 		$pageKeys = array_keys($topLevel);
-		return $this->set('isHome',  $topLevel[$pageKeys[0]] === $this);
+		return $this->set('isHome', $topLevel[$pageKeys[0]] === $this);
+	}
+
+	/**
+	* Category main page
+	*/
+	protected function setIsMaster () {
+		return $this->set('isMaster', ($this->level() > 0 and $this->index() === 0) ? true : false);
 	}
 
 	/**
@@ -253,8 +267,8 @@ class ServantPage extends ServantObject {
 	*   - should contain page objects
 	*/
 	protected function setSiblings () {
-		$siblings = array_keys($this->pages()->templates($this->parentTree()));
-		return $this->set('siblings', empty($siblings) ? array() : $siblings);
+		$siblings = $this->pages()->map($this->parentTree());
+		return $this->set('siblings', $siblings ? $siblings : array());
 	}
 
 	/**
@@ -266,6 +280,9 @@ class ServantPage extends ServantObject {
 
 	/**
 	* Path to the template file
+	*
+	* FLAG
+	*   - Template path shouldn't come from pages(), it's backwards o_O
 	*/
 	protected function setTemplate () {
 		return $this->set('template', $this->pages()->templates($this->tree()));
