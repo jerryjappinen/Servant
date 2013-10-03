@@ -1,7 +1,7 @@
 <?php
-/*
+/**
+* Submenu for read action
 */
-// Submmenu for read action
 $menu = '';
 if ($servant->action()->isRead()) {
 
@@ -75,7 +75,11 @@ if ($servant->action()->isRead()) {
 
 }
 
-// Body content
+
+
+/**
+* Body content
+*/
 echo '
 <div class="frame-body">
 	<div class="frame-container">

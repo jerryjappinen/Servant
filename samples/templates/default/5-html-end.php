@@ -8,7 +8,7 @@ if ($servant->action()->isRead()) {
 
 // End it all
 echo '
-		<script src="'.$servant->paths()->userAction('scripts', 'domain', $tree).'"></script>
+			<script src="'.$servant->paths()->userAction('scripts', 'domain', $tree).'"></script>
 		</div>
 	</body>
 </html>

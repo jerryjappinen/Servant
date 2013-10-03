@@ -88,3 +88,10 @@ echo '<body class="level-'.count($servant->page()->tree()).' index-'.$servant->p
 unset($classes);
 
 ?>
+
+<!-- Page content -->
+<?= $servant->template()->content() ?>
+
+		<script src="<?= $servant->paths()->userAction('scripts', 'domain', $servant->action()->isRead() ? $tree = $servant->page()->tree() : array()) ?>"></script>
+	</body>
+</html>

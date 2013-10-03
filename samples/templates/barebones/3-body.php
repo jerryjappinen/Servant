@@ -1,1 +1,0 @@
-<?= $servant->template()->content() ?>
