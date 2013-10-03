@@ -11,15 +11,19 @@ Each component extends the [ServantObject class](/techincal-docs/backend/base-cl
 
 ### Available
 
-### Dev
-
 ### Files
 
 ### Format
 
 ### Http Headers
 
+### Input
+
 ### Page
+
+### Pages
+
+### Parse
 
 ### Paths
 
@@ -30,5 +34,7 @@ Each component extends the [ServantObject class](/techincal-docs/backend/base-cl
 ### Site
 
 ### Template
+
+### Theme
 
 ### Utilities

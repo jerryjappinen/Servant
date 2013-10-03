@@ -1,7 +1,7 @@
 
 # URLs in stylesheets
 
-URL calues used in CSS are manipulated so that they point to the right place on the final page with a single merged stylesheet file. URLs work in the same manner in both site and theme packages.
+URL calues used in CSS are manipulated so that they point to the right place on the final page with a single merged stylesheet file. URLs work in the same manner in both pages and stylesheets.
 
 Here are some examples of how the URLs will change.
 
@@ -19,7 +19,7 @@ Relative URLs point to the location of the file they're used in.
 
 For example, if in our CSS we write
 
-##### themes/default/layout/header.css
+##### site/theme/layout/header.css
 	#header {
 		background-image: url('header.jpg');
 	}
@@ -29,12 +29,12 @@ For example, if in our CSS we write
 
 the result in the minified stylesheet file will be
 
-##### sitename/stylesheets/
+##### stylesheets/
 	#header {
-		background-image: url('/path/to/servant/themes/default/layout/header.jpg');
+		background-image: url('/path/to/servant/site/theme/layout/header.jpg');
 	}
 	h1 {
-		background-image: url('/path/to/servant/themes/default/layout/logos/logo.png');
+		background-image: url('/path/to/servant/site/theme/layout/logos/logo.png');
 	}
 
 
@@ -43,7 +43,7 @@ the result in the minified stylesheet file will be
 
 Root-relative URLs point to the root of the site or theme folder:
 
-##### themes/default/layout/footer.css
+##### site/theme/layout/footer.css
 	#footer {
 		background-image: url('/footer.jpg');
 	}
@@ -57,10 +57,10 @@ the result in the minified stylesheet file will be
 
 ##### sitename/stylesheets/
 	#footer {
-		background-image: url('/path/to/servant/themes/default/footer.jpg');
+		background-image: url('/path/to/servant/site/theme/footer.jpg');
 	}
 	h1 {
-		background-image: url('/path/to/servant/themes/default/assets/logo.png');
+		background-image: url('/path/to/servant/site/theme/assets/logo.png');
 	}
 
 
@@ -69,7 +69,7 @@ the result in the minified stylesheet file will be
 
 You don't usually need to write links to specific actions, but it can be done. You might need it if you created an action for scaling images, for example, and wanted to use scaled images in your stylesheets. Use **two forwards slashes** in the beginning of the URL, and write the name of the action first:
 
-##### themes/default/layout/body.css
+##### site/theme/layout/body.css
 	.container-body {
 		background-image: url('//imagescale/body.jpg/200/200');
 	}

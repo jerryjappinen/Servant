@@ -1,9 +1,8 @@
 
 # Page component
 
-- Pages have IDs.
+- A page has an ID.
 - Pages are sorted into nested categories, based on site's directory structure.
-- Only the root level can have less than two pages.
 
 
 
