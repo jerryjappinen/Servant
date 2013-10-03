@@ -1,24 +1,30 @@
 
 # Pages
 
-Each text document in your site's folder will be shown as a page on your site. **Just creating a new `.txt` file will result in a new page**, but you can also write files in [HTML](HTML), [Textile](textile), [Markdown](text-and-markdown), [Wiki markup](wiki-markup), RST, [PHP](PHP), HAML, [Twig](twig) or Jade. Phew!
+Each text document in your site's `pages/` folder will be shown as a page on your site. **Just creating a new `.txt` file will result in a new page**, but you can also write files in other formats like [HTML](/technical-docs/template-formats/HTML), [Markdown](/technical-docs/template-formats/text-and-markdown), [PHP](/technical-docs/template-formats/PHP), or [HAML](/technical-docs/template-formats/twig).
 
 All files are converted and served to your users as HTML automatically. For example, your site's folder could look like this:
 
-##### sites/my-site/
-	about.txt
-	documentation.textile
-	examples.php
-	features.html
-	get-started.md
+##### servant/
+	site/
+		pages/
+			about.txt
+			documentation.textile
+			examples.php
+			features.html
+			get-started.md
+		template/
+		theme/
 
-Pages can contain things like titles, subtitles, lists, links and images. [Themes](templates-and-themes) will change the look of these elements, so your pages can look very different if you choose a new theme.
+Pages can contain things like titles, subtitles, lists, links and images. The [theme](theme) will decide the look of these elements on the final site.
 
 
 
 ## Links & images
 
-Pointing to other documents with links, or adding images to a page is really easy. Different formats allow you to write links and images in different ways, but the URLs work the same way for every page. Here are some examples in [Markdown](text-and-markdown).
+Pointing to other documents with links, or adding images to a page is really easy. Defining links and images can be done in different ways depending on the file format, but the URLs always work in the same way.
+
+Here are some examples in [Markdown](/technical-docs/template-formats/text-and-markdown).
 
 ### Relative URLs
 

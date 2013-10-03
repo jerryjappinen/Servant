@@ -1,29 +1,27 @@
 
 # Installing Servant
 
-Here's the short version: [Download servant.zip](https://bitbucket.org/Eiskis/servant/get/default.zip), unzip it and move it on your server. Usually everything works out-of-the-box, and you will see the default site when you point your browser to servant.
-
-For more details, read on.
-
-
-
-## Walkthrough
+These are detailed instructions on how to set up Servant. You'll have it running in minutes.
 
 ### 1. Access a server
 
-You need *PHP 5.2+* and *Apache*. Apache needs to have *rewrite_module* enabled (sometimes called *mod_rewrite*). If you have installed [WAMP](http://www.wampserver.com/en/) on Windows as a local development environment, you need to manually enable it in the settings.
+You need *PHP 5.2+* and a server with support for *rewrite_module* (sometimes called *mod_rewrite*). Most servers have this.
+
+**Note!** If you have installed [WAMP](http://www.wampserver.com/en/) on Windows as a local development environment, you need to manually enable this module in the settings.
 
 
 
 ### 2. Download Servant
 
-[Download Servant](https://bitbucket.org/Eiskis/servant/get/default.zip). It will come in the form of a `.zip` file you need to extract and move to your server.
+[Download Servant](https://bitbucket.org/Eiskis/servant/get/default.zip). It will come in the form of a `.zip` file that you need to extract and move to your server.
 
 
 
 ### 3. Point your browser to Servant
 
-Go to your server, where you just moved Servant's files. If Servant's home site is loading, Servant is now installed correctly. If not, continue reading to find out what you still need to do.
+Go to your server, where you just moved Servant's files. If Servant's the default site is loading, Servant is now installed correctly.
+
+If this isn't the case, continue to troubleshooting.
 
 
 
@@ -31,10 +29,11 @@ Go to your server, where you just moved Servant's files. If Servant's home site 
 
 #### I don't know where to copy Servant's files
 
-Your server usually has a directory called *Document Root* somewhere in the file system (often with the folder name `www`). It's exact location can vary, but here are some common places to look for.
+Your server usually has a directory called *Document Root* somewhere in the file system (often with the folder name `www`). Its exact location can vary, but here are some places to look:
 
 - If you are using [WAMP](http://www.wampserver.com/en/) on Windows, the default is `C:\wamp\www\`.
-- If you are using [MAMP](http://www.mamp.info/en/index.html) on Mac OS X, the default is `/Applications/MAMP/htdocs/`. This can be changed in MAMP's settings, and you can check there to make sure what it is on your specific system.
+- If you are using [MAMP](http://www.mamp.info/en/index.html) on Mac OS X, the default is `/Applications/MAMP/htdocs/`.
+	- This can be changed in MAMP's settings, and you can check there to make sure what it is on your specific system.
 
 
 
@@ -42,18 +41,21 @@ Your server usually has a directory called *Document Root* somewhere in the file
 
 Make sure you `.htaccess` files have been copied to your server. They forward requests from one place to another, prevent public directory listings and deny access to some files for security reasons. They are hidden files, and as such might sometimes slip through when you're copying files from one place to another.
 
-There's one file in the root folder, and one in each main directory:
+There's one file in the root folder, and three in other directories:
 
-- `/.htaccess` (root directory):
-- `/servant/.htaccess` (the same place as `index.php` and `paths.php`)
-- `/sites/.htaccess` (sites folder)
-- `/templates/.htaccess` (templates folder)
-- `/themes/.htaccess` (themes folder)
+- `/.htaccess` (root directory)
+- `/backend/.htaccess` (the same place as `index.php`)
+- `/site/pages/.htaccess` (pages folder)
+- `/site/template/.htaccess` (template folder)
 
 
 
 #### PHP can't find files
 
-Servant needs to know where it's running. Normally it detects this automatically, but on some, more complicated environments this doesn't work. In this case, define `'document root'` and/or `'root'` manually in the file `paths.php`. Uncomment the first two lines and add the correct values according to the examples.
+Servant needs to know where it's running. Normally it detects this automatically, but on some, more complicated environments this doesn't work. If this is the case:
+
+1. Open `/backend/includes/paths.php`
+2. Uncomment `'document root'`, `'root'` and/or `'host'`
+3. Give these the values that correspond to your server
 
 You shouldn't have to, but you can also go through `.htaccess` and make sure nothing there conflicts with your environment's settings.

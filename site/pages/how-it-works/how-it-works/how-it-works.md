@@ -13,7 +13,7 @@
 
 		<div class="buffer box">
 			<h3 class="squeeze-top"><em class="count">2</em></h3>
-			<h2 class="squeeze-top reset-bottom">Templates &amp; themes run</h2>	
+			<h2 class="squeeze-top reset-bottom">Template &amp; theme run</h2>	
 			<p>Choose your favorite from diverse templates and looks. Turn your documents into a marketing site, published documentation or a blog.</p>
 		</div>
 
