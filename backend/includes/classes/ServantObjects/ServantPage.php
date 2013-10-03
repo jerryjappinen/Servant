@@ -247,10 +247,10 @@ class ServantPage extends ServantObject {
 	}
 
 	/**
-	* Path to this page in read action
+	* Path to this page in site action
 	*/
 	protected function setReadPath () {
-		return $this->set('readPath', $this->servant()->paths()->userAction('read', 'plain', $this->tree()));
+		return $this->set('readPath', $this->servant()->paths()->userAction('site', 'plain', $this->tree()));
 	}
 
 	/**

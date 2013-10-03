@@ -6,7 +6,7 @@
 	},
 
 	"defaults": {
-		"action": "read",
+		"action": "site",
 		"contentType": "html",
 		"status": 200,
 		"language": "en"

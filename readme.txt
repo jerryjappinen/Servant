@@ -23,17 +23,16 @@ Setup
 
 Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at [nothing here] if you encounter any problems.
+Consult troubleshooting guide at http://www.eiskis.net/servant/ if you encounter any problems.
 
 
 
 Getting started
 ---------------
 
-1. Each directory under *sites/* is a site.
-2. All .txt, .html, .md, .textile, .rst, .wiki and .php files under a site folder are pages.
-3. Servant compiles all pages into a web site.
-4. You can choose a template and template for each site, to customize format and look of each site.
-5. Styles and scripts from a site will also be loaded.
+1. All .txt, .html, .md, .textile, .rst, .wiki and .php files under the pages folder are pages.
+2. Servant compiles all pages into a web site.
+3. Template and theme to define how the structure and look, respectively.
+4. Styles and scripts under pages/ will also be loaded.
 
-For information on how to create your own themes and templates, extend the backend functionality or contribute to the core, visit http://eiskis.net/servant/ for full documentation.
+Full documentation at http://www.eiskis.net/servant/.

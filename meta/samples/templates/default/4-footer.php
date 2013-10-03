@@ -31,7 +31,7 @@ foreach ($categories as $categoryId) {
 	$footer[$i] = array();
 
 	// Category title
-	$footer[$i][] = '<a href="'.$servant->paths()->userAction('read', 'domain', $categoryId).'">'.$servant->format()->pageName($categoryId).'</a>';
+	$footer[$i][] = '<a href="'.$servant->paths()->userAction('site', 'domain', $categoryId).'">'.$servant->format()->pageName($categoryId).'</a>';
 
 	// Subpages
 	foreach ($servant->pages()->level($categoryId) as $page) {
