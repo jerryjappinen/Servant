@@ -1,8 +1,16 @@
+<?php
 
+/**
+* HTML head
+*/
+echo '
 <!DOCTYPE html>
-<html lang="<?= $servant->site()->language() ?>">
+<html lang="'.$servant->site()->language().'">
 	<head>
+		';
 
+		// Basic meta stuff
+		echo '
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<style type="text/css">
@@ -10,17 +18,22 @@
 			@-o-viewport{width: device-width;}
 			@viewport{width: device-width;}
 		</style>
+		';
 
-		<title><?= $servant->site()->name() ?></title>
-		<meta name="application-name" content="<?= $servant->site()->name() ?>">
+		// Site title
+		echo '
+		<title>'.(!$servant->page()->isHome() ? $servant->page()->name().' &ndash; ' : '').$servant->site()->name().'</title>
+		<meta name="application-name" content="'.$servant->site()->name().'">
+		';
 
-		<?php
+
+
 		// Custom web site icon
 		$icon = $servant->site()->icon('domain');
-		if (empty($icon)) {
+		if (!$icon) {
 			$icon = $servant->theme()->icon('domain');
 		}
-		if (!empty($icon)) {
+		if ($icon) {
 			$extension = pathinfo($icon, PATHINFO_EXTENSION);
 
 			// .ico for browsers
@@ -39,23 +52,27 @@
 			unset($extension);
 		}
 		unset($icon);
-		?>
 
 
-		<?php
+
 		// Stylesheets, possibly page-specific
-		// FLAG I really shouldn't hardcode the name of read action...
-		$temp = $servant->paths()->root('domain').'stylesheets/';
-		if ($servant->action()->id() === 'read') {
-			$temp .= implode('/', $servant->page()->tree()).'/';
+		$tree = array();
+		if ($servant->action()->isRead()) {
+			$tree = $servant->page()->tree();
 		}
-		?>
-		<link rel="stylesheet" href="<?= $temp ?>" media="screen">
+		echo '<link rel="stylesheet" href="'.$servant->paths()->userAction('stylesheets', 'domain', $tree).'" media="screen">';
+		unset($tree);
 
+		echo '
 	</head>
+';
 
 
-<?php
+
+/**
+* Body starts
+*/
+
 // Create classes for body
 $i = 1;
 $classes = array();
@@ -64,7 +81,10 @@ foreach ($tree as $value) {
 	$classes[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
-unset($tree, $i);
-?>
+unset($tree, $i, $value);
 
-<body class="level-<?= count($servant->page()->tree())?> index-<?= $servant->page()->index()?> <?= implode(' ', $classes) ?>">
+// Body tag
+echo '<body class="level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $classes).'"><div class="frame">';
+unset($classes);
+
+?>
