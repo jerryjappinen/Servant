@@ -2,15 +2,15 @@
 <div class="showoff">
 	<div class="column six">
 		<div class="buffer">
-			<h2 class="close-top">Turn this...</h2>
-			<p class="close"><img src="files.png" class="shadows" alt="Files and folders" title="Turn this..."></p>
+			<h2 class="reset-top">Turn this...</h2>
+			<p class="reset"><img src="files.png" class="shadows" alt="Files and folders" title="Turn this..."></p>
 		</div>
 	</div>
 
 	<div class="column six last">
 		<div class="buffer">
-			<h2 class="close-top">...into this!</h2>
-			<p class="close"><img src="result.png" class="shadows" alt="Web site" title="...into this!"></p>
+			<h2 class="reset-top">...into this!</h2>
+			<p class="reset"><img src="result.png" class="shadows" alt="Web site" title="...into this!"></p>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -45,8 +45,8 @@
 <div class="author limit">
 	<h2>It's open-source</h2>
 
-	<div class="column fluid">
-		<div class="container">
+	<div class="column fluid right">
+		<div class="column-content">
 
 			<p>Servant is an open-source project authored by <a href="http://eiskis.net/">Jerry Jäppinen</a> and released under <a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a>.</p>
 
@@ -57,7 +57,7 @@
 		</div>
 	</div>
 
-	<div class="column fixed">
+	<div class="column fixed right">
 		<p><a href="http://eiskis.net/"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
 	</div>
 	<div class="clear"></div>

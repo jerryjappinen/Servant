@@ -3,7 +3,7 @@
 
 		<div class="buffer box green">
 			<h3 class="squeeze-top"><em class="count">1</em></h3>
-			<h2 class="squeeze-top close-bottom">Text documents go in</h2>	
+			<h2 class="squeeze-top reset-bottom">Text documents go in</h2>	
 			<p>Servant takes plain text, HTML, Textile and Markdown files, and converts them into web pages. Stock PHP files are also supported for dynamic content, as are HAML and Twig if that's your thing.</p>
 		</div>
 
@@ -13,7 +13,7 @@
 
 		<div class="buffer box">
 			<h3 class="squeeze-top"><em class="count">2</em></h3>
-			<h2 class="squeeze-top close-bottom">Templates &amp; themes run</h2>	
+			<h2 class="squeeze-top reset-bottom">Templates &amp; themes run</h2>	
 			<p>Choose your favorite from diverse templates and looks. Turn your documents into a marketing site, published documentation or a blog.</p>
 		</div>
 
@@ -23,7 +23,7 @@
 
 		<div class="buffer box magenta">
 			<h3 class="squeeze-top"><em class="count">3</em></h3>
-			<h2 class="squeeze-top close-bottom">Web site comes out</h2>	
+			<h2 class="squeeze-top reset-bottom">Web site comes out</h2>	
 			<p>Your content is now presented as a usable, professional-looking web site with menus and sitemaps. Caching and minified stylesheets/scripts work out-of-the-box.</p>
 		</div>
 
