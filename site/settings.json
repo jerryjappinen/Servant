@@ -1,8 +1,10 @@
 {
+
 	"icon": "site/servant.ico",
 	"language": "en",
 	"name": "Servant",
 	"pageNames": {
 		"text-and-markdown": "Text & Markdown"
 	}
+
 }

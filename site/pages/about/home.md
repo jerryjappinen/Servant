@@ -24,7 +24,7 @@
 		<h1>Welcome to <em>Servant</em>.</h1>
 
 		<div class="column six">
-			<p>Convert text documents to web pages. On the fly. On PHP, the easiest and most popular language used by web hosting services today. It's very easy to install, supports many different text file formats and can power multiple sites in a single installation.</p>
+			<p>Convert text documents to web pages. On the fly. On PHP, the easiest and most popular language used by web hosting services today. It's very easy to install and supports a variety of text file formats for any use case.</p>
 		</div>
 
 		<div class="column six last">
