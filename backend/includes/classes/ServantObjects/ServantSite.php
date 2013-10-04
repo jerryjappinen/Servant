@@ -5,10 +5,12 @@ class ServantSite extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyBrowserCache = null;
 	protected $propertyIcon 		= null;
 	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
 	protected $propertyPageNames 	= null;
+	protected $propertyServerCache 	= null;
 
 
 
@@ -23,16 +25,17 @@ class ServantSite extends ServantObject {
 
 			// This is what we can set
 			$properties = array(
+				'browserCache',
 				'icon',
 				'language',
 				'name',
 				'pageNames',
+				'serverCache',
 			);
-
 			// Run setters if values are given
 			foreach ($properties as $key) {
 				$parameters = array();
-				if (isset($manifest[$key]) and !empty($manifest[$key])) {
+				if (isset($manifest[$key])) {
 					$parameters[] = $manifest[$key];
 					$this->callSetter($key, $parameters);
 				}
@@ -62,6 +65,13 @@ class ServantSite extends ServantObject {
 	/**
 	* Setters
 	*/
+
+	/**
+	* Browser cache time (used in cache headers)
+	*/
+	protected function setBrowserCache ($input = null) {
+		return $this->set('browserCache', $this->resolveCacheTime($input, $this->servant()->settings()->cache('browser')));
+	}
 
 	/**
 	* Path to site icon comes from settings or remains an empty string
@@ -120,7 +130,7 @@ class ServantSite extends ServantObject {
 	* Name comes from settings or is created from ID
 	*
 	* FLAG
-	*   - Hardcoded default name
+	*   - Hardcoded default name (-> add to settings()->defaults())
 	*/
 	protected function setName ($input = null) {
 		$result = 'Home';
@@ -147,11 +157,43 @@ class ServantSite extends ServantObject {
 		return $this->set('pageNames', $pageNames);
 	}
 
+	/**
+	* Server cache time (how old can a stored response be to be valid)
+	*/
+	protected function setServerCache ($input = null) {
+		return $this->set('serverCache', $this->resolveCacheTime($input, $this->servant()->settings()->cache('server')));
+	}
+
 
 
 	/**
 	* Private helpers
 	*/
+
+	// Resolve valid cache time from user input, in minutes
+	private function resolveCacheTime ($input, $default) {
+		$result = $default;
+
+		// No explicit value given
+		if ($input !== null and $input !== true) {
+
+			// Cache disabled
+			if (!$input) {
+				$input = 0;
+
+			// Formula as a string
+			} elseif (is_string($input)) {
+				$input = calculate($input, true);
+			}
+			// Numerical value available
+			if (is_numeric($input)) {
+				$result = max(0, intval($input));
+			}
+
+		}
+
+		return $result;
+	}
 
 	private function readJsonFile ($path) {
 		$result = array();

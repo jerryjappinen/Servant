@@ -14,7 +14,6 @@ date_default_timezone_set('UTC');
 class Index {
 	public function __construct () {
 		if (isset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES)) {
-			try {
 
 				// Arbitrary preparations
 				$arguments = func_get_args();
@@ -27,8 +26,9 @@ class Index {
 				call_user_func_array(array($this, 'run'), $preparation);
 				return $this;
 
+			try {
 			} catch (Exception $e) {
-				die();				
+				die();
 			}
 		}
 	}

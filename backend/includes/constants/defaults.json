@@ -1,8 +1,8 @@
 {
 
 	"cache": {
-		"browser": "60",
-		"server": "7*24*60"
+		"browser": "0*60",
+		"server": "0*7*24*60"
 	},
 
 	"defaults": {
@@ -10,11 +10,6 @@
 		"contentType": "html",
 		"status": 200,
 		"language": "en"
-	},
-
-	"namingConvention": {
-		"-": " ",
-		"_": " "
 	}
 
 }

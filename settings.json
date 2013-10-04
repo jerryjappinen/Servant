@@ -1,8 +1,12 @@
 {
 
+	"browserCache": true,
+	"serverCache": "5*222",
+
 	"icon": "favicon.ico",
 	"language": "en",
 	"name": "Servant",
+
 	"pageNames": {
 		"text-and-markdown": "Text & Markdown",
 		"url-manipulation": "URL manipulation"
