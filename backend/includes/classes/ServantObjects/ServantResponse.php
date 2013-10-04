@@ -30,7 +30,7 @@ class ServantResponse extends ServantObject {
 	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
 	*/
 	public function serve () {
-		$cacheEnabled = $this->servant()->settings()->cache('server') > 0;
+		$cacheEnabled = $this->servant()->site()->serverCache() > 0;
 
 		// Response has been saved
 		if ($cacheEnabled and $this->existing()) {
@@ -106,10 +106,10 @@ class ServantResponse extends ServantObject {
 	*/
 
 	/**
-	* Max browser cache time in seconds comes from global settings.
+	* Max browser cache time in seconds
 	*/
 	protected function setBrowserCacheTime () {
-		return $this->set('browserCacheTime', $this->servant()->settings()->cache('browser')*60);
+		return $this->set('browserCacheTime', $this->servant()->site()->browserCache()*60);
 	}
 
 
@@ -169,7 +169,7 @@ class ServantResponse extends ServantObject {
 		}
 
 		// File exists and is not too old
-		if (is_file($path) and filemtime($path) < time()+($this->servant()->settings()->cache('server')*60)) {
+		if (is_file($path) and filemtime($path) < time()+($this->servant()->site()->serverCache()*60)) {
 			$result = $this->servant()->format()->path($path, 'plain', 'server');
 		}
 

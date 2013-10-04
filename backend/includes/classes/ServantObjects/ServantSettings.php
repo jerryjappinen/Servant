@@ -5,7 +5,6 @@ class ServantSettings extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyCache 			= null;
 	protected $propertyContentTypes 	= null;
 	protected $propertyDefaults 		= null;
 	protected $propertyFormats 			= null;
@@ -32,7 +31,6 @@ class ServantSettings extends ServantObject {
 
 		// This is what we can set
 		$properties = array(
-			'cache',
 			'contentTypes',
 			'defaults',
 			'formats',
@@ -61,39 +59,6 @@ class ServantSettings extends ServantObject {
 	* Setters
 	*/
 
-	/**
-	* Cache'related items (times are in minutes)
-	*/
-	protected function setCache ($input = null) {
-
-		// Base format
-		$results = array(
-			'browser' => 0,
-			'server' => 0,
-		);
-
-		// Pick cache settings into properly formatted array
-		if ($input) {
-			foreach ($results as $key => $value) {
-				if (isset($input[$key])) {
-
-					// Support calculation from strings
-					if (is_string($input[$key])) {
-						$input[$key] = calculate($input[$key]);
-					}
-
-					// Don't accept just anything
-					if (is_int($input[$key]) and $input[$key] > 0) {
-						$results[$key] = $input[$key];
-					}
-
-				}
-			}
-		}
-
-		return $this->set('cache', $results);
-	}
-
 
 
 	/**
@@ -116,24 +81,18 @@ class ServantSettings extends ServantObject {
 		// Base format
 		$results = array(
 			'action' => null,
+			'browserCache' => null,
 			'contentType' => null,
 			'language' => null,
+			'serverCache' => null,
 			'status' => null,
 		);
 
 		// Pick values from input
 		if ($input) {
-			foreach ($results as $key => $value) {
+			foreach ($results as $key => $null) {
 				if (isset($input[$key])) {
-
-					// First item of subarray
-					if (is_array($input[$key])) {
-						$keys = array_keys($input[$key]);
-						$input[$key] = $input[$key][$keys[0]];
-					}
-
-					// Set default
-					$results[$key] = strval($input[$key]);
+					$results[$key] = is_numeric($input[$key]) ? $input[$key] : strval($input[$key]);
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 {
 
-	"browserCache": true,
-	"serverCache": "5*222",
+	"browserCache": "0*60",
+	"serverCache": "0*24*7*60",
 
 	"icon": "favicon.ico",
 	"language": "en",

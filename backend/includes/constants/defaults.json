@@ -1,15 +1,13 @@
 {
 
-	"cache": {
-		"browser": "0*60",
-		"server": "0*7*24*60"
-	},
-
 	"defaults": {
+		"browserCache": "60",
+		"serverCache": "7*24*60",
+
 		"action": "site",
 		"contentType": "html",
-		"status": 200,
-		"language": "en"
+		"language": "en",
+		"status": 200
 	}
 
 }

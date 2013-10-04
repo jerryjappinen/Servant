@@ -70,7 +70,7 @@ class ServantSite extends ServantObject {
 	* Browser cache time (used in cache headers)
 	*/
 	protected function setBrowserCache ($input = null) {
-		return $this->set('browserCache', $this->resolveCacheTime($input, $this->servant()->settings()->cache('browser')));
+		return $this->set('browserCache', $this->resolveCacheTime($input, $this->servant()->settings()->defaults('browserCache')));
 	}
 
 	/**
@@ -161,7 +161,7 @@ class ServantSite extends ServantObject {
 	* Server cache time (how old can a stored response be to be valid)
 	*/
 	protected function setServerCache ($input = null) {
-		return $this->set('serverCache', $this->resolveCacheTime($input, $this->servant()->settings()->cache('server')));
+		return $this->set('serverCache', $this->resolveCacheTime($input, $this->servant()->settings()->defaults('serverCache')));
 	}
 
 
@@ -185,14 +185,16 @@ class ServantSite extends ServantObject {
 			} elseif (is_string($input)) {
 				$input = calculate($input, true);
 			}
+
 			// Numerical value available
 			if (is_numeric($input)) {
-				$result = max(0, intval($input));
+				$result = $input;
 			}
 
 		}
 
-		return $result;
+
+		return max(0, intval($result));
 	}
 
 	private function readJsonFile ($path) {
