@@ -1,0 +1,18 @@
+{
+
+	"browserCache": "0*3*60",
+	"serverCache": "0*7*24*7*60",
+
+	"language": "en",
+
+	"name": "Servant",
+	"description": "Effortless web publishing on Servant",
+	"icon": "site/favicon.ico",
+	"splashImage": "site/splash.png",
+
+	"pageNames": {
+		"text-and-markdown": "Text & Markdown",
+		"url-manipulation": "URL manipulation"
+	}
+
+}

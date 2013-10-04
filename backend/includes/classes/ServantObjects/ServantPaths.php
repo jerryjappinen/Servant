@@ -105,6 +105,9 @@ class ServantPaths extends ServantObject {
 	}
 
 	public function host ($format = null) {
+		if ($format === 'url') {
+			$format = null;
+		}
 		return $this->getPath('host', $format);
 	}
 
