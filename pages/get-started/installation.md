@@ -43,10 +43,10 @@ Make sure you `.htaccess` files have been copied to your server. They forward re
 
 There's one file in the root folder, and three in other directories:
 
-- `/.htaccess` (root directory)
-- `/backend/.htaccess` (the same place as `index.php`)
-- `/site/pages/.htaccess` (pages folder)
-- `/site/template/.htaccess` (template folder)
+- `.htaccess` (root directory)
+- `backend/.htaccess` (the same place as `index.php`)
+- `pages/.htaccess` (pages folder)
+- `template/.htaccess` (template folder)
 
 
 
@@ -54,7 +54,7 @@ There's one file in the root folder, and three in other directories:
 
 Servant needs to know where it's running. Normally it detects this automatically, but on some, more complicated environments this doesn't work. If this is the case:
 
-1. Open `/backend/includes/paths.php`
+1. Open `backend/includes/paths.php`
 2. Uncomment `'document root'`, `'root'` and/or `'host'`
 3. Give these the values that correspond to your server
 

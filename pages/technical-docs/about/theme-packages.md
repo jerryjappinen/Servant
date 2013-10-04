@@ -1,5 +1,5 @@
 
-# Themes
+# Theme
 
 The styles and scripts that create the look and feel for any template are called a theme. Usually a theme is made for a specific kind of template.
 
@@ -21,7 +21,7 @@ For scripts, `.js` files are used. All JavaScript files are compiled into a one 
 
 Let's take the default theme as an example:
 
-##### themes/default/
+##### theme/
 	images/
 		menu.png
 	scripts/

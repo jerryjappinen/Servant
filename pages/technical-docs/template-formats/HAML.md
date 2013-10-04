@@ -13,7 +13,7 @@ Read more about HAML on [haml.info](http://haml.info/). This PHP version uses Mt
 
 ## Basic example
 
-##### site/pages/some-category/some-page.haml
+##### pages/some-category/some-page.haml
 
 	%h1 This is HAML
 

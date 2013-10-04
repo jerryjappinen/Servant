@@ -6,15 +6,14 @@ Each text document in your site's `pages/` folder will be shown as a page on you
 All files are converted and served to your users as HTML automatically. For example, your site's folder could look like this:
 
 ##### servant/
-	site/
-		pages/
-			about.txt
-			documentation.textile
-			examples.php
-			features.html
-			get-started.md
-		template/
-		theme/
+	pages/
+		about.txt
+		documentation.textile
+		examples.php
+		features.html
+		get-started.md
+	template/
+	theme/
 
 Pages can contain things like titles, subtitles, lists, links and images. The [theme](theme) will decide the look of these elements on the final site.
 
@@ -28,13 +27,13 @@ Here are some examples in [Markdown](/technical-docs/template-formats/text-and-m
 
 ### Relative URLs
 
-##### sites/my-site/welcome.md
+##### pages/welcome.md
 	[Get in touch](contact-us)
 	[See where we are](contact-us/map)
 
 ### Root-relative URLs
 
-##### sites/my-site/contact-us/map.md
+##### pages/contact-us/map.md
 	[Back to home page](/)
 	[Welcome page on the root level](/welcome)
 	[See where we are](/contact-us/map)

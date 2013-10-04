@@ -11,7 +11,7 @@ ServantObjects don't have public properties. All properties are protexted and ac
 
 The base class has one property, the main Servant object:
 
-##### backend/classes/object.php
+##### backend/includes/classes/object.php
 	// Properties
 	protected $propertyMain = null;
 
@@ -32,7 +32,7 @@ All properties in a Servant object are accessed via different kinds of custom ge
 
 #### `get()`
 
-##### backend/classes/object.php
+##### backend/includes/classes/object.php
 	// Generic getter with traversing options
 	protected function get ($id, $tree = null) {
 		$propertyName = $this->propertyName($id);

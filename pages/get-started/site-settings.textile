@@ -5,7 +5,7 @@ Site settings are **completely optional**, but you probably want to manually def
 
 
 
-h5. @site/settings.json@
+h5. @settings.json@
 
 <pre>@"icon": "site/favicon.png",
 "language": "en",

@@ -19,7 +19,7 @@ Relative URLs point to the location of the file they're used in.
 
 For example, if in our CSS we write
 
-##### site/theme/layout/header.css
+##### theme/layout/header.css
 	#header {
 		background-image: url('header.jpg');
 	}
@@ -29,7 +29,7 @@ For example, if in our CSS we write
 
 the result in the minified stylesheet file will be
 
-##### stylesheets/
+##### http://www.yoursite.com/stylesheets/
 	#header {
 		background-image: url('/path/to/servant/site/theme/layout/header.jpg');
 	}
@@ -43,7 +43,7 @@ the result in the minified stylesheet file will be
 
 Root-relative URLs point to the root of the site or theme folder:
 
-##### site/theme/layout/footer.css
+##### theme/layout/footer.css
 	#footer {
 		background-image: url('/footer.jpg');
 	}
@@ -55,7 +55,7 @@ the result in the minified stylesheet file will be
 
 
 
-##### sitename/stylesheets/
+##### http://www.yoursite.com/stylesheets/
 	#footer {
 		background-image: url('/path/to/servant/site/theme/footer.jpg');
 	}
@@ -69,7 +69,7 @@ the result in the minified stylesheet file will be
 
 You don't usually need to write links to specific actions, but it can be done. You might need it if you created an action for scaling images, for example, and wanted to use scaled images in your stylesheets. Use **two forwards slashes** in the beginning of the URL, and write the name of the action first:
 
-##### site/theme/layout/body.css
+##### theme/layout/body.css
 	.container-body {
 		background-image: url('//imagescale/body.jpg/200/200');
 	}
@@ -78,7 +78,7 @@ the result in the minified stylesheet file will be
 
 
 
-##### sitename/stylesheets/
+##### http://www.yoursite.com/stylesheets/
 	.container-body {
 		background-image: url('/path/to/servant/sitename/imagescale/body.jpg/200/200');
 	}

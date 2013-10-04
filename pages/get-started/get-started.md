@@ -35,7 +35,7 @@ To create a site, **you only need to add a text file under `pages/`.** The *temp
 2. Unzip
 3. Move contents on your server
 
-Usually everything works immediately. You should see the default sample site when you point your browser to where you installed Servant.
+Usually everything works out-of-the-box. You should see the default sample site when you point your browser to where you installed Servant.
 
 <a href="installation" class="button">Full installation guide</a>
 
