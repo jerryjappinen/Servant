@@ -5,7 +5,6 @@ class ServantTheme extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyIcon			= null;
 	protected $propertyPath 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertyStylesheets 	= null;
@@ -15,14 +14,6 @@ class ServantTheme extends ServantObject {
 	/**
 	* Public getters for paths
 	*/
-
-	public function icon ($format = null) {
-		$icon = $this->getAndSet('icon');
-		if ($format and !empty($icon)) {
-			$icon = $this->servant()->format()->path($icon, $format);
-		}
-		return $icon;
-	}
 
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
@@ -57,21 +48,6 @@ class ServantTheme extends ServantObject {
 	/**
 	* Setters
 	*/
-
-	/**
-	* Path to theme's fallback site icon
-	*/
-	protected function setIcon () {
-		$result = '';
-
-		// Look for an icon image file in theme package
-		foreach (rglob_files($this->path('server'), $this->servant()->settings()->formats('iconImages')) as $path) {
-			$result = $this->servant()->format()->path($path, 'plain', 'server');
-			break;
-		}
-
-		return $this->set('icon', $result);
-	}
 
 	/**
 	* Theme is a folder under the themes directory

@@ -6,11 +6,13 @@ class ServantSite extends ServantObject {
 	* Properties
 	*/
 	protected $propertyBrowserCache = null;
+	protected $propertyDescription 	= null;
 	protected $propertyIcon 		= null;
 	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
 	protected $propertyPageNames 	= null;
 	protected $propertyServerCache 	= null;
+	protected $propertySplashImage 	= null;
 
 
 
@@ -26,11 +28,13 @@ class ServantSite extends ServantObject {
 			// This is what we can set
 			$properties = array(
 				'browserCache',
+				'description',
 				'icon',
 				'language',
 				'name',
 				'pageNames',
 				'serverCache',
+				'splashImage',
 			);
 			// Run setters if values are given
 			foreach ($properties as $key) {
@@ -53,11 +57,19 @@ class ServantSite extends ServantObject {
 	*/
 
 	public function icon ($format = null) {
-		$icon = $this->getAndSet('icon');
-		if ($format and !empty($icon)) {
-			$icon = $this->servant()->format()->path($icon, $format);
+		$path = $this->getAndSet('icon');
+		if ($format and !empty($path)) {
+			$path = $this->servant()->format()->path($path, $format);
 		}
-		return $icon;
+		return $path;
+	}
+
+	public function splashImage ($format = null) {
+		$path = $this->getAndSet('splashImage');
+		if ($format and !empty($path)) {
+			$path = $this->servant()->format()->path($path, $format);
+		}
+		return $path;
 	}
 
 
@@ -74,31 +86,24 @@ class ServantSite extends ServantObject {
 	}
 
 	/**
-	* Path to site icon comes from settings or remains an empty string
+	* Description string
 	*/
-	protected function setIcon ($input = null) {
+	protected function setDescription ($input = null) {
 		$result = '';
 
 		// A string will do
 		if ($input and is_string($input)) {
-
-			// Sanitize input
-			$path = unprefix(unsuffix(trim_text($input, true), '/'), '/');
-
-			// File format must be acceptable
-			$extension = pathinfo($path, PATHINFO_EXTENSION);
-			if (in_array($extension, $this->servant()->settings()->formats('iconImages'))) {
-
-				// File must exist
-				if (is_file($this->servant()->format()->path($path, 'server'))) {
-					$result = $path;
-				}
-
-			}
-
+			$result = $input;
 		}
 
-		return $this->set('icon', $result);
+		return $this->set('description', trim_text($result));
+	}
+
+	/**
+	* Path to site icon comes from settings or remains an empty string
+	*/
+	protected function setIcon ($input = null) {
+		return $this->set('icon', $this->resolveImageFile($input));
 	}
 
 	/**
@@ -164,6 +169,13 @@ class ServantSite extends ServantObject {
 		return $this->set('serverCache', $this->resolveCacheTime($input, $this->servant()->settings()->defaults('serverCache')));
 	}
 
+	/**
+	* Path to site splash image from settings or remains an empty string
+	*/
+	protected function setSplashImage ($input = null) {
+		return $this->set('splashImage', $this->resolveImageFile($input));
+	}
+
 
 
 	/**
@@ -195,6 +207,31 @@ class ServantSite extends ServantObject {
 
 
 		return max(0, intval($result));
+	}
+
+	private function resolveImageFile ($input) {
+		$result = '';
+
+		// A string will do
+		if ($input and is_string($input)) {
+
+			// Sanitize input
+			$path = unprefix(unsuffix(trim_text($input, true), '/'), '/');
+
+			// File format must be acceptable
+			$extension = pathinfo($path, PATHINFO_EXTENSION);
+			if (in_array($extension, $this->servant()->settings()->formats('iconImages'))) {
+
+				// File must exist
+				if (is_file($this->servant()->format()->path($path, 'server'))) {
+					$result = $path;
+				}
+
+			}
+
+		}
+
+		return $result;
 	}
 
 	private function readJsonFile ($path) {

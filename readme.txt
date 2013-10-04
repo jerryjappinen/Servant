@@ -30,8 +30,24 @@ Consult troubleshooting guide at http://www.eiskis.net/servant/ if you encounter
 Getting started
 ---------------
 
-1. All .txt, .html, .md, .textile, .rst, .wiki and .php files under the pages folder are pages.
-2. Servant compiles all pages into a web site.
+This is the basic file structure.
+
+	backend/
+	pages/
+		some-page.txt
+		another-page.html
+	site/
+		settings.json
+	template/
+		template.php
+	theme/
+		behavior.js
+		style.css
+
+As you might guess, you create pages and site content by adding .txt, .html, .md etc. files under the "pages/" folder. You can use "site/settings.json" to define things like site name, description and favicon. "theme/" contains
+
+Servant compiles all this into a functioning web site via the template files under "template/".
+
 3. Template and theme to define how the structure and look, respectively.
 4. Styles and scripts under pages/ will also be loaded.
 
