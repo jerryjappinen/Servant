@@ -1,7 +1,7 @@
 <?php
 
 /**
-* FLAG Only utilities and actions are used - remove this class
+* FLAG remove this class
 */
 class ServantAvailable extends ServantObject {
 
@@ -9,8 +9,6 @@ class ServantAvailable extends ServantObject {
 	* Properties
 	*/
 	protected $propertyActions 		= null;
-	protected $propertyPages 		= null;
-	protected $propertyUtilities 	= null;
 
 
 
@@ -19,25 +17,10 @@ class ServantAvailable extends ServantObject {
 	*/
 
 	/**
-	* Pages are dependent on current site
-	*/
-	public function page () {
-		$arguments = func_get_args();
-		return $this->assert('pages', $arguments);
-	}
-	public function pages () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->servant()->site(), 'pages'), $arguments);
-	}
-
-	/**
 	* Others have extra assertion methods
 	*/
 	public function action ($id) {
 		return in_array($id, $this->actions());
-	}
-	public function utility ($id) {
-		return in_array($id, $this->utilities());
 	}
 
 
@@ -48,15 +31,6 @@ class ServantAvailable extends ServantObject {
 
 	protected function setActions () {
 		return $this->set('actions', array_merge($this->findFiles('actions', 'php'), $this->findDirectories('actions')));
-	}
-
-	/**
-	* Utilities
-	*
-	* Script files or directories
-	*/
-	protected function setUtilities () {
-		return $this->set('utilities', array_merge($this->findFiles('utilities', 'php'), $this->findDirectories('utilities')));
 	}
 
 
@@ -78,7 +52,7 @@ class ServantAvailable extends ServantObject {
 	* Find directories with at least one supported file
 	*
 	* FLAG
-	*   - This is pretty slow. We basically go through all files in all template and theme directories.
+	*   - This is pretty slow, since it filters out empty directories
 	*/
 	private function findDirectories ($dir, $formats = array()) {
 		$items = array();

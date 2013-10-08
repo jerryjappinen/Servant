@@ -1,8 +1,8 @@
-<h2>Available sites</h2>
+<h2>Dynamic page menu with PHP</h2>
 <ul>
 
-<?php foreach ($servant->available()->sites() as $id): ?>
-	<li><a href="#"><?= $servant->format()->title($id) ?> (<?= $id ?>)</a></li>
+<?php foreach ($servant->pages()->current()->level() as $page): ?>
+	<li><a href="#"><?= $page()->title() ?> (<?= $page->id() ?>)</a></li>
 <?php endforeach; ?>
 
 </ul>

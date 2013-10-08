@@ -9,7 +9,7 @@ echo '
 	<head>
 		';
 
-		// Basic meta stuff
+		// General meta stuff
 		echo '
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -20,19 +20,34 @@ echo '
 		</style>
 		';
 
-		// Site title
-		echo '
-		<title>'.(!$servant->page()->isHome() ? $servant->page()->name().' &ndash; ' : '').$servant->site()->name().'</title>
-		<meta name="application-name" content="'.$servant->site()->name().'">
-		';
+		// Page title
+		$title = (!$servant->page()->isHome() ? $servant->page()->name().' &ndash; ' : '').$servant->site()->name();
+		echo '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
+		unset($title);
 
+		// Site name
+		echo '<meta name="application-name" content="'.$servant->site()->name().'"><meta property="og:site_name" content="'.$servant->site()->name().'">';
 
-
-		// Custom web site icon
-		$icon = $servant->site()->icon('domain');
-		if (!$icon) {
-			$icon = $servant->theme()->icon('domain');
+		// Description
+		$description = trim_text($servant->site()->description(), true);
+		if ($description) {
+			echo '<meta name="description" content="'.$description.'"><meta property="og:description" content="'.$description.'">';
 		}
+		unset($description);
+
+		// Other Open Graph stuff
+		echo '<meta property="og:type" content="'.($servant->page()->isHome() ? 'website' : 'article').'"><meta property="og:url" content="'.$servant->paths()->root('url').'">';
+
+
+
+		// Splash image
+		$splashImage = $servant->site()->splashImage('url');
+		if ($splashImage) {
+			echo '<meta property="og:image" content="'.$splashImage.'"><meta name="msapplication-TileImage" content="'.$splashImage.'"/>';
+		}
+
+		// Icon
+		$icon = $servant->site()->icon('domain');
 		if ($icon) {
 			$extension = pathinfo($icon, PATHINFO_EXTENSION);
 
@@ -40,19 +55,21 @@ echo '
 			if ($extension === 'ico') {
 				echo '<link rel="shortcut icon" href="'.$icon.'" type="image/x-icon">';
 
-			// Images for browsers, iOS, Windows 8
+			// Image icons for browsers and various platforms
 			} else {
-				echo '
-				<link rel="icon" href="'.$icon.'" type="'.$servant->settings()->contentTypes($extension).'">
-				<link rel="apple-touch-icon-precomposed" href="'.$icon.'" />
-				<meta name="msapplication-TileImage" content="'.$icon.'"/>';
-				// echo '<meta name="msapplication-TileColor" content="#d83434"/>';
+				echo '<link rel="icon" href="'.$icon.'" type="'.$servant->settings()->contentTypes($extension).'"><link rel="apple-touch-icon-precomposed" href="'.$icon.'" />';
+				echo ($splashImage ? '' : '<meta name="msapplication-TileImage" content="'.$icon.'"/>');
 			}
 
 			unset($extension);
-		}
-		unset($icon);
 
+		}
+		unset($splashImage, $icon);
+
+
+
+		// Generic color, if one has to be chosen
+		// echo '<meta name="msapplication-TileColor" content="#d83434"/>';
 
 
 		// Stylesheets, possibly page-specific
@@ -86,5 +103,4 @@ unset($tree, $i, $value);
 // Body tag
 echo '<body class="level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $classes).'"><div class="frame">';
 unset($classes);
-
 ?>

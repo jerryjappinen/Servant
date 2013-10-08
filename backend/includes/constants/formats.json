@@ -1,26 +1,61 @@
 {
 
 	"formats": {
-		"iconImages": ["ico", "png", "gif", "jpg"],
+
+		"iconImages": [
+			"ico",
+			"png",
+			"gif",
+			"jpg"
+		],
+
 		"templates": {
-			"haml": "haml",
-			"html": ["html", "html", "xhtml"],
-			"jade": ["jade", "jd"],
-			"markdown": ["md", "markdown", "txt", "text"],
-			"php": ["php", "ph"],
-			"rst": "rst",
-			"textile": ["textile"],
-			"twig": ["twig", "tw"],
-			"wiki": "wiki"
+			"haml": 
+				"haml"
+			,
+			"html": [
+				"html",
+				"html",
+				"xhtml"
+			],
+			"jade": [
+				"jade",
+				"jd"
+			],
+			"markdown": [
+				"md",
+				"markdown",
+				"txt",
+				"text"
+			],
+			"php": [
+				"php",
+				"ph"
+			],
+			"rst": [
+				"rst"
+			],
+			"textile": [
+				"textile"
+			],
+			"twig": [
+				"twig",
+				"tw"
+			],
+			"wiki":
+				"wiki"
 		},
+
 		"stylesheets": {
 			"css": "css",
 			"less": "less",
-			"scss": "scss"
+			"scss": ["sass", "scss"]
 		},
+
 		"scripts": {
 			"js": "js"
 		}
+
 	}
 
 }

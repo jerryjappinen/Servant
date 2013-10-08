@@ -6,8 +6,6 @@
 * Loading utilities, called anywhere in the program.
 *
 * Dependencies
-*   - available()->utility()
-*   - available()->utilities()
 *   - format()->path()
 *   - paths()->utilities()
 */
@@ -16,7 +14,7 @@ class ServantUtilities extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyAvailable 	= null;
+	protected $propertyFiles 		= null;
 	protected $propertyLoaded 		= null;
 	protected $propertyPath 		= null;
 
@@ -36,21 +34,13 @@ class ServantUtilities extends ServantObject {
 			// Utility could already be loaded
 			if (!$this->loaded($name)) {
 
-				// Check if utility is available
-				if ($this->servant()->available()->utility($name)) {
-
-					// Single file
-					if (is_file($path.'.php')) {
-						require_once $path.'.php';
-						$this->setLoaded($name);
-
-					// Directory
-					} else if (is_dir($path.'/')) {
-						foreach (rglob_files($path.'/', 'php') as $file) {
+				// Include files if utility is available
+				$files = $this->files($name);
+				if ($files) {
+					foreach ($files as $file) {
 							require_once $file;
-						}
-						$this->setLoaded($name);
 					}
+					$this->setLoaded($name);
 
 				// Not found
 				} else {
@@ -68,13 +58,6 @@ class ServantUtilities extends ServantObject {
 	/**
 	* Public getters
 	*/
-
-	/**
-	* Available
-	*/
-	public function available () {
-		return $this->servant()->available()->utilities();
-	}
 
 	/**
 	* Loaded
@@ -136,6 +119,27 @@ class ServantUtilities extends ServantObject {
 	*/
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->utilities());
+	}
+
+	/**
+	* List of available utilities
+	*/
+	protected function setFiles () {
+		$results = array();
+
+		// All dirs under utilities folder
+		foreach (glob_dir($this->servant()->paths()->utilities('server')) as $dir) {
+
+			// Accept PHP files
+			$files = rglob_files($dir, 'php');
+			if (!empty($files)) {
+				$results[basename($dir)] = $files;
+			}
+
+			unset($files);
+		}
+
+		return $this->set('files', $results);
 	}
 
 }
