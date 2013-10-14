@@ -19,9 +19,11 @@ class ServantPage extends ServantObject {
 	protected $propertyChildren 	= null;
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
+
 	protected $propertyIsCurrent 	= null;
 	protected $propertyIsHome 		= null;
 	protected $propertyIsMaster 	= null;
+
 	protected $propertyLevel 		= null;
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
@@ -43,7 +45,7 @@ class ServantPage extends ServantObject {
 	/**
 	* Select ID when initializing
 	*/
-	public function initialize ($pages, $tree = null) {
+	public function initialize ($pages, $tree, $templatePath) {
 
 		// Load utilities
 		$this->servant()->utilities()->load('urls');
@@ -54,6 +56,11 @@ class ServantPage extends ServantObject {
 		// Generate tree
 		if ($tree) {
 			$this->setTree($tree);
+		}
+
+		// Path to template file
+		if ($templatePath) {
+			$this->setTemplate($templatePath);
 		}
 
 		return $this;
@@ -280,21 +287,18 @@ class ServantPage extends ServantObject {
 
 	/**
 	* Path to the template file
-	*
-	* FLAG
-	*   - Template path shouldn't come from pages(), it's backwards o_O
 	*/
-	protected function setTemplate () {
-		return $this->set('template', $this->pages()->templates($this->tree()));
-	}
+	protected function setTemplate ($path) {
 
-	protected function setTree ($tree = array()) {
-
-		// No source file, so we can't really do this
-		if (!$this->pages()->templates($tree)) {
+		// Template file must exist
+		if (!is_file($this->servant()->format()->path($path, 'server'))) {
 			$this->fail('This page does not exist');
 		}
 
+		return $this->set('template', $path);
+	}
+
+	protected function setTree ($tree = array()) {
 		return $this->set('tree', $tree);
 	}
 

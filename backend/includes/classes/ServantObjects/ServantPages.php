@@ -1,10 +1,7 @@
 <?php
 
 /**
-* Pages component
-*
-* FLAG
-*   - add list() that returns flat lists of each level, with categories normalized into pages
+* Pages component (i.e. sitemap)
 */
 class ServantPages extends ServantObject {
 
@@ -12,7 +9,6 @@ class ServantPages extends ServantObject {
 	* Properties
 	*/
 	protected $propertyCurrent 		= null;
-	protected $propertyTemplates 	= null;
 	protected $propertyMap 			= null;
 	protected $propertyPath 		= null;
 
@@ -22,24 +18,23 @@ class ServantPages extends ServantObject {
 	* Convenience
 	*/
 
-	public function level () {
+	public function level ($tree = array()) {
 		$pages = array();
 
 		// Allow tree traversal
-		$arguments = func_get_args();
+		$tree = func_get_args();
 
 		// Pick pages on this level
-		foreach ($this->map(array_flatten($arguments)) as $id => $value) {
+		foreach ($this->map(array_flatten($tree)) as $id => $value) {
 
 			// Normalize pages with children
 			if (is_array($value)) {
-				$subPages = $this->level($arguments, $id);
+				$subPages = $this->level($tree, $id);
 				$subPagesKeys = array_keys($subPages);
-				$pages[] = $subPages[$subPagesKeys[0]];
-			} else {
-				$pages[] = $value;
+				$value = $subPages[$subPagesKeys[0]];
 			}
 
+			$pages[] = $value;
 		}
 
 		return $pages;
@@ -82,22 +77,14 @@ class ServantPages extends ServantObject {
 	}
 
 	/**
-	* All available template templates that can be converted to pages, recursively and with paths
-	*
-	* FLAG legacy
-	*/
-	protected function setTemplates () {
-		return $this->set('templates', $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates')));
-	}
-
-	/**
 	* All available pages as page objects
 	*
 	* FLAG
 	*   - I should create and init page only when they're actually called
 	*/
 	public function setMap () {
-		return $this->set('map', $this->generatePageObjects($this->templates()));
+		$templateFiles = $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates'));
+		return $this->set('map', $this->generatePageObjects($templateFiles));
 	}
 
 	/**
@@ -156,13 +143,14 @@ class ServantPages extends ServantObject {
 	private function generatePageObjects ($fileMap = array(), $parents = array()) {
 		$result = $fileMap;
 
+		// Iterate through existing filemap
 		foreach ($result as $id => $value) {
 			$tree = $parents;
 			$tree[] = $id;
 
 			// Convert to page object
 			if (is_string($value)) {
-				$result[$id] = create_object(new ServantPage($this->servant()))->init($this, $tree);
+				$result[$id] = create_object(new ServantPage($this->servant()))->init($this, $tree, $value);
 
 			// Children are treated recursively
 			} else if (is_array($value)) {
