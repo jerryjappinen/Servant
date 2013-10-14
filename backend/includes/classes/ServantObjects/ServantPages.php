@@ -84,6 +84,9 @@ class ServantPages extends ServantObject {
 	*/
 	public function setMap () {
 		$templateFiles = $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates'));
+		if (!$templateFiles) {
+			$this->fail('No pages available');
+		}
 		return $this->set('map', $this->generatePageObjects($templateFiles));
 	}
 

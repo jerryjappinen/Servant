@@ -25,7 +25,20 @@ class ServantMain extends ServantObject {
 	* Execute Servant to generate a response
 	*/
 	public function run () {
-		$this->response()->serve();
+
+		// FLAG last-resort thing, not sure how to handle this
+		try {
+
+			// Attempt to serve a response
+			$this->response()->serve();
+
+		} catch (Exception $e) {
+
+			// Fuck
+			echo '<p style="margin: 0 auto; padding: 5%; font-family: sans-serif; text-align: center; font-size: 1.4em; color: #333;">What went to shit:<br /><br /><strong style="">'.$e->getMessage().'</strong>.</p>';
+
+		}
+
 		return $this;
 	}
 
