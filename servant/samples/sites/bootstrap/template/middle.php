@@ -27,16 +27,16 @@ $output = '
 			              <span class="icon-bar"></span>
 			            </button>
 
-						<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.'" class="brand">'.$servant->site()->name().'</a>
+						<a href="'.$servant->paths()->root('domain').'" class="brand">'.$servant->site()->name().'</a>
 						';
 
 
 
 		// Level 1 menu
-		$level1 = $servant->pages()->templates();
+		$level1 = $servant->pages()->map();
 		if (count($level1) > 1) {
 			$output .= '<div class="nav-collapse collapse"><ul class="nav">';
-			foreach ($level1 as $key => $value) {
+			foreach ($level1 as $key => $page) {
 
 				// Handle list classes
 				$classes = array();
@@ -50,7 +50,7 @@ $output = '
 				}
 
 				// Children
-				if (is_array($value)) {
+				if (is_array($page)) {
 					$dropdown = true;
 					$classes[] = 'dropdown';
 				}
@@ -60,7 +60,7 @@ $output = '
 
 				// Dropdown menu
 				if ($dropdown) {
-					$output .= '<a href="." class="dropdown-toggle" data-toggle="dropdown">'.$servant->format()->title($key).' <b class="caret"></b></a>
+					$output .= '<a href="." class="dropdown-toggle" data-toggle="dropdown">'.$key.' <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Action</a></li>
 							<li><a href="#">Another action</a></li>
@@ -73,7 +73,7 @@ $output = '
 
 				// Link
 				} else {
-					$output .= '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$key.'/">'.$servant->format()->title($key).'</a>';
+					$output .= '<a href="'.$page->readPath('domain').'/">'.$page->name($key).'</a>';
 				}
 
 				$output .= '</li>';
@@ -102,12 +102,12 @@ $output = '
 
 
 			// Submenu in a sidebar
-			$level2 = $servant->pages()->templates($servant->page()->tree(0));
+			$level2 = $servant->pages()->map($servant->page()->tree(0));
 			if (is_array($level2)) {
 				$output .= '<div id="sidebar"><ul class="menu-2">';
 
 				// List items
-				foreach ($level2 as $key => $value) {
+				foreach ($level2 as $key => $page) {
 
 					// Link HTML
 					$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->page()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
@@ -118,12 +118,12 @@ $output = '
 						unset($link);
 
 						// Possible children
-						if (is_array($value)) {
+						if (is_array($page)) {
 							$output .= '<ul class="menu-3">';
 
 							// Child pages in array
 							$skip = true;
-							foreach ($value as $key2 => $value2) {
+							foreach ($page as $key2 => $page2) {
 
 								// Skip first
 								if ($skip) {
@@ -139,7 +139,7 @@ $output = '
 									$output .= '<li>'.$link.'</li>';
 								}
 							}
-							unset($skip, $level3, $key2, $value2);
+							unset($skip, $level3, $key2, $page2);
 
 							$output .= '</ul>';
 						}

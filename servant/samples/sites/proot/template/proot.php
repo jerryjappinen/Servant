@@ -84,13 +84,13 @@ $output .= '
 					';
 
 					// Level 1 menu
-					$level1 = $servant->pages()->templates();
+					$level1 = $servant->pages()->map();
 					if (!empty($level1)) {
-						foreach ($level1 as $key => $value) {
-							$output .= '<li class="reset'.($servant->page()->tree(0) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
+						foreach ($level1 as $key => $page) {
+							$output .= '<li class="reset'.($servant->page()->tree(0) === $key ? ' selected': '').'"><a href="'.$page->readPath('domain').'">'.$page->name().'</a></li>';
 						}
 					}
-					unset($level1, $key, $value);
+					unset($level1, $key, $page);
 
 					$output .= '
 					</ol>
@@ -110,13 +110,13 @@ $output .= '
 					';
 
 					// Level 2 menu
-					$level2 = $servant->pages()->templates($servant->page()->tree(0));
+					$level2 = $servant->pages()->map($servant->page()->tree(0));
 					if (!empty($level2) and is_array($level2)) {
-						foreach ($level2 as $key => $value) {
-							$output .= '<li class="reset'.($servant->page()->tree(1) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->page()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
+						foreach ($level2 as $key => $page) {
+							$output .= '<li class="reset'.($servant->page()->tree(1) === $key ? ' selected': '').'"><a href="'.$page->readPath('domain').'/">'.$page->name().'</a></li>';
 						}
 					}
-					unset($level2, $key, $value);
+					unset($level2, $key, $page);
 
 					$output .= '
 					</ol>
@@ -124,23 +124,21 @@ $output .= '
 
 					// Two-level dropdown menu
 					$output .= '<select class="menu-1 menu-2 menu-1-2" onchange="window.open(this.options[this.selectedIndex].value,\'_top\')">';
-					foreach ($servant->pages()->templates() as $key => $value) {
-
-						// First-level page
-						if (is_string($value) or is_array($value) and count($value) === 1) {
-							$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/">'.$servant->format()->title($key).'</option>';
+					foreach ($servant->pages()->map() as $key => $page) {
 
 						// Nested
-						} else if (is_array($value)) {
+						if (is_array($page)) {
 
 							// Wrap in optgroup
-							$output .= '<optgroup label="'.$servant->format()->title($key).'">';
-							foreach ($value as $key2 => $value2) {
-								$output .= '<option value="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</option>';
+							$output .= '<optgroup label="'.$key.'">';
+							foreach ($page as $key2 => $page2) {
+								$output .= '<option value="'.$page2->readPath('domain').'">'.$page2->name().'</option>';
 							}
 							$output .= '</optgroup>';
 
-						}
+						// First-level page
+						} else if (!$page->children()) {
+							$output .= '<option value="'.$page->readPath('domain').'">'.$page->name().'</option>';
 
 					}
 					$output .= '</select>';

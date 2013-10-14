@@ -1,6 +1,5 @@
 
-Servant
-=======
+# Servant
 
 - Intro, download & docs
 	- http://www.eiskis.net/servant/
@@ -14,8 +13,7 @@ Servant
 
 
 
-Setup
------
+## Setup
 
 1. Download Servant
 2. Unzip the download on a server with PHP 5.2 or newer (HAML and Twig support require 5.3+)
@@ -23,26 +21,29 @@ Setup
 
 Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at http://www.eiskis.net/servant/ if you encounter any problems.
+Consult troubleshooting guide at [eiskis.net/servant](http://www.eiskis.net/servant/) if you encounter any problems.
 
 
 
-Getting started
----------------
+## Getting started
 
 This is the basic file structure.
 
 	backend/
+		...
 	pages/
 		some-page.txt
-		another-page.html
-	site/
-		settings.json
+		another-page/
+			content.html
+		...
 	template/
 		template.php
+		...
 	theme/
 		behavior.js
 		style.css
+		...
+	settings.json
 
 As you might guess, you create pages and site content by adding .txt, .html, .md etc. files under the "pages/" folder. You can use "site/settings.json" to define things like site name, description and favicon. "theme/" contains
 

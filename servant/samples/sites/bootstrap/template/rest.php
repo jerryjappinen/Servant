@@ -6,16 +6,16 @@ echo '<div class="footer container">';
 		// Sort pages into pages and categories
 		$pages = array();
 		$categories = array();
-		foreach ($servant->pages()->templates() as $key => $value) {
-			if (is_array($value)) {
+		foreach ($servant->pages()->map() as $key => $page) {
+			if (is_array($page)) {
 				$categories[] = $key;
-			} else if (is_string($value)) {
+			} else {
 				$pages[] = $key;
 			}
 		}
 
 		// Pages & generic stuff
-		echo '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/sitemap/'.'">Sitemap</a></li>';
+		echo '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->page()->tree()).'">Sitemap</a></li>';
 
 		// Create footer links for pages
 		foreach ($pages as $id) {
@@ -28,8 +28,8 @@ echo '<div class="footer container">';
 		foreach ($categories as $id) {
 			echo $i === 1 ? '<div class="row">' : '';
 			echo '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->title($id).'</li>';
-			foreach ($servant->pages()->templates($id) as $key => $value) {
-				echo '<li><a href=".">'.$servant->format()->title($key).'</a></li>';
+			foreach ($servant->pages()->map($id) as $key => $page) {
+				echo '<li><a href=".">'.$key.'</a></li>';
 			}
 			echo '</ul></div>';
 
@@ -45,7 +45,12 @@ echo '<div class="footer container">';
 echo '</div>';
 
 // Include scripts
-echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->page()->tree()).'/'.'"></script>';
+// Path to scripts action
+$tree = array();
+if ($servant->action()->isRead()) {
+	$tree = $servant->page()->tree();
+}
+echo '<script src="'.$servant->paths()->userAction('scripts', 'domain', $tree).'"></script>';
 
 // End it all
 echo '
