@@ -7,8 +7,8 @@
 
 	"name": "Servant",
 	"description": "Effortless publishing for the web",
-	"icon": "pages/favicon.ico",
-	"splashImage": "pages/splash.png",
+	"icon": "site/pages/favicon.ico",
+	"splashImage": "site/pages/splash.png",
 
 	"pageNames": {
 		"text-and-markdown": "Text & Markdown",
