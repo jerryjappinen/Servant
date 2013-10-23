@@ -6,10 +6,10 @@
 $paths = array(
 
 	// User-facing locations
-	'manifest' 		=> 'settings.json',
-	'pages' 		=> 'pages/',
-	'template' 		=> 'template/',
-	'theme' 		=> 'theme/',
+	'manifest' 		=> 'site/settings.json',
+	'pages' 		=> 'site/pages/',
+	'template' 		=> 'site/template/',
+	'theme' 		=> 'site/theme/',
 
 	// Backend
 	'cache' 		=> 'cache/',

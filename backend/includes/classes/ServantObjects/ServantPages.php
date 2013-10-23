@@ -82,11 +82,14 @@ class ServantPages extends ServantObject {
 	* FLAG
 	*   - I should create and init page only when they're actually called
 	*/
-	public function setMap () {
+	protected function setMap () {
 		$templateFiles = $this->findPageFiles($this->path('server'), $this->servant()->settings()->formats('templates'));
+
+		// Warn if there are no pages
 		if (!$templateFiles) {
 			$this->fail('No pages available');
 		}
+
 		return $this->set('map', $this->generatePageObjects($templateFiles));
 	}
 

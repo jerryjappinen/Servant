@@ -160,8 +160,8 @@ class ServantObject {
 	/**
 	* Report failure, throw an error
 	*/
-	protected function fail ($message, $code = 500) {
-		throw new Exception($message, $code);
+	protected function fail ($message) {
+		throw new Exception($message, 500);
 		return $this;
 	}
 
