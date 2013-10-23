@@ -21,7 +21,7 @@
 
 Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at [eiskis.net/servant](http://www.eiskis.net/servant/) if you encounter any problems.
+Consult troubleshooting guide at [eiskis.net/servant](http://eiskis.net/servant/site/get-started/installation/) if you encounter any problems.
 
 
 
@@ -31,25 +31,25 @@ This is the basic file structure.
 
 	backend/
 		...
-	pages/
-		some-page.txt
-		another-page/
-			content.html
-		...
-	template/
-		template.php
-		...
-	theme/
-		behavior.js
-		style.css
-		...
-	settings.json
+	site/
+		pages/
+			some-page.txt
+			another-page/
+				content.html
+			...
+		template/
+			template.php
+			...
+		theme/
+			behavior.js
+			style.css
+			...
+		settings.json
 
-As you might guess, you create pages and site content by adding .txt, .html, .md etc. files under the "pages/" folder. You can use "site/settings.json" to define things like site name, description and favicon. "theme/" contains
+As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `pages/` folder.
 
-Servant compiles all this into a functioning web site via the template files under "template/".
+You can use the (optional) site settings file "settings.json" to define things like site name, description and favicon. Template files under `template/` define the basic structure of your site, while `theme/` contains the CSS and JavaScript assets for the look and behavior of your site. Page-specific styles and scripts can be included under `pages/` as well.
 
-3. Template and theme to define how the structure and look, respectively.
-4. Styles and scripts under pages/ will also be loaded.
+Servant compiles all this into a functioning web site. Servant's files itself are located under `backend/`, but you shouldn't have to ever go there.
 
-Full documentation at http://www.eiskis.net/servant/.
+See full documentation at [eiskis.net/servant](http://www.eiskis.net/servant/).
