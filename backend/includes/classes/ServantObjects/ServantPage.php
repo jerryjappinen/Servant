@@ -216,9 +216,10 @@ class ServantPage extends ServantObject {
 		$hrefUrl = $this->servant()->paths()->root('domain').$this->servant()->action()->id().'/';
 
 		// Relative location for SRC urls
-		$relativeSrcUrl = unprefix(dirname($this->template('plain')), $this->pages()->path('plain'), true);
+		$dirname = suffix(dirname($this->template('plain')), '/');
+		$relativeSrcUrl = unprefix($dirname, $this->pages()->path('plain'), true);
 		if (!empty($relativeSrcUrl)) {
-			$relativeSrcUrl .= '/';
+			$relativeSrcUrl = suffix($relativeSrcUrl, '/');
 		}
 
 		// Relative location for HREF urls
