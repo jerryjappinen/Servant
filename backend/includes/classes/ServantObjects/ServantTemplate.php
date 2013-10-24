@@ -81,7 +81,7 @@ class ServantTemplate extends ServantObject {
 		foreach ($this->files('server') as $path) {
 			$result .= $this->servant()->files()->read($path);
 		}
-		return $this->set('output', $result);
+		return $this->set('output', trim($result));
 	}
 
 

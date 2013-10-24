@@ -192,7 +192,7 @@ class ServantAction extends ServantObject {
 	* The complete body content given for response.
 	*/
 	protected function setOutput ($output) {
-		return $this->set('output', ''.$output);
+		return $this->set('output', trim(''.$output));
 	}
 
 	/**
