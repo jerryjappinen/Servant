@@ -21,8 +21,6 @@ if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
 } else {
 
 	// Error handler functions
-	set_error_handler('handleError');
-	set_exception_handler('handleException');
 	function handleError ($errorNumber, $errorString) {
 		return handleFubar($errorNumber, $errorString);
 	}
@@ -62,6 +60,8 @@ if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
 		die();
 		return false;
 	}
+	set_error_handler('handleError');
+	set_exception_handler('handleException');
 
 }
 

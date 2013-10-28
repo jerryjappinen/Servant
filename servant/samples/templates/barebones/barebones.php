@@ -74,7 +74,7 @@ unset($temp, $tree, $i, $value);
 
 
 <!DOCTYPE html>
-<html lang="<?= $servant->site()->language() ?>">
+<html lang="<?php echo $servant->site()->language() ?>">
 	<head>
 
 		<meta charset="utf-8">
@@ -85,16 +85,16 @@ unset($temp, $tree, $i, $value);
 			@viewport{width: device-width;}
 		</style>
 
-		<?= $meta ?>
+		<?php echo $meta ?>
 
-		<link rel="stylesheet" href="<?= $servant->paths()->userAction('stylesheets', 'domain', ($servant->action()->isRead() ? $tree = $servant->page()->tree() : array())) ?>" media="screen">
+		<link rel="stylesheet" href="<?php echo $servant->paths()->userAction('stylesheets', 'domain', ($servant->action()->isRead() ? $tree = $servant->page()->tree() : array())) ?>" media="screen">
 
 	</head>
 
-	<body class="<?= $bodyClasses ?>">
+	<body class="<?php echo $bodyClasses ?>">
 
-		<?= $servant->template()->content() ?>
+		<?php echo $servant->template()->content() ?>
 
-		<script src="<?= $servant->paths()->userAction('scripts', 'domain', $servant->action()->isRead() ? $tree = $servant->page()->tree() : array()) ?>"></script>
+		<script src="<?php echo $servant->paths()->userAction('scripts', 'domain', $servant->action()->isRead() ? $tree = $servant->page()->tree() : array()) ?>"></script>
 	</body>
 </html>
