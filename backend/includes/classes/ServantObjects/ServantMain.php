@@ -47,13 +47,13 @@ class ServantMain extends ServantObject {
 	/**
 	* Public convenience getters
 	*/
-	public function page () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->pages(), 'current'), $arguments);
-	}
 	public function action () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->actions(), 'current'), $arguments);
+	}
+	public function page () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->pages(), 'current'), $arguments);
 	}
 
 
@@ -88,9 +88,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setFormat () {
 		return $this->set('format', create_object(new ServantFormat($this))->init());
-	}
-	protected function setHttpHeaders () {
-		return $this->set('httpHeaders', create_object(new ServantHttpHeaders($this))->init());
 	}
 	protected function setInput ($input) {
 		return $this->set('input', create_object(new ServantInput($this))->init($input));

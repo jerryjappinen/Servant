@@ -6,7 +6,6 @@ class ServantTemplate extends ServantObject {
 	* Properties
 	*/
 	protected $propertyFiles 	= null;
-	protected $propertyContent 	= null;
 	protected $propertyOutput 	= null;
 	protected $propertyPath 	= null;
 
@@ -15,14 +14,6 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Public getters
 	*/
-
-	/**
-	* This gives content to a template as a convenience
-	*/
-	public function content () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->servant()->action(), 'output'), $arguments);
-	}
 
 	/**
 	* Files can be fetched with their paths in any format
@@ -59,13 +50,16 @@ class ServantTemplate extends ServantObject {
 	*/
 	protected function setFiles () {
 		$files = array();
+		$path = $this->path('server');
 
 		// All template files in directory
-		foreach (rglob_files($this->path('server'), $this->servant()->settings()->formats('templates')) as $file) {
+		if (is_dir($path)) {
+			foreach (rglob_files($path, $this->servant()->settings()->formats('templates')) as $file) {
 
-			// Store each file's path to plain format
-			$files[] = $this->servant()->format()->path($file, false, 'server');
+				// Store each file's path to plain format
+				$files[] = $this->servant()->format()->path($file, false, 'server');
 
+			}
 		}
 
 		return $this->set('files', $files);

@@ -93,7 +93,7 @@ unset($temp, $tree, $i, $value);
 
 	<body class="<?php echo $bodyClasses ?>">
 
-		<?php echo $servant->template()->content() ?>
+		<?php echo $servant->action()->output() ?>
 
 		<script src="<?php echo $servant->paths()->userAction('scripts', 'domain', $servant->action()->isRead() ? $tree = $servant->page()->tree() : array()) ?>"></script>
 	</body>

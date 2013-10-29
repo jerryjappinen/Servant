@@ -41,20 +41,23 @@ class ServantResponse extends ServantObject {
 
 			// Run action
 			try {
-				$this->servant()->action()->run();
+				$this->servant()->actions()->current()->run();
 
 			// If it fails, we create error output like gentlemen
 			// FLAG we should switch to an error action at this point
 			} catch (Exception $exception) {
-				$message = $exception->getCode() < 500 ? $exception->getMessage() : 'We\'re sorry. We\'ll try to fix it as soon as possible.';
-				$this->servant()->action()->contentType('html')->status(500)->outputViaTemplate(true)->output('<h1>Something went wrong :(</h1><p>'.$message.'</p>');
+
+				$message = 'We\'re sorry, but something went wrong. We\'ll try to fix it as soon as possible.';
+
+				$this->servant()->actions()->current()->contentType('html')->status(500)->outputViaTemplate(true)->output('<h1>Something went wrong :(</h1><p>'.$message.'</p>');
+
 			}
 
 			// Get action's output, possibly via template
-			if ($this->servant()->action()->outputViaTemplate()) {
+			if ($this->servant()->actions()->current()->outputViaTemplate()) {
 				$output = $this->servant()->template()->output();
 			} else {
-				$output = $this->servant()->action()->output();
+				$output = $this->servant()->actions()->current()->output();
 			}
 
 			// Store if needed
@@ -128,7 +131,7 @@ class ServantResponse extends ServantObject {
 
 		// Get content type from action
 		} else {
-			$contentType = $this->servant()->action()->contentType();
+			$contentType = $this->servant()->actions()->current()->contentType();
 		}
 
 		// Invalid
@@ -185,17 +188,20 @@ class ServantResponse extends ServantObject {
 
 		// This is what's included
 		$headers = array(
-			'browserCacheTime' => '',
-			'contentType' => '',
-			'cors' => '',
-			'status' => '',
+			$this->generateBrowserCacheTimeHeader($this->servant()->response()->browserCacheTime()),
+			$this->generateContentTypeHeader($this->servant()->settings()->contentTypes($this->servant()->response()->contentType())),
+			$this->generateCorsHeader($this->servant()->response()->cors()),
+			$this->generateStatusHeader($this->servant()->response()->status())
 		);
 
-		// Run internal methods for getting valid strings
-		foreach ($headers as $key => $value) {
-			$headers[$key] = $this->servant()->httpHeaders()->$key();
+		$result = array();
+		foreach ($headers as $value) {
+			if ($value) {
+				$result[] = $value;
+			}
 		}
 
+		// Run internal methods for getting valid strings
 		return $this->set('headers', $headers);
 	}
 
@@ -233,7 +239,7 @@ class ServantResponse extends ServantObject {
 
 		// Get status from action
 		} else {
-			$status = $this->servant()->action()->status();
+			$status = $this->servant()->actions()->current()->status();
 		}
 
 
@@ -264,7 +270,7 @@ class ServantResponse extends ServantObject {
 		$path = $this->servant()->paths()->cache($format);
 
 		// Action's get their own dir
-		$path .= $this->servant()->action()->id().'/';
+		$path .= $this->servant()->actions()->current()->id().'/';
 
 		// Each page gets their own file
 		$path .= implode('/', $this->servant()->pages()->current()->tree());
@@ -287,6 +293,40 @@ class ServantResponse extends ServantObject {
 		file_put_contents($filepath, $content);
 
 		return $this;
+	}
+
+
+
+
+
+
+
+
+	/**
+	* HTTP header helpers
+	*/
+
+	private function generateBrowserCacheTimeHeader ($time) {
+		return 'Cache-Control: '.($time > 0 ? 'max-age='.$time : 'no-store');
+	}
+
+	private function generateContentTypeHeader ($contentType) {
+		$headerString = 'Content-Type: '.$contentType;
+
+		// Add character set if needed
+		if (in_array(substr($contentType, 0, strpos($contentType, '/')), array('text', 'application'))) {
+			$headerString .= '; charset=utf-8';
+		}
+
+		return $headerString;
+	}
+
+	private function generateCorsHeader ($enabled) {
+		return ($enabled ? 'Access-Control-Allow-Origin: *' : '');
+	}
+
+	private function generateStatusHeader ($statusCode) {
+		return 'HTTP/1.1 '.$this->servant()->settings()->statuses($statusCode);
 	}
 
 }

@@ -11,7 +11,6 @@
 * Dependencies
 *   - servant()->files()->read()
 *   - servant()->format()->path()
-*   - servant()->input()->action()
 *   - servant()->paths()->actions()
 *   - servant()->settings()->defaults()
 */
@@ -63,8 +62,10 @@ class ServantAction extends ServantObject {
 		// Defaults
 		$contentType = $this->servant()->settings()->defaults('contentType');
 		$status = $this->servant()->settings()->defaults('status');
+		$outputViaTemplate = false;
+		$output = '';
 
-		return $this->contentType($contentType)->status($status)->outputViaTemplate(false)->output('');
+		return $this->contentType($contentType)->status($status)->outputViaTemplate($outputViaTemplate)->output($output);
 	}
 
 
