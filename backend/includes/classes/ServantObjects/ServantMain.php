@@ -30,9 +30,7 @@ class ServantMain extends ServantObject {
 		try {
 
 			// Serve a response
-			log_dump($this->actions()->current()->output());
 			$this->response()->serve();
-			log_dump($this->actions()->current()->output());
 
 		} catch (Exception $e) {
 
