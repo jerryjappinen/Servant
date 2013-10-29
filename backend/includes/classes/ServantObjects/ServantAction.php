@@ -9,8 +9,6 @@
 *   - This component needs to be transformed into a separete action object that can be created whenever and wherever.
 *
 * Dependencies
-*   - servant()->available()->action()
-*   - servant()->available()->actions()
 *   - servant()->files()->read()
 *   - servant()->format()->path()
 *   - servant()->input()->action()
@@ -57,9 +55,15 @@ class ServantAction extends ServantObject {
 	*
 	* Defaults are set here, and can be overridden by action's code.
 	*/
-	public function initialize () {
+	public function initialize ($id) {
+
+		// Set ID upon initialization
+		$this->setId($id);
+
+		// Defaults
 		$contentType = $this->servant()->settings()->defaults('contentType');
 		$status = $this->servant()->settings()->defaults('status');
+
 		return $this->contentType($contentType)->status($status)->outputViaTemplate(false)->output('');
 	}
 
@@ -133,13 +137,9 @@ class ServantAction extends ServantObject {
 		$files = array();
 		$path = $this->path('server');
 
-		// Individual file
-		if (is_file($path)) {
-			$files[] = $this->path('plain');
-
 		// All files in directory
-		} else if (is_dir($path)) {
-			foreach (rglob_files($path, 'php') as $file) {
+		if (is_dir($path)) {
+			foreach (rglob_files($path, array_flatten($this->servant()->settings()->formats('templates'))) as $file) {
 				$files[] = $this->servant()->format()->path($file, false, 'server');
 			}
 		}
@@ -152,27 +152,7 @@ class ServantAction extends ServantObject {
 	*
 	* Name of the action (file or folder in the actions directory).
 	*/
-	protected function setId () {
-
-		// Try using input
-		$id = $this->servant()->input()->action();
-
-		// Silent fallback
-		if (!$this->servant()->available()->action($id)) {
-
-			// Global default
-			if ($this->servant()->available()->action($this->servant()->settings()->defaults('action'))) {
-				$id = $this->servant()->settings()->defaults('action');
-
-			// Whatever's available
-			} else {
-				$id = $this->servant()->available()->actions(0);
-				if ($id === null) {
-					$this->fail('No actions available');
-				}
-			}
-		}
-
+	protected function setId ($id = null) {
 		return $this->set('id', $id);
 	}
 
@@ -180,7 +160,7 @@ class ServantAction extends ServantObject {
 	* Whether or not this is the site action
 	*
 	* FLAG
-	*   - hardcode action name (should come from settings)
+	*   - hardcoded action name (should come from settings)
 	*/
 	protected function setIsRead () {
 		return $this->set('isRead', $this->id() === 'site');
@@ -207,22 +187,10 @@ class ServantAction extends ServantObject {
 	/**
 	* Path
 	*
-	* Action is either a file or a folder within the actions directory.
+	* Action is a folder within the actions directory.
 	*/
 	protected function setPath () {
-		$path = $this->servant()->paths()->actions('plain').$this->id();
-		$serverPath = $this->servant()->paths()->actions('server').$this->id();
-
-		// One PHP file
-		if (is_file($serverPath.'.php')) {
-			$path .= '.php';
-
-		// Directory
-		} else if (is_dir($serverPath.'/')) {
-			$path .= '/';
-		}
-
-		return $this->set('path', $path);
+		return $this->set('path', $this->servant()->paths()->actions().$this->id().'/');
 	}
 
 	/**

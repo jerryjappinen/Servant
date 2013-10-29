@@ -18,6 +18,7 @@ class ServantPages extends ServantObject {
 	* Convenience
 	*/
 
+	// FLAG weird naming
 	public function level ($tree = array()) {
 		$pages = array();
 
@@ -80,6 +81,7 @@ class ServantPages extends ServantObject {
 	* All available pages as page objects
 	*
 	* FLAG
+	*   - Should be named "All"
 	*   - I should create and init page only when they're actually called
 	*/
 	protected function setMap () {

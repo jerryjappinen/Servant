@@ -3,6 +3,9 @@
 /**
 * Formatting service
 *
+* FLAG
+*   - Deprecate this (global services like this are not good)
+*
 * Dependencies
 *   - servant()->site()->pageNames()
 *   - servant()->paths()->documentRoot()

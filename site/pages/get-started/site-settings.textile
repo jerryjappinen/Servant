@@ -7,14 +7,18 @@ Site settings are **completely optional**, but you probably want to manually def
 
 h5. @settings.json@
 
-<pre>@"icon": "site/favicon.png",
+<pre><code>"browserCache": "0*3*60",
+"serverCache": "0*7*24*7*60",
 "language": "en",
-"name": "My Awesome Site",
+"name": "Servant",
+"description": "Effortless publishing for the web",
+"icon": "site/pages/favicon.ico",
+"splashImage": "site/pages/splash.png",
 "pageNames": {
-	"home": "My Awesome Site",
-	"html": "HTML"
+	"text-and-markdown": "Text & Markdown",
+	"url-manipulation": "URL manipulation"
 }
-@</pre>
+</code></pre>
 
 This format is called _JSON_. Type the name of the property, add a colon and type in the value. Remember to use quotes and separate multiple settings with commas. Some values have children &ndash; <code>{ ... }</code> or <code>[ ... ]</code> are used in this case.
 
@@ -23,9 +27,13 @@ This format is called _JSON_. Type the name of the property, add a colon and typ
 h3. Supported settings
 
 |_. Setting|_. Description|_. Example values|
-|*icon*|Path (relative to Servant root) to an image file to use as the icon for your site.|@"site/favicon.png"@|
-|*language*|Two-letter language code to mark the main language of your content. This|@"en"@, @"fr"@|
+|*browserCache*|Suggested caching time for browsers, in minutes.| @"3*60"@ |
+|*serverCache*|Caching time used by Servant, in minutes.| @"2*24*60"@ |
+|*language*|Two-letter language code, the main language of your site.|@"en"@, @"fr"@|
+|*icon*|Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"site/favicon.png"@|
+|*splashImage*|Path (relative to Servant root) to an splash image file.|@"site/splash.png"@|
 |*name*|||
+|*description*|||
 |*pageNames*|Custom names to use for your pages.||
 
 
@@ -33,5 +41,3 @@ h3. Supported settings
 h2. Name & icon
 
 Your site's name will be generated from its folder name, but you can also choose another name in your site's settings. Templates usually put this name in the site's header and browser's title bar. You can also do the same for page names.
-
-An icon should be a @.png@, @.jpg@ or a @.ico@ file. It's enough to add the path to site settings to get it in use. If you don't choose an icon, the theme's default icon is used.

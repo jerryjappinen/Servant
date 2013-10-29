@@ -29,8 +29,10 @@ class ServantMain extends ServantObject {
 		// FLAG last-resort thing, not sure how to handle this
 		try {
 
-			// Attempt to serve a response
+			// Serve a response
+			log_dump($this->actions()->current()->output());
 			$this->response()->serve();
+			log_dump($this->actions()->current()->output());
 
 		} catch (Exception $e) {
 
@@ -45,11 +47,24 @@ class ServantMain extends ServantObject {
 
 
 	/**
+	* Public convenience getters
+	*/
+	public function page () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->pages(), 'current'), $arguments);
+	}
+	public function action () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->actions(), 'current'), $arguments);
+	}
+
+
+
+	/**
 	* Child components
 	*/
 
-	protected $propertyAction 		= null;
-	protected $propertyAvailable 	= null;
+	protected $propertyActions 		= null;
 	protected $propertyFiles 		= null;
 	protected $propertyFormat 		= null;
 	protected $propertyHttpHeaders 	= null;
@@ -66,20 +81,9 @@ class ServantMain extends ServantObject {
 
 
 
-	// Public getters for children
-	public function page () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->pages(), 'current'), $arguments);
-	}
-
-
-
 	// Setters for children
-	protected function setAction () {
-		return $this->set('action', create_object(new ServantAction($this))->init());
-	}
-	protected function setAvailable () {
-		return $this->set('available', create_object(new ServantAvailable($this))->init());
+	protected function setActions () {
+		return $this->set('actions', create_object(new ServantActions($this))->init());
 	}
 	protected function setFiles () {
 		return $this->set('files', create_object(new ServantFiles($this))->init());

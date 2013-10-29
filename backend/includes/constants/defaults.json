@@ -1,12 +1,11 @@
 {
 
 	"defaults": {
-		"browserCache": "60",
-		"serverCache": "7*24*60",
-
 		"action": "site",
+		"browserCache": "60",
 		"contentType": "html",
 		"language": "en",
+		"serverCache": "7*24*60",
 		"status": 200
 	}
 
