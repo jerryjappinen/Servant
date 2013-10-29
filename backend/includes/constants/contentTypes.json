@@ -1,20 +1,32 @@
 {
 
 	"contentTypes": {
+
+
+
 		"txt": "text/plain",
+		"csv": "text/csv",
+		"markdown": "text/x-markdown",
+
+
 
 		"html": "text/html",
 		"xhtml": "application/xhtml+xml",
-		"json": "application/json",
-		"csv": "text/csv",
-
 		"js": "application/javascript",
+		"json": "application/json",
 		"css": "text/css",
+
 		"xml": "text/xml",
 		"rss": "application/rss+xml",
+		"soap": "application/soap+xml",
+		"atom": "application/atom+xml",
+
+
 
 		"pdf": "application/pdf",
 		"zip": "application/zip",
+
+
 
 		"ico": "image/x-icon",
 		"gif": "image/gif",
@@ -23,12 +35,21 @@
 		"svg": "image/svg+xml",
 		"tif": "image/tiff",
 
+
+
+		"ogg": "application/ogg",
+		"mp3": "audio/mpeg",
 		"mpg": "video/mpeg",
+
+
 
 		"eot": "application/vnd.ms-fontobject",
 		"otf": "font/otf",
 		"ttf": "font/ttf",
 		"woff": "font/x-woff"
+
+
+
 	}
 
 }
