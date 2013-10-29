@@ -5,6 +5,7 @@ class ServantSettings extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyActions 			= null;
 	protected $propertyContentTypes 	= null;
 	protected $propertyDefaults 		= null;
 	protected $propertyFormats 			= null;
@@ -31,6 +32,7 @@ class ServantSettings extends ServantObject {
 
 		// This is what we can set
 		$properties = array(
+			'actions',
 			'contentTypes',
 			'defaults',
 			'formats',
@@ -58,6 +60,31 @@ class ServantSettings extends ServantObject {
 	/**
 	* Setters
 	*/
+
+
+
+	/**
+	* Action names
+	*/
+	protected function setActions ($input = null) {
+
+		// Base format
+		$results = array(
+			'read' => null,
+			'error' => null,
+		);
+
+		// Pick values from input
+		if ($input) {
+			foreach ($results as $key => $null) {
+				if (isset($input[$key]) and !(is_string($input[$key]) and empty($input[$key]))) {
+					$results[$key] = is_numeric($input[$key]) ? $input[$key] : strval($input[$key]);
+				}
+			}
+		}
+
+		return $this->set('actions', $this->takeInFlattenedArray($input, false));
+	}
 
 
 

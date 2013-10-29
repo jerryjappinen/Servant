@@ -1,0 +1,8 @@
+{
+
+	"actions": {
+		"read": "site",
+		"error": "error"
+	}
+
+}

@@ -159,12 +159,9 @@ class ServantAction extends ServantObject {
 
 	/**
 	* Whether or not this is the site action
-	*
-	* FLAG
-	*   - hardcoded action name (should come from settings)
 	*/
 	protected function setIsRead () {
-		return $this->set('isRead', $this->id() === 'site');
+		return $this->set('isRead', $this->id() === $this->servant()->settings()->actions('read'));
 	}
 
 	/**

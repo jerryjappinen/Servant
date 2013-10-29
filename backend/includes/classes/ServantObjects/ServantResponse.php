@@ -61,7 +61,7 @@ class ServantResponse extends ServantObject {
 			}
 
 			// Store if needed
-			if ($this->contentType() < 400 and $cacheEnabled and !$this->existing()) {
+			if ($this->status() < 400 and $cacheEnabled and !$this->existing()) {
 				$this->store($output);
 			}
 
@@ -121,6 +121,7 @@ class ServantResponse extends ServantObject {
 	* Get content type from action
 	*
 	* FLAG
+	*   - allow action to set the content type directly (detecting slash - needs changes to treating existing responses, too)?
 	*   - request settings()->defaults('contentType')?
 	*/
 	protected function setContentType () {
@@ -157,9 +158,6 @@ class ServantResponse extends ServantObject {
 
 	/**
 	* Path to saved response, if one exists (otherwise empty string).
-	*
-	* NOTE
-	* - Action isn't run when a response already exists
 	*/
 	protected function setExisting () {
 		$result = '';
@@ -188,12 +186,13 @@ class ServantResponse extends ServantObject {
 
 		// This is what's included
 		$headers = array(
-			$this->generateBrowserCacheTimeHeader($this->servant()->response()->browserCacheTime()),
-			$this->generateContentTypeHeader($this->servant()->settings()->contentTypes($this->servant()->response()->contentType())),
-			$this->generateCorsHeader($this->servant()->response()->cors()),
-			$this->generateStatusHeader($this->servant()->response()->status())
+			$this->generateBrowserCacheTimeHeader($this->browserCacheTime()),
+			$this->generateContentTypeHeader($this->contentType()),
+			$this->generateCorsHeader($this->cors()),
+			$this->generateStatusHeader($this->status()),
 		);
 
+		// Filter out empty values
 		$result = array();
 		foreach ($headers as $value) {
 			if ($value) {
@@ -217,7 +216,6 @@ class ServantResponse extends ServantObject {
 			$path = $this->existing();
 
 		// Response doesn't exist, we'll be creating a new one
-		// FLAG this is dangerous, action must have been run
 		} else {
 			$path = $this->basePath().'.'.$this->status().'.'.$this->contentType();
 		}
@@ -311,7 +309,7 @@ class ServantResponse extends ServantObject {
 	}
 
 	private function generateContentTypeHeader ($contentType) {
-		$headerString = 'Content-Type: '.$contentType;
+		$headerString = 'Content-Type: '.$this->servant()->settings()->contentTypes($contentType);
 
 		// Add character set if needed
 		if (in_array(substr($contentType, 0, strpos($contentType, '/')), array('text', 'application'))) {
