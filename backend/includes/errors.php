@@ -9,7 +9,7 @@
 /**
 * Debug features on localhost
 */
-if ($debug) {
+if ($this->debug) {
 	ini_set('display_errors', '1');
 	error_reporting(error_reporting() & ~E_NOTICE);
 

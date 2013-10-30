@@ -46,4 +46,7 @@ if (!isset($paths['host'])) {
 	$paths['host'] = strtolower(substr($_SERVER['SERVER_PROTOCOL'], 0, strpos($_SERVER['SERVER_PROTOCOL'], '/'))).'://'.$_SERVER['HTTP_HOST'].'/';
 }
 
+// Save paths in wrapper
+$this->paths = $paths;
+unset($paths);
 ?>

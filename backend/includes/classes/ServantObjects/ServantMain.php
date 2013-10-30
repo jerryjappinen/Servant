@@ -14,7 +14,7 @@ class ServantMain extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize ($paths, $settings = null, $input = null, $debug = null) {
+	public function initialize ($paths, $settings = null, $input = null, $debug = false) {
 
 		// Set debug mode
 		if ($debug) {

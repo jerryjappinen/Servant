@@ -42,7 +42,12 @@ class ServantParse extends ServantObject {
 	public function lessToCss ($less) {
 		$this->servant()->utilities()->load('less');
 		$parser = new lessc();
-		$parser->setFormatter('compressed');
+
+		// Don't compress in debug mode
+		if (!$this->servant()->debug()) {
+			$parser->setFormatter('compressed');
+		}
+
 		return $parser->parse($less);
 	}
 
@@ -63,7 +68,12 @@ class ServantParse extends ServantObject {
 	public function scssToCss ($scss) {
 		$this->servant()->utilities()->load('scss');
 		$parser = new scssc();
-		$parser->setFormatter('scss_formatter_compressed');
+
+		// Don't compress in debug mode
+		if (!$this->servant()->debug()) {
+			$parser->setFormatter('scss_formatter_compressed');
+		}
+
 		return $parser->compile($scss);
 	}
 

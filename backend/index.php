@@ -7,11 +7,21 @@ date_default_timezone_set('UTC');
 
 
 /**
-* Welcome to Servant
+* Welcome
 *
-* This script is where we route all dynamic requests to. It creates an instance of Servant and runs it to serve a response.
+* This script is where we route all dynamic requests to.
+*
+* This is a generic wrapper that clears dangerous globals before running the main program to serve a response for the user.
 */
 class Index {
+
+	// Wrapper variables
+	private $constantsJson 	= '{}';
+	private $debug 			= false;
+	private $input 			= array();
+	private $paths 			= array();
+
+
 
 	/**
 	* Basic flow of this wrapper (only runs if global variables aren't cleared)
@@ -21,13 +31,13 @@ class Index {
 
 			// Preparations
 			$arguments = func_get_args();
-			$preparation = call_user_func_array(array($this, 'prepare'), $arguments);
+			call_user_func_array(array($this, 'prepare'), $arguments);
 
 			// Get rid of hazardous globals
 			unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES, $_SESSION);
 
 			// Run program
-			call_user_func_array(array($this, 'run'), $preparation);
+			call_user_func(array($this, 'run'));
 			return $this;
 
 		}
@@ -38,25 +48,20 @@ class Index {
 	/**
 	* Prepare parameters for program's initialization before superglobals are cleared
 	*/
-	private function prepare ($errorHandlerFile, $helpersDirectory, $classesDirectory, $pathsFile, $constantsDirectory) {
-
-		/**
-		* Detect debug mode
-		*/
-		$debug = false;
-		if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
-			$debug = true;
-		}
+	private function prepare ($debugHandlerFile, $errorHandlerFile, $helpersDirectory, $classesDirectory, $pathsFile, $constantsDirectory) {
 
 		// Debug mode & errors
+		require $debugHandlerFile;
 		require $errorHandlerFile;
+
+
 
 		// Load helpers
 		foreach (glob($helpersDirectory.'*.php') as $path) {
 			require_once $path;
 		}
 
-		// Load servant classes
+		// Load program classes
 		foreach (rglob_files($classesDirectory, 'php') as $path) {
 			require_once $path;
 		}
@@ -64,7 +69,6 @@ class Index {
 
 
 		// Paths
-		$paths = array();
 		require $pathsFile;
 
 		// JSON settings
@@ -72,15 +76,14 @@ class Index {
 		foreach (rglob_files($constantsDirectory, 'json') as $path) {
 			$jsons[] = unsuffix(unprefix(file_get_contents($path), '{'), '}');
 		}
-		$constantsJson = '{'.implode(',', $jsons).'}';
+		$this->constantsJson = '{'.implode(',', $jsons).'}';
 
 		// User input
-		$input = $_GET;
+		$this->input = $_GET;
 
 
 
-		// These will be passed to the runner
-		return array($paths, $constantsJson, $input, $debug);
+		return $this;
 	}
 
 
@@ -88,18 +91,19 @@ class Index {
 	/**
 	* Run the program
 	*/
-	private function run ($paths, $constants, $input, $debug) {
+	private function run () {
 
-		// Start and run a Servant instance
-		$servant = new ServantMain();
-		$servant->init($paths, $constants, $input, ($debug ? true : false));
-		$servant->run();
+		// Start and run the main program
+		$main = new ServantMain();
+		$main->init($this->paths, $this->constantsJson, $this->input, ($this->debug ? true : false));
+		$main->run();
 
 	}
 
 }
 
 new Index(
+	'includes/debug.php',
 	'includes/errors.php',
 	'includes/helpers/',
 	'includes/classes/',
