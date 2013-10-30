@@ -14,7 +14,12 @@ class ServantMain extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize ($paths, $settings = null, $input = null) {
+	public function initialize ($paths, $settings = null, $input = null, $debug = null) {
+
+		// Set debug mode
+		if ($debug) {
+			$this->enableDebug();
+		}
 
 		// FLAG clear temp directory at this point
 
@@ -40,6 +45,19 @@ class ServantMain extends ServantObject {
 		}
 
 		return $this;
+	}
+
+
+
+	/**
+	* Debuggin mode
+	*/
+	protected $propertyDebug = false;
+	public function debug () {
+		return $this->get('debug');
+	}
+	protected function enableDebug () {
+		return $this->set('debug', true);
 	}
 
 

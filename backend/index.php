@@ -12,24 +12,24 @@ date_default_timezone_set('UTC');
 * This script is where we route all dynamic requests to. It creates an instance of Servant and runs it to serve a response.
 */
 class Index {
+
+	/**
+	* Basic flow of this wrapper (only runs if global variables aren't cleared)
+	*/
 	public function __construct () {
 		if (isset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES)) {
 
-				// Arbitrary preparations
-				$arguments = func_get_args();
-				$preparation = call_user_func_array(array($this, 'prepare'), $arguments);
+			// Preparations
+			$arguments = func_get_args();
+			$preparation = call_user_func_array(array($this, 'prepare'), $arguments);
 
-				// Get rid of hazardous globals
-				unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES, $_SESSION);
+			// Get rid of hazardous globals
+			unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES, $_SESSION);
 
-				// Run program
-				call_user_func_array(array($this, 'run'), $preparation);
-				return $this;
+			// Run program
+			call_user_func_array(array($this, 'run'), $preparation);
+			return $this;
 
-			try {
-			} catch (Exception $e) {
-				die();
-			}
 		}
 	}
 
@@ -40,7 +40,15 @@ class Index {
 	*/
 	private function prepare ($errorHandlerFile, $helpersDirectory, $classesDirectory, $pathsFile, $constantsDirectory) {
 
-		// Errors
+		/**
+		* Detect debug mode
+		*/
+		$debug = false;
+		if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
+			$debug = true;
+		}
+
+		// Debug mode & errors
 		require $errorHandlerFile;
 
 		// Load helpers
@@ -72,7 +80,7 @@ class Index {
 
 
 		// These will be passed to the runner
-		return array($paths, $constantsJson, $input);
+		return array($paths, $constantsJson, $input, $debug);
 	}
 
 
@@ -80,11 +88,11 @@ class Index {
 	/**
 	* Run the program
 	*/
-	private function run ($paths, $constants, $input) {
+	private function run ($paths, $constants, $input, $debug) {
 
 		// Start and run a Servant instance
 		$servant = new ServantMain();
-		$servant->init($paths, $constants, $input);
+		$servant->init($paths, $constants, $input, ($debug ? true : false));
 		$servant->run();
 
 	}

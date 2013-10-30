@@ -1,7 +1,7 @@
 {
 
-	"browserCache": "0*3*60",
-	"serverCache": "0*7*24*7*60",
+	"browserCache": "3*60",
+	"serverCache": "7*24*7*60",
 
 	"language": "en",
 

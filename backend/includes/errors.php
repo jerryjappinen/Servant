@@ -9,7 +9,7 @@
 /**
 * Debug features on localhost
 */
-if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1'))) {
+if ($debug) {
 	ini_set('display_errors', '1');
 	error_reporting(error_reporting() & ~E_NOTICE);
 

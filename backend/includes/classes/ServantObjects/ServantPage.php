@@ -48,7 +48,7 @@ class ServantPage extends ServantObject {
 	public function initialize ($pages, $tree, $templatePath) {
 
 		// Load utilities
-		$this->servant()->utilities()->load('urls');
+		$this->servant()->utilities()->load('urlmanipulator');
 
 		// Required items
 		$this->setPages($pages);

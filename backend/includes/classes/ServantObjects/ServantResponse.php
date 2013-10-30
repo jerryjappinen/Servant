@@ -30,7 +30,7 @@ class ServantResponse extends ServantObject {
 	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
 	*/
 	public function serve () {
-		$cacheEnabled = $this->servant()->site()->serverCache() > 0;
+		$cacheEnabled = ($this->servant()->site()->serverCache() > 0 and !$this->servant()->debug());
 
 		// Response has been saved
 		if ($cacheEnabled and $this->existing()) {
@@ -61,7 +61,7 @@ class ServantResponse extends ServantObject {
 			}
 
 			// Store if needed
-			if ($this->status() < 400 and $cacheEnabled and !$this->existing()) {
+			if ($cacheEnabled and $this->status() < 400 and !$this->existing()) {
 				$this->store($output);
 			}
 
@@ -69,7 +69,9 @@ class ServantResponse extends ServantObject {
 
 		// Send headers & print body
 		foreach ($this->headers() as $value) {
-			header($value);
+			if (!empty($value)) {
+				header($value);
+			}
 		}
 		echo $output;
 
@@ -191,14 +193,6 @@ class ServantResponse extends ServantObject {
 			$this->generateCorsHeader($this->cors()),
 			$this->generateStatusHeader($this->status()),
 		);
-
-		// Filter out empty values
-		$result = array();
-		foreach ($headers as $value) {
-			if ($value) {
-				$result[] = $value;
-			}
-		}
 
 		// Run internal methods for getting valid strings
 		return $this->set('headers', $headers);
