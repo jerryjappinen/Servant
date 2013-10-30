@@ -7,7 +7,7 @@ $paths = array(
 
 	// User-facing locations
 	'manifest' 		=> 'site/settings.json',
-	'pages' 		=> 'site/pages/',
+	'pages' 		=> 'site/content/',
 	'template' 		=> 'site/template/',
 	'theme' 		=> 'site/theme/',
 
@@ -18,9 +18,9 @@ $paths = array(
 	'utilities' 	=> 'backend/utilities/',
 
 	// Roots (uncomment to override auto detection)
-	// 'documentRoot' 	=> '/Users/jjappinen/Documents/Development/',
-	// 'root' 			=> 'foo.net/www/',
-	// 'host' 			=> 'http://foo.net/',
+	// 'documentRoot' 	=> '/Users/username/Documents/Development/',
+	// 'root' 			=> 'foo.com/www/',
+	// 'host' 			=> 'http://foo.com/',
 	'index' 		=> 'backend/',
 
 );

@@ -12,8 +12,8 @@ h5. @settings.json@
 "language": "en",
 "name": "Servant",
 "description": "Effortless publishing for the web",
-"icon": "site/pages/favicon.ico",
-"splashImage": "site/pages/splash.png",
+"icon": "site/content/favicon.ico",
+"splashImage": "site/content/splash.png",
 "pageNames": {
 	"text-and-markdown": "Text & Markdown",
 	"url-manipulation": "URL manipulation"

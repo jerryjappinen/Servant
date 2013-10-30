@@ -15,7 +15,7 @@ Read more about it on [Twig's site](http://twig.sensiolabs.org/doc/templates.htm
 
 ## Basic example
 
-##### pages/some-category/some-page.twig
+##### site/content/some-category/some-page.twig
 
 	<h1>{{ servant.page().name() }}</h1>
 

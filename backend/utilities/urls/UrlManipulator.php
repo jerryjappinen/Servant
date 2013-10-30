@@ -4,10 +4,8 @@
 * Manipulate URLs to point to right places on the domain
 *
 * FLAG
-*   - Doign a LOT of replacements here, more could probably be done in one go
 *   - Protocols should not be hardcoded
-*   - Linking to actions or theme/content/template folders could be done with pseudo protocol syntax: "actions://", "theme://"
-*		-> This could be used internally: use one of these as a default root when there are root-relative URLs
+*   - Doign a LOT of replacements here, more could probably be done in one go
 */
 class UrlManipulator {
 

@@ -32,7 +32,7 @@ This is the basic file structure.
 	backend/
 		...
 	site/
-		pages/
+		content/
 			some-page.txt
 			another-page/
 				content.html
@@ -46,9 +46,9 @@ This is the basic file structure.
 			...
 		settings.json
 
-As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `pages/` folder.
+As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `content/` folder.
 
-You can use the (optional) site settings file "settings.json" to define things like site name, description and favicon. Template files under `template/` define the basic structure of your site, while `theme/` contains the CSS and JavaScript assets for the look and behavior of your site. Page-specific styles and scripts can be included under `pages/` as well.
+You can use the (optional) site settings file "settings.json" to define things like site name, description and favicon. Template files under `template/` define the basic structure of your site, while `theme/` contains the CSS and JavaScript assets for the look and behavior of your site. Page-specific styles and scripts can be included under `content/` as well.
 
 Servant compiles all this into a functioning web site. Servant's files itself are located under `backend/`, but you shouldn't have to ever go there.
 

@@ -3,7 +3,7 @@
 
 Servant enables effortless web publishing. You can get started by creating nothing but text files as your site's pages, but there are also many ways of making more detailed adjustments.
 
-To create a site, **you only need to add a text file under `pages/`.** The *template* will create menus, fancy URLs, sitemaps, stylesheets and everything else. Here's where to start learning more:
+To create a site, **you only need to add a text file under `content/`.** The *template* will create menus, fancy URLs, sitemaps, stylesheets and everything else. Here's where to start learning more:
 
 
 
