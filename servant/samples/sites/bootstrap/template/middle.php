@@ -160,7 +160,7 @@ $output = '
 
 
 			// Body content
-			$output .= $servant->action()->output();
+			$output .= $servant->template()->content();
 
 			$output .= '
 		</div>

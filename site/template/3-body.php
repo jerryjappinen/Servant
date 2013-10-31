@@ -85,7 +85,7 @@ echo '
 	<div class="frame-container">
 		'.($menu ? '<div class="frame-sidebar">'.$menu.'</div>' : '').'
 		<div class="frame-article">
-			'.$servant->action()->output().'
+			'.$servant->template()->content().'
 		</div>
 		<div class="clear"></div>
 	</div>

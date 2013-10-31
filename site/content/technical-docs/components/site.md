@@ -1,7 +1,6 @@
 
 # Site component
 
-	ServantSite
 	$servant->site()
 
 
@@ -10,13 +9,14 @@
 
 Property name   | Description | Return values
 --------------- | ----------- | -------------
-`article()`     | Selected article. | [ServantArticle object](article)
-`articles()`    |  | 
-`id()`          |  | 
-`name()`        |  | 
-`path()`        |  | 
-`stylesheets()` |  | 
-`scripts()`     |  | 
+`browserCache()`	|  |
+`description()`		|  |
+`icon()`			|  |
+`language()`		|  |
+`name()`			|  |
+`pageNames()`		|  |
+`serverCache()`		|  |
+`splashImage()`		|  |
 
 
 To learn how to read this table, read the [introduction to ServantObject](/technical-docs/about/servant-objects).

@@ -5,6 +5,7 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyContent 	= null;
 	protected $propertyFiles 	= null;
 	protected $propertyOutput 	= null;
 	protected $propertyPath 	= null;
@@ -14,6 +15,11 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Public getters
 	*/
+
+	public function content ($content = null) {
+		$arguments = func_get_args();
+		return $this->getOrSet('content', $arguments);
+	}
 
 	/**
 	* Files can be fetched with their paths in any format
@@ -44,6 +50,36 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Setters
 	*/
+
+	/**
+	* Template content, whereever it comes
+	*/
+	protected function setContent ($input = null) {
+		$content = '';
+
+		// Normalize multiple parameters
+		$arguments = func_get_args();
+		if (count($arguments) > 1) {
+			$input = $arguments;
+		}
+
+		// String input
+		if (is_string($input)) {
+			$content = trim($input);
+
+		// Array input
+		} else if (is_numeric($input)) {
+			$content = ''.$input;
+
+		// Array input
+		} else if (is_array($input)) {
+			$separator = "\n\n";
+			$content = implode($separator, array_flatten($input));
+
+		}
+
+		return $this->set('content', $content);
+	}
 
 	/**
 	* All files of the template

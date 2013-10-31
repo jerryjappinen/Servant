@@ -25,7 +25,7 @@ class ServantResponse extends ServantObject {
 	* Send a response
 	*
 	* FLAG
-	* - Should this be done in ServantMain()?
+	* - Most of this should be done in ServantMain()?
 	* - need to sort out when action is run... maybe its execution should be all under init(), and action isn't even created until we know response doesn't already exist
 	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
 	*/
@@ -43,21 +43,27 @@ class ServantResponse extends ServantObject {
 			try {
 				$this->servant()->actions()->current()->run();
 
-			// If it fails, we create error output like gentlemen
-			// FLAG we should switch to an error action at this point
+			// If action fails...
+			// FLAG we should not do this here - ServantMain should generate a new response with error action
 			} catch (Exception $exception) {
 
-				$message = 'We\'re sorry, but something went wrong. We\'ll try to fix it as soon as possible.';
+				$message = '<h1>Something went wrong :(</h1><p>We\'ll try to fix it as soon as possible.</p>';
 
-				$this->servant()->actions()->current()->contentType('html')->status(500)->outputViaTemplate(true)->output('<h1>Something went wrong :(</h1><p>'.$message.'</p>');
+				$this->servant()->actions()->current()->contentType('html')->status(500)->outputViaTemplate(true)->output($message);
 
 			}
 
-			// Get action's output, possibly via template
+			// Get output from action
+			$output = $this->servant()->actions()->current()->output();
+
+			// Push output into a template
 			if ($this->servant()->actions()->current()->outputViaTemplate()) {
-				$output = $this->servant()->template()->output();
-			} else {
-				$output = $this->servant()->actions()->current()->output();
+
+				// FLAG I should set $this->contentType, not action's
+				$this->servant()->actions()->current()->contentType('html');
+
+				$output = $this->servant()->template()->content($output)->output();
+
 			}
 
 			// Store if needed
@@ -67,12 +73,14 @@ class ServantResponse extends ServantObject {
 
 		}
 
-		// Send headers & print body
+		// Send headers
 		foreach ($this->headers() as $value) {
 			if (!empty($value)) {
 				header($value);
 			}
 		}
+
+		// Print body
 		echo $output;
 
 		return $this;
@@ -114,7 +122,7 @@ class ServantResponse extends ServantObject {
 	* Max browser cache time in seconds
 	*/
 	protected function setBrowserCacheTime () {
-		return $this->set('browserCacheTime', $this->servant()->site()->browserCache()*60);
+		return $this->set('browserCacheTime', $this->servant()->debug() ? 0 : $this->servant()->site()->browserCache()*60);
 	}
 
 
