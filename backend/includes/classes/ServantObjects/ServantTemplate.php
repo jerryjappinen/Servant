@@ -167,10 +167,10 @@ class ServantTemplate extends ServantObject {
 		$result = '';
 		$files = $this->files('server');
 
-		// Use template files (might or might not include content())
+		// Use template files (might or might not include $template->content())
 		if (!empty($files)) {
 			foreach ($files as $path) {
-				$result .= $this->servant()->files()->read($path, array('template' => $this));
+				$result .= $this->servant()->files()->read($path, array('servant' => $this->servant(), 'template' => $this));
 			}
 
 		// No files - use content directly

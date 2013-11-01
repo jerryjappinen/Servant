@@ -12,9 +12,6 @@ class ServantParse extends ServantObject {
 
 	/**
 	* HAML to PHP
-	*
-	* FLAG
-	*   - missing variables?
 	*/
 	public function hamlToPHP ($haml) {
 		$this->servant()->utilities()->load('mthaml');
@@ -24,9 +21,6 @@ class ServantParse extends ServantObject {
 
 	/**
 	* Jade to PHP
-	*
-	* FLAG
-	*   - missing variables?
 	*/
 	public function jadeToPhp ($jade) {
 		$this->servant()->utilities()->load('jade');

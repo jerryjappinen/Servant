@@ -68,12 +68,12 @@ class ServantFiles extends ServantObject {
 	*   - saving PHP files cannot possibly be a good idea...
 	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
 	*/
-	private function readHamlFile ($path) {
+	private function readHamlFile ($path, $scriptVariables = array()) {
 
 		// Save and read compiled HAML as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
 		if ($this->saveProcessedFile($tempPath, $this->servant()->parse()->hamlToPhp(file_get_contents($path)))) {
-			$output = $this->readPhpFile($tempPath);
+			$output = $this->readPhpFile($tempPath, $scriptVariables);
 
 		// Didn't work out
 		} else {
@@ -100,12 +100,12 @@ class ServantFiles extends ServantObject {
 	*   - saving PHP files cannot possibly be a good idea...
 	*   - uniqid() does not quarantee a unique string (I should create the file in a loop, which cannot possibly be a good idea)
 	*/
-	private function readJadeFile ($path) {
+	private function readJadeFile ($path, $scriptVariables = array()) {
 
 		// Save and read compiled Jade as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
 		if ($this->saveProcessedFile($tempPath, $this->servant()->parse()->jadeToPhp(file_get_contents($path)))) {
-			$output = $this->readPhpFile($tempPath);
+			$output = $this->readPhpFile($tempPath, $scriptVariables);
 
 		// Didn't work out
 		} else {
@@ -129,7 +129,6 @@ class ServantFiles extends ServantObject {
 	* PHP
 	*/
 	private function readPhpFile ($path, $scriptVariables = array()) {
-		$scriptVariables['servant'] = $this->servant();
 		return run_script($path, $scriptVariables);
 	}
 
@@ -151,7 +150,6 @@ class ServantFiles extends ServantObject {
 	* Twig
 	*/
 	private function readTwigFile ($path, $scriptVariables = array()) {
-		$scriptVariables['servant'] = $this->servant();
 		return $this->servant()->parse()->twigToHtml(file_get_contents($path), $scriptVariables);
 	}
 
