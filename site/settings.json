@@ -1,8 +1,5 @@
 {
 
-	"browserCache": "6*60",
-	"serverCache": "7*24*60",
-
 	"language": "en",
 
 	"name": "Servant",
@@ -10,7 +7,7 @@
 	"icon": "site/favicon.ico",
 	"splashImage": "site/splash.png",
 
-	"template": "default_",
+	"template": "servant",
 
 	"pageNames": {
 		"text-and-markdown": "Text & Markdown",

@@ -192,6 +192,6 @@ $frame = '
 
 </div>';
 
-// Output via barebones template
-echo $servant->template('barebones', $frame)->output();
+// Output via the default template
+echo $servant->template('default', $frame)->output();
 ?>

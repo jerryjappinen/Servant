@@ -4,6 +4,9 @@
 	"splashImage": "site/splash.png",
 	"language": "en",
 	"name": "Baseline.php",
+
+	"template": "servant",
+
 	"pageNames": {
 	}
 
