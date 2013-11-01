@@ -10,7 +10,7 @@
 	"icon": "site/favicon.ico",
 	"splashImage": "site/splash.png",
 
-	"template": "default",
+	"template": "default_",
 
 	"pageNames": {
 		"text-and-markdown": "Text & Markdown",

@@ -57,6 +57,14 @@ unset($splashImage, $icon);
 
 
 /**
+* Asset links
+*/
+$stylesheetsLink = $servant->paths()->userAction('stylesheets', 'domain', ($servant->action()->isRead() ? $tree = $servant->page()->tree() : array()));
+$scriptsLink = $servant->paths()->userAction('scripts', 'domain', $servant->action()->isRead() ? $tree = $servant->page()->tree() : array());
+
+
+
+/**
 * Create classes for body
 */
 $i = 1;
@@ -87,7 +95,7 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $meta ?>
 
-		<link rel="stylesheet" href="<?php echo $servant->paths()->userAction('stylesheets', 'domain', ($servant->action()->isRead() ? $tree = $servant->page()->tree() : array())) ?>" media="screen">
+		<link rel="stylesheet" href="<?php echo $stylesheetsLink ?>" media="screen">
 
 	</head>
 
@@ -95,6 +103,6 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $template->content() ?>
 
-		<script src="<?php echo $servant->paths()->userAction('scripts', 'domain', $servant->action()->isRead() ? $tree = $servant->page()->tree() : array()) ?>"></script>
+		<script src="<?php echo $scriptsLink ?>"></script>
 	</body>
 </html>
