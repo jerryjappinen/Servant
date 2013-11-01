@@ -162,13 +162,13 @@ $output .= '
 				// One-column layout
 				$current = count($servant->page()->tree())-1;
 				if ($current < 2) {
-					$output .= $servant->template()->content();
+					$output .= $template->content();
 
 				// Two-column layout
 				} else {
 					$output .= '
 					<div class="column first nine">
-						'.$servant->template()->content().'
+						'.$template->content().'
 					</div>
 					<div class="column last three" id="submenu">
 

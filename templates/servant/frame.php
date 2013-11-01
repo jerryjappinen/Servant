@@ -1,29 +1,5 @@
 <?php
 
-
-
-/**
-* Header
-*/
-$header = '<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>';
-
-// Level 1 menu
-$pages = $servant->pages()->level();
-if ($pages) {
-	$header .= '<div id="responsive-menu"><ul class="menu-1">';
-	foreach ($pages as $page) {
-
-		// Link in a list item, possibly selected
-		$link = '<a href="'.$page->readPath('domain').'">'.$page->categoryName(0).'</a>';
-		$header .= '<li>'.($page->tree(0) === $servant->pages()->current()->tree(0) ? '<strong>'.$link.'</strong>' : $link).'</li>';
-
-	}
-	$header .= '</ul></div>';
-}
-unset($pages, $link, $page);
-
-
-
 /**
 * Submenu for read action
 */
@@ -167,7 +143,22 @@ $frame = '
 
 	<div class="frame-header">
 		<div class="frame-container">
-			'.$header.'
+			<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>
+			';
+
+			// Menu if there are pages
+			$headerMenu = $servant->template('list-toplevelpages');
+			if ($headerMenu) {
+				$frame .= '
+				<div id="responsive-menu">
+					<ul class="menu-1">
+						'.$headerMenu.'
+					</ul>
+				</div>
+				';
+			}
+
+			$frame .= '
 			<div class="clear"></div>
 		</div>
 	</div>
@@ -193,5 +184,5 @@ $frame = '
 </div>';
 
 // Output via the default template
-echo $servant->template('default', $frame)->output();
+echo $servant->template('default', $frame);
 ?>

@@ -62,7 +62,7 @@ class ServantResponse extends ServantObject {
 				// FLAG I should set $this->contentType, not action's
 				$this->servant()->actions()->current()->contentType('html');
 
-				$output = $this->servant()->template($this->servant()->site()->template(), $output)->output();
+				$output = $this->servant()->template($this->servant()->site()->template(), $output);
 
 			}
 

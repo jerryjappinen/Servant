@@ -75,11 +75,12 @@ class ServantMain extends ServantObject {
 	}
 
 	// Create and initialize a new template
+	// FLAG is this really the place for this?
 	public function template () {
 		$arguments = func_get_args();
 		$template = create_object(new ServantTemplate($this));
 		call_user_func_array(array($template, 'init'), $arguments);
-		return $template;
+		return $template->output();
 	}
 
 
