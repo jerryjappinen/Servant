@@ -1,9 +1,7 @@
 <?php
 
 /**
-* Action component
-*
-* Running the current action.
+* An action
 *
 * FLAG
 *   - This component needs to be transformed into a separete action object that can be created whenever and wherever.

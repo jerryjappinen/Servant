@@ -20,18 +20,20 @@ class ServantFiles extends ServantObject {
 	/**
 	* Open and get file contents in a renderable format
 	*/
-	public function read ($path, $type = '') {
+	public function read ($path, $scriptVariables = array()) {
 
-		// Automatic file type detection
-		if (empty($type)) {
-			$extension = pathinfo($path, PATHINFO_EXTENSION);
-			foreach ($this->servant()->settings()->formats('templates') as $key => $extensions) {
-				if (in_array($extension, $extensions)) {
-					$type = $key;
-					break;
-				}
+		// Normalize multiple parameters
+		$scriptVariables = func_get_args();
+		array_shift($scriptVariables);
+		$scriptVariables = array_flatten($scriptVariables, false, true);
+
+		// Detect file type
+		$extension = pathinfo($path, PATHINFO_EXTENSION);
+		foreach ($this->servant()->settings()->formats('templates') as $key => $extensions) {
+			if (in_array($extension, $extensions)) {
+				$type = $key;
+				break;
 			}
-
 		}
 
 		// File must exist
@@ -40,7 +42,7 @@ class ServantFiles extends ServantObject {
 			// Type-specific methods
 			$methodName = 'read'.ucfirst($type).'File';
 			if (method_exists($this, $methodName)) {
-				return call_user_func(array($this, $methodName), $path);
+				return call_user_func(array($this, $methodName), $path, $scriptVariables);
 
 			// Generic fallback
 			} else {
@@ -126,8 +128,9 @@ class ServantFiles extends ServantObject {
 	/**
 	* PHP
 	*/
-	private function readPhpFile ($path) {
-		return run_script($path, array('servant' => $this->servant()));
+	private function readPhpFile ($path, $scriptVariables = array()) {
+		$scriptVariables['servant'] = $this->servant();
+		return run_script($path, $scriptVariables);
 	}
 
 	/**
@@ -147,8 +150,9 @@ class ServantFiles extends ServantObject {
 	/**
 	* Twig
 	*/
-	private function readTwigFile ($path) {
-		return $this->servant()->parse()->twigToHtml(file_get_contents($path));
+	private function readTwigFile ($path, $scriptVariables = array()) {
+		$scriptVariables['servant'] = $this->servant();
+		return $this->servant()->parse()->twigToHtml(file_get_contents($path), $scriptVariables);
 	}
 
 	/**

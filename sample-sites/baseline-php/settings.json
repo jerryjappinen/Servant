@@ -1,6 +1,7 @@
 {
 
-	"icon": "site/theme/favicon.ico",
+	"icon": "site/favicon.ico",
+	"splashImage": "site/splash.png",
 	"language": "en",
 	"name": "Baseline.php",
 	"pageNames": {

@@ -1,5 +1,17 @@
 <?php
 
+/**
+* A template
+*
+* NOTE
+*   - Template objects work without any actual template files. Their content is set to '' by default.
+*
+* Dependencies
+*   - servant()->files()->read()
+*   - servant()->format()->path()
+*   - servant()->paths()->actions()
+*   - servant()->settings()->defaults()
+*/
 class ServantTemplate extends ServantObject {
 
 	/**
@@ -7,8 +19,32 @@ class ServantTemplate extends ServantObject {
 	*/
 	protected $propertyContent 	= null;
 	protected $propertyFiles 	= null;
+	protected $propertyId 		= null;
 	protected $propertyOutput 	= null;
 	protected $propertyPath 	= null;
+
+
+
+	/**
+	* Init
+	*/
+	public function initialize ($id, $content = null) {
+		$contentArguments = func_get_args();
+		array_shift($contentArguments);
+
+		// Set ID
+		$this->setId($id);
+
+		// Default to empty content
+		if (empty($contentArguments)) {
+			$contentArguments = array('');
+		}
+
+		// Set content
+		call_user_func_array(array($this, 'content'), $contentArguments);
+
+		return $this;
+	}
 
 
 
@@ -59,22 +95,24 @@ class ServantTemplate extends ServantObject {
 
 		// Normalize multiple parameters
 		$arguments = func_get_args();
-		if (count($arguments) > 1) {
-			$input = $arguments;
-		}
+		$arguments = array_flatten($arguments);
 
-		// String input
-		if (is_string($input)) {
-			$content = trim($input);
+		// String or numerical input
+		if (!empty($arguments)) {
 
-		// Array input
-		} else if (is_numeric($input)) {
-			$content = ''.$input;
+			// Normalize all input
+			$valids = array();
+			foreach ($arguments as $value) {
+				$value = $this->normalizeContent($value);
+				if (!empty($value)) {
+					$valids[] = $value;
+				}
+			}
 
-		// Array input
-		} else if (is_array($input)) {
-			$separator = "\n\n";
-			$content = implode($separator, array_flatten($input));
+			// Accept new content
+			if (!empty($valids)) {
+				$content = implode("\n\n", $valids);
+			}
 
 		}
 
@@ -104,6 +142,25 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
+	* ID (directory name)
+	*/
+	protected function setId ($input) {
+		$id = ''.$input;
+
+		// Validate ID
+		if (!is_array($input) and mb_strlen($id) > 0) {
+			return $this->set('id', $id);
+
+		// Fail if ID is inappropriate
+		} else {
+			return $this->fail('Inappropriate ID given for template');
+		}
+
+	}
+
+
+
+	/**
 	* Full output
 	*/
 	protected function setOutput () {
@@ -113,7 +170,7 @@ class ServantTemplate extends ServantObject {
 		// Use template files (might or might not include content())
 		if (!empty($files)) {
 			foreach ($files as $path) {
-				$result .= $this->servant()->files()->read($path);
+				$result .= $this->servant()->files()->read($path, array('template' => $this));
 			}
 
 		// No files - use content directly
@@ -127,10 +184,24 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Template is either a file or a folder within the templates directory
+	* Template is either a folder within the templates directory
 	*/
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->template('plain'));
+		return $this->set('path', $this->servant()->paths()->templates('plain').$this->id().'/');
+	}
+
+
+
+	/**
+	* Private helpers
+	*/
+
+	private function normalizeContent ($input) {
+		$content = '';
+		if (is_string($input) or is_numeric($input)) {
+			$content = trim(''.$input);
+		}
+		return $content;
 	}
 
 }

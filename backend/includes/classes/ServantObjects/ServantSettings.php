@@ -113,6 +113,7 @@ class ServantSettings extends ServantObject {
 			'language' => null,
 			'serverCache' => null,
 			'status' => null,
+			'template' => null,
 		);
 
 		// Pick values from input

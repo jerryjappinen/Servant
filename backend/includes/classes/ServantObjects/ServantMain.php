@@ -2,14 +2,12 @@
 
 class ServantMain extends ServantObject {
 
-
-
-	/**
-	* Override construction (no automatic initialization)
-	*/
+	// Override construction (no main object)
 	public function __construct () {
 		return $this;
 	}
+
+
 
 	/**
 	* Initialization
@@ -25,6 +23,8 @@ class ServantMain extends ServantObject {
 
 		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}
+
+
 
 	/**
 	* Execute Servant to generate a response
@@ -74,6 +74,14 @@ class ServantMain extends ServantObject {
 		return call_user_func_array(array($this->pages(), 'current'), $arguments);
 	}
 
+	// Create and initialize a new template
+	public function template () {
+		$arguments = func_get_args();
+		$template = create_object(new ServantTemplate($this));
+		call_user_func_array(array($template, 'init'), $arguments);
+		return $template;
+	}
+
 
 
 	/**
@@ -91,7 +99,6 @@ class ServantMain extends ServantObject {
 	protected $propertyResponse 	= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
-	protected $propertyTemplate 	= null;
 	protected $propertyTheme 		= null;
 	protected $propertyUtilities 	= null;
 
@@ -127,9 +134,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setSite () {
 		return $this->set('site', create_object(new ServantSite($this))->init());
-	}
-	protected function setTemplate () {
-		return $this->set('template', create_object(new ServantTemplate($this))->init());
 	}
 	protected function setTheme () {
 		return $this->set('theme', create_object(new ServantTheme($this))->init());

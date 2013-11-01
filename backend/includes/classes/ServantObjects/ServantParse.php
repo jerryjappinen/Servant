@@ -12,6 +12,9 @@ class ServantParse extends ServantObject {
 
 	/**
 	* HAML to PHP
+	*
+	* FLAG
+	*   - missing variables?
 	*/
 	public function hamlToPHP ($haml) {
 		$this->servant()->utilities()->load('mthaml');
@@ -21,6 +24,9 @@ class ServantParse extends ServantObject {
 
 	/**
 	* Jade to PHP
+	*
+	* FLAG
+	*   - missing variables?
 	*/
 	public function jadeToPhp ($jade) {
 		$this->servant()->utilities()->load('jade');
@@ -88,9 +94,8 @@ class ServantParse extends ServantObject {
 	/**
 	* Twig to HTML
 	*/
-	public function twigToHtml ($twig) {
-		$this->servant()->utilities()->load('twig');
-		return create_object(new Twig_Environment(new Twig_Loader_String()))->render($twig, array('servant' => $this->servant()));
+	public function twigToHtml ($twig, $scriptVariables = array()) {
+		return create_object(new Twig_Environment(new Twig_Loader_String()))->render($twig, $scriptVariables);
 	}
 
 	/**

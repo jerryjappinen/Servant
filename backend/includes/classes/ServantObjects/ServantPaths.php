@@ -36,7 +36,7 @@ class ServantPaths extends ServantObject {
 
 			'pages',
 			'manifest',
-			'template',
+			'templates',
 			'theme',
 
 			'actions',
@@ -128,8 +128,8 @@ class ServantPaths extends ServantObject {
 	public function temp ($format = null) {
 		return $this->getPath('temp', $format);
 	}
-	public function template ($format = null) {
-		return $this->getPath('template', $format);
+	public function templates ($format = null) {
+		return $this->getPath('templates', $format);
 	}
 	public function theme ($format = null) {
 		return $this->getPath('theme', $format);
