@@ -9,6 +9,7 @@ h5. @settings.json@
 
 <pre><code>"browserCache": "0*3*60",
 "serverCache": "0*7*24*7*60",
+"template": "default",
 "language": "en",
 "name": "Servant",
 "description": "Effortless publishing for the web",
@@ -29,6 +30,7 @@ h3. Supported settings
 |_. Setting|_. Description|_. Example values|
 |*browserCache*|Suggested caching time for browsers, in minutes.| @"3*60"@ |
 |*serverCache*|Caching time used by Servant, in minutes.| @"2*24*60"@ |
+|*template*|The template under "templates/" to pick for your site.|@"barebones"@, @"default"@|
 |*language*|Two-letter language code, the main language of your site.|@"en"@, @"fr"@|
 |*icon*|Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"site/favicon.png"@|
 |*splashImage*|Path (relative to Servant root) to an splash image file.|@"site/splash.png"@|

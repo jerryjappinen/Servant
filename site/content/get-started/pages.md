@@ -12,7 +12,6 @@ All files are converted and served to your users as HTML automatically. For exam
 		examples.php
 		features.html
 		get-started.md
-	template/
 	theme/
 
 Pages can contain things like titles, subtitles, lists, links and images. The [theme](theme) will decide the look of these elements on the final site.
