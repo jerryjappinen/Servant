@@ -108,9 +108,19 @@ class ServantTemplate extends ServantObject {
 	*/
 	protected function setOutput () {
 		$result = '';
-		foreach ($this->files('server') as $path) {
-			$result .= $this->servant()->files()->read($path);
+		$files = $this->files('server');
+
+		// Use template files (might or might not include content())
+		if (!empty($files)) {
+			foreach ($files as $path) {
+				$result .= $this->servant()->files()->read($path);
+			}
+
+		// No files - use content directly
+		} else {
+			$result = $this->content();
 		}
+
 		return $this->set('output', trim($result));
 	}
 

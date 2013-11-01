@@ -140,6 +140,11 @@ class ServantResponse extends ServantObject {
 		if ($this->existing()) {
 			$contentType = pathinfo($this->existing(), PATHINFO_EXTENSION);
 
+		// Templates are HTML
+		// FLAG shouldn't be hardcoded
+		} else if ($this->servant()->actions()->current()->outputViaTemplate()) {
+			$contentType = 'html';
+
 		// Get content type from action
 		} else {
 			$contentType = $this->servant()->actions()->current()->contentType();

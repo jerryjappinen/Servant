@@ -2,7 +2,7 @@
 
 	"defaults": {
 		"action": "site",
-		"browserCache": "60",
+		"browserCache": "12*60",
 		"contentType": "html",
 		"language": "en",
 		"serverCache": "7*24*60",
