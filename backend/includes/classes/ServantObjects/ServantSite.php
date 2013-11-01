@@ -179,18 +179,37 @@ class ServantSite extends ServantObject {
 	}
 
 	/**
-	* Path to site splash image from settings or remains an empty string
+	* ID of selected template
+	*
+	* NOTE
+	*   - Site setting is prefererred even when it's not actually available or have any files
+	*   - In the absence of site setting, either global default or the first available template are used
 	*/
 	protected function setTemplate ($input = null) {
 		$input = trim(''.$input);
+		$template = '';
 
 		// Site settings
 		if (!empty($input)) {
 			$template = $input;
 
-		// Use default
 		} else {
-			$template = $this->servant()->settings()->defaults('template');
+			$path = $this->servant()->paths()->templates('server');
+
+			// Try default
+			// FLAG servant()->templates()->available() would be handy here
+			$default = $this->servant()->settings()->defaults('template');
+			if (!empty($default) and is_dir(suffix($path.$default, '/'))) {
+				$template = $default;
+
+			// If default is unavailable, attempt to use whatever we have
+			} else {
+				$templates = glob_dir($path);
+				if (!empty($templates)) {
+					$template = basename($templates[0]);
+				}
+			}
+
 		}
 
 		return $this->set('template', $template);

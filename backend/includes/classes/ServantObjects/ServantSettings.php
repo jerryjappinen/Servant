@@ -78,7 +78,7 @@ class ServantSettings extends ServantObject {
 		if ($input) {
 			foreach ($results as $key => $null) {
 				if (isset($input[$key]) and !(is_string($input[$key]) and empty($input[$key]))) {
-					$results[$key] = is_numeric($input[$key]) ? $input[$key] : strval($input[$key]);
+					$results[$key] = is_numeric($input[$key]) ? $input[$key] : ''.$input[$key];
 				}
 			}
 		}

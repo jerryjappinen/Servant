@@ -124,11 +124,13 @@ class ServantTemplate extends ServantObject {
 	*/
 	protected function setFiles () {
 		$files = array();
-		$path = $this->path('server');
+
+		$plainPath = $this->path();
+		$serverPath = $this->path('server');
 
 		// All template files in directory
-		if (is_dir($path)) {
-			foreach (rglob_files($path, $this->servant()->settings()->formats('templates')) as $file) {
+		if (!empty($plainPath) and is_dir($serverPath)) {
+			foreach (rglob_files($serverPath, $this->servant()->settings()->formats('templates')) as $file) {
 
 				// Store each file's path to plain format
 				$files[] = $this->servant()->format()->path($file, false, 'server');
@@ -145,11 +147,10 @@ class ServantTemplate extends ServantObject {
 	* ID (directory name)
 	*/
 	protected function setId ($input) {
-		$id = ''.$input;
 
 		// Validate ID
-		if (!is_array($input) and mb_strlen($id) > 0) {
-			return $this->set('id', $id);
+		if (!is_array($input)) {
+			return $this->set('id', ''.$input);
 
 		// Fail if ID is inappropriate
 		} else {
@@ -187,7 +188,15 @@ class ServantTemplate extends ServantObject {
 	* Template is either a folder within the templates directory
 	*/
 	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->templates('plain').$this->id().'/');
+		$path = '';
+		$id = $this->id();
+
+		// Acceptable path must be a child folder in the templates dir
+		if (!empty($id)) {
+			$path = suffix($this->servant()->paths()->templates('plain').$this->id(), '/');
+		}
+
+		return $this->set('path', $path);
 	}
 
 
