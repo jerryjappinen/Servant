@@ -2,14 +2,14 @@
 # Servant
 
 - Intro, download & docs
-	- http://www.eiskis.net/servant/
+	- [eiskis.net/servant](http://www.eiskis.net/servant/)
 - Source & issues
-	- http://bitbucket.org/Eiskis/servant/
+	- [bitbucket.org/Eiskis/servant](http://bitbucket.org/Eiskis/servant/)
 - By Jerry Jäppinen
 	- Released under LGPL
-	- eiskis@gmail.com
-	- http://eiskis.net/
-	- @Eiskis
+	- [eiskis@gmail.com](mailto:eiskis@gmail.com)
+	- [eiskis.net](http://eiskis.net/)
+	- [@Eiskis](https://twitter.com/Eiskis)
 
 
 
