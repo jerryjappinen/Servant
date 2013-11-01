@@ -8,7 +8,7 @@ $paths = array(
 	// User-facing locations
 	'manifest' 		=> 'site/settings.json',
 	'pages' 		=> 'site/content/',
-	'templates' 	=> 'site/templates/',
+	'templates' 	=> 'templates/',
 	'theme' 		=> 'site/theme/',
 
 	// Backend
