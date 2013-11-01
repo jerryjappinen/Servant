@@ -7,7 +7,7 @@
 		"language": "en",
 		"serverCache": "7*24*60",
 		"status": 200,
-		"template": "default"
+		"template": "barebones"
 	}
 
 }

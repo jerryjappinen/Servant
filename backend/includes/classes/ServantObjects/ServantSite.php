@@ -13,6 +13,7 @@ class ServantSite extends ServantObject {
 	protected $propertyPageNames 	= null;
 	protected $propertyServerCache 	= null;
 	protected $propertySplashImage 	= null;
+	protected $propertyTemplate 	= null;
 
 
 
@@ -35,6 +36,7 @@ class ServantSite extends ServantObject {
 				'pageNames',
 				'serverCache',
 				'splashImage',
+				'template',
 			);
 			// Run setters if values are given
 			foreach ($properties as $key) {
@@ -174,6 +176,24 @@ class ServantSite extends ServantObject {
 	*/
 	protected function setSplashImage ($input = null) {
 		return $this->set('splashImage', $this->resolveImageFile($input));
+	}
+
+	/**
+	* Path to site splash image from settings or remains an empty string
+	*/
+	protected function setTemplate ($input = null) {
+		$input = trim(''.$input);
+
+		// Site settings
+		if (!empty($input)) {
+			$template = $input;
+
+		// Use default
+		} else {
+			$template = $this->servant()->settings()->defaults('template');
+		}
+
+		return $this->set('template', $template);
 	}
 
 
