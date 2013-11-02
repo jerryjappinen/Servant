@@ -35,7 +35,7 @@ class ServantMain extends ServantObject {
 		try {
 
 			// Serve a response
-			$this->response($this->actions()->current())->serve();
+			$this->generate('response', $this->actions()->current())->serve();
 
 		} catch (Exception $e) {
 
@@ -90,17 +90,8 @@ class ServantMain extends ServantObject {
 	// NOTE this is public
 	public function template () {
 		$arguments = func_get_args();
-		$template = create_object(new ServantTemplate($this));
-		call_user_func_array(array($template, 'init'), $arguments);
-		return $template->output();
-	}
-
-	// Create and initialize a new response
-	private function response () {
-		$arguments = func_get_args();
-		$response = create_object(new ServantResponse($this));
-		call_user_func_array(array($response, 'init'), $arguments);
-		return $response;
+		array_unshift($arguments, 'template');
+		return call_user_func_array(array($this, 'generate'), $arguments)->output();
 	}
 
 

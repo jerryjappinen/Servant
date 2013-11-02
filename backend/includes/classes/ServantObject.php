@@ -22,6 +22,31 @@ class ServantObject {
 
 
 	/**
+	* Convenience methods
+	*/
+
+	/**
+	* Generate any ServantObject (ServantMain will be passed on)
+	*/
+	protected function generate ($objectName, $arguments = null) {
+		log_dump($objectName);
+		$className = $this->className($objectName);
+
+		// Normalize arguments
+		$arguments = func_get_args();
+		array_shift($arguments);
+
+		// Create and initialize the object
+		$object = create_object(new $className($this->servant()));
+		call_user_func_array(array($object, 'init'), $arguments);
+
+		// NOTE returns the generated object, not $this
+		return $object;
+	}
+
+
+
+	/**
 	* Magic methods
 	*/
 
