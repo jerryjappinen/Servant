@@ -64,9 +64,27 @@ class ServantInput extends ServantObject {
 	*/
 	protected function setAction ($value) {
 		$result = '';
+
 		if ($this->acceptable($value)) {
 			$result = $this->normalizeString($value);
 		}
+
+
+		// Silent fallback
+		if (!$this->servant()->actions()->available($result)) {
+
+			// Global default
+			$default = $this->servant()->settings()->defaults('action');
+			if ($this->servant()->actions()->available($default)) {
+				$result = $default;
+
+			// Whatever's available
+			} else {
+				$available = array_keys($this->servant()->actions->map());
+				$result = $available[0];
+			}
+		}
+
 		return $this->set('action', $result);
 	}
 

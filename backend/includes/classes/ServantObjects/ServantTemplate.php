@@ -17,6 +17,7 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyAction 	= null;
 	protected $propertyContent 	= null;
 	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
@@ -28,12 +29,13 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Init
 	*/
-	public function initialize ($id, $content = null) {
-		$contentArguments = func_get_args();
-		array_shift($contentArguments);
+	public function initialize ($id, $action, $content = null) {
+		$arguments = func_get_args();
+		$contentArguments = array_slice($arguments, 2);
 
-		// Set ID
+		// Set ID and action
 		$this->setId($id);
+		$this->setAction($action);
 
 		// Default to empty content
 		if (empty($contentArguments)) {
@@ -86,6 +88,22 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Setters
 	*/
+
+	/**
+	* Action
+	*/
+	protected function setAction ($action) {
+	
+		// FLAG hardcoded classname
+		if (!$action or get_class($action) !== 'ServantAction') {
+			$this->fail('Invalid action passed to template.');
+
+		// Action is acceptable
+		} else {
+			return $this->set('action', $action);
+		}
+
+	}
 
 	/**
 	* Template content, whereever it comes
@@ -171,7 +189,11 @@ class ServantTemplate extends ServantObject {
 		// Use template files (might or might not include $template->content())
 		if (!empty($files)) {
 			foreach ($files as $path) {
-				$result .= $this->servant()->files()->read($path, array('servant' => $this->servant(), 'template' => $this));
+				$result .= $this->servant()->files()->read($path, array(
+					'servant' => $this->servant(),
+					'action' => $this->action(),
+					'template' => $this,
+				));
 			}
 
 		// No files - use content directly

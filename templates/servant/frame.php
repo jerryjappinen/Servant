@@ -4,7 +4,7 @@
 * Submenu for read action
 */
 $menu = '';
-if ($servant->action()->isRead()) {
+if ($action->isRead()) {
 
 	// Generate menu
 	$pages = $servant->pages()->level($servant->page()->tree(0));
@@ -147,7 +147,7 @@ $frame = '
 			';
 
 			// Menu if there are pages
-			$headerMenu = $servant->template('list-toplevelpages');
+			$headerMenu = $servant->template('list-toplevelpages', $action)->output();
 			if ($headerMenu) {
 				$frame .= '
 				<div id="responsive-menu">
@@ -184,5 +184,5 @@ $frame = '
 </div>';
 
 // Output via the default template
-echo $servant->template('default', $frame);
+echo $servant->template('default', $action, $frame)->output();
 ?>

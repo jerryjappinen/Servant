@@ -12,7 +12,7 @@ To create a site, **you only need to add a text file under `content/`.** The *te
 	<p class="squeeze-top">Pages can be written in plain text or other formats. You can also add page-specific styles and behavior.</p>
 </div>
 <div class="column six last">
-	<h3 class="reset-bottom"><a href="sites">Site settings</a></h3>
+	<h3 class="reset-bottom"><a href="site-settings">Site settings</a></h3>
 	<p class="squeeze-top">Get familiar with all the building blocks that create a site.</p>
 </div>
 <div class="clear"></div>

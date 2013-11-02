@@ -110,7 +110,7 @@ class ServantResponse extends ServantObject {
 
 				// Push output into a template
 				if ($this->action()->outputViaTemplate()) {
-					$output = $this->servant()->template($this->servant()->site()->template(), $output);
+					$output = $this->generate('template', $this->servant()->site()->template(), $this->action(), $output)->output();
 				}
 
 				// Store if needed

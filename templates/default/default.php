@@ -59,8 +59,8 @@ unset($splashImage, $icon);
 /**
 * Asset links
 */
-$stylesheetsLink = $servant->paths()->userAction('stylesheets', 'domain', ($servant->action()->isRead() ? $tree = $servant->page()->tree() : array()));
-$scriptsLink = $servant->paths()->userAction('scripts', 'domain', $servant->action()->isRead() ? $tree = $servant->page()->tree() : array());
+$stylesheetsLink = $servant->paths()->userAction('stylesheets', 'domain', ($action->isRead() ? $tree = $servant->page()->tree() : array()));
+$scriptsLink = $servant->paths()->userAction('scripts', 'domain', $action->isRead() ? $tree = $servant->page()->tree() : array());
 
 
 

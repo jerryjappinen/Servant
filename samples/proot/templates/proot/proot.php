@@ -180,7 +180,7 @@ $output .= '
 							$level3 = $servant->pages()->templates($servant->page()->tree(0), $servant->page()->tree(1));
 							if (!empty($level3) and is_array($level3)) {
 								foreach ($level3 as $key => $value) {
-									$output .= '<li class="reset'.($servant->page()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$servant->action()->id().'/'.$servant->page()->tree(0).'/'.$servant->page()->tree(1).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
+									$output .= '<li class="reset'.($servant->page()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$action->id().'/'.$servant->page()->tree(0).'/'.$servant->page()->tree(1).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
 								}
 							}
 							unset($level3, $key, $value);

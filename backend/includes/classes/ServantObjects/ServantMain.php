@@ -33,7 +33,7 @@ class ServantMain extends ServantObject {
 
 		// Serve a response
 		try {
-			$response = $this->generate('response', $this->actions()->current());
+			$response = $this->generate('response', $this->actions()->map($this->input()->action()));
 
 		} catch (Exception $e) {
 
@@ -77,11 +77,6 @@ class ServantMain extends ServantObject {
 	* Public shortcuts
 	*/
 
-	public function action () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->actions(), 'current'), $arguments);
-	}
-
 	public function page () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->pages(), 'current'), $arguments);
@@ -98,10 +93,18 @@ class ServantMain extends ServantObject {
 
 	// Create and initialize a new template
 	// NOTE this is public
+	public function action () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'action');
+		return call_user_func_array(array($this, 'generate'), $arguments);
+	}
+
+	// Create and initialize a new template
+	// NOTE this is public
 	public function template () {
 		$arguments = func_get_args();
 		array_unshift($arguments, 'template');
-		return call_user_func_array(array($this, 'generate'), $arguments)->output();
+		return call_user_func_array(array($this, 'generate'), $arguments);
 	}
 
 

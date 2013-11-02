@@ -4,7 +4,6 @@
 * Page component
 *
 * Dependencies
-*   - servant()->actions()-current()->id()
 *   - servant()->files()->read()
 *   - servant()->format()->pageName()
 *   - servant()->format()->path()
@@ -205,8 +204,7 @@ class ServantPage extends ServantObject {
 	* Return template content as a string
 	*
 	* FLAG
-	*   - Content manipulation should be done in read action, not here (as in stylesheets and scripts)
-	*   -> requires better include system for templates, as they include page content directly now
+	*   - Content manipulation should be done in read action, not here (stylesheets is correct in this)
 	*/
 	protected function setOutput () {
 		$urlManipulator = new UrlManipulator();
@@ -215,7 +213,7 @@ class ServantPage extends ServantObject {
 		$srcUrl = $this->pages()->path('domain');
 
 		// Root path for hrefs
-		$hrefUrl = $this->servant()->paths()->root('domain').$this->servant()->actions()->current()->id().'/';
+		$hrefUrl = $this->servant()->paths()->root('domain').$this->servant()->settings()->actions('read').'/';
 
 		// Relative location for SRC urls
 		$dirname = suffix(dirname($this->template('plain')), '/');

@@ -1,16 +1,14 @@
 <?php
 
 /**
-* Actions component (i.e. map of available actions)
+* Actions service (i.e. map of available actions)
 */
 class ServantActions extends ServantObject {
 
 	/**
 	* Properties
 	*/
-	protected $propertyCurrent 		= null;
 	protected $propertyMap 			= null;
-	protected $propertyPath 		= null;
 
 
 
@@ -24,21 +22,6 @@ class ServantActions extends ServantObject {
 			$result = true;
 		}
 		return $result;
-	}
-
-
-
-	/**
-	* Init
-	*/
-
-	public function initialize () {
-
-		// Try using user input for current action
-		// FLAG should be done by Main
-		$this->setCurrent($this->servant()->input()->action());
-
-		return $this;
 	}
 
 
@@ -83,17 +66,8 @@ class ServantActions extends ServantObject {
 
 	}
 
-	// Returns action object (while the ID is stored in the prameter)
-	public function current () {
-		return $this->map($this->getAndSet('current'));
-	}
-
 	public function path ($format = null) {
-		$path = $this->getAndSet('path');
-		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
-		}
-		return $path;
+		return $this->servant()->paths()->actions($format);
 	}
 
 
@@ -157,15 +131,6 @@ class ServantActions extends ServantObject {
 
 		return $this->set('map', $results);
 	}
-
-	/**
-	* Path
-	*/
-	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->actions('plain'));
-	}
-
-
 
 }
 
