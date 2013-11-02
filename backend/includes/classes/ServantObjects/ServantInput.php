@@ -23,6 +23,9 @@ class ServantInput extends ServantObject {
 		// Select things if we have any
 		if (!empty($input) and is_array($input)) {
 
+			// Accepting only GET input
+			$input = $input['get'];
+
 			// Look for whatever we support
 			foreach (array('action', 'page') as $id) {
 

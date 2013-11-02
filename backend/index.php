@@ -79,7 +79,13 @@ class Index {
 		$this->constantsJson = '{'.implode(',', $jsons).'}';
 
 		// User input
-		$this->input = $_GET;
+		$this->input = array(
+			'get' => $_GET,
+			'post' => $_POST,
+			'put' => array(),
+			'delete' => array(),
+			'files' => array(),
+		);
 
 
 

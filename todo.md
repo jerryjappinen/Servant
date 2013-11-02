@@ -16,6 +16,9 @@
 
 Some kind of status page that indicates if things like paths are in order, what settings are active etc. Helps during installation and warns about common pitfalls.
 
+- Report cards structure
+- Test routines separated from main thingy
+
 
 
 ## Out-of-lab testing

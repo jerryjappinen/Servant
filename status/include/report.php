@@ -13,8 +13,8 @@
 		<title>Status board</title>
 
 		<!-- Styles -->
-		<link rel="stylesheet" href="layers.css" media="screen">
-		<link rel="stylesheet" href="status.css" media="screen">
+		<link rel="stylesheet" href="assets/layers.css" media="screen">
+		<link rel="stylesheet" href="assets/status.css" media="screen">
 
 	</head>
 

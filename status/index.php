@@ -14,9 +14,9 @@ header('Content-Type: text/html; charset=utf-8');
 */
 
 // Dependencies
-require_once 'baseline.php';
-require_once 'markdown.php';
-require_once 'status.php';
+require_once 'include/baseline.php';
+require_once 'include/markdown.php';
+require_once 'include/status.php';
 
 // Validation process
 $status = new Status();
@@ -26,5 +26,5 @@ if ($status->noFails()) {
 }
 
 // Report page
-require_once 'report.php';
+require_once 'include/report.php';
 ?>
