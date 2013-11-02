@@ -10,7 +10,7 @@
 			@viewport{width: device-width;}
 		</style>
 
-		<title>Servant status</title>
+		<title>Status board</title>
 
 		<!-- Styles -->
 		<link rel="stylesheet" href="layers.css" media="screen">
@@ -18,24 +18,22 @@
 
 	</head>
 
-<?php
-$classes = array();
-foreach (array('fails', 'errors', 'warnings', 'reports') as $key) {
-	$countMethod = substr($key, 0, -1).'Count';
-	$emptyMethod = 'no'.ucfirst($key);
-	$classes[] = $status->$emptyMethod() ? 'no-'.$key : $key;
-	// $classes[] = $key.'-'.$status->$countMethod();
-}
-
-
-?>
+	<?php
+	$classes = array();
+	foreach (array('fails', 'errors', 'warnings', 'reports') as $key) {
+		$countMethod = substr($key, 0, -1).'Count';
+		$emptyMethod = 'no'.ucfirst($key);
+		$classes[] = $status->$emptyMethod() ? 'no-'.$key : $key;
+		// $classes[] = $key.'-'.$status->$countMethod();
+	}
+	?>
 
 	<body class="<?php echo implode(' ', $classes) ?>">
 
 		<div class="row">
 			<div class="row-content buffer">
 
-				<h1>Servant status</h1>
+				<h1>Status board</h1>
 
 				<!-- Fails -->
 				<?php if ($status->hasFails()): ?>
