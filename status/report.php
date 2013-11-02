@@ -41,10 +41,12 @@ foreach (array('fails', 'errors', 'warnings', 'reports') as $key) {
 				<?php if ($status->hasFails()): ?>
 
 					<table class="red">
-						<tr><th><?php echo $status->hasFails() ? $status->failCount() : 'No' ?> fails</th></tr>
+						<tr><th colspan="2"><?php echo 'This status board can\'t tell much about the system because of these '.$status->failCount().'things.' ?></th></tr>
+						<?php $i = 1 ?>
 						<?php foreach ($status->fails() as $message): ?>
-							<tr><td><?php echo Markdown($message) ?></td></tr>
-						<?php endforeach;?>
+							<tr><td><?php echo Markdown($message) ?></td><td class="small discreet right"><?php echo $i ?></td></tr>
+							<?php $i++; ?>
+						<?php endforeach; unset($i); ?>
 					</table>
 
 				<?php endif;?>
@@ -55,10 +57,12 @@ foreach (array('fails', 'errors', 'warnings', 'reports') as $key) {
 				<?php if ($status->hasErrors()): ?>
 
 					<table class="orange">
-						<tr><th><?php echo $status->hasErrors() ? $status->errorCount() : 'No' ?> errors</th></tr>
+						<tr><th colspan="2"><?php echo 'You should really fix these '.$status->errorCount().' things.' ?></th></tr>
+						<?php $i = 1 ?>
 						<?php foreach ($status->errors() as $message): ?>
-							<tr><td><?php echo Markdown($message) ?></td></tr>
-						<?php endforeach;?>
+							<tr><td><?php echo Markdown($message) ?></td><td class="small discreet right"><?php echo $i ?></td></tr>
+							<?php $i++; ?>
+						<?php endforeach; unset($i); ?>
 					</table>
 
 				<?php endif;?>
@@ -69,10 +73,12 @@ foreach (array('fails', 'errors', 'warnings', 'reports') as $key) {
 				<?php if ($status->hasWarnings()): ?>
 
 					<table class="yellow">
-						<tr><th><?php echo $status->hasWarnings() ? $status->warningCount() : 'No' ?> warnings</th></tr>
+						<tr><th colspan="2"><?php echo 'These '.$status->warningCount().' things are something you need to take a look at.' ?></th></tr>
+						<?php $i = 1 ?>
 						<?php foreach ($status->warnings() as $message): ?>
-							<tr><td><?php echo Markdown($message) ?></td></tr>
-						<?php endforeach;?>
+							<tr><td><?php echo Markdown($message) ?></td><td class="small discreet right"><?php echo $i ?></td></tr>
+							<?php $i++; ?>
+						<?php endforeach; unset($i); ?>
 					</table>
 
 				<?php endif;?>
@@ -83,10 +89,12 @@ foreach (array('fails', 'errors', 'warnings', 'reports') as $key) {
 				<?php if ($status->hasReports()): ?>
 
 					<table class="green">
-						<tr><th><?php echo $status->hasReports() ? $status->reportCount() : 'No' ?> reports</th></tr>
+						<tr><th colspan="2">Everything seems to be in order.</th></tr>
+						<?php $i = 1 ?>
 						<?php foreach ($status->reports() as $message): ?>
-							<tr><td><?php echo Markdown($message) ?></td></tr>
-						<?php endforeach;?>
+							<tr><td><?php echo Markdown($message) ?></td><td class="small discreet right"><?php echo $i ?></td></tr>
+							<?php $i++; ?>
+						<?php endforeach; unset($i); ?>
 					</table>
 
 				<?php endif;?>
@@ -140,8 +148,21 @@ foreach (array('fails', 'errors', 'warnings', 'reports') as $key) {
 				</table>
 
 
-				<!-- <pre class="buffer"><code><?php echo dump($_SERVER) ?></code></pre> -->
-				<!-- <iframe src="phpinfo.php"></iframe> -->
+
+				<h2>Constants</h2>
+
+				<?php
+				$files = rglob_files('../backend/includes/constants/', 'json');
+				$jsons = array();
+				foreach ($files as $file) {
+					$jsons[] = suffix(prefix(trim(file_get_contents($file)), '{'), '}');
+				}
+				?>
+				<pre class="buffer"><code><?php echo implode(','."\n", $jsons) ?></code></pre>
+
+
+
+				<!-- <h2>PHP info</h2><iframe src="phpinfo.php"></iframe> -->
 
 
 

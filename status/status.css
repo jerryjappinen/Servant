@@ -5,6 +5,7 @@ body {
 	color: #373f45;
 	font-weight: 200;
 	line-height: 1.6;
+	font-size: 0.9em;
 }
 
 h1, h2, h3 {
@@ -25,6 +26,9 @@ h2 {
 a, a:visited {
 	color: #0080bf;
 	text-decoration: none;
+}
+.discreet {
+	color: #ccc;
 }
 
 
@@ -61,12 +65,19 @@ table, iframe, pre {
 			border-top-left-radius: 0;
 		}
 
-
-
-/*PHP info*/
 iframe {
 	height: 30em;
 }
+
+pre, code {
+	font-size: 0.8em;
+	-webkit-tab-size: 4;
+	-moz-tab-size: 4;
+	tab-size: 4;
+}
+	pre code {
+		font-size: 1em;
+	}
 
 
 /*Lists*/
@@ -90,15 +101,19 @@ table p {
 	margin-top: 0;
 	margin-bottom: 0;
 }
-th, td {
-	padding-left: 1.0em;
+th:first-of-type, td:first-of-type {
+	padding-left: 1em;
 }
-
+th:last-of-type, td:last-of-type {
+	padding-right: 1em;
+}
+	th.small, td.small {
+		width: 1em;
+	}
 th {
 	background-color: #fafafa;
 	border-bottom-width: 1px;
 }
-
 td {
 	border-color: #f0f0f0;
 	border-bottom-width: 1px;
