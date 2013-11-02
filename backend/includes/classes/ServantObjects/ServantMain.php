@@ -19,8 +19,6 @@ class ServantMain extends ServantObject {
 			$this->enableDebug();
 		}
 
-		// FLAG clear temp directory at this point
-
 		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
 	}
 
@@ -31,13 +29,19 @@ class ServantMain extends ServantObject {
 	*/
 	public function run () {
 
+		$this->purgeTemp();
+
 		// FLAG last-resort thing, not sure how to handle this
 		try {
 
 			// Serve a response
 			$this->generate('response', $this->actions()->current())->serve();
 
+			$this->purgeTemp();
+
 		} catch (Exception $e) {
+
+			$this->purgeTemp();
 
 			// Fuck
 			echo '<p style="margin: 0 auto; padding: 5%; font-family: sans-serif; text-align: center; font-size: 1.4em; color: #333;">What went to shit:<br /><br /><strong style="">'.$e->getMessage().'</strong>.</p>';
@@ -82,7 +86,6 @@ class ServantMain extends ServantObject {
 	* Convenience getters
 	*
 	* FLAG
-	*   - there should be a method for creating these in ServantObject
 	*   - is this really the place for this?
 	*/
 
@@ -92,6 +95,17 @@ class ServantMain extends ServantObject {
 		$arguments = func_get_args();
 		array_unshift($arguments, 'template');
 		return call_user_func_array(array($this, 'generate'), $arguments)->output();
+	}
+
+
+
+	/**
+	* Private helpers
+	*/
+
+	private function purgeTemp () {
+		remove_dir($this->paths()->temp('server'));
+		return $this;
 	}
 
 

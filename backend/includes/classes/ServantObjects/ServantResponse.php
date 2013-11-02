@@ -18,73 +18,30 @@ class ServantResponse extends ServantObject {
 
 
 
-	// Require action upon initialization
-	public function initialize ($action) {
-		return $this->setAction($action);
-	}
-
-
-
 	/**
-	* Wrapper methods
+	* Require action upon initialization
 	*/
+	public function initialize ($action) {
+
+		$this->setAction($action);
+
+		$this->setBody();
+
+		return $this;
+	}
 
 	/**
 	* Send a response
-	*
-	* FLAG
-	* - Most of this should be done in ServantMain()?
-	* - need to sort out when action is run... maybe its execution should be all under init(), and action isn't even created until we know response doesn't already exist
-	* - it's shitty when I have to check if response exists everywhere, but I need to just assume action isn't run then
 	*/
 	public function serve () {
-		$cacheEnabled = ($this->servant()->site()->serverCache() > 0 and !$this->servant()->debug());
-
-		// Response has been saved
-		if ($cacheEnabled and $this->existing()) {
-			$output = file_get_contents($this->existing('server'));
-
-		// Response needs to be generated
-		} else {
-
-			// Run action
-			try {
-				$this->action()->run();
-
-			// If action fails...
-			// FLAG we should not do this here - ServantMain should generate a new response with error action
-			} catch (Exception $exception) {
-
-				$message = '<h1>Something went wrong :(</h1><p>We\'ll try to fix it as soon as possible.</p>';
-
-				$this->action()->contentType('html')->status(500)->outputViaTemplate(true)->output($message);
-
-			}
-
-			// Get output from action
-			$output = $this->action()->output();
-
-			// Push output into a template
-			if ($this->action()->outputViaTemplate()) {
-				$output = $this->servant()->template($this->servant()->site()->template(), $output);
-			}
-
-			// Store if needed
-			if ($cacheEnabled and $this->status() < 400 and !$this->existing()) {
-				$this->store($output);
-			}
-
-		}
 
 		// Send headers
 		foreach ($this->headers() as $value) {
-			if (!empty($value)) {
-				header($value);
-			}
+			header($value);
 		}
 
-		// Print body
-		echo $output;
+		// Print body (assuming string)
+		echo $this->body();
 
 		return $this;
 	}
@@ -139,6 +96,56 @@ class ServantResponse extends ServantObject {
 			return $this->set('action', $action);
 		}
 
+	}
+
+
+
+	/**
+	* Generate response body
+	*
+	* NOTE
+	*   - This is where we run the action if needed
+	*/
+	protected function setBody () {
+		$cacheEnabled = ($this->servant()->site()->serverCache() > 0 and !$this->servant()->debug());
+
+		// Response has been saved
+		if ($cacheEnabled and $this->existing()) {
+			$output = file_get_contents($this->existing('server'));
+
+		// Response needs to be generated
+		} else {
+
+			// Run action
+			try {
+				$this->action()->run();
+
+			// If action fails...
+			// FLAG we should just fail here (ServantMain should generate a new response with error action)
+			} catch (Exception $exception) {
+
+				$message = '<h1>Something went wrong :(</h1><p>We\'ll try to fix it as soon as possible.</p>';
+
+				$this->action()->contentType('html')->status(500)->outputViaTemplate(true)->output($message);
+
+			}
+
+			// Get output from action
+			$output = $this->action()->output();
+
+			// Push output into a template
+			if ($this->action()->outputViaTemplate()) {
+				$output = $this->servant()->template($this->servant()->site()->template(), $output);
+			}
+
+			// Store if needed
+			if ($cacheEnabled and !$this->existing() and $this->status() < 400) {
+				$this->store($output);
+			}
+
+		}
+
+		return $this->set('body', $output);
 	}
 
 
@@ -233,8 +240,16 @@ class ServantResponse extends ServantObject {
 			$this->generateStatusHeader($this->status()),
 		);
 
+		// Filter out empty headers
+		$results = array();
+		foreach ($headers as $value) {
+			if (!empty($value)) {
+				$results[] = $value;
+			}
+		}
+
 		// Run internal methods for getting valid strings
-		return $this->set('headers', $headers);
+		return $this->set('headers', $results);
 	}
 
 
