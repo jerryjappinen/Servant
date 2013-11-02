@@ -1,0 +1,18 @@
+
+#
+#   STATUS BOARD
+#
+
+# Allow URL rewrites (uncomment "+FollowSymLinks" line if needed on your server)
+# Options +FollowSymLinks
+RewriteEngine on
+
+# Load index.php at root
+DirectoryIndex index.php
+
+# Respect natural paths
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+
+# Actions
+# RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?action=$1&page=$2;$3;$4;$5;$6;$7;$8;$9

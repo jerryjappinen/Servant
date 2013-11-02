@@ -74,7 +74,7 @@ class Index {
 		// JSON settings
 		$jsons = array();
 		foreach (rglob_files($constantsDirectory, 'json') as $path) {
-			$jsons[] = unsuffix(unprefix(file_get_contents($path), '{'), '}');
+			$jsons[] = unsuffix(unprefix(trim(file_get_contents($path)), '{'), '}');
 		}
 		$this->constantsJson = '{'.implode(',', $jsons).'}';
 

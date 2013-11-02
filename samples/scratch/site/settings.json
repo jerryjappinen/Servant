@@ -1,8 +1,5 @@
 {
 
-	"browserCache": "6*60",
-	"serverCache": "7*24*60",
-
 	"language": "en",
 
 	"name": "My site",

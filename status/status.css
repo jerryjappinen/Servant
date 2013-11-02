@@ -1,0 +1,156 @@
+
+body {
+	font-family: "Helvetica Neue", "Helvetica", "Lucida Grande", sans-serif;
+	background-color: #fafafa;
+	color: #373f45;
+	font-weight: 200;
+	line-height: 1.6;
+}
+
+h1, h2, h3 {
+	font-weight: inherit;
+}
+
+h1, th {
+	text-transform: uppercase;
+}
+
+h2 {
+	margin-top: 3.4em;
+}
+
+
+
+/*Inline*/
+a, a:visited {
+	color: #0080bf;
+	text-decoration: none;
+}
+
+
+
+/*Header*/
+h1 {
+	text-align: center;
+	margin-bottom: 1.6em;
+	color: #bbb;
+}
+	.fails h1 {
+		color: #d6203e;
+	}
+
+
+
+/*Blocks*/
+table, iframe, pre {
+	background-color: white;
+	box-shadow: 0 0.75em 1em rgba(0, 0, 0, 0.1);
+	border-radius: 0.2em;
+}
+	table tr:first-of-type th, table tr:first-of-type td {
+		border-top-right-radius: 0.2em;
+		border-top-left-radius: 0.2em;
+	}
+	table.clean, iframe.clean, pre.clean {
+		background-color: transparent;
+		box-shadow: none;
+		border-radius: 0;
+	}
+		table.plain tr:first-of-type th, table.plain tr:first-of-type td {
+			border-top-right-radius: 0;
+			border-top-left-radius: 0;
+		}
+
+
+
+/*PHP info*/
+iframe {
+	height: 30em;
+}
+
+
+/*Lists*/
+dt {
+	float: left;
+	clear: both;
+	color: #acacac;
+	width: 25%;
+	margin-top: 2.4em;
+}
+dd {
+	float: right;
+	clear: right;
+	width: 75%;
+}
+
+
+
+/*Tables*/
+table p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+th, td {
+	padding-left: 1.0em;
+}
+
+th {
+	background-color: #fafafa;
+	border-bottom-width: 1px;
+}
+
+td {
+	border-color: #f0f0f0;
+	border-bottom-width: 1px;
+}
+	tr:last-of-type td {
+		border-bottom-width: 0;
+	}
+
+/*Clean tables*/
+.clean th {
+	background-color: transparent;
+	color: #acacac;
+	font-weight: inherit;
+	text-transform: none;
+}
+.clean th, .clean td {
+	border-color: #f0f0f0;
+	padding-left: 0;
+}
+	.clean tr:last-of-type th {
+		border-bottom-width: 0;
+	}
+
+
+
+/*Colors*/
+.red th, .orange th, .yellow th, .green th {
+	color: #fff;
+}
+.red th {
+	background-color: #d6203e;
+}
+	.red code {
+		color: #d6203e;
+	}
+.orange th {
+	background-color: #ed8021;
+}
+	.orange code {
+		color: #ed8021;
+	}
+.yellow th {
+	background-color: #f2d200;
+}
+	.yellow code {
+		color: #f2d200;
+	}
+.green th {
+	background-color: #6aab35;
+}
+	.green code {
+		color: #6aab35;
+	}
+
+

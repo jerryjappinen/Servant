@@ -1,7 +1,7 @@
 
 # Servant development
 
-## Next up
+## Core
 
 - Multiple pieces of content for nested templates
 - Input system
@@ -9,6 +9,12 @@
 	- Merge all input in ServantInput
 	- Allow actions to request certain kinds of input
 	- Validate input based on the demands of an action
+
+
+
+## Status board
+
+Some kind of status page that indicates if things like paths are in order, what settings are active etc. Helps during installation and warns about common pitfalls.
 
 
 
