@@ -1,7 +1,7 @@
 <?php
 
 // We need this to manipulate URLs
-$servant->action()->contentType('css');
+$action->contentType('css');
 $servant->utilities()->load('urlmanipulator');
 
 ?>

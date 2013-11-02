@@ -35,6 +35,7 @@ class ServantActions extends ServantObject {
 	public function initialize () {
 
 		// Try using user input for current action
+		// FLAG should be done by Main
 		$this->setCurrent($this->servant()->input()->action());
 
 		return $this;

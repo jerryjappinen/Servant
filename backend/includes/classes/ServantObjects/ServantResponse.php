@@ -30,22 +30,6 @@ class ServantResponse extends ServantObject {
 		return $this;
 	}
 
-	/**
-	* Send a response
-	*/
-	public function serve () {
-
-		// Send headers
-		foreach ($this->headers() as $value) {
-			header($value);
-		}
-
-		// Print body (assuming string)
-		echo $this->body();
-
-		return $this;
-	}
-
 
 
 	/**
@@ -108,6 +92,7 @@ class ServantResponse extends ServantObject {
 	*/
 	protected function setBody () {
 		$cacheEnabled = ($this->servant()->site()->serverCache() > 0 and !$this->servant()->debug());
+		$output = '';
 
 		// Response has been saved
 		if ($cacheEnabled and $this->existing()) {
@@ -116,31 +101,28 @@ class ServantResponse extends ServantObject {
 		// Response needs to be generated
 		} else {
 
-			// Run action
+			// Attempt to run action
 			try {
 				$this->action()->run();
 
-			// If action fails...
-			// FLAG we should just fail here (ServantMain should generate a new response with error action)
+				// Get output from action
+				$output = $this->action()->output();
+
+				// Push output into a template
+				if ($this->action()->outputViaTemplate()) {
+					$output = $this->servant()->template($this->servant()->site()->template(), $output);
+				}
+
+				// Store if needed
+				if ($cacheEnabled and !$this->existing() and $this->status() < 400) {
+					$this->store($output);
+				}
+
+
+
+			// Response fails
 			} catch (Exception $exception) {
-
-				$message = '<h1>Something went wrong :(</h1><p>We\'ll try to fix it as soon as possible.</p>';
-
-				$this->action()->contentType('html')->status(500)->outputViaTemplate(true)->output($message);
-
-			}
-
-			// Get output from action
-			$output = $this->action()->output();
-
-			// Push output into a template
-			if ($this->action()->outputViaTemplate()) {
-				$output = $this->servant()->template($this->servant()->site()->template(), $output);
-			}
-
-			// Store if needed
-			if ($cacheEnabled and !$this->existing() and $this->status() < 400) {
-				$this->store($output);
+				$this->fail($this->action()->id().' action failed to run.'.($this->servant()->debug() ? ' ('.$exception->getMessage().')' : ''));
 			}
 
 		}

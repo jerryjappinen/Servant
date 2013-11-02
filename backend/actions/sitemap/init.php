@@ -1,6 +1,7 @@
 <?php
 
 // Create page tree in HTML
+// FLAG this is not the way to do this...
 if (!function_exists('createNestedLists')) {
 	function createNestedLists ($servant, $map) {
 		$result = '';
@@ -20,5 +21,4 @@ if (!function_exists('createNestedLists')) {
 		return '<ol>'.$result.'</ol>';
 	}
 }
-
 ?>

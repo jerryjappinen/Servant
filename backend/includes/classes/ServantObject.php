@@ -29,7 +29,6 @@ class ServantObject {
 	* Generate any ServantObject (ServantMain will be passed on)
 	*/
 	protected function generate ($objectName, $arguments = null) {
-		log_dump($objectName);
 		$className = $this->className($objectName);
 
 		// Normalize arguments

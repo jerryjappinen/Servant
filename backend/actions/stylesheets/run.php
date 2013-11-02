@@ -135,6 +135,6 @@ foreach ($stylesheetSets as $stylesheetSet) {
 
 
 // We're done
-$servant->action()->output(trim($output));
+$action->output(trim($output));
 
 ?>

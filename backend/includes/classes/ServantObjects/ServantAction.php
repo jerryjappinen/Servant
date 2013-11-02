@@ -42,7 +42,10 @@ class ServantAction extends ServantObject {
 	*/
 	public function run () {
 		foreach ($this->files('server') as $path) {
-			$this->servant()->files()->read($path, array('servant' => $this->servant()));
+			$this->servant()->files()->read($path, array(
+				'servant' => $this->servant(),
+				'action' => $this,
+			));
 		}
 		return $this;
 	}

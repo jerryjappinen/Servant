@@ -21,5 +21,5 @@ if ($servant->site()->serverCache()) {
 }
 
 // Output scripts
-$servant->action()->contentType('js')->output($output);
+$action->contentType('js')->output($output);
 ?>

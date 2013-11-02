@@ -31,22 +31,29 @@ class ServantMain extends ServantObject {
 
 		$this->purgeTemp();
 
-		// FLAG last-resort thing, not sure how to handle this
+		// Serve a response
 		try {
-
-			// Serve a response
-			$this->generate('response', $this->actions()->current())->serve();
-
-			$this->purgeTemp();
+			$response = $this->generate('response', $this->actions()->current());
 
 		} catch (Exception $e) {
 
 			$this->purgeTemp();
 
+			// Serve an error page
+			try {
+				$actionId = $this->settings()->actions('error');
+				$response = $this->generate('response', $this->actions()->map($actionId));
+
 			// Fuck
-			echo '<p style="margin: 0 auto; padding: 5%; font-family: sans-serif; text-align: center; font-size: 1.4em; color: #333;">What went to shit:<br /><br /><strong style="">'.$e->getMessage().'</strong>.</p>';
+			} catch (Exception $e) {
+				$this->purgeTemp();
+				$this->fail('Unknown error, cannot generate error page.');
+			}
 
 		}
+
+		$this->purgeTemp();
+		$this->serve($response);
 
 		return $this;
 	}
@@ -103,6 +110,25 @@ class ServantMain extends ServantObject {
 	* Private helpers
 	*/
 
+	/**
+	* Send a response
+	*/
+	private function serve ($response) {
+
+		// Send headers
+		foreach ($response->headers() as $value) {
+			header($value);
+		}
+
+		// Print body (assuming string)
+		echo $response->body();
+
+		return $this;
+	}
+
+	/**
+	* Purge and remove the temp directory
+	*/
 	private function purgeTemp () {
 		remove_dir($this->paths()->temp('server'));
 		return $this;
