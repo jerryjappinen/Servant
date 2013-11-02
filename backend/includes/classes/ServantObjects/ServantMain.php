@@ -35,7 +35,7 @@ class ServantMain extends ServantObject {
 		try {
 
 			// Serve a response
-			$this->response()->serve();
+			$this->response($this->actions()->current())->serve();
 
 		} catch (Exception $e) {
 
@@ -63,19 +63,31 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Public convenience getters
+	* Public shortcuts
 	*/
+
 	public function action () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->actions(), 'current'), $arguments);
 	}
+
 	public function page () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->pages(), 'current'), $arguments);
 	}
 
+
+
+	/**
+	* Convenience getters
+	*
+	* FLAG
+	*   - there should be a method for creating these in ServantObject
+	*   - is this really the place for this?
+	*/
+
 	// Create and initialize a new template
-	// FLAG is this really the place for this?
+	// NOTE this is public
 	public function template () {
 		$arguments = func_get_args();
 		$template = create_object(new ServantTemplate($this));
@@ -83,10 +95,18 @@ class ServantMain extends ServantObject {
 		return $template->output();
 	}
 
+	// Create and initialize a new response
+	private function response () {
+		$arguments = func_get_args();
+		$response = create_object(new ServantResponse($this));
+		call_user_func_array(array($response, 'init'), $arguments);
+		return $response;
+	}
+
 
 
 	/**
-	* Child components
+	* Services
 	*/
 
 	protected $propertyActions 		= null;
@@ -97,7 +117,6 @@ class ServantMain extends ServantObject {
 	protected $propertyPages 		= null;
 	protected $propertyParse 		= null;
 	protected $propertyPaths 		= null;
-	protected $propertyResponse 	= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
 	protected $propertyTheme 		= null;
@@ -126,9 +145,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', create_object(new ServantPaths($this))->init($paths));
-	}
-	protected function setResponse () {
-		return $this->set('response', create_object(new ServantResponse($this))->init());
 	}
 	protected function setSettings ($settings = null) {
 		return $this->set('settings', create_object(new ServantSettings($this))->init($settings));

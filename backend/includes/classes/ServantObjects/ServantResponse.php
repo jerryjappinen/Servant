@@ -5,6 +5,7 @@ class ServantResponse extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyAction 			= null;
 	protected $propertyBody 			= null;
 	protected $propertyBrowserCacheTime = null;
 	protected $propertyContentType 		= null;
@@ -14,6 +15,13 @@ class ServantResponse extends ServantObject {
 	protected $propertyPath 			= null;
 	protected $propertyStatus 			= null;
 	protected $propertyStore 			= null;
+
+
+
+	// Require action upon initialization
+	public function initialize ($action) {
+		return $this->setAction($action);
+	}
 
 
 
@@ -41,7 +49,7 @@ class ServantResponse extends ServantObject {
 
 			// Run action
 			try {
-				$this->servant()->actions()->current()->run();
+				$this->action()->run();
 
 			// If action fails...
 			// FLAG we should not do this here - ServantMain should generate a new response with error action
@@ -49,21 +57,16 @@ class ServantResponse extends ServantObject {
 
 				$message = '<h1>Something went wrong :(</h1><p>We\'ll try to fix it as soon as possible.</p>';
 
-				$this->servant()->actions()->current()->contentType('html')->status(500)->outputViaTemplate(true)->output($message);
+				$this->action()->contentType('html')->status(500)->outputViaTemplate(true)->output($message);
 
 			}
 
 			// Get output from action
-			$output = $this->servant()->actions()->current()->output();
+			$output = $this->action()->output();
 
 			// Push output into a template
-			if ($this->servant()->actions()->current()->outputViaTemplate()) {
-
-				// FLAG I should set $this->contentType, not action's
-				$this->servant()->actions()->current()->contentType('html');
-
+			if ($this->action()->outputViaTemplate()) {
 				$output = $this->servant()->template($this->servant()->site()->template(), $output);
-
 			}
 
 			// Store if needed
@@ -96,6 +99,10 @@ class ServantResponse extends ServantObject {
 	* Paths in any format
 	*/
 
+	public function action () {
+		return $this->get('action');
+	}
+
 	public function existing ($format = null) {
 		$path = $this->getAndSet('existing');
 		if ($format and !empty($path)) {
@@ -117,6 +124,24 @@ class ServantResponse extends ServantObject {
 	/**
 	* Setters
 	*/
+
+	/**
+	* Action used for this response
+	*/
+	protected function setAction ($action) {
+	
+		// FLAG hardcoded classname
+		if (!$action or get_class($action) !== 'ServantAction') {
+			$this->fail('Invalid action passed to response.');
+
+		// Action is acceptable
+		} else {
+			return $this->set('action', $action);
+		}
+
+	}
+
+
 
 	/**
 	* Max browser cache time in seconds
@@ -141,13 +166,14 @@ class ServantResponse extends ServantObject {
 			$contentType = pathinfo($this->existing(), PATHINFO_EXTENSION);
 
 		// Templates are HTML
-		// FLAG shouldn't be hardcoded
-		} else if ($this->servant()->actions()->current()->outputViaTemplate()) {
+		} else if ($this->action()->outputViaTemplate()) {
+
+			// FLAG HTML shouldn't be hardcoded here
 			$contentType = 'html';
 
 		// Get content type from action
 		} else {
-			$contentType = $this->servant()->actions()->current()->contentType();
+			$contentType = $this->action()->contentType();
 		}
 
 		// Invalid
@@ -239,13 +265,14 @@ class ServantResponse extends ServantObject {
 
 		// Read status from filename
 		if ($this->existing()) {
-			$status = explode('.', basename($this->existing()));
-			$status = $status[count($status)-2];
+			$split = explode('.', basename($this->existing()));
+			$status = $split[count($split)-2];
 
 		// Get status from action
 		} else {
-			$status = $this->servant()->actions()->current()->status();
+			$status = $this->action()->status();
 		}
+
 
 
 		// Invalid status
@@ -256,6 +283,7 @@ class ServantResponse extends ServantObject {
 		} else {
 			return $this->set('status', $status);
 		}
+
 	}
 
 
@@ -275,7 +303,7 @@ class ServantResponse extends ServantObject {
 		$path = $this->servant()->paths()->cache($format);
 
 		// Action's get their own dir
-		$path .= $this->servant()->actions()->current()->id().'/';
+		$path .= $this->action()->id().'/';
 
 		// Each page gets their own file
 		$path .= implode('/', $this->servant()->pages()->current()->tree());
