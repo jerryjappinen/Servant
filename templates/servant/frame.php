@@ -146,8 +146,10 @@ $frame = '
 			<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>
 			';
 
+
+
 			// Menu if there are pages
-			$headerMenu = $servant->template('list-toplevelpages', $action)->output();
+			$headerMenu = $template->nest('list-toplevelpages');
 			if ($headerMenu) {
 				$frame .= '
 				<div id="responsive-menu">
@@ -157,6 +159,8 @@ $frame = '
 				</div>
 				';
 			}
+
+
 
 			$frame .= '
 			<div class="clear"></div>
@@ -184,5 +188,5 @@ $frame = '
 </div>';
 
 // Output via the default template
-echo $servant->template('default', $action, $frame)->output();
+echo $template->nest('default', $frame);
 ?>

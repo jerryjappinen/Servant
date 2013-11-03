@@ -27,6 +27,29 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
+	* Convenience
+	*/
+
+	/**
+	* Create and initialize a new template
+	*/
+	public function nest ($templateId, $content = null) {
+
+		// Normalize arguments
+		$arguments = func_get_args();
+		array_shift($arguments);
+		array_unshift($arguments, 'template', $templateId, $this->action());
+
+		// Create the template object
+		$template = call_user_func_array(array($this, 'generate'), $arguments);
+
+		// Return the output of the template
+		return $template->output();
+	}
+
+
+
+	/**
 	* Init
 	*/
 	public function initialize ($id, $action, $content = null) {

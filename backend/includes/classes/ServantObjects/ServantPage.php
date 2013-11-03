@@ -232,7 +232,9 @@ class ServantPage extends ServantObject {
 		$actionsUrl = $this->servant()->paths()->root('domain');
 
 		// Read content from source file
-		$fileContent = $this->servant()->files()->read($this->template('server'), array('servant' => $this->servant()));
+		$fileContent = $this->servant()->files()->read($this->template('server'), array(
+			'servant' => $this->servant()
+		));
 
 		// Save file content with manipulated URLs
 		return $this->set('output', $urlManipulator->htmlUrls($fileContent, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));

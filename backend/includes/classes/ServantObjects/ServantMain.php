@@ -99,14 +99,6 @@ class ServantMain extends ServantObject {
 		return call_user_func_array(array($this, 'generate'), $arguments);
 	}
 
-	// Create and initialize a new template
-	// NOTE this is public
-	public function template () {
-		$arguments = func_get_args();
-		array_unshift($arguments, 'template');
-		return call_user_func_array(array($this, 'generate'), $arguments);
-	}
-
 
 
 	/**

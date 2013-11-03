@@ -3,6 +3,8 @@
 
 ## Core
 
+- templates()->available()
+- $template->nest()
 - Multiple pieces of content for nested templates
 - Input system
 	- Accept GET, POST and other input through wrapper
