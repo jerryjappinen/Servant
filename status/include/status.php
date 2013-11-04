@@ -13,10 +13,10 @@ class Status {
 	private $root 			= './';
 	private $index 			= 'index.php';
 	private $actions 		= 'actions/';
-	private $includes 		= 'includes/';
+	private $core 			= 'core/';
 	private $utilities 		= 'utilities/';
 
-	private $constants 		= 'includes/constants/';
+	private $constants 		= 'core/constants/';
 
 	/**
 	* Lists
@@ -39,7 +39,7 @@ class Status {
 		}
 
 		// Treat other paths
-		foreach (array('index', 'actions', 'includes', 'utilities', 'constants') as $key) {
+		foreach (array('index', 'actions', 'core', 'utilities', 'constants') as $key) {
 			$this->$key = $this->root.$this->$key;
 		}
 
@@ -49,7 +49,7 @@ class Status {
 
 
 	/**
-	* Validate core paths: index.php, actions, includes and utilities
+	* Validate core paths: index.php, actions, core and utilities
 	*/
 	public function checkCorePaths () {
 
@@ -66,7 +66,7 @@ class Status {
 			} else {
 				$this->report('`index.php` found.');
 			}
-			foreach (array('includes', 'utilities') as $key) {
+			foreach (array('core', 'utilities') as $key) {
 				if (!is_dir($this->$key)) {
 					$this->fail('Cannot locate the `'.$key.'` directory.');
 				} else {

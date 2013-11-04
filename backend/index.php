@@ -107,12 +107,12 @@ class Index {
 }
 
 new Index(
-	'includes/debug.php',
-	'includes/errors.php',
-	'includes/helpers/',
-	'includes/classes/',
-	'includes/paths.php',
-	'includes/constants/'
+	'core/debug.php',
+	'core/errors.php',
+	'core/helpers/',
+	'core/classes/',
+	'core/paths.php',
+	'core/constants/'
 );
 die();
 

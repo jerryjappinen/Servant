@@ -54,7 +54,7 @@ There's one file in the root folder, and three in other directories:
 
 Servant needs to know where it's running. Normally it detects this automatically, but on some, more complicated environments this doesn't work. If this is the case:
 
-1. Open `backend/includes/paths.php`
+1. Open `backend/core/paths.php`
 2. Uncomment `'document root'`, `'root'` and/or `'host'`
 3. Give these the values that correspond to your server
 

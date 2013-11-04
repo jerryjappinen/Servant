@@ -150,7 +150,7 @@
 				<h2>Constants</h2>
 
 				<?php
-				$files = rglob_files('../backend/includes/constants/', 'json');
+				$files = rglob_files('../backend/core/constants/', 'json');
 				$jsons = array();
 				foreach ($files as $file) {
 					$jsons[] = suffix(prefix(trim(file_get_contents($file)), '{'), '}');
