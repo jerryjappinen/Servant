@@ -116,7 +116,6 @@ class ServantMain extends ServantObject {
 	protected $propertyActions 		= null;
 	protected $propertyFiles 		= null;
 	protected $propertyFormat 		= null;
-	protected $propertyHttpHeaders 	= null;
 	protected $propertyPages 		= null;
 	protected $propertyParse 		= null;
 	protected $propertyPaths 		= null;
