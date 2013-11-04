@@ -64,7 +64,7 @@ class ServantObject {
 	public function __construct ($main) {
 
 		// Take in Servant object
-		if (get_class($main) === 'ServantMain') {
+		if ($this->getServantClass($main) === 'main') {
 			$this->set('main', $main);
 
 		} else {
@@ -187,6 +187,26 @@ class ServantObject {
 	protected function fail ($message) {
 		throw new Exception($message, 500);
 		return $this;
+	}
+
+	/**
+	* Return the ServantObject type of either this object or the object given as argument
+	*/
+	protected function getServantClass ($object = null) {
+		$result = '';
+
+		// Use $this when no arguments are given
+		$arguments = func_get_args();
+		if (empty($arguments)) {
+			$object = $this;
+		}
+
+		// If object is a ServantObject, find out its type
+		if (is_object($object) and is_subclass_of($object, 'ServantObject')) {
+			$result = $this->unClassName(get_class($object));
+		}
+
+		return $result;
 	}
 
 	/**

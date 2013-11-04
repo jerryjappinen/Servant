@@ -70,9 +70,8 @@ class ServantResponse extends ServantObject {
 	* Action used for this response
 	*/
 	protected function setAction ($action) {
-	
-		// FLAG hardcoded classname
-		if (!$action or get_class($action) !== 'ServantAction') {
+
+		if ($this->getServantClass($action) !== 'action') {
 			$this->fail('Invalid action passed to response.');
 
 		// Action is acceptable

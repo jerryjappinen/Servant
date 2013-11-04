@@ -114,32 +114,18 @@ class ServantMain extends ServantObject {
 	*/
 
 	protected $propertyActions 		= null;
-	protected $propertyFiles 		= null;
-	protected $propertyFormat 		= null;
 	protected $propertyPages 		= null;
-	protected $propertyParse 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
 	protected $propertyTheme 		= null;
 	protected $propertyUtilities 	= null;
 
-
-
 	protected function setActions () {
 		return $this->set('actions', $this->generate('actions'));
 	}
-	protected function setFiles () {
-		return $this->set('files', $this->generate('files'));
-	}
-	protected function setFormat () {
-		return $this->set('format', $this->generate('format'));
-	}
 	protected function setPages ($current) {
 		return $this->set('pages', $this->generate('pages', $current));
-	}
-	protected function setParse () {
-		return $this->set('parse', $this->generate('parse'));
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));
@@ -155,6 +141,29 @@ class ServantMain extends ServantObject {
 	}
 	protected function setUtilities () {
 		return $this->set('utilities', $this->generate('utilities'));
+	}
+
+
+
+	/**
+	* Utility-like services
+	*
+	* FLAG
+	*   - Should these be under Main at all?
+	*/
+
+	protected $propertyFiles 		= null;
+	protected $propertyFormat 		= null;
+	protected $propertyParse 		= null;
+
+	protected function setFiles () {
+		return $this->set('files', $this->generate('files'));
+	}
+	protected function setFormat () {
+		return $this->set('format', $this->generate('format'));
+	}
+	protected function setParse () {
+		return $this->set('parse', $this->generate('parse'));
 	}
 
 

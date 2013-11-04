@@ -117,8 +117,7 @@ class ServantTemplate extends ServantObject {
 	*/
 	protected function setAction ($action) {
 	
-		// FLAG hardcoded classname
-		if (!$action or get_class($action) !== 'ServantAction') {
+		if ($this->getServantClass($action) !== 'action') {
 			$this->fail('Invalid action passed to template.');
 
 		// Action is acceptable
