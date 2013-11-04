@@ -53,7 +53,7 @@ class ServantMain extends ServantObject {
 		return $this;
 	}
 
-	private function serve ($response) {
+	public function serve ($response) {
 
 		// Send headers
 		foreach ($response->headers() as $value) {

@@ -102,7 +102,7 @@ class Index {
 		// Start and run the main program
 		$main = new ServantMain();
 		$main->init($this->paths, $this->constantsJson, $this->input, ($this->debug ? true : false));
-		$main->run();
+		$main->run()->serve();
 
 	}
 
