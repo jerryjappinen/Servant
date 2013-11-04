@@ -10,7 +10,7 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Initialization
+	* Initialization and execution
 	*/
 	public function initialize ($paths, $settings = null, $input = null, $debug = false) {
 
@@ -19,14 +19,10 @@ class ServantMain extends ServantObject {
 			$this->enableDebug();
 		}
 
-		return $this->setPaths($paths)->setSettings($settings)->setInput($input);
+		// FLAG pages()->current() should be removed
+		return $this->setPaths($paths)->setSettings($settings)->setInput($input)->setPages($this->input()->page());
 	}
 
-
-
-	/**
-	* Execute Servant to generate a response
-	*/
 	public function run () {
 
 		$this->purgeTemp();
@@ -36,7 +32,6 @@ class ServantMain extends ServantObject {
 			$response = $this->generate('response', $this->actions()->map($this->input()->action()));
 
 		} catch (Exception $e) {
-
 			$this->purgeTemp();
 
 			// Serve an error page
@@ -54,6 +49,19 @@ class ServantMain extends ServantObject {
 
 		$this->purgeTemp();
 		$this->serve($response);
+
+		return $this;
+	}
+
+	private function serve ($response) {
+
+		// Send headers
+		foreach ($response->headers() as $value) {
+			header($value);
+		}
+
+		// Print body (assuming string)
+		echo $response->body();
 
 		return $this;
 	}
@@ -87,22 +95,6 @@ class ServantMain extends ServantObject {
 	/**
 	* Private helpers
 	*/
-
-	/**
-	* Send a response
-	*/
-	private function serve ($response) {
-
-		// Send headers
-		foreach ($response->headers() as $value) {
-			header($value);
-		}
-
-		// Print body (assuming string)
-		echo $response->body();
-
-		return $this;
-	}
 
 	/**
 	* Purge and remove the temp directory
@@ -146,8 +138,8 @@ class ServantMain extends ServantObject {
 	protected function setInput ($input) {
 		return $this->set('input', create_object(new ServantInput($this))->init($input));
 	}
-	protected function setPages () {
-		return $this->set('pages', create_object(new ServantPages($this))->init());
+	protected function setPages ($current) {
+		return $this->set('pages', create_object(new ServantPages($this))->init($current));
 	}
 	protected function setParse () {
 		return $this->set('parse', create_object(new ServantParse($this))->init());

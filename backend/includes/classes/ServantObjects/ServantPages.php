@@ -19,6 +19,19 @@ class ServantPages extends ServantObject {
 	*/
 
 	// FLAG weird naming
+	public function initialize ($current) {
+
+		$this->setCurrent($current);
+
+		return $this;
+	}
+
+
+	/**
+	* Convenience
+	*/
+
+	// FLAG weird naming
 	public function level ($tree = array()) {
 		$pages = array();
 
@@ -69,10 +82,10 @@ class ServantPages extends ServantObject {
 	/**
 	* Tree of selected page
 	*/
-	protected function setCurrent () {
+	protected function setCurrent ($input) {
 
 		// Select the page most closely matching user input
-		$tree = $this->selectPage($this->map(), $this->servant()->input()->page());
+		$tree = $this->selectPage($this->map(), $input);
 
 		return $this->set('current', $tree);
 	}
