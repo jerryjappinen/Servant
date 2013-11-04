@@ -7,7 +7,7 @@
 - `$template->action()`
 	- Run actions in the template
 - Remove `pages()->current()`
-	- Actions and templates should be passeg a `$page`
+	- A `$page` should be passed to actions and templates
 - Multiple pieces of content for nested templates
 - Input system
 	- Accept GET, POST and other input through wrapper

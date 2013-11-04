@@ -164,8 +164,8 @@ class ServantObject {
 		foreach ($properties as $property) {
 			$value = $this->get($property);
 
-			// call __toString() of child ServantObjects
-			if (is_object($value) and is_subclass_of($value, 'ServantObject')) {
+			// call __toString() of ServantObjects
+			if (is_object($value) and $this->getServantClass($value)) {
 				$results[$property] = ''.$value;
 			} else {
 				$results[$property] = $value;

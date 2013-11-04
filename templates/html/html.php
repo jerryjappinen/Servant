@@ -74,7 +74,7 @@ foreach ($tree as $value) {
 	$temp[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
-$bodyClasses = 'level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $temp);
+$bodyClasses = 'action-'.$action->id().' level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $temp);
 unset($temp, $tree, $i, $value);
 
 ?>
@@ -103,7 +103,7 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $template->content() ?>
 
-		<?php echo $servant->debug() ? $template->nest('debug') : '' ?>
+		<?php echo $servant->debug() ? '<div style="margin: 0; padding: 5%;">'.$template->nest('debug').'</div>' : '' ?>
 
 		<script src="<?php echo $scriptsLink ?>"></script>
 	</body>

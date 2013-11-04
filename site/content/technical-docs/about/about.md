@@ -1,7 +1,7 @@
 
 # Technical documentation
 
-<big>This section includes technical resources relevant to maintenance and development of Servant. Visit [Get started](/get-started) for installation walkthrough and other instructions for users.</big>
+<big>If you are a user who simply wishes to get started using Servant, there is a [better guide for you](/get-started). This section is for those who want to know how the internals of Servant work.</big>
 
 
 

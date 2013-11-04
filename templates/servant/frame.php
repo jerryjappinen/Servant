@@ -188,5 +188,5 @@ $frame = '
 </div>';
 
 // Output via the default template
-echo $template->nest('default', $frame);
+echo $template->nest('html', $frame);
 ?>

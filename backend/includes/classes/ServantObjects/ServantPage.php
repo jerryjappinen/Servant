@@ -26,9 +26,9 @@ class ServantPage extends ServantObject {
 	protected $propertyLevel 		= null;
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
-	protected $propertyReadPath 	= null;
 	protected $propertyPages 		= null;
 	protected $propertyParentTree 	= null;
+	protected $propertyReadPath 	= null;
 	protected $propertySiblings 	= null;
 	protected $propertyTree 		= null;
 	protected $propertyType 		= null;

@@ -8,18 +8,25 @@
 
 ### Properties with public getters
 
-Property name   | Description | Return values
---------------- | ----------- | -------------
-`id()`          | File or directory name-based identifier of the page. IDs are unique within one level in page hierarchy. | String
-`index()`       | The index number of the page on its level. Pages are sorted alphabetically by ID, and the index number of the first page is `0`. | Integer
-`level()`       |  | 
-`name()`        |  | 
-`output()`      |  | 
-`path($format)` | Path to the page file. [Formattable](/technical-docs/about/paths/). | String.
-`parentTree()`  | List possible parent IDs in `tree()`. | List of parent parent IDs.
-`siblings()`    | Lists all pages on the same level, including the page itself. | List of sitemap node IDs.
-`site()`        |  | [ServantSite object](site)
-`tree()`        |  | 
-`type()`        |  | 
+Property name   | Description
+--------------- | -----------
+`children`	| List all pages considered to be childpages.
+`id`			| Last value of `tree`. IDs are unique within one level in page hierarchy.
+`index`		| The ordinal number of the page on its level. The index numbering starts from `0`.
+`isCurrent`	|
+`isHome`		|
+`isMaster`	|
+`level`		|
+`name`		|
+`output`		|
+`pages`		|
+`parentTree`	| List possible parent IDs in `tree`.
+`readPath`	|
+`siblings`	| Lists all pages on the same level, including the page itself.
+`tree`		|
+`type`		|
+`scripts`		|
+`stylesheets`	|
+`template`	| Path to the page file. [Formattable](/technical-docs/about/paths/).
 
-To learn how to read this table, read the [introduction to ServantObject](/technical-docs/about/servant-objects).
+All properties are accessed via getters. To learn how to read this table, read the [introduction to ServantObject](/technical-docs/about/servant-objects).

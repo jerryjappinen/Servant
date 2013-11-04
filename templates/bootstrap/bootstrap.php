@@ -197,5 +197,5 @@ $output .= '</div>';
 
 
 // Output via the default template
-echo $template->nest('default', $output);
+echo $template->nest('html', $output);
 ?>
