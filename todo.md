@@ -3,13 +3,17 @@
 
 ## Core
 
-- templates()->available()
-- $template->nest()
+- `templates()->available()`
+- `$template->action()`
+	- Run actions in the template
+- Remove `pages()->current()`
+	- Actions and templates should be passeg a `$page`
 - Multiple pieces of content for nested templates
 - Input system
 	- Accept GET, POST and other input through wrapper
 	- Merge all input in ServantInput
-	- Allow actions to request certain kinds of input
+	- Pass input to actions
+	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
 
 

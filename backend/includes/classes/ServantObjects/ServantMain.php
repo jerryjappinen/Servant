@@ -85,23 +85,6 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Convenience getters
-	*
-	* FLAG
-	*   - is this really the place for this?
-	*/
-
-	// Create and initialize a new template
-	// NOTE this is public
-	public function action () {
-		$arguments = func_get_args();
-		array_unshift($arguments, 'action');
-		return call_user_func_array(array($this, 'generate'), $arguments);
-	}
-
-
-
-	/**
 	* Private helpers
 	*/
 
