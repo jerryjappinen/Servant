@@ -128,34 +128,34 @@ class ServantMain extends ServantObject {
 
 
 	protected function setActions () {
-		return $this->set('actions', create_object(new ServantActions($this))->init());
+		return $this->set('actions', $this->generate('actions'));
 	}
 	protected function setFiles () {
-		return $this->set('files', create_object(new ServantFiles($this))->init());
+		return $this->set('files', $this->generate('files'));
 	}
 	protected function setFormat () {
-		return $this->set('format', create_object(new ServantFormat($this))->init());
+		return $this->set('format', $this->generate('format'));
 	}
 	protected function setPages ($current) {
-		return $this->set('pages', create_object(new ServantPages($this))->init($current));
+		return $this->set('pages', $this->generate('pages', $current));
 	}
 	protected function setParse () {
-		return $this->set('parse', create_object(new ServantParse($this))->init());
+		return $this->set('parse', $this->generate('parse'));
 	}
 	protected function setPaths ($paths) {
-		return $this->set('paths', create_object(new ServantPaths($this))->init($paths));
+		return $this->set('paths', $this->generate('paths', $paths));
 	}
 	protected function setSettings ($settings = null) {
-		return $this->set('settings', create_object(new ServantSettings($this))->init($settings));
+		return $this->set('settings', $this->generate('settings', $settings));
 	}
 	protected function setSite () {
-		return $this->set('site', create_object(new ServantSite($this))->init());
+		return $this->set('site', $this->generate('site'));
 	}
 	protected function setTheme () {
-		return $this->set('theme', create_object(new ServantTheme($this))->init());
+		return $this->set('theme', $this->generate('theme'));
 	}
 	protected function setUtilities () {
-		return $this->set('utilities', create_object(new ServantUtilities($this))->init());
+		return $this->set('utilities', $this->generate('utilities'));
 	}
 
 
