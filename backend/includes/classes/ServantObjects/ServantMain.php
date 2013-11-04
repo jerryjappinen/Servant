@@ -10,26 +10,33 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Initialization and execution
+	* Initialization and execution flow
 	*/
-	public function initialize ($paths, $settings = null, $input = null, $debug = false) {
+
+	// General initializations
+	public function initialize ($paths, $settings = null, $debug = false) {
 
 		// Set debug mode
 		if ($debug) {
 			$this->enableDebug();
 		}
 
-		// FLAG pages()->current() should be removed
-		return $this->setPaths($paths)->setSettings($settings)->setInput($input)->setPages($this->input()->page());
+		return $this->setPaths($paths)->setSettings($settings);
 	}
 
-	public function run () {
+	// Run with actions
+	public function run ($userInput = null) {
 
 		$this->purgeTemp();
 
+		$input = $this->generate('input', $userInput);
+
+		// FLAG pages()->current() should be removed
+		$this->setPages($input->page());
+
 		// Serve a response
 		try {
-			$response = $this->generate('response', $this->actions()->map($this->input()->action()));
+			$response = $this->generate('response', $this->actions()->map($input->action()));
 
 		} catch (Exception $e) {
 			$this->purgeTemp();
@@ -53,6 +60,7 @@ class ServantMain extends ServantObject {
 		return $this;
 	}
 
+	// Serve a response
 	public function serve ($response) {
 
 		// Send headers
@@ -69,21 +77,12 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Debuggin mode
+	* Public shortcuts
 	*/
-	protected $propertyDebug = false;
+
 	public function debug () {
 		return $this->get('debug');
 	}
-	protected function enableDebug () {
-		return $this->set('debug', true);
-	}
-
-
-
-	/**
-	* Public shortcuts
-	*/
 
 	public function page () {
 		$arguments = func_get_args();
@@ -93,8 +92,12 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Private helpers
+	* Debugging mode
 	*/
+	protected $propertyDebug = false;
+	protected function enableDebug () {
+		return $this->set('debug', true);
+	}
 
 	/**
 	* Purge and remove the temp directory
@@ -114,7 +117,6 @@ class ServantMain extends ServantObject {
 	protected $propertyFiles 		= null;
 	protected $propertyFormat 		= null;
 	protected $propertyHttpHeaders 	= null;
-	protected $propertyInput 		= null;
 	protected $propertyPages 		= null;
 	protected $propertyParse 		= null;
 	protected $propertyPaths 		= null;
@@ -125,7 +127,6 @@ class ServantMain extends ServantObject {
 
 
 
-	// Setters for children
 	protected function setActions () {
 		return $this->set('actions', create_object(new ServantActions($this))->init());
 	}
@@ -134,9 +135,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setFormat () {
 		return $this->set('format', create_object(new ServantFormat($this))->init());
-	}
-	protected function setInput ($input) {
-		return $this->set('input', create_object(new ServantInput($this))->init($input));
 	}
 	protected function setPages ($current) {
 		return $this->set('pages', create_object(new ServantPages($this))->init($current));
@@ -159,6 +157,8 @@ class ServantMain extends ServantObject {
 	protected function setUtilities () {
 		return $this->set('utilities', create_object(new ServantUtilities($this))->init());
 	}
+
+
 
 }
 
