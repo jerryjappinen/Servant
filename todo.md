@@ -16,7 +16,7 @@
 	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
 - Preserving variables when reading multiple dynamic template files
-	- But how?
+	- get_defined_vars()
 
 
 
