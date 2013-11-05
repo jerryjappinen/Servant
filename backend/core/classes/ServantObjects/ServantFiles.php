@@ -11,8 +11,7 @@
 *   ServantPaths 	-> temp
 *
 * FLAG
-*   - This is exclusively about template files.
-*   - Should this be "ServantTemplates"? There are two uses for the word "template" currently, things get confusing.
+*   - Add support for LESS and SCSS
 */
 class ServantFiles extends ServantObject {
 
@@ -25,45 +24,60 @@ class ServantFiles extends ServantObject {
 	*   - Add support for reading multiple files with shared scriptVariables
 	*/
 	public function read ($path, $scriptVariables = array()) {
+		$result = '';
 
 		// Normalize multiple parameters
 		$scriptVariables = func_get_args();
 		array_shift($scriptVariables);
 		$scriptVariables = array_flatten($scriptVariables, false, true);
 
+		// Single file
+		if (is_file($path)) {
+			$result = $this->readFile($path, $scriptVariables);
+		}
+
+		return $result;
+	}
+
+
+
+	/**
+	* Private helpers
+	*/
+
+	private function readFile ($path, $scriptVariables) {
+		$result = '';
+
 		// Detect file type
+		$type = '';
 		$extension = pathinfo($path, PATHINFO_EXTENSION);
-		foreach ($this->servant()->settings()->formats('templates') as $key => $extensions) {
+
+		// FLAG I should take all formats into account, not just templates
+		$formats = $this->servant()->settings()->formats('templates');
+		foreach ($formats as $key => $extensions) {
 			if (in_array($extension, $extensions)) {
 				$type = $key;
 				break;
 			}
 		}
 
-		// File must exist
-		if (is_file($path)) {
+		// Type-specific methods
+		$methodName = 'read'.ucfirst($type).'File';
+		if ($type and method_exists($this, $methodName)) {
+			$result = call_user_func(array($this, $methodName), $path, $scriptVariables);
 
-			// Type-specific methods
-			$methodName = 'read'.ucfirst($type).'File';
-			if (method_exists($this, $methodName)) {
-				return call_user_func(array($this, $methodName), $path, $scriptVariables);
-
-			// Generic fallback
-			} else {
-				return '<pre>'.file_get_contents($path).'</pre>';
-			}
-
-		// File doesn't exist
+		// Generic fallback
 		} else {
-			return '';
+			$result = file_get_contents($path);
 		}
 
+		return $result;
 	}
 
 
 
 	/**
-	* Private helpers for each format
+	* Format-specific readers
 	*/
 
 	/**
