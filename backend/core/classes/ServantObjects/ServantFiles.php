@@ -1,14 +1,14 @@
 <?php
 
 /**
-* Files component
+* File reader service
 *
 * Read content of files of various templating formats
 *
-* Dependencies
-*   - servant -> settings -> formats
-*   - servant -> parse
-*   - servant -> paths -> temp
+* DEPENDENCIES
+*   ServantSettings -> formats
+*   ServantParse
+*   ServantPaths 	-> temp
 *
 * FLAG
 *   - This is exclusively about template files.

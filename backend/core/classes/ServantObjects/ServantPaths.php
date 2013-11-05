@@ -1,5 +1,8 @@
 <?php
 
+/**
+* Paths service
+*/
 class ServantPaths extends ServantObject {
 
 	/**

@@ -1,5 +1,13 @@
 <?php
 
+/**
+* A theme, available as service
+*
+* DEPENDENCIES
+*   ServantFormat 	-> path
+*   ServantPaths	-> theme
+*   ServantSettings	-> formats
+*/
 class ServantTheme extends ServantObject {
 
 	/**

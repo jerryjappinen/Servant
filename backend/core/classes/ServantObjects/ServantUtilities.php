@@ -1,13 +1,13 @@
 <?php
 
 /**
-* Utilities component
+* Utility service
 *
-* Loading utilities, called anywhere in the program.
+* External software packages, called anywhere in the program.
 *
-* Dependencies
-*   - format()->path()
-*   - paths()->utilities()
+* DEPENDENCIES
+*   ServantFormat	-> path
+*   ServantPaths	-> utilities
 */
 class ServantUtilities extends ServantObject {
 

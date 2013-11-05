@@ -1,5 +1,8 @@
 <?php
 
+/**
+* Request input container
+*/
 class ServantInput extends ServantObject {
 
 

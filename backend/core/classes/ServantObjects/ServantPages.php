@@ -1,7 +1,11 @@
 <?php
 
 /**
-* Pages component (i.e. sitemap)
+* Sitemap service
+*
+* FLAG
+*   - Maybe this should be available under ServantSite
+*   - current() should be obliterated
 */
 class ServantPages extends ServantObject {
 

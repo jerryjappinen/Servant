@@ -3,6 +3,9 @@
 
 ## Core
 
+- Preserving variables when reading multiple dynamic template files
+	- get_defined_vars()
+- `ServantTheme` should not be a service
 - `templates()->available()`
 - `$template->action()`
 	- Run actions in the template
@@ -15,8 +18,6 @@
 	- Pass input to actions
 	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
-- Preserving variables when reading multiple dynamic template files
-	- get_defined_vars()
 
 
 

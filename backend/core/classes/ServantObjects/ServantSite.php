@@ -1,5 +1,8 @@
 <?php
 
+/**
+* A web site, available as service
+*/
 class ServantSite extends ServantObject {
 
 	/**

@@ -3,12 +3,12 @@
 /**
 * Formatting service
 *
-* FLAG
-*   - Deprecate this (global services like this are not good)
-*
-* Dependencies
+* DEPENDENCIES
 *   servant -> paths -> documentRoot
 *   servant -> paths -> root
+*
+* FLAG
+*   - Deprecate this (global services like this are not good)
 */
 class ServantFormat extends ServantObject {
 

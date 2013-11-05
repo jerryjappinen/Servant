@@ -1,12 +1,12 @@
 <?php
 
 /**
-* Parser component
+* Parser service
 *
 * Convert template formats into HTML, scripts into PHP, stylesheets into CSS
 *
-* Dependencies
-*   - utilities()->load()
+* DEPENDENCIES
+*   ServantUtilities -> load
 */
 class ServantParse extends ServantObject {
 

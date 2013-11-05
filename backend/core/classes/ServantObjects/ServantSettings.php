@@ -1,5 +1,8 @@
 <?php
 
+/**
+* Settings service
+*/
 class ServantSettings extends ServantObject {
 
 	/**

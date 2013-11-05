@@ -1,16 +1,16 @@
 <?php
 
 /**
-* Page component
+* A page
 *
-* Dependencies
-*   servant -> files 		-> read
-*   servant -> format 		-> path
-*   						-> title
-*   servant -> paths 		-> root
-*   						-> userAction
-*   servant -> site 		-> pageNames
-*   servant -> utilities 	-> load
+* DEPENDENCIES
+*   ServantFiles 		-> read
+*   ServantFormat 		-> path
+*   					-> title
+*   ServantPaths 		-> root
+*   					-> userAction
+*   ServantSite 		-> pageNames
+*   ServantUtilities 	-> load
 */
 class ServantPage extends ServantObject {
 
@@ -75,6 +75,9 @@ class ServantPage extends ServantObject {
 
 	/**
 	* Generate a name based on one of the top-level parents
+	*
+	* FLAG
+	*   - This is a hacky solution to unintuitive sitemap traversal
 	*/
 	public function categoryName ($level = 0) {
 		$parent = $this->tree($level);

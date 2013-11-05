@@ -1,5 +1,8 @@
 <?php
 
+/**
+* An HTTP response
+*/
 class ServantResponse extends ServantObject {
 
 	/**

@@ -3,14 +3,13 @@
 /**
 * A template
 *
-* NOTE
-*   - Template objects work without any actual template files. Their content is set to '' by default.
+* Template objects work without any actual template files. Their content is set to '' by default.
 *
-* Dependencies
-*   - servant -> files -> read
-*   - servant -> format -> path
-*   - servant -> paths -> actions
-*   - servant -> settings -> defaults
+* DEPENDENCIES
+*   ServantFiles	-> read
+*   ServantFormat	-> path
+*   ServantPaths	-> actions
+*   ServantSettings	-> defaults
 */
 class ServantTemplate extends ServantObject {
 
