@@ -1,7 +1,7 @@
 <?php
 
 // Output page content
-$action->output($servant->page()->output());
+$action->output($servant->pages()->current()->output());
 
 // Output via template
 $action->outputViaTemplate(true);

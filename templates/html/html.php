@@ -9,7 +9,7 @@ $meta = '';
 */
 
 // Page title
-$title = (!$servant->page()->isHome() ? $servant->page()->name().' &ndash; ' : '').$servant->site()->name();
+$title = (!$servant->pages()->current()->isHome() ? $servant->pages()->current()->name().' &ndash; ' : '').$servant->site()->name();
 $meta .= '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
 unset($title);
 
@@ -24,7 +24,7 @@ if ($description) {
 unset($description);
 
 // Other Open Graph stuff
-$meta .= '<meta property="og:type" content="'.($servant->page()->isHome() ? 'website' : 'article').'"><meta property="og:url" content="'.$servant->paths()->root('url').'">';
+$meta .= '<meta property="og:type" content="'.($servant->pages()->current()->isHome() ? 'website' : 'article').'"><meta property="og:url" content="'.$servant->paths()->root('url').'">';
 
 
 
@@ -59,8 +59,8 @@ unset($splashImage, $icon);
 /**
 * Asset links
 */
-$stylesheetsLink = $servant->paths()->userAction('stylesheets', 'domain', ($action->isRead() ? $tree = $servant->page()->tree() : array()));
-$scriptsLink = $servant->paths()->userAction('scripts', 'domain', $action->isRead() ? $tree = $servant->page()->tree() : array());
+$stylesheetsLink = $servant->paths()->userAction('stylesheets', 'domain', ($action->isRead() ? $tree = $servant->pages()->current()->tree() : array()));
+$scriptsLink = $servant->paths()->userAction('scripts', 'domain', $action->isRead() ? $tree = $servant->pages()->current()->tree() : array());
 
 
 
@@ -69,12 +69,12 @@ $scriptsLink = $servant->paths()->userAction('scripts', 'domain', $action->isRea
 */
 $i = 1;
 $temp = array();
-$tree = $servant->page()->tree();
+$tree = $servant->pages()->current()->tree();
 foreach ($tree as $value) {
 	$temp[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
-$bodyClasses = 'action-'.$action->id().' level-'.count($servant->page()->tree()).' index-'.$servant->page()->index().' '.implode(' ', $temp);
+$bodyClasses = 'action-'.$action->id().' level-'.count($servant->pages()->current()->tree()).' index-'.$servant->pages()->current()->index().' '.implode(' ', $temp);
 unset($temp, $tree, $i, $value);
 
 ?>

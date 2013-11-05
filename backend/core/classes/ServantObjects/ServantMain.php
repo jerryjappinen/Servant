@@ -84,11 +84,6 @@ class ServantMain extends ServantObject {
 		return $this->get('debug');
 	}
 
-	public function page () {
-		$arguments = func_get_args();
-		return call_user_func_array(array($this->pages(), 'current'), $arguments);
-	}
-
 
 
 	/**

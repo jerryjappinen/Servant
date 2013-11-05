@@ -52,7 +52,7 @@ $output = '
 
 
 		// Stylesheets
-		$output .= '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->page()->tree()).'/'.'" media="screen">';
+		$output .= '<link rel="stylesheet" href="'.$servant->paths()->root('domain').$servant->site()->id().'/stylesheets/'.implode('/', $servant->pages()->current()->tree()).'/'.'" media="screen">';
 
 		$output .= '
 	</head>
@@ -63,7 +63,7 @@ $output = '
 // Create classes for body class
 $i = 1;
 $classes = array();
-$tree = $servant->page()->tree();
+$tree = $servant->pages()->current()->tree();
 foreach ($tree as $value) {
 	$classes[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
@@ -87,7 +87,7 @@ $output .= '
 					$level1 = $servant->pages()->map();
 					if (!empty($level1)) {
 						foreach ($level1 as $key => $page) {
-							$output .= '<li class="reset'.($servant->page()->tree(0) === $key ? ' selected': '').'"><a href="'.$page->readPath('domain').'">'.$page->name().'</a></li>';
+							$output .= '<li class="reset'.($servant->pages()->current()->tree(0) === $key ? ' selected': '').'"><a href="'.$page->readPath('domain').'">'.$page->name().'</a></li>';
 						}
 					}
 					unset($level1, $key, $page);
@@ -110,10 +110,10 @@ $output .= '
 					';
 
 					// Level 2 menu
-					$level2 = $servant->pages()->map($servant->page()->tree(0));
+					$level2 = $servant->pages()->map($servant->pages()->current()->tree(0));
 					if (!empty($level2) and is_array($level2)) {
 						foreach ($level2 as $key => $page) {
-							$output .= '<li class="reset'.($servant->page()->tree(1) === $key ? ' selected': '').'"><a href="'.$page->readPath('domain').'/">'.$page->name().'</a></li>';
+							$output .= '<li class="reset'.($servant->pages()->current()->tree(1) === $key ? ' selected': '').'"><a href="'.$page->readPath('domain').'/">'.$page->name().'</a></li>';
 						}
 					}
 					unset($level2, $key, $page);
@@ -160,7 +160,7 @@ $output .= '
 				';
 
 				// One-column layout
-				$current = count($servant->page()->tree())-1;
+				$current = count($servant->pages()->current()->tree())-1;
 				if ($current < 2) {
 					$output .= $template->content();
 
@@ -177,10 +177,10 @@ $output .= '
 							';
 
 							// Level 3 menu
-							$level3 = $servant->pages()->templates($servant->page()->tree(0), $servant->page()->tree(1));
+							$level3 = $servant->pages()->templates($servant->pages()->current()->tree(0), $servant->pages()->current()->tree(1));
 							if (!empty($level3) and is_array($level3)) {
 								foreach ($level3 as $key => $value) {
-									$output .= '<li class="reset'.($servant->page()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$action->id().'/'.$servant->page()->tree(0).'/'.$servant->page()->tree(1).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
+									$output .= '<li class="reset'.($servant->pages()->current()->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$action->id().'/'.$servant->pages()->current()->tree(0).'/'.$servant->pages()->current()->tree(1).'/'.$key.'/">'.$servant->format()->title($key).'</a></li>';
 								}
 							}
 							unset($level3, $key, $value);
@@ -263,7 +263,7 @@ $output .= '
 		';
 
 		// Include scripts
-		echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->page()->tree()).'/'.'"></script>';
+		echo '<script src="'.$servant->paths()->root('domain').$servant->site()->id().'/scripts/'.implode('/', $servant->pages()->current()->tree()).'/'.'"></script>';
 
 		$output .= '
 	</body>

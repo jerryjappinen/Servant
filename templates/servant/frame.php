@@ -7,7 +7,7 @@ $menu = '';
 if ($action->isRead()) {
 
 	// Generate menu
-	$pages = $servant->pages()->level($servant->page()->tree(0));
+	$pages = $servant->pages()->level($servant->pages()->current()->tree(0));
 	if ($pages) {
 		$items = array();
 		foreach ($pages as $page) {
@@ -32,7 +32,7 @@ if ($action->isRead()) {
 					// Mark selected subpage
 					$parents = $subPage->parentTree();
 					$parent = end($parents);
-					if ($servant->page()->tree(1) === $parent and $servant->page()->tree(2) === $subPage->id()) {
+					if ($servant->pages()->current()->tree(1) === $parent and $servant->pages()->current()->tree(2) === $subPage->id()) {
 						$output = '<li class="selected"><strong>'.$output.'</strong>';
 					} else {
 						$output = '<li>'.$output;
@@ -54,7 +54,7 @@ if ($action->isRead()) {
 			$output = '<a href="'.$url.'">'.$name.'</a>';
 
 			// Mark selected page
-			if ($servant->page()->tree(1) === $page->id()) {
+			if ($servant->pages()->current()->tree(1) === $page->id()) {
 				$output = '<li class="selected"><strong>'.$output.'</strong>';
 			} else {
 				$output = '<li>'.$output;
@@ -96,7 +96,7 @@ foreach ($servant->pages()->map() as $key => $value) {
 // Top-level pages
 $footerLists[0] = array(
 	'<a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a>',
-	'<a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->page()->tree()).'">Sitemap</a>'
+	'<a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->pages()->current()->tree()).'">Sitemap</a>'
 );
 foreach ($pages as $page) {
 	$footerLists[0][] = '<a href="'.$page->readPath('domain').'">'.$page->categoryName(0).'</a>';

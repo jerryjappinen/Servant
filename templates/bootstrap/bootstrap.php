@@ -28,7 +28,7 @@ if (count($level1) > 1) {
 		$dropdown = false;
 
 		// Selected
-		if ($servant->page()->tree(0) === $key) {
+		if ($servant->pages()->current()->tree(0) === $key) {
 			$selected = true;
 			$classes[] = 'active';
 		}
@@ -86,7 +86,7 @@ $output .= '
 
 
 	// Submenu in a sidebar
-	$level2 = $servant->pages()->map($servant->page()->tree(0));
+	$level2 = $servant->pages()->map($servant->pages()->current()->tree(0));
 	if (is_array($level2)) {
 		$output .= '<div id="sidebar"><ul class="menu-2">';
 
@@ -94,10 +94,10 @@ $output .= '
 		foreach ($level2 as $key => $page) {
 
 			// Link HTML
-			$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->page()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
+			$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->pages()->current()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
 
 			// Selected item
-			if ($servant->page()->tree(1) === $key) {
+			if ($servant->pages()->current()->tree(1) === $key) {
 				$output .= '<li class="selected"><strong>'.$link.'</strong>';
 				unset($link);
 
@@ -116,8 +116,8 @@ $output .= '
 						}
 
 						// Child item HTML
-						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->page()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
-						if ($servant->page()->tree(2) === $key2) {
+						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->pages()->current()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
+						if ($servant->pages()->current()->tree(2) === $key2) {
 							$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
 						} else {
 							$output .= '<li>'.$link.'</li>';
@@ -165,7 +165,7 @@ $output .= '<div class="footer container">';
 		}
 
 		// Pages & generic stuff
-		$output .= '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->page()->tree()).'">Sitemap</a></li>';
+		$output .= '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->pages()->current()->tree()).'">Sitemap</a></li>';
 
 		// Create footer links for pages
 		foreach ($pages as $id) {

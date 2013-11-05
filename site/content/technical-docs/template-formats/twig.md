@@ -17,10 +17,10 @@ Read more about it on [Twig's site](http://twig.sensiolabs.org/doc/templates.htm
 
 ##### site/content/some-category/some-page.twig
 
-	<h1>{{ servant.page().name() }}</h1>
+	<h1>{{ page.name() }}</h1>
 
 	<ul id="navigation">
-	{% for id in servant.page().siblings() %}
+	{% for id in page.siblings() %}
 		<li><a href="{{ id }}">{{ servant.format().name(id) }}</a></li>
 	{% endfor %}
 	</ul>

@@ -44,6 +44,7 @@ class ServantAction extends ServantObject {
 		foreach ($this->files('server') as $path) {
 			$this->servant()->files()->read($path, array(
 				'servant' => $this->servant(),
+				'page' => $this->servant()->pages()->current(),
 				'action' => $this,
 			));
 		}

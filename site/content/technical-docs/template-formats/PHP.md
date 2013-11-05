@@ -19,7 +19,7 @@ Servant runs on PHP, and **scriptable PHP pages** are supported out of the box. 
 
 ##### site/content/some-category/some-page.php
 
-	<h1><?= $servant()->page()->name() ?></h1>
+	<h1><?= $page->name() ?></h1>
 
 	<h3>Other available sites</h3>
 

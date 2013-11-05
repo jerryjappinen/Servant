@@ -207,7 +207,18 @@ class ServantPage extends ServantObject {
 	*   - Content manipulation should be done in read action, not here (stylesheets is correct in this)
 	*/
 	protected function setOutput () {
-		$urlManipulator = new UrlManipulator();
+
+		// Read content from source file
+		$fileContent = $this->servant()->files()->read($this->template('server'), array(
+			'servant' => $this->servant(),
+			'page' => $this,
+		));
+
+
+
+		/**
+		* URL manipulation   <<   SHOULD NOT BE HERE
+		*/
 
 		// Root path for src attributes
 		$srcUrl = $this->pages()->path('domain');
@@ -231,13 +242,14 @@ class ServantPage extends ServantObject {
 		// Base URL to point to actions on the domain
 		$actionsUrl = $this->servant()->paths()->root('domain');
 
-		// Read content from source file
-		$fileContent = $this->servant()->files()->read($this->template('server'), array(
-			'servant' => $this->servant()
-		));
+		// Manipulate URLs
+		$fileContent = create_object(new UrlManipulator())->htmlUrls($fileContent, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl);
+		/**
+		* END OF   >>   URL manipulation
+		*/
 
-		// Save file content with manipulated URLs
-		return $this->set('output', $urlManipulator->htmlUrls($fileContent, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
+		// Save file content
+		return $this->set('output', $fileContent);
 	}
 
 	/**
