@@ -4,11 +4,13 @@
 * Page component
 *
 * Dependencies
-*   - servant()->files()->read()
-*   - servant()->format()->pageName()
-*   - servant()->format()->path()
-*   - servant()->paths()->root()
-*   - servant()->utilities()->load()
+*   servant -> files 		-> read
+*   servant -> format 		-> path
+*   						-> title
+*   servant -> paths 		-> root
+*   						-> userAction
+*   servant -> site 		-> pageNames
+*   servant -> utilities 	-> load
 */
 class ServantPage extends ServantObject {
 
@@ -77,7 +79,7 @@ class ServantPage extends ServantObject {
 	public function categoryName ($level = 0) {
 		$parent = $this->tree($level);
 		if (isset($parent)) {
-			$name = $this->servant()->format()->pageName($parent);
+			$name = $this->generatePageName($parent);
 		} else {
 			$name = $this->name();
 		}
@@ -197,7 +199,7 @@ class ServantPage extends ServantObject {
 	* Human-readable name, generated from ID
 	*/
 	protected function setName () {
-		return $this->set('name', $this->servant()->format()->pageName($this->id()));
+		return $this->set('name', $this->generatePageName($this->id()));
 	}
 
 	/**
@@ -360,6 +362,28 @@ class ServantPage extends ServantObject {
 		}
 
 		return $results;
+	}
+
+
+
+	/**
+	* Generate human-readable title for page from string
+	*/
+	private function generatePageName ($string) {
+		$name = $string;
+
+		// Explicit names given
+		$replacements = $this->servant()->site()->pageNames();
+		$key = mb_strtolower($string);
+		if ($replacements and is_array($replacements) and array_key_exists($key, $replacements)) {
+			$name = $replacements[$key];
+
+		// Generate
+		} else {
+			$name = $this->servant()->format()->title($string);
+		}
+
+		return $name;
 	}
 
 }

@@ -49,7 +49,7 @@ class ServantMain extends ServantObject {
 			// Fuck
 			} catch (Exception $e) {
 				$this->purgeTemp();
-				$this->fail('Unknown error, cannot generate error page.');
+				$this->fail($this->debug() ? $e->getMessage() : 'Unknown error, cannot generate error page.');
 			}
 
 		}

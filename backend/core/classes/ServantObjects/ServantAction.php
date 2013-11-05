@@ -7,10 +7,10 @@
 *   - This component needs to be transformed into a separete action object that can be created whenever and wherever.
 *
 * Dependencies
-*   - servant()->files()->read()
-*   - servant()->format()->path()
-*   - servant()->paths()->actions()
-*   - servant()->settings()->defaults()
+*   - servant -> files -> read
+*   - servant -> format -> path
+*   - servant -> paths -> actions
+*   - servant -> settings -> defaults
 */
 class ServantAction extends ServantObject {
 

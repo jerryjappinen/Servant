@@ -7,33 +7,10 @@
 *   - Deprecate this (global services like this are not good)
 *
 * Dependencies
-*   - servant()->site()->pageNames()
-*   - servant()->paths()->documentRoot()
-*   - servant()->paths()->root()
+*   servant -> paths -> documentRoot
+*   servant -> paths -> root
 */
 class ServantFormat extends ServantObject {
-
-
-
-	/**
-	* Generate human-readable title for page from string
-	*/
-	public function pageName ($string) {
-		$name = $string;
-
-		// Explicit names given
-		$replacements = $this->servant()->site()->pageNames();
-		$key = mb_strtolower($string);
-		if ($replacements and is_array($replacements) and array_key_exists($key, $replacements)) {
-			$name = $replacements[$key];
-
-		// Generate
-		} else {
-			$name = $this->title($string);
-		}
-
-		return $name;
-	}
 
 
 

@@ -7,10 +7,10 @@
 *   - Template objects work without any actual template files. Their content is set to '' by default.
 *
 * Dependencies
-*   - servant()->files()->read()
-*   - servant()->format()->path()
-*   - servant()->paths()->actions()
-*   - servant()->settings()->defaults()
+*   - servant -> files -> read
+*   - servant -> format -> path
+*   - servant -> paths -> actions
+*   - servant -> settings -> defaults
 */
 class ServantTemplate extends ServantObject {
 

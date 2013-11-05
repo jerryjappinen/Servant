@@ -101,7 +101,7 @@ $footerLists[0] = array(
 foreach ($pages as $page) {
 	$footerLists[0][] = '<a href="'.$page->readPath('domain').'">'.$page->categoryName(0).'</a>';
 }
-unset($page);
+unset($pages, $page);
 
 // Main categories and pages
 $i = 1;
@@ -109,10 +109,11 @@ foreach ($categories as $categoryId) {
 	$footerLists[$i] = array();
 
 	// Category title
-	$footerLists[$i][] = '<a href="'.$servant->paths()->userAction('site', 'domain', $categoryId).'">'.$servant->format()->pageName($categoryId).'</a>';
+	$pages = $servant->pages()->level($categoryId);
+	$footerLists[$i][] = '<a href="'.$servant->paths()->userAction('site', 'domain', $categoryId).'">'.$pages[0]->categoryName().'</a>';
 
 	// Subpages
-	foreach ($servant->pages()->level($categoryId) as $page) {
+	foreach ($pages as $page) {
 		$footerLists[$i][] = '<a href="'.$page->readPath('domain').'/">'.$page->categoryName(1).'</a>';
 	}
 	unset($page);

@@ -1,16 +1,15 @@
 <?php
 
 // Create page tree in HTML
-// FLAG this is not the way to do this...
+// FLAG this is not the way to do this... (in more than one way)
 if (!function_exists('createNestedLists')) {
 	function createNestedLists ($servant, $map) {
 		$result = '';
 		foreach ($map as $id => $value) {
 
 			// Children
-			// FLAG doesn't detect arrays with only one item (these should be presented as individual pages)
 			if (is_array($value)) {
-				$result .= '<li>'.$servant->format()->pageName($id).createNestedLists($servant, $value).'</li>';
+				$result .= '<li>'.$id.createNestedLists($servant, $value).'</li>';
 
 			// Pages
 			} else {

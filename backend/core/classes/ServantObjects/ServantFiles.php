@@ -3,15 +3,16 @@
 /**
 * Files component
 *
-* Read content of files of various formats
+* Read content of files of various templating formats
 *
 * Dependencies
-*   - servant()->settings()->formats()
-*   - servant()->parse()
-*   - servant()->paths()->temp()
+*   - servant -> settings -> formats
+*   - servant -> parse
+*   - servant -> paths -> temp
 *
 * FLAG
-*   - Is there a better name for this?
+*   - This is exclusively about template files.
+*   - Should this be "ServantTemplates"? There are two uses for the word "template" currently, things get confusing.
 */
 class ServantFiles extends ServantObject {
 
@@ -19,6 +20,9 @@ class ServantFiles extends ServantObject {
 
 	/**
 	* Open and get file contents in a renderable format
+	*
+	* FLAG
+	*   - Add support for reading multiple files with shared scriptVariables
 	*/
 	public function read ($path, $scriptVariables = array()) {
 
@@ -53,6 +57,7 @@ class ServantFiles extends ServantObject {
 		} else {
 			return '';
 		}
+
 	}
 
 
