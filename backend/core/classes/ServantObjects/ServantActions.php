@@ -77,29 +77,6 @@ class ServantActions extends ServantObject {
 	*/
 
 	/**
-	* Tree of selected page
-	*/
-	protected function setCurrent ($id = null) {
-
-		// Silent fallback
-		if (!$this->available($id)) {
-
-			// Global default
-			$default = $this->servant()->settings()->defaults('action');
-			if ($this->available($default)) {
-				$id = $default;
-
-			// Whatever's available
-			} else {
-				$available = array_keys($this->map());
-				$id = $available[0];
-			}
-		}
-
-		return $this->set('current', $id);
-	}
-
-	/**
 	* All available actions: initially as null, action objects created on call
 	*
 	* FLAG

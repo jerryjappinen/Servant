@@ -79,7 +79,6 @@ class ServantMain extends ServantObject {
 	/**
 	* Public shortcuts
 	*/
-
 	public function debug () {
 		return $this->get('debug');
 	}
@@ -142,9 +141,6 @@ class ServantMain extends ServantObject {
 
 	/**
 	* Utility-like services
-	*
-	* FLAG
-	*   - Should these be under Main at all?
 	*/
 
 	protected $propertyFiles 		= null;

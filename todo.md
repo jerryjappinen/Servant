@@ -3,29 +3,29 @@
 
 ## Core
 
-- Preserve variables when reading multiple dynamic template files (use `run_scripts`)
+- Remove `pages()->current()`
+	- A `$page` should be passed to
+		- actions
+		- templates
 - `ServantTheme` should not be a service
 - `templates()->available()`
 - Nestable actions
 	- `$action->nest()`
 	- `$template->action()`
-	- Action configuration should be supported
-		- Authors can declare actions private: not accessible via HTTP, only other scripts
-		- JSON? Make sure JSON stays secure on server!
-		- Allow users to declare action-specific configs in site settings?
-- Remove `pages()->current()`
-	- A `$page` should be passed to
-		- actions
-		- templates
+- Action configuration
+	- Authors can declare actions private: not accessible via HTTP, only other scripts
+	- JSON? Make sure JSON stays secure on server!
+	- Allow users to declare action-specific configs in site settings?
 - Multiple pieces of content for nested templates
-- Data/storage/working directory for actions
-	- Should be under `site/` as it's site-specific
 - Input system
 	- Accept GET, POST and other input through wrapper
 	- Merge all input in ServantInput
 	- Pass input to actions
 	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
+- Preserve variables when reading multiple dynamic template files (not just PHP files like in actions)
+- Data/storage/working directory for actions
+	- Should be under `site/` as it's site-specific
 
 
 

@@ -59,6 +59,13 @@ class ServantAction extends ServantObject {
 		return $this;
 	}
 
+	// Generate a new action
+	public function nest () {
+
+	}
+
+
+
 	/**
 	* Initialize
 	*
