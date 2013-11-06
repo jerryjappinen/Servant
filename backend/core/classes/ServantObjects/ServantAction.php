@@ -41,13 +41,21 @@ class ServantAction extends ServantObject {
 	*   - I should create a dummy object for action's scripts so that $this and variable scope works nicely
 	*/
 	public function run () {
-		foreach ($this->files('server') as $path) {
-			$this->servant()->files()->read($path, array(
-				'servant' => $this->servant(),
-				'page' => $this->servant()->pages()->current(),
-				'action' => $this,
-			));
-		}
+
+		// Variables to pass to action's scripts
+		$scriptVariables = array(
+			'servant' => $this->servant(),
+			'page' => $this->servant()->pages()->current(),
+			'action' => $this,
+		);
+
+		// FLAG we should run any template files like this
+		// foreach ($this->files('server') as $path) {
+		// 	$this->servant()->files()->read($path, $scriptVariables);
+		// }
+
+		run_scripts($this->files('server'), $scriptVariables);
+
 		return $this;
 	}
 
@@ -142,7 +150,12 @@ class ServantAction extends ServantObject {
 
 		// All files in directory
 		if (is_dir($path)) {
-			foreach (rglob_files($path, array_flatten($this->servant()->settings()->formats('templates'))) as $file) {
+
+			// FLAG until we can run any script sets cleanly, not just PHP with Baseline's run_scripts
+			$formats = 'php';
+
+			// $formats = array_flatten($this->servant()->settings()->formats('templates'));
+			foreach (rglob_files($path, $formats) as $file) {
 				$files[] = $this->servant()->format()->path($file, false, 'server');
 			}
 		}

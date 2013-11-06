@@ -66,9 +66,12 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 
 
 /**
-* Site's style files
+* Page-specific style files
+*
+* FLAG
+*   - We only want these in read action (we should print this upon request only - needs input support)
 */
-foreach ($servant->pages()->current()->stylesheets('plain') as $path) {
+foreach ($page->stylesheets('plain') as $path) {
 
 	// Special format is used
 	$extension = pathinfo($path, PATHINFO_EXTENSION);

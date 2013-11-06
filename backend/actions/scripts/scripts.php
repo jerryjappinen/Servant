@@ -8,8 +8,13 @@ foreach ($servant->theme()->scripts('server') as $path) {
 	$output .= file_get_contents($path);
 }
 
-// Merge scripts from site
-foreach ($servant->pages()->current()->scripts('server') as $path) {
+/**
+* Merge scripts from site
+*
+* FLAG
+*   - We only want these in read action (we should print this upon request only - needs input support)
+*/
+foreach ($page->scripts('server') as $path) {
 	$output .= file_get_contents($path);
 }
 

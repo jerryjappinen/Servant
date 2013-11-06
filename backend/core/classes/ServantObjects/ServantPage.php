@@ -21,7 +21,6 @@ class ServantPage extends ServantObject {
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
 
-	protected $propertyIsCurrent 	= null;
 	protected $propertyIsHome 		= null;
 	protected $propertyIsMaster 	= null;
 
@@ -166,13 +165,6 @@ class ServantPage extends ServantObject {
 	protected function setIndex () {
 		$keys = array_flip(array_keys($this->siblings()));
 		return $this->set('index', $keys[$this->id()]);
-	}
-
-	/**
-	* Is this the current page?
-	*/
-	protected function setIsCurrent () {
-		return $this->set('isCurrent', $this->pages()->current() === $this);
 	}
 
 	/**

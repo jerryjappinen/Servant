@@ -13,7 +13,6 @@ Property name   | Description
 `children`	| List all pages considered to be childpages.
 `id`			| Last value of `tree`. IDs are unique within one level in page hierarchy.
 `index`		| The ordinal number of the page on its level. The index numbering starts from `0`.
-`isCurrent`	|
 `isHome`		|
 `isMaster`	|
 `level`		|
