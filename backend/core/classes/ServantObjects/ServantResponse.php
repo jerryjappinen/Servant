@@ -112,7 +112,8 @@ class ServantResponse extends ServantObject {
 
 				// Push output into a template
 				if ($this->action()->outputViaTemplate()) {
-					$output = $this->generate('template', $this->servant()->site()->template(), $this->action(), $output)->output();
+					$template = $this->generate('template', $this->servant()->site()->template(), $this->action(), $this->action()->page(), $output);
+					$output = $template->output();
 				}
 
 				// Store if needed
@@ -305,7 +306,7 @@ class ServantResponse extends ServantObject {
 		$path .= $this->action()->id().'/';
 
 		// Each page gets their own file
-		$path .= implode('/', $this->servant()->pages()->current()->tree());
+		$path .= implode('/', $this->action()->page()->tree());
 
 		return $path;
 	}

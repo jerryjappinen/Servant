@@ -20,7 +20,7 @@ $output = '
 $level1 = $servant->pages()->map();
 if (count($level1) > 1) {
 	$output .= '<div class="nav-collapse collapse"><ul class="nav">';
-	foreach ($level1 as $key => $page) {
+	foreach ($level1 as $key => $tempPage) {
 
 		// Handle list classes
 		$classes = array();
@@ -28,13 +28,13 @@ if (count($level1) > 1) {
 		$dropdown = false;
 
 		// Selected
-		if ($servant->pages()->current()->tree(0) === $key) {
+		if ($page->tree(0) === $key) {
 			$selected = true;
 			$classes[] = 'active';
 		}
 
 		// Children
-		if (is_array($page)) {
+		if (is_array($tempPage)) {
 			$dropdown = true;
 			$classes[] = 'dropdown';
 		}
@@ -57,7 +57,7 @@ if (count($level1) > 1) {
 
 		// Link
 		} else {
-			$output .= '<a href="'.$page->readPath('domain').'/">'.$page->name($key).'</a>';
+			$output .= '<a href="'.$tempPage->readPath('domain').'/">'.$tempPage->name($key).'</a>';
 		}
 
 		$output .= '</li>';
@@ -86,28 +86,28 @@ $output .= '
 
 
 	// Submenu in a sidebar
-	$level2 = $servant->pages()->map($servant->pages()->current()->tree(0));
+	$level2 = $servant->pages()->map($page->tree(0));
 	if (is_array($level2)) {
 		$output .= '<div id="sidebar"><ul class="menu-2">';
 
 		// List items
-		foreach ($level2 as $key => $page) {
+		foreach ($level2 as $key => $tempPage) {
 
 			// Link HTML
-			$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->pages()->current()->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
+			$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$page->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
 
 			// Selected item
-			if ($servant->pages()->current()->tree(1) === $key) {
+			if ($page->tree(1) === $key) {
 				$output .= '<li class="selected"><strong>'.$link.'</strong>';
 				unset($link);
 
 				// Possible children
-				if (is_array($page)) {
+				if (is_array($tempPage)) {
 					$output .= '<ul class="menu-3">';
 
 					// Child pages in array
 					$skip = true;
-					foreach ($page as $key2 => $page2) {
+					foreach ($tempPage as $key2 => $tempPage2) {
 
 						// Skip first
 						if ($skip) {
@@ -116,14 +116,14 @@ $output .= '
 						}
 
 						// Child item HTML
-						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$servant->pages()->current()->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
-						if ($servant->pages()->current()->tree(2) === $key2) {
+						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$page->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
+						if ($page->tree(2) === $key2) {
 							$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
 						} else {
 							$output .= '<li>'.$link.'</li>';
 						}
 					}
-					unset($skip, $level3, $key2, $page2);
+					unset($skip, $level3, $key2, $tempPage2);
 
 					$output .= '</ul>';
 				}
@@ -154,21 +154,21 @@ $output .= '
 $output .= '<div class="footer container">';
 
 		// Sort pages into pages and categories
-		$pages = array();
+		$tempPages = array();
 		$categories = array();
-		foreach ($servant->pages()->map() as $key => $page) {
-			if (is_array($page)) {
+		foreach ($servant->pages()->map() as $key => $tempPage) {
+			if (is_array($tempPage)) {
 				$categories[] = $key;
 			} else {
-				$pages[] = $key;
+				$tempPages[] = $key;
 			}
 		}
 
 		// Pages & generic stuff
-		$output .= '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->userAction('sitemap', 'domain', $servant->pages()->current()->tree()).'">Sitemap</a></li>';
+		$output .= '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->userAction('sitemap', 'domain', $page->tree()).'">Sitemap</a></li>';
 
 		// Create footer links for pages
-		foreach ($pages as $id) {
+		foreach ($tempPages as $id) {
 			$output .= '<li><a href=".">'.$servant->format()->title($id).'</a></li>';
 		}
 		$output .= '</ul></div>';
@@ -178,7 +178,7 @@ $output .= '<div class="footer container">';
 		foreach ($categories as $id) {
 			$output .= $i === 1 ? '<div class="row">' : '';
 			$output .= '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->title($id).'</li>';
-			foreach ($servant->pages()->map($id) as $key => $page) {
+			foreach ($servant->pages()->map($id) as $key => $tempPage) {
 				$output .= '<li><a href=".">'.$key.'</a></li>';
 			}
 			$output .= '</ul></div>';

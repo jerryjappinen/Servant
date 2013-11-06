@@ -29,11 +29,11 @@ class ServantMain extends ServantObject {
 
 		$this->purgeTemp();
 
+		// User input
 		$input = $this->generate('input', $userInput);
 
-		// FLAG pages()->current() should be removed
-		$this->setPages($input->page());
-		$page = $this->pages()->current();
+		// Current page
+		$page = $this->pages()->map($this->pages()->selectPage($this->pages()->map(), $input->page()));
 
 		// Serve a response
 		try {
@@ -121,8 +121,8 @@ class ServantMain extends ServantObject {
 	protected function setActions () {
 		return $this->set('actions', $this->generate('actions'));
 	}
-	protected function setPages ($current) {
-		return $this->set('pages', $this->generate('pages', $current));
+	protected function setPages () {
+		return $this->set('pages', $this->generate('pages'));
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));

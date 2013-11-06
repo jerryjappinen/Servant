@@ -3,16 +3,16 @@
 /**
 * Level 1 menu
 */
-$pages = $servant->pages()->level();
-if (!empty($pages)) {
+$tempPages = $servant->pages()->level();
+if (!empty($tempPages)) {
 
-	foreach ($pages as $page) {
+	foreach ($tempPages as $tempPage) {
 
 		// Link to the page
-		$link = '<a href="'.$page->readPath('domain').'">'.$page->categoryName(0).'</a>';
+		$link = '<a href="'.$tempPage->readPath('domain').'">'.$tempPage->categoryName(0).'</a>';
 
 		// List item, possibly selected
-		echo '<li>'.($page->tree(0) === $servant->pages()->current()->tree(0) ? '<strong>'.$link.'</strong>' : $link).'</li>';
+		echo '<li>'.($tempPage->tree(0) === $page->tree(0) ? '<strong>'.$link.'</strong>' : $link).'</li>';
 
 	}
 

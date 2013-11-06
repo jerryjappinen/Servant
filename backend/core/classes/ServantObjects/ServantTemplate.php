@@ -21,6 +21,7 @@ class ServantTemplate extends ServantObject {
 	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
 	protected $propertyOutput 	= null;
+	protected $propertyPage 	= null;
 	protected $propertyPath 	= null;
 
 
@@ -37,7 +38,7 @@ class ServantTemplate extends ServantObject {
 		// Normalize arguments
 		$arguments = func_get_args();
 		array_shift($arguments);
-		array_unshift($arguments, 'template', $templateId, $this->action());
+		array_unshift($arguments, 'template', $templateId, $this->action(), $this->page());
 
 		// Create the template object
 		$template = call_user_func_array(array($this, 'generate'), $arguments);
@@ -51,13 +52,14 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Init
 	*/
-	public function initialize ($id, $action, $content = null) {
+	public function initialize ($id, $action, $page, $content = null) {
 		$arguments = func_get_args();
 		$contentArguments = array_slice($arguments, 2);
 
 		// Set ID and action
 		$this->setId($id);
 		$this->setAction($action);
+		$this->setPage($page);
 
 		// Default to empty content
 		if (empty($contentArguments)) {
@@ -75,6 +77,10 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Public getters
 	*/
+
+	public function action () {
+		return $this->get('action');
+	}
 
 	public function content ($content = null) {
 		$arguments = func_get_args();
@@ -103,6 +109,10 @@ class ServantTemplate extends ServantObject {
 			$path = $this->servant()->format()->path($path, $format);
 		}
 		return $path;
+	}
+
+	public function page () {
+		return $this->get('page');
 	}
 
 
@@ -209,12 +219,15 @@ class ServantTemplate extends ServantObject {
 
 		// Use template files (might or might not include $template->content())
 		if (!empty($files)) {
+			$scriptVariables = array(
+				'servant' => $this->servant(),
+				'action' => $this->action(),
+				'page' => $this->page(),
+				'template' => $this,
+			);
+
 			foreach ($files as $path) {
-				$result .= $this->servant()->files()->read($path, array(
-					'servant' => $this->servant(),
-					'action' => $this->action(),
-					'template' => $this,
-				));
+				$result .= $this->servant()->files()->read($path, $scriptVariables);
 			}
 
 		// No files - use content directly
@@ -240,6 +253,21 @@ class ServantTemplate extends ServantObject {
 		}
 
 		return $this->set('path', $path);
+	}
+
+	/**
+	* Current page
+	*/
+	protected function setPage ($page) {
+	
+		if ($this->getServantClass($page) !== 'page') {
+			$this->fail('Invalid page passed to template.');
+
+		// Page is acceptable
+		} else {
+			return $this->set('page', $page);
+		}
+
 	}
 
 

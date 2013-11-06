@@ -225,12 +225,17 @@ class ServantAction extends ServantObject {
 
 	/**
 	* Current page
-	*
-	* FLAG
-	*   - validate
 	*/
 	protected function setPage ($page) {
-		return $this->set('page', $page);
+	
+		if ($this->getServantClass($page) !== 'page') {
+			$this->fail('Invalid page passed to template.');
+
+		// Page is acceptable
+		} else {
+			return $this->set('page', $page);
+		}
+
 	}
 
 	/**

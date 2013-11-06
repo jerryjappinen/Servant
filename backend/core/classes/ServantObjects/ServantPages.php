@@ -5,30 +5,14 @@
 *
 * FLAG
 *   - Maybe this should be available under ServantSite
-*   - current() should be obliterated
 */
 class ServantPages extends ServantObject {
 
 	/**
 	* Properties
 	*/
-	protected $propertyCurrent 		= null;
 	protected $propertyMap 			= null;
 	protected $propertyPath 		= null;
-
-
-
-	/**
-	* Convenience
-	*/
-
-	// FLAG weird naming
-	public function initialize ($current) {
-
-		$this->setCurrent($current);
-
-		return $this;
-	}
 
 
 	/**
@@ -64,11 +48,6 @@ class ServantPages extends ServantObject {
 	* Public getters
 	*/
 
-	// Getter returns page object (while tree is stored in the prameter)
-	public function current () {
-		return $this->map($this->getAndSet('current'));
-	}
-
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
@@ -82,17 +61,6 @@ class ServantPages extends ServantObject {
 	/**
 	* Setters
 	*/
-
-	/**
-	* Tree of selected page
-	*/
-	protected function setCurrent ($input) {
-
-		// Select the page most closely matching user input
-		$tree = $this->selectPage($this->map(), $input);
-
-		return $this->set('current', $tree);
-	}
 
 	/**
 	* All available pages as page objects
@@ -191,8 +159,11 @@ class ServantPages extends ServantObject {
 
 	/**
 	* Choose one page from those available, preferring the one detailed in $tree
+	*
+	* FLAG
+	*   - Should not be public (maybe in input?)
 	*/
-	private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
+	public function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
  
 		// No preference or preferred item doesn't exist: auto select
 		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
