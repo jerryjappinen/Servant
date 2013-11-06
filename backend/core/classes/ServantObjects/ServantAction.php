@@ -21,6 +21,7 @@ class ServantAction extends ServantObject {
 	protected $propertyFiles 				= null;
 	protected $propertyId 					= null;
 	protected $propertyIsRead 				= null;
+	protected $propertyPage 				= null;
 	protected $propertyPath 				= null;
 	protected $propertyOutput 				= null;
 	protected $propertyOutputViaTemplate 	= null;
@@ -45,7 +46,7 @@ class ServantAction extends ServantObject {
 		// Variables to pass to action's scripts
 		$scriptVariables = array(
 			'servant' => $this->servant(),
-			'page' => $this->servant()->pages()->current(),
+			'page' => $this->page(),
 			'action' => $this,
 		);
 
@@ -60,8 +61,9 @@ class ServantAction extends ServantObject {
 	}
 
 	// Generate a new action
-	public function nest () {
-
+	// FLAG error handling?
+	public function nest ($id) {
+		return $this->generate('action', $id, $this->page())->run();
 	}
 
 
@@ -71,10 +73,11 @@ class ServantAction extends ServantObject {
 	*
 	* Defaults are set here, and can be overridden by action's code.
 	*/
-	public function initialize ($id) {
+	public function initialize ($id, $page) {
 
-		// Set ID upon initialization
+		// Set ID and action upon initialization
 		$this->setId($id);
+		$this->setPage($page);
 
 		// Defaults
 		$contentType = $this->servant()->settings()->defaults('contentType');
@@ -124,6 +127,10 @@ class ServantAction extends ServantObject {
 			$path = $this->servant()->format()->path($path, $format);
 		}
 		return $path;
+	}
+
+	public function page () {
+		return $this->get('page');
 	}
 
 	public function status () {
@@ -211,6 +218,16 @@ class ServantAction extends ServantObject {
 	*/
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->actions().$this->id().'/');
+	}
+
+	/**
+	* Current page
+	*
+	* FLAG
+	*   - validate
+	*/
+	protected function setPage ($page) {
+		return $this->set('page', $page);
 	}
 
 	/**

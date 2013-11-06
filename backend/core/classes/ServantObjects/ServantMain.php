@@ -33,10 +33,12 @@ class ServantMain extends ServantObject {
 
 		// FLAG pages()->current() should be removed
 		$this->setPages($input->page());
+		$page = $this->pages()->current();
 
 		// Serve a response
 		try {
-			$response = $this->generate('response', $this->generate('action', $input->action()));
+			$action = $this->generate('action', $input->action(), $page);
+			$response = $this->generate('response', $action);
 
 		} catch (Exception $e) {
 			$this->purgeTemp();
@@ -44,7 +46,8 @@ class ServantMain extends ServantObject {
 			// Serve an error page
 			try {
 				$actionId = $this->settings()->actions('error');
-				$response = $this->generate('response', $this->generate('action', $actionId));
+				$action = $this->generate('action', $actionId, $page);
+				$response = $this->generate('response', $action);
 
 			// Fuck
 			} catch (Exception $e) {

@@ -1,9 +1,9 @@
 <?php
 
-// Output page content
-$action->output($page->output());
+$pageAction = $action->nest('page');
+log_dump($pageAction->id());
 
-// Output via template
-$action->outputViaTemplate(true);
+// Output page content
+$action->outputViaTemplate(true)->output($pageAction->output());
 
 ?>

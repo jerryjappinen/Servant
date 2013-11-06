@@ -3,15 +3,17 @@
 
 ## Core
 
+- Refactor:
+	- Return of `available()` for actions, templates, utilities, pages?
+	- Use `servant()->generate()` instead of `$this->generate`?
+
 - Remove `pages()->current()`
 	- A `$page` should be passed to
 		- actions
 		- templates
 - `ServantTheme` should not be a service
 - `templates()->available()`
-- Nestable actions
-	- `$action->nest()`
-	- `$template->action()`
+- Nestable actions in templates (`$template->nestAction()`)
 - Action configuration
 	- Authors can declare actions private: not accessible via HTTP, only other scripts
 	- JSON? Make sure JSON stays secure on server!
