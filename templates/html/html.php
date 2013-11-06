@@ -103,7 +103,7 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $template->content() ?>
 
-		<?php echo $servant->debug() ? '<div style="margin: 0; padding: 5%;">'.$template->nest('debug').'</div>' : '' ?>
+		<?php echo $servant->debug() ? '<div style="margin: 0; padding: 0 5% 5% 5%;">'.$template->nest('debug').'</div>' : '' ?>
 
 		<script src="<?php echo $scriptsLink ?>"></script>
 	</body>

@@ -8,6 +8,6 @@ if ($servant->debug()) {
 		'Current page' => implode('/', $servant->pages()->current()->tree()),
 	);
 
-	echo '<h3>Template scope ('.$template->id().')</h3>'.html_dump($content);
+	echo html_dump($content);
 }
 ?>

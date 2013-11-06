@@ -1,16 +1,19 @@
 
 <div class="showoff">
+
+	<h1>Welcome to Servant</h1>
+
 	<div class="column six">
 		<div class="buffer">
-			<h2 class="reset-top">Turn this...</h2>
 			<p class="reset"><img src="files.png" class="shadows" alt="Files and folders" title="Turn this..."></p>
+			<h2 class="squeeze">where this</h2>
 		</div>
 	</div>
 
 	<div class="column six last">
 		<div class="buffer">
-			<h2 class="reset-top">...into this!</h2>
 			<p class="reset"><img src="result.png" class="shadows" alt="Web site" title="...into this!"></p>
+			<h2 class="squeeze">turns into this</h2>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -21,14 +24,12 @@
 
 	<div class="limit">
 
-		<h1>Welcome to <em>Servant</em>.</h1>
-
 		<div class="column six">
 			<p>Convert text documents to web pages. On the fly. On PHP, the easiest and most popular language used by web hosting services today. It's very easy to install and supports a variety of text file formats for any use case.</p>
 		</div>
 
 		<div class="column six last">
-			<p>Servant is very simple, and is crafted for those of use who appreciate robust and understandable platforms. Still, it <a href="/how-it-works/features">packs quite a few features</a>. Try it out, it's free!</p>
+			<p>Servant is very simple, and is crafted for those of use who appreciate robust and understandable platforms. Still, it <a href="/how-it-works/features">packs quite a few features</a> and is a good fit for advanced needs as well. Try it out, it's free!</p>
 		</div>
 		<div class="clear"></div>
 

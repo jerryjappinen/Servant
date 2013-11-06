@@ -23,7 +23,7 @@ class ServantFiles extends ServantObject {
 	* FLAG
 	*   - Add support for reading multiple files with shared scriptVariables
 	*/
-	public function read ($path, $scriptVariables = array()) {
+	public function read ($files, $scriptVariables = array()) {
 		$result = '';
 
 		// Normalize multiple parameters
@@ -32,8 +32,12 @@ class ServantFiles extends ServantObject {
 		$scriptVariables = array_flatten($scriptVariables, false, true);
 
 		// Single file
-		if (is_file($path)) {
-			$result = $this->readFile($path, $scriptVariables);
+		if (is_string($files) and is_file($files)) {
+			$result = $this->readFile($files, $scriptVariables);
+
+		// Multiple files
+		} else if (is_array($files)) {
+
 		}
 
 		return $result;
