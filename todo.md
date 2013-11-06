@@ -1,26 +1,31 @@
 
 # Servant development
 
-## Core
+## ?
 
-- Refactor:
-	- Return of `available()` for actions, templates, utilities, pages?
-	- Use `servant()->generate()` instead of `$this->generate`?
+- `ServantPages` is a mess
+- Action and page objects should probably be generated in `ServantResponse`, *not* `ServantMain`
+- Return of `available()` for actions, templates, utilities, pages?
+- Use `servant()->generate()` instead of `$this->generate`?
+
+
+
+## Core
 
 - `ServantTheme` should not be a service
 - `templates()->available()`
 - Running actions in templates (`$template->nestAction()`)
-- Action configuration
-	- Authors can declare actions private: not accessible via HTTP, only other scripts
-	- JSON? Make sure JSON stays secure on server!
-	- Allow users to declare action-specific configs in site settings?
-- Multiple pieces of content for nested templates
 - Input system
 	- Accept GET, POST and other input through wrapper
 	- Merge all input in ServantInput
 	- Pass input to actions
 	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
+- Multiple pieces of content for templates
+- Action configuration
+	- Authors can declare actions private: not accessible via HTTP, only other scripts
+	- JSON? Make sure JSON stays secure on server!
+	- Allow users to declare action-specific configs in site settings?
 - Preserve variables when reading multiple dynamic template files (not just PHP files like in actions)
 - Data/storage/working directory for actions
 	- Should be under `site/` as it's site-specific

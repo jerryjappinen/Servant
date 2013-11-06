@@ -27,30 +27,7 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Convenience
-	*/
-
-	/**
-	* Create and initialize a new template
-	*/
-	public function nest ($templateId, $content = null) {
-
-		// Normalize arguments
-		$arguments = func_get_args();
-		array_shift($arguments);
-		array_unshift($arguments, 'template', $templateId, $this->action(), $this->page());
-
-		// Create the template object
-		$template = call_user_func_array(array($this, 'generate'), $arguments);
-
-		// Return the output of the template
-		return $template->output();
-	}
-
-
-
-	/**
-	* Init
+	* Initialize
 	*/
 	public function initialize ($id, $action, $page, $content = null) {
 		$arguments = func_get_args();
@@ -70,6 +47,40 @@ class ServantTemplate extends ServantObject {
 		call_user_func_array(array($this, 'content'), $contentArguments);
 
 		return $this;
+	}
+
+
+
+	/**
+	* Convenience
+	*/
+
+	/**
+	* Create and initialize a child template
+	*/
+	public function nest ($templateId, $content = null) {
+
+		// Normalize arguments
+		$arguments = func_get_args();
+		array_shift($arguments);
+		array_unshift($arguments, 'template', $templateId, $this->action(), $this->page());
+
+		// Create the template object
+		$template = call_user_func_array(array($this, 'generate'), $arguments);
+
+		// Return the output of the template
+		return $template->output();
+	}
+
+	/**
+	* Generate a child action, return output
+	*/
+	public function nestAction ($id) {
+		if (!$this->servant()->actions()->available($id)) {
+			$this->fail('Nested '.$id.' action is not available');
+		} else {
+			return $this->generate('action', $id, $this->page())->run()->output();
+		}
 	}
 
 

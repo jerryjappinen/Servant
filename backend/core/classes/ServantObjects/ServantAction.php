@@ -30,6 +30,28 @@ class ServantAction extends ServantObject {
 
 
 	/**
+	* Initialize
+	*
+	* Defaults are set here, and can be overridden by action's code.
+	*/
+	public function initialize ($id, $page) {
+
+		// Set ID and action upon initialization
+		$this->setId($id);
+		$this->setPage($page);
+
+		// Defaults
+		$contentType = $this->servant()->settings()->defaults('contentType');
+		$status = $this->servant()->settings()->defaults('status');
+		$outputViaTemplate = false;
+		$output = '';
+
+		return $this->contentType($contentType)->status($status)->outputViaTemplate($outputViaTemplate)->output($output);
+	}
+
+
+
+	/**
 	* Wrapper methods
 	*/
 
@@ -60,35 +82,15 @@ class ServantAction extends ServantObject {
 		return $this;
 	}
 
-	// Generate a new action
+	/**
+	* Generate a child action
+	*/
 	public function nest ($id) {
 		if (!$this->servant()->actions()->available($id)) {
 			$this->fail('Nested '.$id.' action is not available');
 		} else {
 			return $this->generate('action', $id, $this->page())->run();
 		}
-	}
-
-
-
-	/**
-	* Initialize
-	*
-	* Defaults are set here, and can be overridden by action's code.
-	*/
-	public function initialize ($id, $page) {
-
-		// Set ID and action upon initialization
-		$this->setId($id);
-		$this->setPage($page);
-
-		// Defaults
-		$contentType = $this->servant()->settings()->defaults('contentType');
-		$status = $this->servant()->settings()->defaults('status');
-		$outputViaTemplate = false;
-		$output = '';
-
-		return $this->contentType($contentType)->status($status)->outputViaTemplate($outputViaTemplate)->output($output);
 	}
 
 
