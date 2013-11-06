@@ -1,6 +1,6 @@
 <?php
 
 // Output page content
-$action->outputViaTemplate(false)->output($page->output());
+$action->contentType('html')->outputViaTemplate(false)->output($page->output());
 
 ?>

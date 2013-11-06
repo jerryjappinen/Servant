@@ -61,9 +61,12 @@ class ServantAction extends ServantObject {
 	}
 
 	// Generate a new action
-	// FLAG error handling?
 	public function nest ($id) {
-		return $this->generate('action', $id, $this->page())->run();
+		if (!$this->servant()->actions()->available($id)) {
+			$this->fail('Nested '.$id.' action is not available');
+		} else {
+			return $this->generate('action', $id, $this->page())->run();
+		}
 	}
 
 

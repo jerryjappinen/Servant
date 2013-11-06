@@ -1,9 +1,9 @@
 <?php
 
+// Nest the page action
 $pageAction = $action->nest('page');
-log_dump($pageAction->id());
 
 // Output page content
-$action->outputViaTemplate(true)->output($pageAction->output());
+$action->outputViaTemplate(true)->contentType($pageAction->contentType())->output($pageAction->output());
 
 ?>
