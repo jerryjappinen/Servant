@@ -127,7 +127,10 @@ class ServantInput extends ServantObject {
 
 		}
 
-		return $this->set('page', $results);
+		// Select a valid page
+		$tree = $this->selectPage($this->servant()->pages()->map(), $results);
+
+		return $this->set('page', $tree);
 	}
 
 
@@ -205,6 +208,36 @@ class ServantInput extends ServantObject {
 		}
 
 		return $result;
+	}
+
+
+
+	/**
+	* Choose one page from those available, preferring the one detailed in $tree
+	*/
+	private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
+ 
+		// No preference or preferred item doesn't exist: auto select
+		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
+
+			// Cut out the rest of the preferred items
+			$tree = array_slice($tree, 0, $level);
+
+			// Auto select first item on this level
+			$keys = array_keys($pagesOnThisLevel);
+			$tree[] = $keys[0];
+
+		}
+
+		// We need to go deeper
+		if (is_array($pagesOnThisLevel[$tree[$level]])) {
+			return $this->selectPage($pagesOnThisLevel[$tree[$level]], $tree, $level+1);
+
+		// That was it
+		} else {
+			return array_slice($tree, 0, $level+1);
+		}
+
 	}
 
 }

@@ -33,8 +33,7 @@ class ServantMain extends ServantObject {
 		$input = $this->generate('input', $userInput);
 
 		// Current page
-		// FLAG this is awful
-		$page = $this->pages()->map($this->pages()->selectPage($this->pages()->map(), $input->page()));
+		$page = $this->pages()->map($input->page());
 
 		// Serve a response
 		try {

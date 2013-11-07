@@ -7,6 +7,7 @@
 - Action and page objects should probably be generated in `ServantResponse`, *not* `ServantMain`
 - Return of `available()` for actions, templates, utilities, pages?
 - Use `servant()->generate()` instead of `$this->generate`?
+- `ServantInput` is more like `ServantSelected` or something, just a helper for Main instead of actual input object
 
 
 
