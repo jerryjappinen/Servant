@@ -73,7 +73,7 @@ foreach ($servant->theme()->stylesheets('plain') as $path) {
 */
 foreach ($page->stylesheets('plain') as $path) {
 
-	// Special format is used
+	// A preprocessor format is used
 	$extension = pathinfo($path, PATHINFO_EXTENSION);
 	if (array_key_exists($extension, $allowedFormats)) {
 
@@ -92,10 +92,10 @@ foreach ($page->stylesheets('plain') as $path) {
 
 
 	// Root is site directory root
-	$rootUrl = $servant->pages()->path('domain');
+	$rootUrl = $servant->paths()->pages('domain');
 
 	// We can parse relative path
-	$relativeUrl = substr((dirname($path).'/'), strlen($servant->pages()->path('plain')));
+	$relativeUrl = substr((dirname($path).'/'), strlen($servant->paths()->pages('plain')));
 
 	// Get CSS file contents with URLs replaced
 	$stylesheetSets['site']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);

@@ -1,28 +1,35 @@
 
 # Servant development
 
-## ?
+## Needs refactoring (but works)
 
 - `ServantPages` is a mess
 - Action and page objects should probably be generated in `ServantResponse`, *not* `ServantMain`
-- Return of `available()` for actions, templates, utilities, pages?
-- Use `servant()->generate()` instead of `$this->generate`?
+- Use `ServantAvailable()` for actions, templates, utilities, pages?
+- Use `ServantGenerator` instead of `$this->generate`?
 - `ServantInput` is more like `ServantSelected` or something, just a helper for Main instead of actual input object
+	- Should not include action or page selection either
 
 
 
 ## Core
 
+- Multiple pieces of content for templates
 - `ServantTheme` should not be a service
-- `templates()->available()`
-- Running actions in templates (`$template->nestAction()`)
+- Better (internal) URL scheme: use pseudo protocols to point to different locations
+	- `servant://`
+	- `actions://`
+	- `templates://`
+	- `pages://`
+	- `theme://`
+	- In different contexts, one of these serves as the default root
+- `ServantPage` should not include URL manipulation
 - Input system
-	- Accept GET, POST and other input through wrapper
-	- Merge all input in ServantInput
-	- Pass input to actions
+	- Store input for Main in `ServantInput`
+	- Interpret and merge input of different types
 	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
-- Multiple pieces of content for templates
+	- Pass validated input to actions
 - Action configuration
 	- Authors can declare actions private: not accessible via HTTP, only other scripts
 	- JSON? Make sure JSON stays secure on server!

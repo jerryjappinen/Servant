@@ -201,7 +201,7 @@ class ServantPage extends ServantObject {
 	* Return template content as a string
 	*
 	* FLAG
-	*   - Content manipulation should be done in read action, not here (stylesheets is correct in this)
+	*   - Content manipulation should be done in action, not here
 	*/
 	protected function setOutput () {
 
