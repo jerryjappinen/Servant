@@ -13,7 +13,6 @@ class ServantTheme extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyPath 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertyStylesheets 	= null;
 
@@ -24,11 +23,7 @@ class ServantTheme extends ServantObject {
 	*/
 
 	public function path ($format = false) {
-		$path = $this->getAndSet('path');
-		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
-		}
-		return $path;
+		return $this->servant()->paths()->theme($format);
 	}
 
 	public function scripts ($format = false) {
@@ -56,13 +51,6 @@ class ServantTheme extends ServantObject {
 	/**
 	* Setters
 	*/
-
-	/**
-	* Theme is a folder under the themes directory
-	*/
-	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->theme());
-	}
 
 	/**
 	* Stylesheet files
