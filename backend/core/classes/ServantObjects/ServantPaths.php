@@ -128,6 +128,9 @@ class ServantPaths extends ServantObject {
 	public function manifest ($format = null) {
 		return $this->getPath('manifest', $format);
 	}
+	public function pages ($format = null) {
+		return $this->getPath('pages', $format);
+	}
 	public function temp ($format = null) {
 		return $this->getPath('temp', $format);
 	}

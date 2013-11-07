@@ -11,8 +11,7 @@ class ServantPages extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyMap 			= null;
-	protected $propertyPath 		= null;
+	protected $propertyMap = null;
 
 
 	/**
@@ -49,11 +48,7 @@ class ServantPages extends ServantObject {
 	*/
 
 	public function path ($format = null) {
-		$path = $this->getAndSet('path');
-		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
-		}
-		return $path;
+		return $this->servant()->paths()->pages($format);
 	}
 
 
@@ -78,13 +73,6 @@ class ServantPages extends ServantObject {
 		}
 
 		return $this->set('map', $this->generatePageObjects($templateFiles));
-	}
-
-	/**
-	* Path
-	*/
-	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->pages('plain'));
 	}
 
 
