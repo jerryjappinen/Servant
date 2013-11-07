@@ -16,7 +16,6 @@ class ServantUtilities extends ServantObject {
 	*/
 	protected $propertyFiles 		= null;
 	protected $propertyLoaded 		= null;
-	protected $propertyPath 		= null;
 
 
 
@@ -53,6 +52,13 @@ class ServantUtilities extends ServantObject {
 		return $this;
 	}
 
+	/**
+	* Path
+	*/
+	public function path ($format = null) {
+		return $this->servant()->paths()->utilities($format);
+	}
+
 
 
 	/**
@@ -81,17 +87,6 @@ class ServantUtilities extends ServantObject {
 
 	}
 
-	/**
-	* Path
-	*/
-	public function path ($format = null) {
-		$path = $this->getAndSet('path');
-		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
-		}
-		return $path;
-	}
-
 
 
 	/**
@@ -112,13 +107,6 @@ class ServantUtilities extends ServantObject {
 		}
 
 		return $this->set('loaded', array_merge($current, $arguments));
-	}
-
-	/**
-	* Path to the utilities directory
-	*/
-	protected function setPath () {
-		return $this->set('path', $this->servant()->paths()->utilities());
 	}
 
 	/**
