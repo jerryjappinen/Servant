@@ -26,26 +26,21 @@ class ServantMain extends ServantObject {
 
 	// Run with actions
 	public function run ($userInput = null) {
-
 		$this->purgeTemp();
 
 		// User input
 		$input = $this->generate('input', $userInput);
 
-		// Current page
-		$page = $this->pages()->map($input->page());
-
 		// Serve a response
 		try {
-			$response = $this->generate('response', $input->action(), $page);
+			$response = $this->generate('response', $input->action(), $input->page());
 
 		} catch (Exception $e) {
 			$this->purgeTemp();
 
 			// Serve an error page
 			try {
-				$actionId = $this->settings()->actions('error');
-				$response = $this->generate('response', $actionId, $page);
+				$response = $this->generate('response', $this->settings()->actions('error'), $input->page());
 
 			// Fuck
 			} catch (Exception $e) {

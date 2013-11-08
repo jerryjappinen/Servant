@@ -4,7 +4,7 @@
 * Sitemap service
 *
 * FLAG
-*   - Maybe this should be available under ServantSite
+*   - This should be removed; ServantSite should have map() with only page objects and their children (no child arrays directly)
 */
 class ServantPages extends ServantObject {
 

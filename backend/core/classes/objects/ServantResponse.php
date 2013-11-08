@@ -24,9 +24,9 @@ class ServantResponse extends ServantObject {
 	/**
 	* Require action upon initialization
 	*/
-	public function initialize ($actionId, $page) {
+	public function initialize ($actionId, $pageTree) {
 
-		$this->setAction($actionId, $page);
+		$this->setAction($actionId, $pageTree);
 
 		$this->setBody();
 
@@ -72,8 +72,8 @@ class ServantResponse extends ServantObject {
 	/**
 	* Action used for this response
 	*/
-	protected function setAction ($actionId, $page) {
-		return $this->set('action', $this->generate('action', $actionId, $page));
+	protected function setAction ($actionId, $pageTree) {
+		return $this->set('action', $this->generate('action', $actionId, $this->servant()->pages()->map($pageTree)));
 	}
 
 
