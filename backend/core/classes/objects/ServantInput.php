@@ -73,6 +73,7 @@ class ServantInput extends ServantObject {
 		}
 
 
+
 		// Silent fallback
 		if (!$this->servant()->available()->action($result)) {
 
@@ -81,19 +82,22 @@ class ServantInput extends ServantObject {
 			if ($this->servant()->available()->action($default)) {
 				$result = $default;
 
-			// Whatever's available
 			} else {
+
+				// Whatever's available
 				$actions = $this->servant()->available()->actions();
 				if (!empty($actions)) {
 					$result = $actions[0];
 
-				// Fail if things are uncool
+				// No actions, we fail
 				} else {
 					$this->fail('No actions available.');
 				}
 
 			}
 		}
+
+
 
 		return $this->set('action', $result);
 	}

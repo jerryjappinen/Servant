@@ -14,8 +14,7 @@ class ServantUtilities extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyFiles 		= null;
-	protected $propertyLoaded 		= null;
+	protected $propertyLoaded = array();
 
 
 
@@ -27,36 +26,11 @@ class ServantUtilities extends ServantObject {
 		$arguments = array_flatten($arguments);
 
 		// Load utilities
-		foreach ($arguments as $name) {
-			$path = $this->path('server').$name;
-
-			// Utility could already be loaded
-			if (!$this->loaded($name)) {
-
-				// Include files if utility is available
-				$files = $this->files($name);
-				if ($files) {
-					foreach ($files as $file) {
-							require_once $file;
-					}
-					$this->setLoaded($name);
-
-				// Not found
-				} else {
-					$this->fail('Missing utility '.$name);
-				}
-			}
-
+		foreach ($arguments as $id) {
+			$this->loadUtility($id);
 		}
 
 		return $this;
-	}
-
-	/**
-	* Path
-	*/
-	public function path ($format = null) {
-		return $this->servant()->paths()->utilities($format);
 	}
 
 
@@ -90,13 +64,40 @@ class ServantUtilities extends ServantObject {
 
 
 	/**
-	* Setters
+	* Private helpers
 	*/
 
 	/**
 	* List of utilities that have been loaded
 	*/
-	protected function setLoaded () {
+	private function loadUtility ($id) {
+		$path = suffix($this->servant()->paths()->utilities('server').$id, '/');
+
+		// Utility could already be loaded
+		if (!$this->loaded($id)) {
+
+			// Include files if utility is available
+			if ($this->servant()->available($id)) {
+				$files = rglob_files($path, 'php');
+				foreach ($files as $file) {
+					require_once $file;
+				}
+				$this->markLoaded($id);
+
+			// Not found
+			} else {
+				$this->fail($id.' utility is not available.');
+			}
+
+		}
+
+		return $this;
+	}
+
+	/**
+	* List of utilities that have been loaded
+	*/
+	private function markLoaded () {
 		$arguments = func_get_args();
 		$arguments = array_flatten($arguments);
 
@@ -107,27 +108,6 @@ class ServantUtilities extends ServantObject {
 		}
 
 		return $this->set('loaded', array_merge($current, $arguments));
-	}
-
-	/**
-	* List of available utilities
-	*/
-	protected function setFiles () {
-		$results = array();
-
-		// All dirs under utilities folder
-		foreach (glob_dir($this->servant()->paths()->utilities('server')) as $dir) {
-
-			// Accept PHP files
-			$files = rglob_files($dir, 'php');
-			if (!empty($files)) {
-				$results[basename($dir)] = $files;
-			}
-
-			unset($files);
-		}
-
-		return $this->set('files', $results);
 	}
 
 }

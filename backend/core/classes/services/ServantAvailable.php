@@ -10,6 +10,7 @@ class ServantAvailable extends ServantObject {
 	*/
 	protected $propertyActions 		= null;
 	protected $propertyTemplates 	= null;
+	protected $propertyUtilities 	= null;
 
 
 
@@ -22,6 +23,10 @@ class ServantAvailable extends ServantObject {
 	}
 
 	public function template ($id) {
+		return in_array($id, $this->templates());
+	}
+
+	public function utilities ($id) {
 		return in_array($id, $this->templates());
 	}
 
@@ -49,11 +54,21 @@ class ServantAvailable extends ServantObject {
 		return $this->set('templates', $this->findNonEmptyDirs($path, $formats));
 	}
 
+	/**
+	* Utilities
+	*/
+	protected function setUtilities () {
+		$path = $this->servant()->paths()->utilities('server');
+		$formats = 'php';
+		return $this->set('utilities', $this->findNonEmptyDirs($path, $formats));
+	}
+
 
 
 	/**
 	* Private helpers
 	*/
+
 	private function findNonEmptyDirs ($path, $formats = array()) {
 		$results = array();
 
