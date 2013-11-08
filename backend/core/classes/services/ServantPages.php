@@ -132,7 +132,7 @@ class ServantPages extends ServantObject {
 
 			// Convert to page object
 			if (is_string($value)) {
-				$result[$id] = create_object(new ServantPage($this->servant()))->init($this, $tree, $value);
+				$result[$id] = create_object(new ServantPage($this->servant()))->init($tree, $value);
 
 			// Children are treated recursively
 			} else if (is_array($value)) {

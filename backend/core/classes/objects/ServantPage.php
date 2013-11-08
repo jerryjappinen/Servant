@@ -25,7 +25,6 @@ class ServantPage extends ServantObject {
 	protected $propertyLevel 		= null;
 	protected $propertyName 		= null;
 	protected $propertyOutput 		= null;
-	protected $propertyPages 		= null;
 	protected $propertyParentTree 	= null;
 	protected $propertyReadPath 	= null;
 	protected $propertySiblings 	= null;
@@ -43,10 +42,7 @@ class ServantPage extends ServantObject {
 	/**
 	* Select ID when initializing
 	*/
-	public function initialize ($pages, $tree, $templatePath) {
-
-		// Required items
-		$this->setPages($pages);
+	public function initialize ($tree, $templatePath) {
 
 		// Generate tree
 		if ($tree) {
@@ -131,7 +127,7 @@ class ServantPage extends ServantObject {
 	* Setters
 	*
 	* NOTE
-	*   - ->pages() and ->tree() determine most of these
+	*   - ->tree() determine most of these
 	*/
 
 	/**
@@ -166,7 +162,7 @@ class ServantPage extends ServantObject {
 	* Is this the home page?
 	*/
 	protected function setIsHome () {
-		$topLevel = $this->pages()->level();
+		$topLevel = $this->servant()->pages()->level();
 		$pageKeys = array_keys($topLevel);
 		return $this->set('isHome', $topLevel[$pageKeys[0]] === $this);
 	}
@@ -211,13 +207,6 @@ class ServantPage extends ServantObject {
 	}
 
 	/**
-	* ServantPages object
-	*/
-	protected function setPages ($pages) {
-		return $this->set('pages', $pages);
-	}
-
-	/**
 	* Parent IDs
 	*/
 	protected function setParentTree () {
@@ -247,7 +236,7 @@ class ServantPage extends ServantObject {
 	*   - should contain page objects
 	*/
 	protected function setSiblings () {
-		$siblings = $this->pages()->map($this->parentTree());
+		$siblings = $this->servant()->pages()->map($this->parentTree());
 		return $this->set('siblings', $siblings ? $siblings : array());
 	}
 
@@ -292,7 +281,7 @@ class ServantPage extends ServantObject {
 		// FLAG legacy, don't need to traverse all files
 		$formats = $this->servant()->settings()->formats($type);
 		$allFiles = array();
-		foreach (rglob_files($this->pages()->path('server'), $formats) as $file) {
+		foreach (rglob_files($this->servant()->pages()->path('server'), $formats) as $file) {
 			$allFiles[] = $this->servant()->format()->path($file, false, 'server');
 		}
 
@@ -311,7 +300,7 @@ class ServantPage extends ServantObject {
 
 		// Traverse all files, accept the ones on allowed levels
 		foreach ($allFiles as $value) {
-			$base = unprefix(dirname($value).'/', $this->pages()->path(), true);
+			$base = unprefix(dirname($value).'/', $this->servant()->pages()->path(), true);
 			if (in_array($base, $allowed)) {
 				$results[] = $value;
 			}
