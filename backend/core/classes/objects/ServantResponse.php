@@ -24,9 +24,9 @@ class ServantResponse extends ServantObject {
 	/**
 	* Require action upon initialization
 	*/
-	public function initialize ($action) {
+	public function initialize ($actionId, $page) {
 
-		$this->setAction($action);
+		$this->setAction($actionId, $page);
 
 		$this->setBody();
 
@@ -72,16 +72,8 @@ class ServantResponse extends ServantObject {
 	/**
 	* Action used for this response
 	*/
-	protected function setAction ($action) {
-
-		if ($this->getServantClass($action) !== 'action') {
-			$this->fail('Invalid action passed to response.');
-
-		// Action is acceptable
-		} else {
-			return $this->set('action', $action);
-		}
-
+	protected function setAction ($actionId, $page) {
+		return $this->set('action', $this->generate('action', $actionId, $page));
 	}
 
 

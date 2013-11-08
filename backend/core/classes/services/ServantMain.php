@@ -37,8 +37,7 @@ class ServantMain extends ServantObject {
 
 		// Serve a response
 		try {
-			$action = $this->generate('action', $input->action(), $page);
-			$response = $this->generate('response', $action);
+			$response = $this->generate('response', $input->action(), $page);
 
 		} catch (Exception $e) {
 			$this->purgeTemp();
@@ -46,8 +45,7 @@ class ServantMain extends ServantObject {
 			// Serve an error page
 			try {
 				$actionId = $this->settings()->actions('error');
-				$action = $this->generate('action', $actionId, $page);
-				$response = $this->generate('response', $action);
+				$response = $this->generate('response', $actionId, $page);
 
 			// Fuck
 			} catch (Exception $e) {
