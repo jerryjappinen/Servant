@@ -24,7 +24,6 @@ class ServantAction extends ServantObject {
 	protected $propertyPage 				= null;
 	protected $propertyPath 				= null;
 	protected $propertyOutput 				= null;
-	protected $propertyOutputViaTemplate 	= null;
 	protected $propertyStatus 				= null;
 
 
@@ -43,10 +42,9 @@ class ServantAction extends ServantObject {
 		// Defaults
 		$contentType = $this->servant()->settings()->defaults('contentType');
 		$status = $this->servant()->settings()->defaults('status');
-		$outputViaTemplate = false;
 		$output = '';
 
-		return $this->contentType($contentType)->status($status)->outputViaTemplate($outputViaTemplate)->output($output);
+		return $this->contentType($contentType)->status($status)->output($output);
 	}
 
 
@@ -93,6 +91,13 @@ class ServantAction extends ServantObject {
 		}
 	}
 
+	/**
+	* Generate a template
+	*/
+	public function nestTemplate ($id, $content = null) {
+		return $this->generate('template', $id, $this, $this->page(), $content)->output();
+	}
+
 
 
 	/**
@@ -118,11 +123,6 @@ class ServantAction extends ServantObject {
 	public function output () {
 		$arguments = func_get_args();
 		return $this->getOrSet('output', $arguments);
-	}
-
-	public function outputViaTemplate () {
-		$arguments = func_get_args();
-		return $this->getOrSet('outputViaTemplate', $arguments);
 	}
 
 	// Path in any format
@@ -205,15 +205,6 @@ class ServantAction extends ServantObject {
 	*/
 	protected function setOutput ($output) {
 		return $this->set('output', trim(''.$output));
-	}
-
-	/**
-	* Output via template
-	*
-	* Choose to use template or go without when printing output.
-	*/
-	protected function setOutputViaTemplate ($value) {
-		return $this->set('outputViaTemplate', ($value ? true : false));
 	}
 
 	/**

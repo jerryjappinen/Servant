@@ -1,5 +1,5 @@
 <?php
 
-$action->contentType('html')->outputViaTemplate(false);
+$action->contentType('html');
 
 ?>

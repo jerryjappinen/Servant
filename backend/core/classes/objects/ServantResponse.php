@@ -110,12 +110,6 @@ class ServantResponse extends ServantObject {
 				// Get output from action
 				$output = $this->action()->output();
 
-				// Push output into a template
-				if ($this->action()->outputViaTemplate()) {
-					$template = $this->generate('template', $this->servant()->site()->template(), $this->action(), $this->action()->page(), $output);
-					$output = $template->output();
-				}
-
 				// Store if needed
 				if ($cacheEnabled and !$this->existing() and $this->status() < 400) {
 					$this->store($output);
@@ -156,12 +150,6 @@ class ServantResponse extends ServantObject {
 		// Read content type from file extension
 		if ($this->existing()) {
 			$contentType = pathinfo($this->existing(), PATHINFO_EXTENSION);
-
-		// Templates are HTML
-		} else if ($this->action()->outputViaTemplate()) {
-
-			// FLAG HTML shouldn't be hardcoded here
-			$contentType = 'html';
 
 		// Get content type from action
 		} else {
