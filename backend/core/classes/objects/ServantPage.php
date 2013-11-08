@@ -35,7 +35,7 @@ class ServantPage extends ServantObject {
 	// Files
 	protected $propertyScripts 		= null;
 	protected $propertyStylesheets 	= null;
-	protected $propertyTemplate 	= null;
+	protected $propertyTemplatePath = null;
 
 
 
@@ -55,7 +55,7 @@ class ServantPage extends ServantObject {
 
 		// Path to template file
 		if ($templatePath) {
-			$this->setTemplate($templatePath);
+			$this->setTemplatePath($templatePath);
 		}
 
 		return $this;
@@ -117,8 +117,8 @@ class ServantPage extends ServantObject {
 		return $files;
 	}
 
-	public function template ($format = false) {
-		$path = $this->getAndSet('template');
+	public function templatePath ($format = false) {
+		$path = $this->getAndSet('templatePath');
 		if ($format) {
 			$path = $this->servant()->format()->path($path, $format);
 		}
@@ -201,7 +201,7 @@ class ServantPage extends ServantObject {
 	protected function setOutput () {
 
 		// Read content from source file
-		$fileContent = $this->servant()->files()->read($this->template('server'), array(
+		$fileContent = $this->servant()->files()->read($this->templatePath('server'), array(
 			'servant' => $this->servant(),
 			'page' => $this,
 		));
@@ -261,14 +261,14 @@ class ServantPage extends ServantObject {
 	/**
 	* Path to the template file
 	*/
-	protected function setTemplate ($path) {
+	protected function setTemplatePath ($path) {
 
 		// Template file must exist
 		if (!is_file($this->servant()->format()->path($path, 'server'))) {
 			$this->fail('This page does not exist');
 		}
 
-		return $this->set('template', $path);
+		return $this->set('templatePath', $path);
 	}
 
 	protected function setTree ($tree = array()) {
@@ -276,7 +276,7 @@ class ServantPage extends ServantObject {
 	}
 
 	protected function setType () {
-		return $this->set('type', pathinfo($this->template(), PATHINFO_EXTENSION));
+		return $this->set('type', pathinfo($this->templatePath(), PATHINFO_EXTENSION));
 	}
 
 

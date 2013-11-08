@@ -11,7 +11,7 @@ $srcUrl = $servant->paths()->pages('domain');
 $hrefUrl = $servant->paths()->root('domain').$servant->settings()->actions('read').'/';
 
 // Relative location for SRC urls
-$dirname = suffix(dirname($page->template('plain')), '/');
+$dirname = suffix(dirname($page->templatePath('plain')), '/');
 $relativeSrcUrl = unprefix($dirname, $servant->paths()->pages('plain'), true);
 if (!empty($relativeSrcUrl)) {
 	$relativeSrcUrl = suffix($relativeSrcUrl, '/');

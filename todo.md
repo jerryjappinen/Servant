@@ -16,7 +16,6 @@
 
 ## Core
 
-- Rename `template()` to `templatePath()` in `ServantPage`
 - Search action
 - `ServantTheme` should not be a service
 - Multiple pieces of content for templates

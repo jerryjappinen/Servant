@@ -8,9 +8,6 @@
 *   ServantFormat 	-> path
 *   ServantPaths 	-> actions
 *   ServantSettings -> defaults
-*
-* FLAG
-*   - This component needs to be transformed into a separete action object that can be created whenever and wherever.
 */
 class ServantAction extends ServantObject {
 
