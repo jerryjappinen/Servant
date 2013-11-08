@@ -306,6 +306,7 @@ class ServantResponse extends ServantObject {
 		$path .= $this->action()->id().'/';
 
 		// Each page gets their own file
+		// FLAG this should use input, not page tree
 		$path .= implode('/', $this->action()->page()->tree());
 
 		return $path;

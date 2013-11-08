@@ -7,10 +7,8 @@
 *   ServantFiles 		-> read
 *   ServantFormat 		-> path
 *   					-> title
-*   ServantPaths 		-> root
-*   					-> userAction
+*   ServantPaths 		-> userAction
 *   ServantSite 		-> pageNames
-*   ServantUtilities 	-> load
 */
 class ServantPage extends ServantObject {
 
@@ -46,9 +44,6 @@ class ServantPage extends ServantObject {
 	* Select ID when initializing
 	*/
 	public function initialize ($pages, $tree, $templatePath) {
-
-		// Load utilities
-		$this->servant()->utilities()->load('urlmanipulator');
 
 		// Required items
 		$this->setPages($pages);
@@ -210,40 +205,6 @@ class ServantPage extends ServantObject {
 			'servant' => $this->servant(),
 			'page' => $this,
 		));
-
-
-
-		/**
-		* URL manipulation   <<   SHOULD NOT BE HERE
-		*/
-
-		// Root path for src attributes
-		$srcUrl = $this->pages()->path('domain');
-
-		// Root path for hrefs
-		$hrefUrl = $this->servant()->paths()->root('domain').$this->servant()->settings()->actions('read').'/';
-
-		// Relative location for SRC urls
-		$dirname = suffix(dirname($this->template('plain')), '/');
-		$relativeSrcUrl = unprefix($dirname, $this->pages()->path('plain'), true);
-		if (!empty($relativeSrcUrl)) {
-			$relativeSrcUrl = suffix($relativeSrcUrl, '/');
-		}
-
-		// Relative location for HREF urls
-		$relativeHrefUrl = implode('/', $this->parentTree());
-		if (!empty($relativeHrefUrl)) {
-			$relativeHrefUrl .= '/';
-		}
-
-		// Base URL to point to actions on the domain
-		$actionsUrl = $this->servant()->paths()->root('domain');
-
-		// Manipulate URLs
-		$fileContent = create_object(new UrlManipulator())->htmlUrls($fileContent, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl);
-		/**
-		* END OF   >>   URL manipulation
-		*/
 
 		// Save file content
 		return $this->set('output', $fileContent);
