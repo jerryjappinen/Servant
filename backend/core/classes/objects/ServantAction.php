@@ -81,11 +81,7 @@ class ServantAction extends ServantObject {
 	* Generate a child action
 	*/
 	public function nest ($id) {
-		if (!$this->servant()->actions()->available($id)) {
-			$this->fail('Nested '.$id.' action is not available');
-		} else {
-			return $this->generate('action', $id, $this->page())->run();
-		}
+		return $this->generate('action', $id, $this->page())->run();
 	}
 
 	/**

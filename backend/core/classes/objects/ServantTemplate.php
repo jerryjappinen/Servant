@@ -76,11 +76,7 @@ class ServantTemplate extends ServantObject {
 	* Generate a child action, return output
 	*/
 	public function nestAction ($id) {
-		if (!$this->servant()->actions()->available($id)) {
-			$this->fail('Nested '.$id.' action is not available');
-		} else {
-			return $this->generate('action', $id, $this->page())->run()->output();
-		}
+		return $this->generate('action', $id, $this->page())->run()->output();
 	}
 
 

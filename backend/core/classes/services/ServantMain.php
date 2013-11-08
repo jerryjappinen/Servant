@@ -103,7 +103,6 @@ class ServantMain extends ServantObject {
 	* Services
 	*/
 
-	protected $propertyActions 		= null;
 	protected $propertyAvailabnle 	= null;
 	protected $propertyPages 		= null;
 	protected $propertyPaths 		= null;
@@ -112,9 +111,6 @@ class ServantMain extends ServantObject {
 	protected $propertyTheme 		= null;
 	protected $propertyUtilities 	= null;
 
-	protected function setActions () {
-		return $this->set('actions', $this->generate('actions'));
-	}
 	protected function setAvailable () {
 		return $this->set('available', $this->generate('available'));
 	}

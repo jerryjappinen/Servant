@@ -74,16 +74,16 @@ class ServantInput extends ServantObject {
 
 
 		// Silent fallback
-		if (!$this->servant()->actions()->available($result)) {
+		if (!$this->servant()->available()->action($result)) {
 
 			// Global default
 			$default = $this->servant()->settings()->defaults('action');
-			if ($this->servant()->actions()->available($default)) {
+			if ($this->servant()->available()->action($default)) {
 				$result = $default;
 
 			// Whatever's available
 			} else {
-				$available = array_keys($this->servant()->actions->map());
+				$available = array_keys($this->servant()->available()->actions());
 				$result = $available[0];
 			}
 		}
