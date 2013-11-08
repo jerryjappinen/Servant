@@ -204,12 +204,12 @@ class ServantTemplate extends ServantObject {
 	protected function setId ($id) {
 
 		// Validate ID
-		if (!is_array($id)) {
-			return $this->set('id', ''.$id);
+		if (!$this->servant()->available()->template($id)) {
+			$this->fail($id.' template is not available.');
 
 		// Fail if ID is inappropriate
 		} else {
-			return $this->fail('Inappropriate ID given for template');
+			return $this->set('id', ''.$id);
 		}
 
 	}

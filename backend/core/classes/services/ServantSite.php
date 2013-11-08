@@ -187,6 +187,9 @@ class ServantSite extends ServantObject {
 	* NOTE
 	*   - Site setting is prefererred even when it's not actually available or have any files
 	*   - In the absence of site setting, either global default or the first available template are used
+	*
+	* FLAG
+	*   - Template should be page-specific
 	*/
 	protected function setTemplate ($input = null) {
 		$input = trim(''.$input);
@@ -200,9 +203,8 @@ class ServantSite extends ServantObject {
 			$path = $this->servant()->paths()->templates('server');
 
 			// Try default
-			// FLAG servant()->templates()->available() would be handy here
 			$default = $this->servant()->settings()->defaults('template');
-			if (!empty($default) and is_dir(suffix($path.$default, '/'))) {
+			if ($this->servant()->available()->template($default)) {
 				$template = $default;
 
 			// If default is unavailable, attempt to use whatever we have

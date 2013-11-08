@@ -66,7 +66,7 @@ class ServantInput extends ServantObject {
 	* Action
 	*/
 	protected function setAction ($value) {
-		$result = '';
+		$result = null;
 
 		if ($this->acceptable($value)) {
 			$result = $this->normalizeString($value);
@@ -83,8 +83,15 @@ class ServantInput extends ServantObject {
 
 			// Whatever's available
 			} else {
-				$available = array_keys($this->servant()->available()->actions());
-				$result = $available[0];
+				$actions = $this->servant()->available()->actions();
+				if (!empty($actions)) {
+					$result = $actions[0];
+
+				// Fail if things are uncool
+				} else {
+					$this->fail('No actions available.');
+				}
+
 			}
 		}
 

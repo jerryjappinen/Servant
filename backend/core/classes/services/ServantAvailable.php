@@ -35,37 +35,41 @@ class ServantAvailable extends ServantObject {
 	* Actions
 	*/
 	protected function setActions () {
-		$results = array();
-
-		// Find directories under actions
-		$dirs = glob_dir($this->servant()->paths()->actions('server'));
-		foreach ($dirs as $path) {
-
-			// Only actions with actual PHP code are considered valid
-			$files = rglob_files($path, 'php');
-			if (!empty($files)) {
-				$results[] = basename($path);
-			}
-
-			unset($files);
-		}
-
-		return $this->set('actions', $results);
+		$path = $this->servant()->paths()->actions('server');
+		$formats = 'php';
+		return $this->set('actions', $this->findNonEmptyDirs($path, $formats));
 	}
 
 	/**
 	* Templates
 	*/
 	protected function setTemplates () {
+		$path = $this->servant()->paths()->templates('server');
+		$formats = $this->servant()->settings()->formats('templates');
+		return $this->set('templates', $this->findNonEmptyDirs($path, $formats));
+	}
+
+
+
+	/**
+	* Private helpers
+	*/
+	private function findNonEmptyDirs ($path, $formats = array()) {
 		$results = array();
 
 		// Find directories (even empty ones) under actions
-		$dirs = glob_dir($this->servant()->paths()->templates('server'));
-		foreach ($dirs as $path) {
-			$results[] = basename($path);
+		$dirs = glob_dir($path);
+		foreach ($dirs as $dir) {
+
+			// Filter out directories without appropriate files
+			$files = rglob_files($dir, $formats);
+			if (!empty($files)) {
+				$results[] = basename($dir);
+			}
+
 		}
 
-		return $this->set('templates', $results);
+		return $results;
 	}
 
 }
