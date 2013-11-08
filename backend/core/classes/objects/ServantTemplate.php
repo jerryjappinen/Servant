@@ -132,7 +132,6 @@ class ServantTemplate extends ServantObject {
 	* Action
 	*/
 	protected function setAction ($action) {
-	
 		if ($this->getServantClass($action) !== 'action') {
 			$this->fail('Invalid action passed to template.');
 
@@ -202,11 +201,11 @@ class ServantTemplate extends ServantObject {
 	/**
 	* ID (directory name)
 	*/
-	protected function setId ($input) {
+	protected function setId ($id) {
 
 		// Validate ID
-		if (!is_array($input)) {
-			return $this->set('id', ''.$input);
+		if (!is_array($id)) {
+			return $this->set('id', ''.$id);
 
 		// Fail if ID is inappropriate
 		} else {

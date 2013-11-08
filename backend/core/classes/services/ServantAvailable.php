@@ -8,7 +8,8 @@ class ServantAvailable extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyActions = null;
+	protected $propertyActions 		= null;
+	protected $propertyTemplates 	= null;
 
 
 
@@ -20,6 +21,10 @@ class ServantAvailable extends ServantObject {
 		return in_array($id, $this->actions());
 	}
 
+	public function template ($id) {
+		return in_array($id, $this->templates());
+	}
+
 
 
 	/**
@@ -27,7 +32,7 @@ class ServantAvailable extends ServantObject {
 	*/
 
 	/**
-	* All available actions
+	* Actions
 	*/
 	protected function setActions () {
 		$results = array();
@@ -46,6 +51,21 @@ class ServantAvailable extends ServantObject {
 		}
 
 		return $this->set('actions', $results);
+	}
+
+	/**
+	* Templates
+	*/
+	protected function setTemplates () {
+		$results = array();
+
+		// Find directories (even empty ones) under actions
+		$dirs = glob_dir($this->servant()->paths()->templates('server'));
+		foreach ($dirs as $path) {
+			$results[] = basename($path);
+		}
+
+		return $this->set('templates', $results);
 	}
 
 }

@@ -178,10 +178,14 @@ class ServantAction extends ServantObject {
 	/**
 	* ID
 	*
-	* Name of the action (file or folder in the actions directory).
+	* Name of the action (folder in the actions directory).
 	*/
 	protected function setId ($id = null) {
-		return $this->set('id', $id);
+		if (!$this->servant()->available()->action($id)) {
+			$this->fail($id.' is not available.');
+		} else {
+			return $this->set('id', $id);
+		}
 	}
 
 	/**
