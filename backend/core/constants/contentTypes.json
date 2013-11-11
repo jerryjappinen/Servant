@@ -4,6 +4,7 @@
 
 
 
+		"text": "text/plain",
 		"txt": "text/plain",
 		"csv": "text/csv",
 		"markdown": "text/x-markdown",

@@ -15,6 +15,7 @@
 
 ## Core
 
+- Remove `format()->title()`
 - Add utilities and pages to `ServantAvailable`
 - Search action
 - `ServantTheme` should not be a service

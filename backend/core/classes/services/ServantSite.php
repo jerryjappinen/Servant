@@ -228,7 +228,7 @@ class ServantSite extends ServantObject {
 
 	// Resolve valid cache time from user input, in minutes
 	private function resolveCacheTime ($input, $default) {
-		$result = $default;
+		$result = calculate($default);
 
 		// No explicit value given
 		if ($input !== null and $input !== true) {

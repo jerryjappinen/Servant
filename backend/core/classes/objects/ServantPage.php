@@ -190,9 +190,6 @@ class ServantPage extends ServantObject {
 
 	/**
 	* Return template content as a string
-	*
-	* FLAG
-	*   - Content manipulation should be done in action, not here
 	*/
 	protected function setOutput () {
 

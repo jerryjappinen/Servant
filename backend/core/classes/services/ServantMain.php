@@ -103,7 +103,7 @@ class ServantMain extends ServantObject {
 	* Services
 	*/
 
-	protected $propertyAvailabnle 	= null;
+	protected $propertyAvailable 	= null;
 	protected $propertyPages 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertySettings 	= null;
