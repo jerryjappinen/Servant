@@ -38,6 +38,10 @@ class ServantMain extends ServantObject {
 		} catch (Exception $e) {
 			$this->purgeTemp();
 
+			if ($this->debug()) {
+				echo '<p style="padding: 3em; max-width: 50em; font-style: sans-serif; line-height: 1.6;">'.$e->getMessage().'</p>';
+			}
+
 			// Serve an error page
 			try {
 				$response = $this->generate('response', $this->settings()->actions('error'), $input->page());

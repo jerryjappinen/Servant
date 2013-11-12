@@ -255,7 +255,7 @@ class ServantTemplate extends ServantObject {
 
 		// Acceptable path must be a child folder in the templates dir
 		if (!empty($id)) {
-			$path = suffix($this->servant()->paths()->templates('plain').$this->id(), '/');
+			$path = $this->servant()->paths()->template($this->id(), 'plain');
 		}
 
 		return $this->set('path', $path);

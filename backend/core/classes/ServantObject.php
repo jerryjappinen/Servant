@@ -151,7 +151,7 @@ class ServantObject {
 		if ($arguments and !empty($arguments)) {
 			$properties = $arguments;
 
-		// Default to dumping all available properties (does not use custom getters)
+		// Default to dumping all available properties
 		} else {
 			$classProperties = get_class_vars(get_class($this));
 			unset($classProperties[$this->propertyName('main')]);
@@ -164,10 +164,27 @@ class ServantObject {
 		foreach ($properties as $property) {
 			$value = $this->get($property);
 
+			// $this
+			if ($value == $this) {
+				$results[$property] = '$this ('.$this.')';
+
 			// call __toString() of ServantObjects
-			if (is_object($value) and $this->getServantClass($value)) {
-				$results[$property] = ''.$value;
-			} else {
+			} else if ($this->getServantClass($value)) {
+				$results[$property] = $value->dump();
+
+			// Array (with potential child objects)
+			} else if (is_array($value)) {
+				$results[$property] = array();
+				foreach ($value as $key2 => $value2) {
+					if ($this->getServantClass($value2)) {
+						$results[$property][$key2] = ''.$value2;
+					} else {
+						$results[$property][$key2] = dump($value2);
+					}
+				}
+
+			// dump value
+			} else if ($value !== $this) {
 				$results[$property] = $value;
 			}
 
