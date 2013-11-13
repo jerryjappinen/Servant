@@ -39,7 +39,7 @@ class ServantMain extends ServantObject {
 			$this->purgeTemp();
 
 			if ($this->debug()) {
-				echo '<p style="padding: 3em; max-width: 50em; font-style: sans-serif; line-height: 1.6;">'.$e->getMessage().'</p>';
+				echo html_dump($e->getMessage());
 			}
 
 			// Serve an error page

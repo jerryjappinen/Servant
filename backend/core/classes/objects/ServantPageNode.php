@@ -3,6 +3,9 @@
 /**
 * A page
 *
+* FLAG
+*   - Should inherit rootPageNode
+*
 * DEPENDENCIES
 *   ServantFiles 		-> read
 *   ServantFormat 		-> path
@@ -27,7 +30,6 @@ class ServantPageNode extends ServantObject {
 
 	// Set automatically
 	protected $propertyDepth 		= null;
-	protected $propertyHome 		= null;
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
 	protected $propertyReadPath 	= null;
@@ -43,19 +45,23 @@ class ServantPageNode extends ServantObject {
 	/**
 	* Template path is needed upon initialization
 	*/
-	public function initialize ($relativePath, $parent = null) {
+	public function initialize ($path, $parent) {
 
 		// Template file needs to be there
-		$this->setPath($relativePath);
+		$this->setPath($path);
 
 		// Defaults
 		$this->name($this->generatePageName($this->id()));
 
 		// Other pages
 		$this->setChildren(array());
-		$this->setParent($parent ? $parent : false);
+		$this->setParent($parent);
 
 		return $this;
+	}
+
+	public function root () {
+		return false;
 	}
 
 
@@ -140,13 +146,11 @@ class ServantPageNode extends ServantObject {
 	/**
 	* Path to the template file
 	*/
-	protected function setPath ($relativePath) {
-
-		$path = $this->servant()->paths()->pages().unprefix($relativePath, '/');
+	protected function setPath ($path) {
 
 		// Template file must exist
 		if (!is_file($this->servant()->format()->path($path, 'server'))) {
-			$this->fail('Non-existing template file given to page.');
+			$this->fail('Non-existing template file given to page ("'.$path.'").');
 		}
 
 		return $this->set('path', $path);
@@ -160,11 +164,6 @@ class ServantPageNode extends ServantObject {
 
 	protected function setDepth () {
 		return $this->set('depth', count($this->parents()));
-	}
-
-	// Is this the home page? Home page is always the root.
-	protected function setHome () {
-		return $this->set('home', $this->depth() === 0 ? true : false);
 	}
 
 	protected function setId () {
@@ -183,31 +182,7 @@ class ServantPageNode extends ServantObject {
 		return $this->set('index', $result);
 	}
 
-	// Path to this page in read action
-	protected function setReadPath () {
-		$action = $this->servant()->settings()->actions('read');
-		return $this->set('readPath', $this->servant()->paths()->userAction($action, 'plain', $this->tree()));
-	}
-
-	protected function setTree () {
-		$results = $this->listParents('id');
-		array_push($results, $this->id());
-		return $this->set('tree', $results);
-	}
-
-	protected function setType () {
-		return $this->set('type', pathinfo($this->path(), PATHINFO_EXTENSION));
-	}
-
-
-
-	/**
-	* Dumb setters
-	*/
-
-	/**
-	* Return template content as a string
-	*/
+	// Template content as a string
 	protected function setOutput () {
 
 		// Read content from source file
@@ -220,18 +195,32 @@ class ServantPageNode extends ServantObject {
 		return $this->set('output', $fileContent);
 	}
 
-	/**
-	* Paths to script files under pages, relevant to this page
-	*/
+	// Path to this page in read action
+	protected function setReadPath () {
+		$action = $this->servant()->settings()->actions('read');
+		return $this->set('readPath', $this->servant()->paths()->userAction($action, 'plain', $this->tree()));
+	}
+
+	// Paths to script files under pages, relevant to this page
 	protected function setScripts () {
 		return $this->set('scripts', $this->filterPageFiles('scripts'));
 	}
 
-	/**
-	* Paths to stylesheet files under pages, relevant to this page
-	*/
+	// Paths to stylesheet files under pages, relevant to this page
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->filterPageFiles('stylesheets'));
+	}
+
+	// List of parent IDs + own ID
+	protected function setTree () {
+		$results = $this->listParents('id');
+		array_push($results, $this->id());
+		return $this->set('tree', $results);
+	}
+
+	// Template file type
+	protected function setType () {
+		return $this->set('type', pathinfo($this->path(), PATHINFO_EXTENSION));
 	}
 
 
@@ -247,24 +236,18 @@ class ServantPageNode extends ServantObject {
 	}
 
 	// Adding child page(s)
-	public function addChild ($pageOrPath) {
-		$newPages = func_get_args();
-		$newPages = array_flatten($newPages);
+	public function addChildren ($pages = array()) {
+		$pages = func_get_args();
+		$pages = array_flatten($pages);
 
-		foreach ($newPages as $key => $newPage) {
-
-			// Generate new page objects if needed
-			if ($this->getServantClass($newPage) !== 'pageNode') {
-				$newPages[$key] = $this->generate('pageNode', $newPage);
+		// Validate pages
+		foreach ($pages as $key => $page) {
+			if ($this->getServantClass($page) !== 'pageNode') {
+				$this->fail('Invalid page object passed to root page.');
 			}
-
-			// Set self as parent
-			// FLAG requires setParent to be public
-			$newPages[$key]->setParent($this);
-
 		}
 
-		return $this->setChildren(array_merge($this->children(), $newPages));
+		return $this->setChildren(array_merge($this->children(), $pages));
 	}
 
 
@@ -273,21 +256,20 @@ class ServantPageNode extends ServantObject {
 	* Parent(s)
 	*/
 
-	// FLAG should probably not be public...
-	public function setParent ($page = null) {
-		$result = false;
-		if ($this->getServantClass($page) === 'pageNode') {
-			$result = $page;
+	protected function setParent ($page) {
+		if (!in_array($this->getServantClass($page), array('pageNode', 'rootPageNode'))) {
+			$this->fail('Pages need a valid parent to take care of them.');
 		}
-		return $this->set('parent', $result);
+		$page->addChildren($this);
+		return $this->set('parent', $page);
 	}
 
 	public function parents () {
 		$parents = array();
+		$parent = $this->parent();
 
-		// Has valid parent
-		if ($this->parent()) {
-			$parent = $this->parent();
+		// Inherit grandparents
+		if (!$parent->root()) {
 			$parents = $parent->parents();
 			$parents[] = $parent;
 		}
@@ -302,26 +284,22 @@ class ServantPageNode extends ServantObject {
 
 
 	/**
-	* Convenience
+	* Sibling convenience methods
 	*/
+	public function siblings () {
+		return $this->parent()->children();
+	}
 	public function sibling () {
 		$arguments = func_get_args();
-		return $this->home() ? null : array_traverse($this->siblings(), $arguments);
-	}
-	public function siblings () {
-		return $this->home() ? array() : $this->parent()->children();
+		return array_traverse($this->siblings(), $arguments);
 	}
 	public function listSiblings ($property = null) {
 		$arguments = func_get_args();
-		return $this->home() ? array() : call_user_func_array(array($this->parent(), 'listChildren'), $arguments);
+		return call_user_func_array(array($this->parent(), 'listChildren'), $arguments);
 	}
-	public function addSibling ($pageOrPath) {
-		if ($this->home()) {
-			$this->fail('The home page does not have siblings.');
-		} else {
-			$arguments = func_get_args();
-			return call_user_func_array(array($this->parent(), 'addChild'), $arguments);
-		}
+	public function addSibling ($page) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->parent(), 'addChildren'), $arguments);
 	}
 
 
@@ -361,7 +339,9 @@ class ServantPageNode extends ServantObject {
 		$files = array();
 		foreach ($dirs as $dir) {
 			$dir = $pagesDir.$dir;
-			$files = array_merge($files, glob_files($dir, $this->servant()->settings()->formats($formatType)));
+			foreach (glob_files($dir, $this->servant()->settings()->formats($formatType)) as $file) {
+				$files[] = $this->servant()->format()->path($file, false, 'server');
+			}
 		}
 
 		return $files;

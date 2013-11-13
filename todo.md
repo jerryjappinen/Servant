@@ -78,11 +78,20 @@ Some kind of status page that indicates if things like paths are in order, what 
 
 The system needs to be properly tested on various environments.
 
-- Different PHP versions (from 5.2 up)
+- Different PHP versions (from 5.2 up?)
 - Different Apache configurations (especially when missing `rewrite_module`)
 - Any other differences between environments
 	- Common things
 	- Invisible things
+
+
+
+## Performance
+
+- Find general bottlenecks, improve
+- Can I use ReactPHP?
+	- Investigate, try out
+	- Attempt to provide a version, with minimum differences, that takes advantage of React
 
 
 
