@@ -14,8 +14,10 @@ class ServantSite extends ServantObject {
 	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
 	protected $propertyPageNames 	= null;
+	protected $propertyScripts 		= null;
 	protected $propertyServerCache 	= null;
 	protected $propertySplashImage 	= null;
+	protected $propertyStylesheets 	= null;
 	protected $propertyTemplate 	= null;
 
 
@@ -69,12 +71,32 @@ class ServantSite extends ServantObject {
 		return $path;
 	}
 
+	public function scripts ($format = false) {
+		$files = $this->getAndSet('scripts');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
+	}
+
 	public function splashImage ($format = null) {
 		$path = $this->getAndSet('splashImage');
 		if ($format and !empty($path)) {
 			$path = $this->servant()->format()->path($path, $format);
 		}
 		return $path;
+	}
+
+	public function stylesheets ($format = false) {
+		$files = $this->getAndSet('stylesheets');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->format()->path($filepath, $format);
+			}
+		}
+		return $files;
 	}
 
 
@@ -168,6 +190,13 @@ class ServantSite extends ServantObject {
 	}
 
 	/**
+	* Script files
+	*/
+	protected function setScripts () {
+		return $this->set('scripts', $this->findAssetFiles($this->servant()->settings()->formats('scripts')));
+	}
+
+	/**
 	* Server cache time (how old can a stored response be to be valid)
 	*/
 	protected function setServerCache ($input = null) {
@@ -179,6 +208,13 @@ class ServantSite extends ServantObject {
 	*/
 	protected function setSplashImage ($input = null) {
 		return $this->set('splashImage', $this->resolveImageFile($input));
+	}
+
+	/**
+	* Stylesheet files
+	*/
+	protected function setStylesheets () {
+		return $this->set('stylesheets', $this->findAssetFiles($this->servant()->settings()->formats('stylesheets')));
 	}
 
 	/**
@@ -225,6 +261,17 @@ class ServantSite extends ServantObject {
 	/**
 	* Private helpers
 	*/
+
+	private function findAssetFiles ($formats) {
+		$files = array();
+
+		// All files of this type in site's assets directory
+		foreach (rglob_files($this->servant()->paths()->assets('server'), $formats) as $file) {
+			$files[] = $this->servant()->format()->path($file, false, 'server');
+		}
+
+		return $files;
+	}
 
 	// Resolve valid cache time from user input, in minutes
 	private function resolveCacheTime ($input, $default) {

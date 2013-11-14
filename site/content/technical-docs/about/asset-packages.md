@@ -1,9 +1,9 @@
 
-# Theme
+# Assets
 
-The styles and scripts that create the look and feel for any template are called a theme. Usually a theme is made for a specific kind of template.
+The styles, scripts and accompanying assets that create the look and feel for any template are located under the assets directory (`site/theme/` by default). They often target a specific kind of template.
 
-Themes consist of stylesheets, scripts and accompanying assets. All the files under `site/theme/` are considered to be a part of a theme. **All theme files are loaded automatically, alphabetically and recursively**.
+**All assets are loaded automatically, alphabetically and recursively**. Servant merges and minifies them as needed.
 
 
 
@@ -13,15 +13,13 @@ Servant supports `.css`, `.less` and `.scss` files out of the box. They will be 
 
 For scripts, `.js` files are used. All JavaScript files are compiled into a one file.
 
-**Note!** Remember, that pages can include their own stylesheets and scripts. These can override the generic styles or scripts in a theme.
+**Note!** Remember, that pages can include their own stylesheets and scripts. These can override global site styles or scripts.
 
 
 
 ### Example
 
-Let's take the default theme as an example:
-
-##### theme/
+##### site/theme/
 	images/
 		menu.png
 	scripts/

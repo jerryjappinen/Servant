@@ -154,7 +154,7 @@ class ServantPaths extends ServantObject {
 		return $this->actions($format).$action.'/';
 	}
 
-	public function endpoint ($action, $format = null, $pathParameters) {
+	public function endpoint ($action, $format = null, $pathParameters = array()) {
 		$arguments = func_get_args();
 		unset($arguments[1]);
 		return $this->endpoints($format).implode_wrap('', '/', array_flatten($arguments));

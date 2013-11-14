@@ -60,7 +60,6 @@ unset($splashImage, $icon);
 * Asset links
 */
 $stylesheetsLink = $servant->paths()->endpoint('stylesheets', 'domain', ($action->isRead() ? $tree = $page->tree() : array()));
-$scriptsLink = $servant->paths()->endpoint('scripts', 'domain', $action->isRead() ? $tree = $page->tree() : array());
 
 
 
@@ -105,6 +104,13 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $servant->debug() ? '<div style="margin: 0; padding: 0 5% 5% 5%;">'.$template->nest('debug').'</div>' : '' ?>
 
-		<script src="<?php echo $scriptsLink ?>"></script>
+		<script src="<?php echo $servant->paths()->endpoint('sitescripts', 'domain') ?>"></script>
+
+		<?php
+		if ($action->isRead()) {
+			echo '<script src="'.$servant->paths()->endpoint('pagescripts', 'domain', $action->isRead() ? $tree = $page->tree() : array()).'"></script>';
+		}
+		?>
+
 	</body>
 </html>

@@ -3,7 +3,7 @@ h1. Sites
 
 <big>Every folder under the @sites/@ folder is a site. To create a site, you only need to create a new folder and add a text file with some content. It's that easy to get started!</big>
 
-Servant will create menus, fancy URLs, sitemaps, stylesheets and much more for each site. You can have as many sites as you want. Each site will use "_one template_ and one _theme_":templates-and-themes, so you can choose the structure and the look that you like.
+Servant will create menus, fancy URLs, sitemaps, stylesheets and much more for each site. You can have as many sites as you want. Each site will use one template and one theme, so you can choose the structure and the look that you like.
 
 
 
@@ -23,7 +23,6 @@ h5. @sites/my-site/settings.json@
 
 <pre>@"icon": "favicon.png",
 "template": "bootstrap",
-"theme": "bootstrap-green",
 "names": {
 	"my-site": "My Awesome Site",
 	"html": "HTML"
@@ -40,7 +39,6 @@ h3. Supported settings
 |*icon*|||
 |*names*|||
 |*template*|The template to use for this site. Available templates are folders under @templates/@. If you leave this out, a template will be "selected automatically":templates-and-themes.|@default@, @bootstrap@, @documentation@|
-|*theme*|The theme to use for this site. Available themes are folders under @themes/@. If you leave this out, a theme will be "selected automatically":templates-and-themes.|@bootstrap@, @bootstrap-green@, @default@|
 
 
 
@@ -49,5 +47,3 @@ h2. Name & icon
 Your site's name will be generated from its folder name, but you can also choose another name in your site's settings. Templates usually put this name in the site's header and browser's title bar.
 
 You can also choose an icon image. An icon should be a @.png@, @.jpg@ or a @.ico@ file and its location included in site settings (details above). Templates will handle delivering the icon image to the browser.
-
-If you don't choose an icon, the theme's default icon is used.

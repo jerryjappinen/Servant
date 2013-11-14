@@ -112,7 +112,6 @@ class ServantMain extends ServantObject {
 	protected $propertyPaths 		= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
-	protected $propertyTheme 		= null;
 	protected $propertyUtilities 	= null;
 
 	protected function setAvailable () {
@@ -129,9 +128,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setSite () {
 		return $this->set('site', $this->generate('site'));
-	}
-	protected function setTheme () {
-		return $this->set('theme', $this->generate('theme'));
 	}
 	protected function setUtilities () {
 		return $this->set('utilities', $this->generate('utilities'));

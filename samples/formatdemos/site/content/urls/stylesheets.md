@@ -7,4 +7,4 @@ These are the basic rules:
 
 - Absolute URLs are never touched.
 - CSS/LESS: relative `url()` points to a file in the same directory as the stylesheet file.
-- CSS/LESS: root-relative `url()` (starts with a `/`) points to a file in the **root** directory of the **site or theme**.
+- CSS/LESS: root-relative `url()` (starts with a `/`) points to a file in the **root** directory of your site's content **or** theme directory.

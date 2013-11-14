@@ -19,7 +19,7 @@ Relative URLs point to the location of the file they're used in.
 
 For example, if in our CSS we write
 
-##### theme/layout/header.css
+##### site/theme/layout/header.css
 	#header {
 		background-image: url('header.jpg');
 	}
@@ -43,7 +43,7 @@ the result in the minified stylesheet file will be
 
 Root-relative URLs point to the root of the site or theme folder:
 
-##### theme/layout/footer.css
+##### site/theme/layout/footer.css
 	#footer {
 		background-image: url('/footer.jpg');
 	}
@@ -69,7 +69,7 @@ the result in the minified stylesheet file will be
 
 You don't usually need to write links to specific actions, but it can be done. You might need it if you created an action for scaling images, for example, and wanted to use scaled images in your stylesheets. Use **two forwards slashes** in the beginning of the URL, and write the name of the action first:
 
-##### theme/layout/body.css
+##### site/theme/layout/body.css
 	.container-body {
 		background-image: url('//imagescale/body.jpg/200/200');
 	}

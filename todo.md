@@ -18,14 +18,13 @@
 - Remove `format()->title()`
 - Add utilities and pages to `ServantAvailable`
 - Search action
-- `ServantTheme` should not be a service
 - Multiple pieces of content for templates
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
-	- `servant://`
+	- `servant://` <- root
+	- `assets://`
 	- `actions://`
-	- `templates://`
 	- `pages://`
-	- `theme://`
+	- `templates://`
 	- In different contexts, one of these serves as the default root
 - Input system
 	- Store input for Main in `ServantInput`

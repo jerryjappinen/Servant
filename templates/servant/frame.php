@@ -114,7 +114,7 @@ foreach ($categories as $categoryId) {
 
 	// Subpages
 	foreach ($tempPages as $tempPage) {
-		$footerLists[$i][] = '<a href="'.$tempPage->readPath('domain').'/">'.$tempPage->categoryName(1).'</a>';
+		$footerLists[$i][] = '<a href="'.$tempPage->readPath('domain').'">'.$tempPage->categoryName(1).'</a>';
 	}
 	unset($tempPage);
 
