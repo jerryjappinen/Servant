@@ -4,7 +4,8 @@
 * A page
 *
 * FLAG
-*   - Should inherit rootPageNode
+*   - Should inherit rootPageNode?
+*   - Could be made looser (no template needed, no parent needed)
 *
 * DEPENDENCIES
 *   ServantFiles 		-> read
@@ -29,6 +30,7 @@ class ServantPageNode extends ServantObject {
 	protected $propertyOutput 		= null;
 
 	// Set automatically
+	protected $propertyCategoryId 	= null;
 	protected $propertyDepth 		= null;
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
@@ -50,11 +52,7 @@ class ServantPageNode extends ServantObject {
 		// Template file needs to be there
 		$this->setPath($path);
 
-		// Defaults
-		$this->name($this->generatePageName($this->id()));
-
 		// Other pages
-		$this->setChildren(array());
 		$this->setParent($parent);
 
 		return $this;
@@ -69,6 +67,16 @@ class ServantPageNode extends ServantObject {
 	/**
 	* Getter-setters
 	*/
+
+	public function categoryId () {
+		$arguments = func_get_args();
+		return $this->getOrSet('categoryId', $arguments);
+	}
+
+	public function id () {
+		$arguments = func_get_args();
+		return $this->getOrSet('id', $arguments);
+	}
 
 	public function name () {
 		$arguments = func_get_args();
@@ -125,22 +133,115 @@ class ServantPageNode extends ServantObject {
 
 
 	/**
-	* Setters needing input
+	* Setters
 	*/
+
+	/**
+	* Category ID
+	*/
+	protected function setCategoryId ($input = null) {
+
+		// Allow overriding automatic ID manually
+		if (is_string($input)) {
+			$input = trim_whitespace($input);
+			if (!empty($input)) {
+				$id = $input;
+			}
+		}
+
+		// Default
+		if (!isset($id)) {
+
+			// Dirname
+			$dir = basename(unprefix(dirname($this->path()), $this->servant()->paths()->pages()));
+			if ($dir) {
+				$id = $dir;
+
+			// ID is category ID, if nothing else is
+			} else {
+				$id = $this->id();
+			}
+		}
+
+		return $this->set('categoryId', $id);
+	}
+
+	/**
+	* Depth
+	*/
+	protected function setDepth () {
+		return $this->set('depth', count($this->parents()));
+	}
+
+	/**
+	* ID
+	*/
+	protected function setId ($input = null) {
+
+		// Allow overriding automatic ID manually
+		if (is_string($input)) {
+			$input = trim_whitespace($input);
+			if (!empty($input)) {
+				$id = $input;
+			}
+		}
+
+		// Default
+		if (!isset($id)) {
+			$id = pathinfo($this->path(), PATHINFO_FILENAME);
+		}
+
+		return $this->set('id', $id);
+	}
+
+	/**
+	* Location of this page relative to its siblings
+	*/
+	protected function setIndex () {
+		$result = 0;
+		foreach ($this->siblings() as $i => $sibling) {
+			if ($sibling === $this) {
+				$result = $i;
+				break;
+			}
+		}
+		return $this->set('index', $result);
+	}
 
 	/**
 	* Human-readable name
 	*/
-	protected function setName ($input) {
-		$input = ''.$input;
+	protected function setName ($input = null) {
 
-		// Fail on invalid input
-		if (!is_string($input)) {
-			$this->fail('Invalid name given to page.');
-
-		} else {
-			return $this->set('name', $input);
+		// Allow overriding automatic ID manually
+		if (is_string($input)) {
+			$input = trim_text($input, true);
+			if (!empty($input)) {
+				$id = $input;
+			}
 		}
+
+		// Default
+		if (!isset($name)) {
+			$name = $this->generatePageName($this->id());
+		}
+
+		return $this->set('name', $name);
+	}
+
+	/**
+	* Template content as a string
+	*/
+	protected function setOutput () {
+
+		// Read content from source file
+		$fileContent = $this->servant()->files()->read($this->path('server'), array(
+			'servant' => $this->servant(),
+			'page' => $this,
+		));
+
+		// Save file content
+		return $this->set('output', $fileContent);
 	}
 
 	/**
@@ -154,45 +255,6 @@ class ServantPageNode extends ServantObject {
 		}
 
 		return $this->set('path', $path);
-	}
-
-
-
-	/**
-	* Auto setters
-	*/
-
-	protected function setDepth () {
-		return $this->set('depth', count($this->parents()));
-	}
-
-	protected function setId () {
-		return $this->set('id', pathinfo($this->path(), PATHINFO_FILENAME));
-	}
-
-	// Location of this page relative to its siblings
-	protected function setIndex () {
-		$result = 0;
-		foreach ($this->siblings() as $i => $sibling) {
-			if ($sibling === $this) {
-				$result = $i;
-				break;
-			}
-		}
-		return $this->set('index', $result);
-	}
-
-	// Template content as a string
-	protected function setOutput () {
-
-		// Read content from source file
-		$fileContent = $this->servant()->files()->read($this->path('server'), array(
-			'servant' => $this->servant(),
-			'page' => $this,
-		));
-
-		// Save file content
-		return $this->set('output', $fileContent);
 	}
 
 	// Path to this page in read action
@@ -228,7 +290,7 @@ class ServantPageNode extends ServantObject {
 	/**
 	* Children
 	*/
-	protected function setChildren ($pages) {
+	protected function setChildren ($pages = array()) {
 		return $this->set('children', $pages);
 	}
 	public function listChildren ($property = null) {
@@ -258,7 +320,7 @@ class ServantPageNode extends ServantObject {
 
 	protected function setParent ($page) {
 		if (!in_array($this->getServantClass($page), array('pageNode', 'rootPageNode'))) {
-			$this->fail('Pages need a valid parent to take care of them.');
+			$this->fail('Pages need a valid parent to take care of them (create a rootPageNode to act as a parent if needed).');
 		}
 		$page->addChildren($this);
 		return $this->set('parent', $page);

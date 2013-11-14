@@ -289,7 +289,7 @@ class ServantObject {
 	*/
 	protected function getOrSet ($id, $arguments = null) {
 		if (empty($arguments)) {
-			return $this->get($id);
+			return $this->getAndSet($id);
 		} else {
 			return $this->callSetter($id, $arguments);
 		}

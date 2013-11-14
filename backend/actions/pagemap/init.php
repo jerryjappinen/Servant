@@ -1,16 +1,19 @@
 <?php
 
 // Root page
-$root = create_object(new ServantSitemap($servant))->init()->root();
+$sitemap = create_object(new ServantSitemap($servant))->init();
+$root = $sitemap->root();
 
 // Foo
 $output = array();
 foreach ($root->children() as $page) {
-	if ($page->children()) {
-		$output[$page->id()] = $page->listChildren('name');
-	} else {
-		$output[$page->id()] = implode('/', $page->tree());
-	}
+	$output[] = array(
+		$page->categoryId(),
+		$page->id(),
+		($page->children() ? implode(', ', $page->listChildren('categoryId')) : ''),
+	);
 }
 
+// $output = $sitemap->findPageTemplates($servant->paths()->pages('server'));
+// $output = $sitemap->treatFileMap($output);
 ?>
