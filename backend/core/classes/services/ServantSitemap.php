@@ -10,17 +10,8 @@ class ServantSitemap extends ServantObject {
 
 
 	/**
-	* Initialization
+	* Convenience
 	*/
-	public function initialize () {
-
-		// Find files
-		$path = $this->servant()->paths()->pages('server');
-		$this->generatePagesForCategory($this->findPageTemplates($path), $this->root());
-
-		return $this;
-	}
-
 	public function dump ($parent = false) {
 
 		// Dump from root if not specified
@@ -34,6 +25,16 @@ class ServantSitemap extends ServantObject {
 		}
 
 		return $output;
+	}
+
+
+
+	/**
+	* Initialization
+	*/
+	public function initialize () {
+		$this->generateNodes($this->findPageTemplates($this->servant()->paths()->pages('server')), $this->root());
+		return $this;
 	}
 
 
@@ -86,14 +87,14 @@ class ServantSitemap extends ServantObject {
 		return $results;
 	}
 
-	public function generatePagesForCategory ($pages, $parent = null) {
+	public function generateNodes ($pages, $parent = null) {
 
 		foreach ($pages as $key => $value) {
 
 			// Category
 			if (is_array($value)) {
 				$category = $this->generate('categoryNode', $key, $parent);
-				$this->generatePagesForCategory($value, $category);
+				$this->generateNodes($value, $category);
 
 			// Page
 			} else {
@@ -102,105 +103,6 @@ class ServantSitemap extends ServantObject {
 
 		}
 
-		return $parent;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/**
-	* Create pseudo pages that can be easily converted into real pages
-	*/
-	public function treatFileMap ($array, $parentCategoryId = false) {
-		$result = array();
-
-		$i = 0;
-		foreach ($array as $id => $value) {
-
-			$page = array(
-				'path' => '',
-				'id' => '',
-				'categoryId' => $id,
-				'children' => array(),
-			);
-
-			// Normalize arrays with only one item
-			if (is_array($value) and count($value) < 2) {
-				$keys = array_keys($value);
-				$page['path'] = $value[$keys[0]];
-				$page['id'] = $id;
-
-			// Generate page
-			} else if (is_string($value)) {
-				$page['path'] = $value;
-				$page['id'] = $id;
-
-			// Generate master page with children
-			} else if (is_array($value)) {
-
-				// Normalize first child
-				$children = $this->treatFileMap($value, $id);
-				$firstChild = array_shift($children);
-				array_unshift($children, $firstChild);
-
-				// FLAG firstChild children?!?!?!?!?!
-				// Make new category for first child children
-				// array_unshift($children, $this->treatFileMap($firstChild['children'], $firstChild['categoryId']));
-
-				// Add parent page and it's children to restuls
-				$page = array(
-					'path' => $firstChild['path'],
-					'id' => $firstChild['id'],
-					'categoryId' => $firstChild['categoryId'],
-					'children' => $children,
-				);
-
-			}
-
-			// Use parent's category ID
-			if ($parentCategoryId and $i === 0) {
-				$page['categoryId'] = $parentCategoryId;
-			}
-
-			// Add to results
-			if ($page['path']) {
-				$result[] = $page;
-			}
-
-			$i++;
-		}
-
-		return $result;
-	}
-
-	/**
-	* Convert pseudo pages into real page objects
-	*/
-	public function generatePages_foo ($array, $parent) {
-		foreach ($array as $pageInfo) {
-			$page = $this->generate('pageNode', $pageInfo['path'], $parent);
-			foreach (array('id', 'categoryId') as $key) {
-				if ($pageInfo[$key]) {
-					$page->$key($pageInfo[$key]);
-				}
-			}
-			$this->generatePages($pageInfo['children'], $page);
-		}
 		return $parent;
 	}
 

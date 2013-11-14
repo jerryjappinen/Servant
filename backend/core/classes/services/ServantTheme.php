@@ -23,7 +23,7 @@ class ServantTheme extends ServantObject {
 	*/
 
 	public function path ($format = false) {
-		return $this->servant()->paths()->theme($format);
+		return $this->servant()->paths()->assets($format);
 	}
 
 	public function scripts ($format = false) {

@@ -6,7 +6,7 @@ $js['paths'] = array(
 	'root' => prefix($servant->paths()->root(), '/'),
 	'host' => $servant->paths()->host(),
 	'actions' => $servant->paths()->endpoints(),
-	'theme' => $servant->paths()->theme(),
+	'assets' => $servant->paths()->assets(),
 	'pages' => $servant->paths()->pages(),
 	'templates' => $servant->paths()->templates(),
 );
