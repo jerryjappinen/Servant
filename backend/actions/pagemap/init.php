@@ -1,7 +1,7 @@
 <?php
 
 // Root page
-$sitemap = create_object(new ServantSitemap($servant))->init();
+$sitemap = $servant->create()->sitemap();
 $root = $sitemap->root();
 $children = $root->children();
 

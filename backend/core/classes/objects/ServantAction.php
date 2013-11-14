@@ -81,14 +81,14 @@ class ServantAction extends ServantObject {
 	* Generate a child action
 	*/
 	public function nest ($id) {
-		return $this->generate('action', $id, $this->page())->run();
+		return $this->servant()->create()->action($id, $this->page())->run();
 	}
 
 	/**
 	* Generate a template
 	*/
 	public function nestTemplate ($id, $content = null) {
-		return $this->generate('template', $id, $this, $this->page(), $content)->output();
+		return $this->servant()->create()->template($id, $this, $this->page(), $content)->output();
 	}
 
 

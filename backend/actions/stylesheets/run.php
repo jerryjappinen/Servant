@@ -6,7 +6,7 @@
 */
 $urlManipulator = new UrlManipulator();
 
-// Allowed superset file extensions, mapped to their format
+// Find out what preprocessor formats are supported
 $allowedFormats = array();
 $temp = $servant->settings()->formats('stylesheets');
 unset($temp['css']);

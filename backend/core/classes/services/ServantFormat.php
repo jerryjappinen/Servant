@@ -6,11 +6,8 @@
 * DEPENDENCIES
 *   servant -> paths -> documentRoot
 *   servant -> paths -> root
-*
-* FLAG
-*   - Deprecate this (global services like this are not good)
 */
-class ServantFormat extends ServantObject {
+class ServantFormatter extends ServantObject {
 
 
 

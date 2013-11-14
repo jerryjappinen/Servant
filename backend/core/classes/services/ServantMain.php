@@ -132,6 +132,9 @@ class ServantMain extends ServantObject {
 	protected function setUtilities () {
 		return $this->set('utilities', $this->generate('utilities'));
 	}
+	protected function setCreate () {
+		return $this->set('create', $this->generate('generator'));
+	}
 
 
 
@@ -147,7 +150,7 @@ class ServantMain extends ServantObject {
 		return $this->set('files', $this->generate('files'));
 	}
 	protected function setFormat () {
-		return $this->set('format', $this->generate('format'));
+		return $this->set('format', $this->generate('formatter'));
 	}
 	protected function setParse () {
 		return $this->set('parse', $this->generate('parse'));

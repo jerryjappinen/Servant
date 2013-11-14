@@ -43,7 +43,7 @@ class ServantSitemap extends ServantObject {
 	* Root page node
 	*/
 	protected function setRoot () {
-		return $this->set('root', $this->generate('categoryNode', 'root'));
+		return $this->set('root', $this->servant()->create()->category('root'));
 	}
 
 
@@ -93,12 +93,12 @@ class ServantSitemap extends ServantObject {
 
 			// Category
 			if (is_array($value)) {
-				$category = $this->generate('categoryNode', $key, $parent);
+				$category = $this->servant()->create()->category($key, $parent);
 				$this->generateNodes($value, $category);
 
 			// Page
 			} else {
-				$page = $this->generate('pageNode', $value, $parent);
+				$page = $this->servant()->create()->page($value, $parent);
 			}
 
 		}
