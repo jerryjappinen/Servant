@@ -96,7 +96,7 @@ foreach ($servant->pages()->map() as $key => $value) {
 // Top-level pages
 $footerLists[0] = array(
 	'<a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a>',
-	'<a href="'.$servant->paths()->userAction('sitemap', 'domain', $page->tree()).'">Sitemap</a>'
+	'<a href="'.$servant->paths()->endpoint('sitemap', 'domain', $page->tree()).'">Sitemap</a>'
 );
 foreach ($tempPages as $tempPage) {
 	$footerLists[0][] = '<a href="'.$tempPage->readPath('domain').'">'.$tempPage->categoryName(0).'</a>';
@@ -110,7 +110,7 @@ foreach ($categories as $categoryId) {
 
 	// Category title
 	$tempPages = $servant->pages()->level($categoryId);
-	$footerLists[$i][] = '<a href="'.$servant->paths()->userAction('site', 'domain', $categoryId).'">'.$tempPages[0]->categoryName().'</a>';
+	$footerLists[$i][] = '<a href="'.$servant->paths()->endpoint('site', 'domain', $categoryId).'">'.$tempPages[0]->categoryName().'</a>';
 
 	// Subpages
 	foreach ($tempPages as $tempPage) {

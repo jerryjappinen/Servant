@@ -165,7 +165,7 @@ $output .= '<div class="footer container">';
 		}
 
 		// Pages & generic stuff
-		$output .= '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->userAction('sitemap', 'domain', $page->tree()).'">Sitemap</a></li>';
+		$output .= '<div class="row"><div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->site()->name().'</li><li><a href="'.$servant->paths()->endpoint('sitemap', 'domain', $page->tree()).'">Sitemap</a></li>';
 
 		// Create footer links for pages
 		foreach ($tempPages as $id) {

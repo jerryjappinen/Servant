@@ -154,19 +154,18 @@ class ServantPaths extends ServantObject {
 		return $this->actions($format).$action.'/';
 	}
 
-	public function template ($template, $format = null) {
-		return $this->templates($format).$template.'/';
-	}
-
-	// FLAG weird naming, maybe endpoint() would be better?
-	public function userAction ($action, $format = null, $pathParameters) {
+	public function endpoint ($action, $format = null, $pathParameters) {
 		$arguments = func_get_args();
 		unset($arguments[1]);
-		return $this->userActions($format).implode_wrap('', '/', array_flatten($arguments));
+		return $this->endpoints($format).implode_wrap('', '/', array_flatten($arguments));
 	}
 
-	public function userActions ($format = null) {
+	public function endpoints ($format = null) {
 		return $this->root($format);
+	}
+
+	public function template ($template, $format = null) {
+		return $this->templates($format).$template.'/';
 	}
 
 

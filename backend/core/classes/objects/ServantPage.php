@@ -7,7 +7,7 @@
 *   ServantFiles 		-> read
 *   ServantFormat 		-> path
 *   					-> title
-*   ServantPaths 		-> userAction
+*   ServantPaths 		-> endpoint
 *   ServantSite 		-> pageNames
 */
 class ServantPage extends ServantObject {
@@ -216,7 +216,7 @@ class ServantPage extends ServantObject {
 	* Path to this page in site action
 	*/
 	protected function setReadPath () {
-		return $this->set('readPath', $this->servant()->paths()->userAction('site', 'plain', $this->tree()));
+		return $this->set('readPath', $this->servant()->paths()->endpoint('site', 'plain', $this->tree()));
 	}
 
 	/**

@@ -16,19 +16,33 @@ class ServantSitemap extends ServantObject {
 
 		// Find files
 		$path = $this->servant()->paths()->pages('server');
-		$files = $this->findPageTemplates($path);
-
-		// Add all available pages as children of root
-		$this->generatePages($this->treatFileMap($files), $this->root());
+		$this->generatePagesForCategory($this->findPageTemplates($path), $this->root());
 
 		return $this;
 	}
+
+	public function dump ($parent = false) {
+
+		// Dump from root if not specified
+		if (!$parent) {
+			$parent = $this->root()->children();
+		}
+
+		$output = array();
+		foreach ($parent as $node) {
+			$output[$node->id()] = $node->children() ? $this->dump($node->children()) : $node->name();
+		}
+
+		return $output;
+	}
+
+
 
 	/**
 	* Root page node
 	*/
 	protected function setRoot () {
-		return $this->set('root', $this->generate('rootPageNode'));
+		return $this->set('root', $this->generate('categoryNode', 'root'));
 	}
 
 
@@ -40,11 +54,9 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Find template files in file system
 	*/
-	private function findPageTemplates ($path) {
+	public function findPageTemplates ($path) {
 		$formats = $this->servant()->settings()->formats('templates');
 		$results = array();
-
-
 
 		// Files on this level
 		$files = glob_files($path, $formats);
@@ -52,31 +64,69 @@ class ServantSitemap extends ServantObject {
 			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->format()->path($file, false, 'server');
 		}
 
-
-
 		// Files in child directories
 		foreach (glob_dir($path) as $dir) {
 			$children = $this->findPageTemplates($dir, $formats);
 
 			// Include non-empty sets of child pages
 			if (!empty($children)) {
+				if (count($children) < 2) {
+					$keys = array_keys($children);
+					$children = $children[$keys[0]];
+				}
 				$results[pathinfo($dir, PATHINFO_FILENAME)] = $children;
 			}
 
 		}
 		unset($children);
 
-
-
 		// Sort based on file or directory name, then lose the indexes
 		uksort($results, 'strcasecmp');
+
 		return $results;
 	}
+
+	public function generatePagesForCategory ($pages, $parent = null) {
+
+		foreach ($pages as $key => $value) {
+
+			// Category
+			if (is_array($value)) {
+				$category = $this->generate('categoryNode', $key, $parent);
+				$this->generatePagesForCategory($value, $category);
+
+			// Page
+			} else {
+				$page = $this->generate('pageNode', $value, $parent);
+			}
+
+		}
+
+		return $parent;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	* Create pseudo pages that can be easily converted into real pages
 	*/
-	private function treatFileMap ($array, $parentCategoryId = false) {
+	public function treatFileMap ($array, $parentCategoryId = false) {
 		$result = array();
 
 		$i = 0;
@@ -93,11 +143,11 @@ class ServantSitemap extends ServantObject {
 			if (is_array($value) and count($value) < 2) {
 				$keys = array_keys($value);
 				$page['path'] = $value[$keys[0]];
-				$page['id'] = $keys[0];
+				$page['id'] = $id;
 
 			// Generate page
 			} else if (is_string($value)) {
-				$page['path'] =$value;
+				$page['path'] = $value;
 				$page['id'] = $id;
 
 			// Generate master page with children
@@ -106,7 +156,11 @@ class ServantSitemap extends ServantObject {
 				// Normalize first child
 				$children = $this->treatFileMap($value, $id);
 				$firstChild = array_shift($children);
-				$path = $firstChild['path'];
+				array_unshift($children, $firstChild);
+
+				// FLAG firstChild children?!?!?!?!?!
+				// Make new category for first child children
+				// array_unshift($children, $this->treatFileMap($firstChild['children'], $firstChild['categoryId']));
 
 				// Add parent page and it's children to restuls
 				$page = array(
@@ -137,7 +191,7 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Convert pseudo pages into real page objects
 	*/
-	private function generatePages ($array, $parent) {
+	public function generatePages_foo ($array, $parent) {
 		foreach ($array as $pageInfo) {
 			$page = $this->generate('pageNode', $pageInfo['path'], $parent);
 			foreach (array('id', 'categoryId') as $key) {
