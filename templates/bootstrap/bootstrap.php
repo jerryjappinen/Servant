@@ -94,7 +94,7 @@ $output .= '
 		foreach ($level2 as $key => $tempPage) {
 
 			// Link HTML
-			$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$page->tree(0).'/'.$key.'/">'.$servant->format()->title($key).'</a>';
+			$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$page->tree(0).'/'.$key.'/">'.$key.'</a>';
 
 			// Selected item
 			if ($page->tree(1) === $key) {
@@ -116,7 +116,7 @@ $output .= '
 						}
 
 						// Child item HTML
-						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$page->tree(0).'/'.$key.'/'.$key2.'/">'.$servant->format()->title($key2).'</a>';
+						$link = '<a href="'.$servant->paths()->root('domain').$servant->site()->id().'/read/'.$page->tree(0).'/'.$key.'/'.$key2.'/">'.$key2.'</a>';
 						if ($page->tree(2) === $key2) {
 							$output .= '<li class="selected"><strong>'.$link.'</strong></li>';
 						} else {
@@ -169,7 +169,7 @@ $output .= '<div class="footer container">';
 
 		// Create footer links for pages
 		foreach ($tempPages as $id) {
-			$output .= '<li><a href=".">'.$servant->format()->title($id).'</a></li>';
+			$output .= '<li><a href=".">'.$id.'</a></li>';
 		}
 		$output .= '</ul></div>';
 
@@ -177,7 +177,7 @@ $output .= '<div class="footer container">';
 		$i = 2;
 		foreach ($categories as $id) {
 			$output .= $i === 1 ? '<div class="row">' : '';
-			$output .= '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$servant->format()->title($id).'</li>';
+			$output .= '<div class="span3"><ul class="nav nav-list"><li class="list-header">'.$id.'</li>';
 			foreach ($servant->pages()->map($id) as $key => $tempPage) {
 				$output .= '<li><a href=".">'.$key.'</a></li>';
 			}

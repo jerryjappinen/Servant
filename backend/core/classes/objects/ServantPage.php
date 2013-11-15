@@ -322,7 +322,8 @@ class ServantPage extends ServantObject {
 
 		// Generate
 		} else {
-			$name = $this->servant()->format()->title($string);
+			$conversions = $this->servant()->settings()->namingConvention();
+			$name = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));
 		}
 
 		return $name;

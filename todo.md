@@ -15,7 +15,6 @@
 
 ## Core
 
-- Remove `format()->title()`
 - Add utilities and pages to `ServantAvailable`
 - Search action
 - Multiple pieces of content for templates

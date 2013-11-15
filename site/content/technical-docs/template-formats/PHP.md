@@ -21,12 +21,12 @@ Servant runs on PHP, and **scriptable PHP pages** are supported out of the box. 
 
 	<h1><?= $page->name() ?></h1>
 
-	<h3>Other available sites</h3>
+	<h3>Other available pages</h3>
 
 	<ul>
 	<?php
-		foreach ($servant->available()->sites() as $id) {
-			print '<li>'.$servant->format()->name($id).'</li>';
+		foreach ($servant->sitemap()->root()->children() as $child) {
+			print '<li>'.$child->name().'</li>';
 		}
 	?>
 	</ul>

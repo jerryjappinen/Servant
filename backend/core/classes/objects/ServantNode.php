@@ -170,7 +170,7 @@ class ServantNode extends ServantObject {
 	private function generateTitle ($string) {
 		$name = $string;
 
-		// Explicit names given
+		// Explicit names given for this string
 		$replacements = $this->servant()->site()->pageNames();
 		$key = mb_strtolower($string);
 		if ($replacements and is_array($replacements) and array_key_exists($key, $replacements)) {
@@ -178,7 +178,8 @@ class ServantNode extends ServantObject {
 
 		// Generate
 		} else {
-			$name = $this->servant()->format()->title($string);
+			$conversions = $this->servant()->settings()->namingConvention();
+			$name = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));
 		}
 
 		return $name;

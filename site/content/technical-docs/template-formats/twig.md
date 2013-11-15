@@ -20,7 +20,7 @@ Read more about it on [Twig's site](http://twig.sensiolabs.org/doc/templates.htm
 	<h1>{{ page.name() }}</h1>
 
 	<ul id="navigation">
-	{% for id in page.siblings() %}
-		<li><a href="{{ id }}">{{ servant.format().name(id) }}</a></li>
+	{% for node in page.siblings() %}
+		<li><a href="{{ id }}">{{ node.name() }}</a></li>
 	{% endfor %}
 	</ul>
