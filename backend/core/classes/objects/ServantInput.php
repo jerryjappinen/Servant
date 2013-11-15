@@ -105,7 +105,7 @@ class ServantInput extends ServantObject {
 	/**
 	* Page
 	*
-	* List of page names to select one in the page tree
+	* List of page IDs for choosing a page
 	*/
 	protected function setPage ($values) {
 		$results = array();
@@ -138,10 +138,7 @@ class ServantInput extends ServantObject {
 
 		}
 
-		// Select a valid page
-		$tree = $this->selectPage($this->servant()->pages()->map(), $results);
-
-		return $this->set('page', $tree);
+		return $this->set('page', $results);
 	}
 
 
@@ -223,33 +220,33 @@ class ServantInput extends ServantObject {
 
 
 
-	/**
-	* Choose one page from those available, preferring the one detailed in $tree
-	*/
-	private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
+	// /**
+	// * Choose one page from those available, preferring the one detailed in $tree
+	// */
+	// private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
  
-		// No preference or preferred item doesn't exist: auto select
-		if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
+	// 	// No preference or preferred item doesn't exist: auto select
+	// 	if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
 
-			// Cut out the rest of the preferred items
-			$tree = array_slice($tree, 0, $level);
+	// 		// Cut out the rest of the preferred items
+	// 		$tree = array_slice($tree, 0, $level);
 
-			// Auto select first item on this level
-			$keys = array_keys($pagesOnThisLevel);
-			$tree[] = $keys[0];
+	// 		// Auto select first item on this level
+	// 		$keys = array_keys($pagesOnThisLevel);
+	// 		$tree[] = $keys[0];
 
-		}
+	// 	}
 
-		// We need to go deeper
-		if (is_array($pagesOnThisLevel[$tree[$level]])) {
-			return $this->selectPage($pagesOnThisLevel[$tree[$level]], $tree, $level+1);
+	// 	// We need to go deeper
+	// 	if (is_array($pagesOnThisLevel[$tree[$level]])) {
+	// 		return $this->selectPage($pagesOnThisLevel[$tree[$level]], $tree, $level+1);
 
-		// That was it
-		} else {
-			return array_slice($tree, 0, $level+1);
-		}
+	// 	// That was it
+	// 	} else {
+	// 		return array_slice($tree, 0, $level+1);
+	// 	}
 
-	}
+	// }
 
 }
 

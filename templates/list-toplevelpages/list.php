@@ -3,16 +3,16 @@
 /**
 * Level 1 menu
 */
-$tempPages = $servant->pages()->level();
-if (!empty($tempPages)) {
+$nodes = $servant->sitemap()->root()->children();
+if (!empty($nodes)) {
 
-	foreach ($tempPages as $tempPage) {
+	foreach ($nodes as $node) {
 
 		// Link to the page
-		$link = '<a href="'.$tempPage->readPath('domain').'">'.$tempPage->categoryName(0).'</a>';
+		$link = '<a href="'.$node->endpoint('domain').'">'.$node->name().'</a>';
 
 		// List item, possibly selected
-		echo '<li>'.($tempPage->tree(0) === $page->tree(0) ? '<strong>'.$link.'</strong>' : $link).'</li>';
+		echo '<li>'.($node->tree(1) === $page->tree(1) ? '<strong>'.$link.'</strong>' : $link).'</li>';
 
 	}
 

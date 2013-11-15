@@ -1,11 +1,16 @@
 <?php
-
+/**
+* Sitemap with a root category node
+*
+* FLAG
+*   - This should not be a global service, actions should generate a sitemap if needed
+*/
 class ServantSitemap extends ServantObject {
 
 	/**
 	* Properties
 	*/
-	protected $propertyRoot 	= null;
+	protected $propertyRoot = null;
 
 
 

@@ -11,14 +11,17 @@ $srcUrl = $servant->paths()->pages('domain');
 $hrefUrl = $servant->paths()->root('domain').$servant->settings()->actions('read').'/';
 
 // Relative location for SRC urls
-$dirname = suffix(dirname($page->templatePath('plain')), '/');
+$dirname = suffix(dirname($page->path('plain')), '/');
 $relativeSrcUrl = unprefix($dirname, $servant->paths()->pages('plain'), true);
 if (!empty($relativeSrcUrl)) {
 	$relativeSrcUrl = suffix($relativeSrcUrl, '/');
 }
 
 // Relative location for HREF urls
-$relativeHrefUrl = implode('/', $page->parentTree());
+$tree = $page->tree();
+array_shift($tree); // Root in tree() should not be there
+array_pop($tree);
+$relativeHrefUrl = implode('/', $tree);
 if (!empty($relativeHrefUrl)) {
 	$relativeHrefUrl .= '/';
 }
@@ -30,7 +33,7 @@ $actionsUrl = $servant->paths()->root('domain');
 
 // Set output
 $servant->utilities()->load('urlmanipulator');
-$manipulate = create_object(new UrlManipulator());
+$manipulate = new UrlManipulator();
 $action->output($manipulate->htmlUrls($page->output(), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 
 ?>

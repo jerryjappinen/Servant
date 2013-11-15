@@ -1,23 +1,5 @@
 <?php
 
-// Root page
-$sitemap = $servant->create()->sitemap();
-// $root = $sitemap->root();
-// $children = $root->children();
+$output = $servant->sitemap()->select('technical-docs', 'template-formats', 'html')->name();
 
-// Foo
-// $output = array();
-// foreach ($root->children() as $page) {
-// 	$output[] = array(
-// 		$page->categoryId(),
-// 		$page->id(),
-// 		($page->children() ? implode(', ', $page->listChildren('categoryId')) : ''),
-// 	);
-// }
-
-$output[] = $sitemap->select('technical-docs', 'template-formats', 'HTML')->name();
-$output[] = $sitemap->dump();
-// $output = $servant->paths()->pages('server');
-// $output = $sitemap->findPageTemplates($output);
-// $output = $sitemap->treatFileMap($output);
 ?>

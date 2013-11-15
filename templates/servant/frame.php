@@ -7,65 +7,65 @@ $menu = '';
 if ($action->isRead()) {
 
 	// Generate menu
-	$tempPages = $servant->pages()->level($page->tree(0));
-	if ($tempPages) {
+	$nodes = $page->parent()->children();    // Need to manually normalize root
+
+	if ($nodes) {
 		$items = array();
-		foreach ($tempPages as $tempPage) {
+		foreach ($nodes as $node) {
 
 			// Name
-			$name = $tempPage->name();
+			$name = $node->name();
 
 			// Children
 			$submenu = '';
 			$subItems = array();
-			if ($tempPage->children() and $tempPage->level() > 1) {
+			if ($node->children()) {
+
 				// Rename category
-				$name = $tempPage->categoryName(1);
+				$name = $node->name();
 
 				// Include all pages on this level
-				foreach ($tempPage->siblings() as $subPage) {
+				foreach ($node->siblings() as $subNode) {
 
 					// Child page HTML
-					$url = $subPage->readPath('domain');
-					$output = '<a href="'.$url.'">'.$subPage->name().'</a>';
+					$url = $subNode->endpoint('domain');
+					$listItem = '<a href="'.$url.'">'.$subNode->name().'</a>';
 
-					// Mark selected subpage
-					$parents = $subPage->parentTree();
-					$parent = end($parents);
-					if ($page->tree(1) === $parent and $page->tree(2) === $subPage->id()) {
-						$output = '<li class="selected"><strong>'.$output.'</strong>';
+					// Mark selected subNode
+					if ($page->parents(1) === $subNode->parent() and $page->tree(2) === $subNode->id()) {
+						$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
 					} else {
-						$output = '<li>'.$output;
+						$listItem = '<li>'.$listItem;
 					}
 
 					// Close HTML
-					$output .= '</li>';
+					$listItem .= '</li>';
 
 					// Add item to submenu
-					$subItems[] = $output;
-					unset($output);
+					$subItems[] = $listItem;
+					unset($listItem);
 				}
 
 				$submenu = '<ul class="menu-3">'.implode($subItems).'</ul>';
 			}
 
 			// Link HTML
-			$url = $tempPage->readPath('domain');
-			$output = '<a href="'.$url.'">'.$name.'</a>';
+			$url = $node->endpoint('domain');
+			$listItem = '<a href="'.$url.'">'.$name.'</a>';
 
 			// Mark selected page
-			if ($page->tree(1) === $tempPage->id()) {
-				$output = '<li class="selected"><strong>'.$output.'</strong>';
+			if ($page->tree(1) === $node->id()) {
+				$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
 			} else {
-				$output = '<li>'.$output;
+				$listItem = '<li>'.$listItem;
 			}
 
 			// Close HTML
-			$output .= ($submenu ? $submenu : '').'</li>';
+			$listItem .= ($submenu ? $submenu : '').'</li>';
 
 			// Add item to menu
-			$items[] = $output;
-			unset($output);
+			$items[] = $listItem;
+			unset($listItem);
 
 		}
 
@@ -83,40 +83,41 @@ if ($action->isRead()) {
 */
 
 // Sort pages into pages and categories
-$tempPages = array();
+$pages = array();
 $categories = array();
-foreach ($servant->pages()->map() as $key => $value) {
-	if (is_array($value)) {
-		$categories[] = $key;
+foreach ($servant->sitemap()->root()->children() as $node) {
+	if ($node->category()) {
+		$categories[] = $node;
 	} else {
-		$tempPages[] = $value;
+		$pages[] = $node;
 	}
 }
+unset($node);
 
 // Top-level pages
 $footerLists[0] = array(
 	'<a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a>',
 	'<a href="'.$servant->paths()->endpoint('sitemap', 'domain', $page->tree()).'">Sitemap</a>'
 );
-foreach ($tempPages as $tempPage) {
-	$footerLists[0][] = '<a href="'.$tempPage->readPath('domain').'">'.$tempPage->categoryName(0).'</a>';
+foreach ($pages as $node) {
+	$footerLists[0][] = '<a href="'.$node->endpoint('domain').'">'.$node->name().'</a>';
 }
-unset($tempPages, $tempPage);
+unset($pages, $node);
 
 // Main categories and pages
 $i = 1;
-foreach ($categories as $categoryId) {
+foreach ($categories as $category) {
 	$footerLists[$i] = array();
 
 	// Category title
-	$tempPages = $servant->pages()->level($categoryId);
-	$footerLists[$i][] = '<a href="'.$servant->paths()->endpoint('site', 'domain', $categoryId).'">'.$tempPages[0]->categoryName().'</a>';
+	$footerLists[$i][] = '<a href="'.$servant->paths()->endpoint('site', 'domain', $category->id()).'">'.$category->name().'</a>';
 
 	// Subpages
-	foreach ($tempPages as $tempPage) {
-		$footerLists[$i][] = '<a href="'.$tempPage->readPath('domain').'">'.$tempPage->categoryName(1).'</a>';
+	$children = $category->children();
+	foreach ($children as $child) {
+		$footerLists[$i][] = '<a href="'.$child->endpoint('domain').'">'.$child->name().'</a>';
 	}
-	unset($tempPage);
+	unset($child);
 
 	$i++;
 }

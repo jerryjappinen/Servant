@@ -266,7 +266,7 @@ class ServantTemplate extends ServantObject {
 	*/
 	protected function setPage ($page) {
 	
-		if ($this->getServantClass($page) !== 'page') {
+		if ($this->getServantClass($page) !== 'pageNode') {
 			$this->fail('Invalid page passed to template.');
 
 		// Page is acceptable

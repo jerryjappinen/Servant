@@ -3,6 +3,9 @@
 /**
 * An action
 *
+* FLAG
+*   - Action should take input, not a page in initialization (they can create a page if needed or select it from the sitemap)
+*
 * DEPENDENCIES
 *   ServantFiles 	-> read
 *   ServantFormat 	-> path
@@ -218,7 +221,7 @@ class ServantAction extends ServantObject {
 	*/
 	protected function setPage ($page) {
 	
-		if ($this->getServantClass($page) !== 'page') {
+		if ($this->getServantClass($page) !== 'pageNode') {
 			$this->fail('Invalid page passed to template.');
 
 		// Page is acceptable

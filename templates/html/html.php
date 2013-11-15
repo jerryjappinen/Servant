@@ -9,7 +9,7 @@ $meta = '';
 */
 
 // Page title
-$title = (!$page->isHome() ? $page->name().' &ndash; ' : '').$servant->site()->name();
+$title = ($page->parent() ? $page->name().' &ndash; ' : '').$servant->site()->name();
 $meta .= '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
 unset($title);
 
@@ -24,7 +24,7 @@ if ($description) {
 unset($description);
 
 // Other Open Graph stuff
-$meta .= '<meta property="og:type" content="'.($page->isHome() ? 'website' : 'article').'"><meta property="og:url" content="'.$servant->paths()->root('url').'">';
+$meta .= '<meta property="og:type" content="'.(!$page->parent() ? 'website' : 'article').'"><meta property="og:url" content="'.$servant->paths()->root('url').'">';
 
 
 

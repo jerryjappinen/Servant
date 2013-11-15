@@ -5,6 +5,8 @@
 *
 * FLAG
 *   - Could be made looser (no template needed, no parent needed)
+*	- node, pageNode and categoryNode could be fused
+*   - root parent should be normalized away from view
 *
 * DEPENDENCIES
 *   ServantFiles 		-> read
