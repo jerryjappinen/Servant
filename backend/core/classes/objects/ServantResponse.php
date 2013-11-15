@@ -73,7 +73,7 @@ class ServantResponse extends ServantObject {
 	* Action used for this response
 	*/
 	protected function setAction ($actionId, $pageTree) {
-		return $this->set('action', $this->generate('action', $actionId, $this->servant()->pages()->map($pageTree)));
+		return $this->set('action', $this->servant()->create()->action($actionId, $this->servant()->pages()->map($pageTree)));
 	}
 
 
