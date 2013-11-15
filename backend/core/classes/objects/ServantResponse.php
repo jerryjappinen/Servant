@@ -50,7 +50,7 @@ class ServantResponse extends ServantObject {
 	public function existing ($format = null) {
 		$path = $this->getAndSet('existing');
 		if ($format and !empty($path)) {
-			$path = $this->servant()->format()->path($path, $format);
+			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
 	}
@@ -58,7 +58,7 @@ class ServantResponse extends ServantObject {
 	public function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
+			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
 	}
@@ -184,7 +184,7 @@ class ServantResponse extends ServantObject {
 
 		// File exists and is not too old
 		if (is_file($path) and filemtime($path) < time()+($this->servant()->site()->serverCache()*60)) {
-			$result = $this->servant()->format()->path($path, 'plain', 'server');
+			$result = $this->servant()->paths()->format($path, 'plain', 'server');
 		}
 
 		return $this->set('existing', $result);

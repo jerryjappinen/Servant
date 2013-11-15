@@ -88,7 +88,7 @@ class ServantPage extends ServantObject {
 	public function readPath ($format = false) {
 		$path = $this->getAndSet('readPath');
 		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
+			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
 	}
@@ -97,7 +97,7 @@ class ServantPage extends ServantObject {
 		$files = $this->getAndSet('scripts');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
+				$files[$key] = $this->servant()->paths()->format($filepath, $format);
 			}
 		}
 		return $files;
@@ -107,7 +107,7 @@ class ServantPage extends ServantObject {
 		$files = $this->getAndSet('stylesheets');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
+				$files[$key] = $this->servant()->paths()->format($filepath, $format);
 			}
 		}
 		return $files;
@@ -116,7 +116,7 @@ class ServantPage extends ServantObject {
 	public function templatePath ($format = false) {
 		$path = $this->getAndSet('templatePath');
 		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
+			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
 	}
@@ -250,7 +250,7 @@ class ServantPage extends ServantObject {
 	protected function setTemplatePath ($path) {
 
 		// Template file must exist
-		if (!is_file($this->servant()->format()->path($path, 'server'))) {
+		if (!is_file($this->servant()->paths()->format($path, 'server'))) {
 			$this->fail('This page does not exist');
 		}
 
@@ -279,7 +279,7 @@ class ServantPage extends ServantObject {
 		$formats = $this->servant()->settings()->formats($type);
 		$allFiles = array();
 		foreach (rglob_files($this->servant()->pages()->path('server'), $formats) as $file) {
-			$allFiles[] = $this->servant()->format()->path($file, false, 'server');
+			$allFiles[] = $this->servant()->paths()->format($file, false, 'server');
 		}
 
 		// Allowed paths

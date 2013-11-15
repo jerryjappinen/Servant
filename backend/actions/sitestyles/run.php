@@ -52,7 +52,7 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->paths()->assets('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$styles['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->format()->path($path, 'server')), $assetsRootUrl, $relativeUrl, $actionsPath);
+	$styles['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->paths()->format($path, 'server')), $assetsRootUrl, $relativeUrl, $actionsPath);
 
 }
 

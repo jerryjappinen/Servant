@@ -60,7 +60,7 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->paths()->assets('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$stylesheetSets['site']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
+	$stylesheetSets['site']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->paths()->format($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 
@@ -98,7 +98,7 @@ foreach ($page->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->paths()->pages('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$stylesheetSets['page']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->format()->path($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
+	$stylesheetSets['page']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->paths()->format($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 

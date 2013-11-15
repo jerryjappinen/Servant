@@ -99,7 +99,7 @@ class ServantPaths extends ServantObject {
 		if (!$format) {
 			return $this->get('root');
 		} else {
-			return $this->servant()->format()->path('', $format);
+			return $this->servant()->paths()->format('', $format);
 		}
 	}
 
@@ -185,21 +185,49 @@ class ServantPaths extends ServantObject {
 
 
 	/**
-	* Private helpers
+	* Public helpers
 	*/
 
-	private function getPath ($id, $format = null) {
-		return ($format ? $this->servant()->format()->path($this->get($id), $format) : $this->get($id));
-	}
+	/**
+	* Convert a path from one format to another
+	*/
+	public function format ($path, $resultFormat = null, $originalFormat = null) {
 
-	private function setPath ($parameterName, $value) {
-		return $this->set($parameterName, $this->sanitize($value));
+		// Don't do anything if it doesn't make sense
+		if ($resultFormat != $originalFormat) {
+
+			// Prefixes
+			$documentRoot = $this->documentRoot();
+			$root = $this->root();
+			$host = $this->host();
+
+			// Strip to plain format
+			if ($originalFormat === 'server') {
+				$path = unprefix($path, $documentRoot.$root);
+			} else if ($originalFormat === 'domain') {
+				$path = unprefix($path, $root);
+			} else if ($originalFormat === 'url') {
+				$path = unprefix(unprefix($path, $host), $root);
+			}
+
+			// Add prefixes if needed
+			if ($resultFormat === 'server') {
+				$path = $documentRoot.$root.$path;
+			} else if ($resultFormat === 'domain') {
+				$path = prefix($root.$path, '/');
+			} else if ($resultFormat === 'url') {
+				$path = $host.$root.$path;
+			}
+
+		}
+
+		return $path;
 	}
 
 	/**
 	* Sanitize path formatting (results: '', 'foo/', 'foo/bar/')
 	*/
-	private function sanitize ($path = '', $leadingSlash = false, $trailingSlash = true) {
+	public function sanitize ($path = '', $leadingSlash = false, $trailingSlash = true) {
 
 		// Meaningful starting value
 		if (is_string($path)) {
@@ -221,6 +249,20 @@ class ServantPaths extends ServantObject {
 		}
 
 		return $result;
+	}
+
+
+
+	/**
+	* Private helpers
+	*/
+
+	private function getPath ($id, $format = null) {
+		return ($format ? $this->servant()->paths()->format($this->get($id), $format) : $this->get($id));
+	}
+
+	private function setPath ($parameterName, $value) {
+		return $this->set($parameterName, $this->sanitize($value));
 	}
 
 }

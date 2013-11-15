@@ -66,7 +66,7 @@ class ServantSite extends ServantObject {
 	public function icon ($format = null) {
 		$path = $this->getAndSet('icon');
 		if ($format and !empty($path)) {
-			$path = $this->servant()->format()->path($path, $format);
+			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
 	}
@@ -75,7 +75,7 @@ class ServantSite extends ServantObject {
 		$files = $this->getAndSet('scripts');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
+				$files[$key] = $this->servant()->paths()->format($filepath, $format);
 			}
 		}
 		return $files;
@@ -84,7 +84,7 @@ class ServantSite extends ServantObject {
 	public function splashImage ($format = null) {
 		$path = $this->getAndSet('splashImage');
 		if ($format and !empty($path)) {
-			$path = $this->servant()->format()->path($path, $format);
+			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
 	}
@@ -93,7 +93,7 @@ class ServantSite extends ServantObject {
 		$files = $this->getAndSet('stylesheets');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
+				$files[$key] = $this->servant()->paths()->format($filepath, $format);
 			}
 		}
 		return $files;
@@ -267,7 +267,7 @@ class ServantSite extends ServantObject {
 
 		// All files of this type in site's assets directory
 		foreach (rglob_files($this->servant()->paths()->assets('server'), $formats) as $file) {
-			$files[] = $this->servant()->format()->path($file, false, 'server');
+			$files[] = $this->servant()->paths()->format($file, false, 'server');
 		}
 
 		return $files;
@@ -314,7 +314,7 @@ class ServantSite extends ServantObject {
 			if (in_array($extension, $this->servant()->settings()->formats('iconImages'))) {
 
 				// File must exist
-				if (is_file($this->servant()->format()->path($path, 'server'))) {
+				if (is_file($this->servant()->paths()->format($path, 'server'))) {
 					$result = $path;
 				}
 

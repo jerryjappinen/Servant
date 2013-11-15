@@ -2,7 +2,56 @@
 
 class ServantMain extends ServantObject {
 
-	// Override construction (no main object)
+	/**
+	* Services
+	*/
+
+	protected $propertyAvailable 	= null;
+	protected $propertyCreate 		= null;
+	protected $propertyFiles 		= null;
+	protected $propertyParse 		= null;
+	protected $propertyPaths 		= null;
+	protected $propertySettings 	= null;
+	protected $propertySite 		= null;
+	protected $propertyUtilities 	= null;
+
+	protected function setAvailable () {
+		return $this->set('available', $this->generate('available'));
+	}
+	protected function setCreate () {
+		return $this->set('create', $this->generate('generator'));
+	}
+	protected function setFiles () {
+		return $this->set('files', $this->generate('files'));
+	}
+	protected function setParse () {
+		return $this->set('parse', $this->generate('parse'));
+	}
+	protected function setPaths ($paths) {
+		return $this->set('paths', $this->generate('paths', $paths));
+	}
+	protected function setSettings ($settings = null) {
+		return $this->set('settings', $this->generate('settings', $settings));
+	}
+	protected function setSite () {
+		return $this->set('site', $this->generate('site'));
+	}
+	protected function setUtilities () {
+		return $this->set('utilities', $this->generate('utilities'));
+	}
+
+	/**
+	* Deprecated
+	*/
+	protected $propertyPages = null;
+	protected function setPages () {
+		return $this->set('pages', $this->generate('pages'));
+	}
+
+
+	/**
+	* Override constructor (would normally require main)
+	*/
 	public function __construct () {
 		return $this;
 	}
@@ -10,21 +59,40 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Initialization and execution flow
+	* Debugging mode
 	*/
 
-	// General initializations
-	public function initialize ($paths, $settings = null, $debug = false) {
 
-		// Set debug mode
+	/**
+	* Public shortcuts
+	*/
+	protected $propertyDebug = null;
+	protected function setDebug () {
+		return $this->set('debug', false);
+	}
+	protected function enableDebug () {
+		return $this->set('debug', true);
+	}
+
+
+
+	/**
+	* Flow
+	*/
+
+	/**
+	* Wake-up
+	*/
+	public function initialize ($paths, $settings = null, $debug = false) {
 		if ($debug) {
 			$this->enableDebug();
 		}
-
 		return $this->setPaths($paths)->setSettings($settings);
 	}
 
-	// Run with actions
+	/**
+	* Run actions, generate response
+	*/
 	public function run ($userInput = null) {
 		$this->purgeTemp();
 
@@ -60,7 +128,9 @@ class ServantMain extends ServantObject {
 		return $this;
 	}
 
-	// Serve a response
+	/**
+	* Serve the response that was created based on input
+	*/
 	public function serve ($response) {
 
 		// Send headers
@@ -77,21 +147,8 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Public shortcuts
+	* Private helpers
 	*/
-	public function debug () {
-		return $this->get('debug');
-	}
-
-
-
-	/**
-	* Debugging mode
-	*/
-	protected $propertyDebug = false;
-	protected function enableDebug () {
-		return $this->set('debug', true);
-	}
 
 	/**
 	* Purge and remove the temp directory
@@ -100,63 +157,6 @@ class ServantMain extends ServantObject {
 		remove_dir($this->paths()->temp('server'));
 		return $this;
 	}
-
-
-
-	/**
-	* Services
-	*/
-
-	protected $propertyAvailable 	= null;
-	protected $propertyPages 		= null;
-	protected $propertyPaths 		= null;
-	protected $propertySettings 	= null;
-	protected $propertySite 		= null;
-	protected $propertyUtilities 	= null;
-
-	protected function setAvailable () {
-		return $this->set('available', $this->generate('available'));
-	}
-	protected function setPages () {
-		return $this->set('pages', $this->generate('pages'));
-	}
-	protected function setPaths ($paths) {
-		return $this->set('paths', $this->generate('paths', $paths));
-	}
-	protected function setSettings ($settings = null) {
-		return $this->set('settings', $this->generate('settings', $settings));
-	}
-	protected function setSite () {
-		return $this->set('site', $this->generate('site'));
-	}
-	protected function setUtilities () {
-		return $this->set('utilities', $this->generate('utilities'));
-	}
-	protected function setCreate () {
-		return $this->set('create', $this->generate('generator'));
-	}
-
-
-
-	/**
-	* Utility-like services
-	*/
-
-	protected $propertyFiles 		= null;
-	protected $propertyFormat 		= null;
-	protected $propertyParse 		= null;
-
-	protected function setFiles () {
-		return $this->set('files', $this->generate('files'));
-	}
-	protected function setFormat () {
-		return $this->set('format', $this->generate('formatter'));
-	}
-	protected function setParse () {
-		return $this->set('parse', $this->generate('parse'));
-	}
-
-
 
 }
 

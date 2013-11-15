@@ -101,7 +101,7 @@ class ServantTemplate extends ServantObject {
 		$files = $this->getAndSet('files');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
-				$files[$key] = $this->servant()->format()->path($filepath, $format);
+				$files[$key] = $this->servant()->paths()->format($filepath, $format);
 			}
 		}
 		return $files;
@@ -113,7 +113,7 @@ class ServantTemplate extends ServantObject {
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
-			$path = $this->servant()->format()->path($path, $format);
+			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
 	}
@@ -188,7 +188,7 @@ class ServantTemplate extends ServantObject {
 			foreach (rglob_files($serverPath, $this->servant()->settings()->formats('templates')) as $file) {
 
 				// Store each file's path to plain format
-				$files[] = $this->servant()->format()->path($file, false, 'server');
+				$files[] = $this->servant()->paths()->format($file, false, 'server');
 
 			}
 		}

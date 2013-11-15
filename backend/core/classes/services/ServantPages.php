@@ -92,7 +92,7 @@ class ServantPages extends ServantObject {
 
 		// Files on this level
 		foreach (glob_files($path, $filetypes) as $file) {
-			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->format()->path($file, 'plain', 'server');
+			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->paths()->format($file, 'plain', 'server');
 		}
 
 		// Non-empty child directories

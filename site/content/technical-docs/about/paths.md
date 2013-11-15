@@ -7,7 +7,7 @@ In Servant, paths are stored in a consistent format and always handled in the sa
 
 ## Path formats
 
-Servant can handle arbitrary paths in three different formats. A path can be converted from one format to another with `format()->path()`, or requested in any format when using any getter method of a path-related property.
+Servant can handle arbitrary paths in three different formats. A path can be converted from one format to another with `paths()->format()`, or requested in any format when using any getter method of a path-related property.
 
 - **Plain**: relative to Servant's root
 	- e.g. `site/theme/assets/scripts/jquery/`

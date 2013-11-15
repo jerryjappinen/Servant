@@ -62,7 +62,7 @@ class ServantSitemap extends ServantObject {
 		// Files on this level
 		$files = glob_files($path, $formats);
 		foreach ($files as $file) {
-			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->format()->path($file, false, 'server');
+			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->paths()->format($file, false, 'server');
 		}
 
 		// Files in child directories
