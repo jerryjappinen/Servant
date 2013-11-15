@@ -15,6 +15,7 @@
 
 ## Core
 
+- Remove `ServantFormat` (only used in one place)
 - Add utilities and pages to `ServantAvailable`
 - Search action
 - Multiple pieces of content for templates
