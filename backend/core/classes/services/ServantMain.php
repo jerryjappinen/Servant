@@ -3,6 +3,26 @@
 class ServantMain extends ServantObject {
 
 	/**
+	* Override constructor (would normally require main)
+	*/
+	public function __construct () {
+		return $this;
+	}
+
+	/**
+	* Debug mode
+	*/
+	protected $propertyDebug = null;
+	protected function setDebug () {
+		return $this->set('debug', false);
+	}
+	protected function enableDebug () {
+		return $this->set('debug', true);
+	}
+
+
+
+	/**
 	* Services
 	*/
 
@@ -19,13 +39,13 @@ class ServantMain extends ServantObject {
 		return $this->set('available', $this->generate('available'));
 	}
 	protected function setCreate () {
-		return $this->set('create', $this->generate('generator'));
+		return $this->set('create', $this->generate('creator'));
 	}
 	protected function setFiles () {
 		return $this->set('files', $this->generate('files'));
 	}
 	protected function setParse () {
-		return $this->set('parse', $this->generate('parse'));
+		return $this->set('parse', $this->generate('parser'));
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));
@@ -49,32 +69,6 @@ class ServantMain extends ServantObject {
 	}
 
 
-	/**
-	* Override constructor (would normally require main)
-	*/
-	public function __construct () {
-		return $this;
-	}
-
-
-
-	/**
-	* Debugging mode
-	*/
-
-
-	/**
-	* Public shortcuts
-	*/
-	protected $propertyDebug = null;
-	protected function setDebug () {
-		return $this->set('debug', false);
-	}
-	protected function enableDebug () {
-		return $this->set('debug', true);
-	}
-
-
 
 	/**
 	* Flow
@@ -93,7 +87,7 @@ class ServantMain extends ServantObject {
 	/**
 	* Run actions, generate response
 	*/
-	public function run ($userInput = null) {
+	public function response ($userInput = null) {
 		$this->purgeTemp();
 
 		// User input
@@ -123,9 +117,8 @@ class ServantMain extends ServantObject {
 		}
 
 		$this->purgeTemp();
-		$this->serve($response);
 
-		return $this;
+		return $response;
 	}
 
 	/**

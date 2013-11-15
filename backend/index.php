@@ -100,7 +100,8 @@ class Index {
 	private function run () {
 
 		// Start and run the main program
-		create_object(new ServantMain())->init($this->paths, $this->constantsJson, ($this->debug ? true : false))->run($this->input);
+		$servant = create_object(new ServantMain())->init($this->paths, $this->constantsJson, ($this->debug ? true : false));
+		$servant->serve($servant->response($this->input));
 
 	}
 

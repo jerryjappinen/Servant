@@ -3,7 +3,7 @@
 /**
 * ServantObject factory
 */
-class ServantGenerator extends ServantObject {
+class ServantCreator extends ServantObject {
 
 	public function action () {
 		$arguments = func_get_args();

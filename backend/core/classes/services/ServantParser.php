@@ -8,7 +8,7 @@
 * DEPENDENCIES
 *   ServantUtilities -> load
 */
-class ServantParse extends ServantObject {
+class ServantParser extends ServantObject {
 
 	/**
 	* HAML to PHP
