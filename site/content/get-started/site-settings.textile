@@ -7,14 +7,14 @@ Site settings are **completely optional**, but you probably want to manually def
 
 h5. @settings.json@
 
-<pre><code>"browserCache": "0*3*60",
-"serverCache": "0*7*24*7*60",
-"template": "default",
-"language": "en",
-"name": "Servant",
-"description": "Effortless publishing for the web",
-"icon": "site/content/favicon.ico",
-"splashImage": "site/content/splash.png",
+<pre><code>"browserCache":   "0*3*60",
+"serverCache":    "0*7*24*7*60",
+"template":       "default",
+"language":       "en",
+"name":           "Servant",
+"description":    "Effortless publishing for the web",
+"icon":           "site/content/favicon.ico",
+"splashImage":    "site/content/splash.png",
 "pageNames": {
 	"text-and-markdown": "Text & Markdown",
 	"url-manipulation": "URL manipulation"

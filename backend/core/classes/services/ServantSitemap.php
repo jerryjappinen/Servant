@@ -37,8 +37,6 @@ class ServantSitemap extends ServantObject {
 		return $this;
 	}
 
-
-
 	/**
 	* Root page node
 	*/
@@ -49,8 +47,72 @@ class ServantSitemap extends ServantObject {
 
 
 	/**
+	* Helpers
+	*/
+	public function select ($id = null) {
+		$tree = func_get_args();
+		return $this->selectNode(array_flatten($tree), $this->root());
+	}
+
+	/**
+	* Choose one page node from all available nodes, preferring the one pinpointed to in $tree by ID
+	*
+	* FLAG
+	*   - This works with sitemap-generated robust sitemap, but not very dynamically with arbitrary node maps
+	*/
+	public function selectNode ($tree, $parent) {
+		$tree = to_array($tree);
+
+		// Will always return a node, the current one by default
+		$result = $parent;
+
+		// List available nodes
+		$nodes = array();
+		foreach ($parent->children() as $node) {
+			$nodes[mb_strtolower($node->id())] = $node;
+		}
+		unset($node);
+
+		// We must have nodes to traverse
+		if (!empty($nodes)) {
+
+			// Extract next item from tree
+			$nextId = mb_strtolower(array_shift($tree));
+
+			// No preference or preferred item doesn't exist: auto select
+			if (!array_key_exists($nextId, $nodes)) {
+				foreach ($nodes as $key => $value) {
+					$nextId = $key;
+					break;
+				}
+				unset($key, $value);
+			}
+
+			// Select next node
+			$nextNode = $nodes[$nextId];
+
+			// We have a category
+			if ($nextNode->children() and !empty($tree)) {
+				$result = $this->selectNode($tree, $nextNode);
+			} else {
+				$result = $nextNode;
+			}
+
+		}
+
+		// Fallback to go deeper
+		if ($result->category()) {
+			$result = $this->selectNode('', $result->children(0));
+		}
+
+		return $result;
+	}
+
+
+
+	/**
 	* Private helpers
-	**/
+	*/
 
 	/**
 	* Find template files in file system

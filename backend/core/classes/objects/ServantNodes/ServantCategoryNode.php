@@ -55,6 +55,33 @@ class ServantCategoryNode extends ServantNode {
 
 
 	/**
+	* Parent node
+	*/
+
+	protected function setParent ($category = null) {
+
+		// Set false for root categories
+		if (!func_num_args()) {
+			$category = false;
+
+		} else {
+
+			if ($this->getServantClass($category) !== 'categoryNode') {
+				$this->fail('Pages need a category parent to take care of them.');
+			}
+
+			// FLAG this behavior isn't very clear...
+			$category->addChildren($this);
+
+		}
+
+
+		return $this->set('parent', $category);
+	}
+
+
+
+	/**
 	* Children
 	*/
 

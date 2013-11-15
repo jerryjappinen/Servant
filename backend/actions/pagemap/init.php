@@ -2,8 +2,8 @@
 
 // Root page
 $sitemap = $servant->create()->sitemap();
-$root = $sitemap->root();
-$children = $root->children();
+// $root = $sitemap->root();
+// $children = $root->children();
 
 // Foo
 // $output = array();
@@ -15,7 +15,8 @@ $children = $root->children();
 // 	);
 // }
 
-$output = $sitemap->dump();
+$output[] = $sitemap->select('technical-docs', 'template-formats', 'HTML')->name();
+$output[] = $sitemap->dump();
 // $output = $servant->paths()->pages('server');
 // $output = $sitemap->findPageTemplates($output);
 // $output = $sitemap->treatFileMap($output);

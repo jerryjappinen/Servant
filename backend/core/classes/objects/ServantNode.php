@@ -57,7 +57,7 @@ class ServantNode extends ServantObject {
 		$parent = $this->parent();
 
 		// Inherit grandparents
-		if (!$parent->root()) {
+		if ($parent) {
 			$parents = $parent->parents();
 			$parents[] = $parent;
 		}
@@ -137,7 +137,6 @@ class ServantNode extends ServantObject {
 	// Parent node
 	protected function setParent ($category) {
 
-		// FLAG should check for any subclass
 		if ($this->getServantClass($category) !== 'categoryNode') {
 			$this->fail('Pages need a category parent to take care of them.');
 		}
@@ -152,7 +151,7 @@ class ServantNode extends ServantObject {
 	protected function setTree () {
 		$results = array();
 		foreach ($this->parents() as $parent) {
-			$results[] = $parent()->id();
+			$results[] = $parent->id();
 		}
 		$results[] = $this->id();
 		return $this->set('tree', $results);
