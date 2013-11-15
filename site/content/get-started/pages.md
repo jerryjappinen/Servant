@@ -12,9 +12,9 @@ All files are converted and served to your users as HTML automatically. For exam
 		examples.php
 		features.html
 		get-started.md
-	theme/
+	assets/
 
-Pages can contain things like titles, subtitles, lists, links and images. The [theme](theme) will decide the look of these elements on the final site.
+Pages can contain things like titles, subtitles, lists, links and images. The [look](assets) will decide the look of these elements on the final site.
 
 
 

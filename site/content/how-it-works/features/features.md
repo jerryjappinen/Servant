@@ -25,7 +25,7 @@
 	<div class="column four last">
 		<p class="reset"><img src="humans.png" alt="For humans" title="For humans" class="green"></p>
 		<h3 class="squeeze">It's usable</h3>
-		<p>All default themes are responsive. URLs are human-readable. Servant is made for people.</p>
+		<p>All sample themes are responsive. URLs are human-readable. Servant is made for people.</p>
 	</div>
 	<div class="clear"></div>
 

@@ -59,7 +59,7 @@
 	- Use HTML head in the home page
 	- Load pages via AJAX
 	- Include simple view architecture in JS
-	- All styling in theme
+	- All styling in theme (or include dynamic stylesheet/script injections)
 	- Potentially include additional actions (like "page" action that outputs pages without a template)
 
 

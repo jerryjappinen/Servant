@@ -101,7 +101,7 @@ class Index {
 
 		// Start and run the main program
 		$servant = create_object(new ServantMain())->init($this->paths, $this->constantsJson, ($this->debug ? true : false));
-		$servant->serve($servant->response($this->input));
+		return $servant->serve($servant->response($this->input));
 
 	}
 
@@ -112,8 +112,8 @@ new Index(
 	'core/errors.php',
 	'core/helpers/',
 	'core/classes/',
-	'core/paths.php',
-	'core/constants/'
+	'paths.php',
+	'constants/'
 );
 die();
 

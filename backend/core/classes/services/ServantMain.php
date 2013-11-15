@@ -91,11 +91,11 @@ class ServantMain extends ServantObject {
 		$this->purgeTemp();
 
 		// User input
-		$input = $this->generate('input', $userInput);
+		$input = $this->create()->input($userInput);
 
 		// Serve a response
 		try {
-			$response = $this->generate('response', $input->action(), $input->page());
+			$response = $this->create()->response($input->action(), $input->page());
 
 		} catch (Exception $e) {
 			$this->purgeTemp();
@@ -106,7 +106,7 @@ class ServantMain extends ServantObject {
 
 			// Serve an error page
 			try {
-				$response = $this->generate('response', $this->settings()->actions('error'), $input->page());
+				$response = $this->create()->response($this->settings()->actions('error'), $input->page());
 
 			// Fuck
 			} catch (Exception $e) {

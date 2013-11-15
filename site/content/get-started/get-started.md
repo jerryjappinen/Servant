@@ -18,7 +18,7 @@ To create a site, **you only need to add a text file under `content/`.** The *te
 <div class="clear"></div>
 
 <div class="column six">
-	<h3 class="reset-bottom"><a href="theme">Theme &amp; look</a></h3>
+	<h3 class="reset-bottom"><a href="look">Layout &amp; look</a></h3>
 	<p class="squeeze-top">Learn how to use and extend different sample layouts and looks.</p>
 </div>
 <div class="column six last">

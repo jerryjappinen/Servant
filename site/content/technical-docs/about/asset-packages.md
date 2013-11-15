@@ -1,7 +1,7 @@
 
 # Assets
 
-The styles, scripts and accompanying assets that create the look and feel for any template are located under the assets directory (`site/theme/` by default). They often target a specific kind of template.
+The styles, scripts and accompanying assets that create the look and feel for any template are located under the assets directory (`site/assets/` by default). They often target a specific kind of template.
 
 **All assets are loaded automatically, alphabetically and recursively**. Servant merges and minifies them as needed.
 
@@ -19,7 +19,7 @@ For scripts, `.js` files are used. All JavaScript files are compiled into a one 
 
 ### Example
 
-##### site/theme/
+##### site/assets/
 	images/
 		menu.png
 	scripts/

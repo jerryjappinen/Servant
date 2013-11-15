@@ -12,7 +12,7 @@ You do not need to know about programming when working with Servant. In fact, yo
 We distinguish four groups of users that work with Servant. On each step you have to know a little bit more:
 
 1. **Users** install Servant and publish sites.
-2. **Web developers** create or customize themes and templates to create their customized web sites.
+2. **Web developers** create or customize layouts and templates to create their customized web sites.
 3. **Backend developers** write new backend actions for custom server-side functionality (e.g. accessing a database).
 4. **Servant contributors** develop Servant and write new features for the core system.
 
