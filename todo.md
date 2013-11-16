@@ -13,7 +13,7 @@
 
 ## Core
 
-- Replace `ServantPages` and `ServantPage` with the new sitemap and nodes
+- Improve usability of `ServantPage` and `ServantCategory`
 - Add pages to `ServantAvailable`
 - If PHP scripts are separated from template formats (as they are in actions now), add the file extension to constants
 - Search action (investigate full text search in HTML files)

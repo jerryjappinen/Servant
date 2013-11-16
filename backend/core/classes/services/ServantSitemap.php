@@ -32,6 +32,11 @@ class ServantSitemap extends ServantObject {
 		return $output;
 	}
 
+	public function pages () {
+		$arguments = func_get_args();
+		return $this->root()->children($arguments);
+	}
+
 
 
 	/**

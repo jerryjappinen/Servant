@@ -21,15 +21,19 @@ class ServantCategory extends ServantNode {
 	}
 
 	public function endpoint ($format = false) {
-		return $this->masterPage()->endpoint($format);
-	}
-
-	public function masterPage () {
-		return $this->children(0);
+		return $this->pick()->endpoint($format);
 	}
 
 	public function page () {
 		return false;
+	}
+
+	public function pick () {
+		$child = $this->children(0);
+		if ($child->category()) {
+			$child = $child->pick();
+		}
+		return $child;
 	}
 
 

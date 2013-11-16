@@ -40,6 +40,10 @@ class ServantPage extends ServantNode {
 		return true;
 	}
 
+	public function pick () {
+		return $this;
+	}
+
 
 
 	/**

@@ -2,7 +2,7 @@
 if ($servant->debug()) {
 
 	$content = array(
-		// $template->content(),
+		'Sitemap' => $servant->sitemap()->pages(2)->pick()->name(),
 		'Action' => $action->id(),
 		'Current page' => $page->name().' ('.implode('/', $page->tree()).')',
 		'Templates' => $servant->available()->templates(),
