@@ -3,7 +3,7 @@
 /**
 * A holder node with children
 */
-class ServantCategoryNode extends ServantNode {
+class ServantCategory extends ServantNode {
 
 	/**
 	* Properties
@@ -66,7 +66,7 @@ class ServantCategoryNode extends ServantNode {
 
 		} else {
 
-			if ($this->getServantClass($category) !== 'categoryNode') {
+			if ($this->getServantClass($category) !== 'category') {
 				$this->fail('Pages need a category parent to take care of them.');
 			}
 
@@ -96,7 +96,7 @@ class ServantCategoryNode extends ServantNode {
 
 		// Validate pages
 		foreach ($pages as $key => $page) {
-			if (!in_array($this->getServantClass($page), array('pageNode', 'categoryNode'))) {
+			if (!in_array($this->getServantClass($page), array('page', 'category'))) {
 				$this->fail('Invalid child passed to '.$this->name().' category.');
 			}
 		}

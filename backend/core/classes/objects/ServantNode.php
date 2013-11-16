@@ -166,7 +166,7 @@ class ServantNode extends ServantObject {
 	// Parent node
 	protected function setParent ($category) {
 
-		if ($this->getServantClass($category) !== 'categoryNode') {
+		if ($this->getServantClass($category) !== 'category') {
 			$this->fail('Pages need a category parent to take care of them.');
 		}
 

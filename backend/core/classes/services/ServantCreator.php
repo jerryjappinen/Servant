@@ -13,7 +13,7 @@ class ServantCreator extends ServantObject {
 
 	public function category () {
 		$arguments = func_get_args();
-		array_unshift($arguments, 'categoryNode');
+		array_unshift($arguments, 'category');
 		return call_user_func_array(array($this, 'generate'), $arguments);
 	}
 
@@ -25,7 +25,7 @@ class ServantCreator extends ServantObject {
 
 	public function page () {
 		$arguments = func_get_args();
-		array_unshift($arguments, 'pageNode');
+		array_unshift($arguments, 'page');
 		return call_user_func_array(array($this, 'generate'), $arguments);
 	}
 

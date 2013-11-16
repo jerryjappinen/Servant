@@ -5,17 +5,12 @@
 *
 * FLAG
 *   - Could be made looser (no template needed, no parent needed)
-*	- node, pageNode and categoryNode could be fused
-*   - root parent should be normalized away from view
+*	- node, page and category could probably be fused into one node class
 *
 * DEPENDENCIES
-*   ServantFiles 		-> read
-*   ServantFormat 		-> path
-*   					-> title
-*   ServantPaths 		-> endpoint
-*   ServantSite 		-> pageNames
+*   ???
 */
-class ServantPageNode extends ServantNode {
+class ServantPage extends ServantNode {
 
 	/**
 	* Properties
