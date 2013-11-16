@@ -54,7 +54,7 @@ if ($action->isRead()) {
 			$listItem = '<a href="'.$url.'">'.$name.'</a>';
 
 			// Mark selected page
-			if ($page->parents(false, 1) === $node) {
+			if ($page->parents(false, 1) === $node or $page === $node) {
 				$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
 			} else {
 				$listItem = '<li>'.$listItem;
