@@ -46,15 +46,15 @@ class ServantNode extends ServantObject {
 		return $this->getOrSet('name', $arguments);
 	}
 
-	public function tree ($includeRootNode = false) {
+	public function tree ($includeRoot = false) {
 		$arguments = func_get_args();
 		$tree = $this->getAndSet('tree');
 
 		// FLAG this behavior is a bit odd, it's a hacky solution
-		if (is_bool($includeRootNode)) {
+		if (is_bool($includeRoot)) {
 			array_shift($arguments);
 		}
-		if ($includeRootNode === false) {
+		if ($includeRoot === false) {
 			array_shift($tree);
 		}
 
@@ -68,25 +68,25 @@ class ServantNode extends ServantObject {
 	*/
 
 	public function root () {
-		return $this->parents();
+		return $this->parents(true, 0);
 	}
 
-	public function parents ($includeRootNode = true) {
+	public function parents ($includeRoot = false) {
 		$arguments = func_get_args();
 		$parents = array();
 
 		// Inherit grandparents
 		$parent = $this->parent();
 		if ($parent) {
-			$parents = $parent->parents();
+			$parents = $parent->parents(true);
 			$parents[] = $parent;
 		}
 
 		// FLAG this behavior is a bit odd, it's a hacky solution
-		if (is_bool($includeRootNode)) {
+		if (is_bool($includeRoot)) {
 			array_shift($arguments);
 		}
-		if ($includeRootNode === false) {
+		if ($includeRoot === false) {
 			array_shift($parents);
 		}
 
@@ -104,7 +104,7 @@ class ServantNode extends ServantObject {
 	* Depth
 	*/
 	protected function setDepth () {
-		return $this->set('depth', count($this->parents()));
+		return $this->set('depth', count($this->parents(true)));
 	}
 
 	/**
@@ -176,10 +176,10 @@ class ServantNode extends ServantObject {
 		return $this->set('parent', $category);
 	}
 
-	// List of parent IDs + own ID
+	// List of parent IDs + own ID, without root
 	protected function setTree () {
 		$results = array();
-		foreach ($this->parents() as $parent) {
+		foreach ($this->parents(true) as $parent) {
 			$results[] = $parent->id();
 		}
 		$results[] = $this->id();
