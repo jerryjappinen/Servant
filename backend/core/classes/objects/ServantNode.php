@@ -47,14 +47,18 @@ class ServantNode extends ServantObject {
 	}
 
 	public function tree ($includeRootNode = false) {
+		$arguments = func_get_args();
 		$tree = $this->getAndSet('tree');
 
 		// FLAG this behavior is a bit odd, it's a hacky solution
-		if (!$includeRootNode) {
+		if (is_bool($includeRootNode)) {
+			array_shift($arguments);
+		}
+		if ($includeRootNode === false) {
 			array_shift($tree);
 		}
 
-		return $tree;
+		return array_traverse($tree, $arguments);
 	}
 
 
@@ -63,18 +67,30 @@ class ServantNode extends ServantObject {
 	* Parent(s)
 	*/
 
-	public function parents () {
+	public function root () {
+		return $this->parents();
+	}
+
+	public function parents ($includeRootNode = true) {
+		$arguments = func_get_args();
 		$parents = array();
-		$parent = $this->parent();
 
 		// Inherit grandparents
+		$parent = $this->parent();
 		if ($parent) {
 			$parents = $parent->parents();
 			$parents[] = $parent;
 		}
 
+		// FLAG this behavior is a bit odd, it's a hacky solution
+		if (is_bool($includeRootNode)) {
+			array_shift($arguments);
+		}
+		if ($includeRootNode === false) {
+			array_shift($parents);
+		}
+
 		// Traverse parents
-		$arguments = func_get_args();
 		return array_traverse($parents, $arguments);
 	}
 

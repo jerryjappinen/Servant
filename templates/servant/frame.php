@@ -7,7 +7,7 @@ $menu = '';
 if ($action->isRead()) {
 
 	// Generate menu if needed
-	$mainCategory = $page->parents(1);
+	$mainCategory = $page->parents(false, 0);
 	if ($mainCategory) {
 
 		$items = array();
@@ -32,7 +32,7 @@ if ($action->isRead()) {
 					$listItem = '<a href="'.$url.'">'.$subNode->name().'</a>';
 
 					// Mark selected subNode
-					if ($page->parents(1) === $subNode->parent() and $page->tree(1) === $subNode->id()) {
+					if ($page->parents(false, 1) === $node and $page === $subNode) {
 						$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
 					} else {
 						$listItem = '<li>'.$listItem;
@@ -54,7 +54,7 @@ if ($action->isRead()) {
 			$listItem = '<a href="'.$url.'">'.$name.'</a>';
 
 			// Mark selected page
-			if ($page->tree(0) === $node->id()) {
+			if ($page->parents(false, 1) === $node) {
 				$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
 			} else {
 				$listItem = '<li>'.$listItem;
