@@ -19,7 +19,6 @@ if (!empty($relativeSrcUrl)) {
 
 // Relative location for HREF urls
 $tree = $page->tree();
-array_shift($tree); // Root in tree() should not be there
 array_pop($tree);
 $relativeHrefUrl = implode('/', $tree);
 if (!empty($relativeHrefUrl)) {

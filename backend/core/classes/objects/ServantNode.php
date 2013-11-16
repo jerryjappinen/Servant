@@ -33,7 +33,7 @@ class ServantNode extends ServantObject {
 
 
 	/**
-	* Getter-setters
+	* Getters
 	*/
 
 	public function id () {
@@ -44,6 +44,17 @@ class ServantNode extends ServantObject {
 	public function name () {
 		$arguments = func_get_args();
 		return $this->getOrSet('name', $arguments);
+	}
+
+	public function tree ($includeRootNode = false) {
+		$tree = $this->getAndSet('tree');
+
+		// FLAG this behavior is a bit odd, it's a hacky solution
+		if (!$includeRootNode) {
+			array_shift($tree);
+		}
+
+		return $tree;
 	}
 
 
@@ -62,7 +73,9 @@ class ServantNode extends ServantObject {
 			$parents[] = $parent;
 		}
 
-		return $parents;
+		// Traverse parents
+		$arguments = func_get_args();
+		return array_traverse($parents, $arguments);
 	}
 
 

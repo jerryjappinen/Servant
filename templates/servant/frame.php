@@ -6,12 +6,12 @@
 $menu = '';
 if ($action->isRead()) {
 
-	// Generate menu
-	$nodes = $page->parent()->children();    // Need to manually normalize root
+	// Generate menu if needed
+	$mainCategory = $page->parents(1);
+	if ($mainCategory) {
 
-	if ($nodes) {
 		$items = array();
-		foreach ($nodes as $node) {
+		foreach ($mainCategory->children() as $node) {
 
 			// Name
 			$name = $node->name();
@@ -25,14 +25,14 @@ if ($action->isRead()) {
 				$name = $node->name();
 
 				// Include all pages on this level
-				foreach ($node->siblings() as $subNode) {
+				foreach ($node->children() as $subNode) {
 
 					// Child page HTML
 					$url = $subNode->endpoint('domain');
 					$listItem = '<a href="'.$url.'">'.$subNode->name().'</a>';
 
 					// Mark selected subNode
-					if ($page->parents(1) === $subNode->parent() and $page->tree(2) === $subNode->id()) {
+					if ($page->parents(1) === $subNode->parent() and $page->tree(1) === $subNode->id()) {
 						$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
 					} else {
 						$listItem = '<li>'.$listItem;
@@ -54,7 +54,7 @@ if ($action->isRead()) {
 			$listItem = '<a href="'.$url.'">'.$name.'</a>';
 
 			// Mark selected page
-			if ($page->tree(1) === $node->id()) {
+			if ($page->tree(0) === $node->id()) {
 				$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
 			} else {
 				$listItem = '<li>'.$listItem;
