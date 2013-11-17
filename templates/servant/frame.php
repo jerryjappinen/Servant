@@ -85,7 +85,7 @@ if ($action->isRead()) {
 // Sort pages into pages and categories
 $pages = array();
 $categories = array();
-foreach ($servant->sitemap()->root()->children() as $node) {
+foreach ($servant->sitemap()->pages() as $node) {
 	if ($node->category()) {
 		$categories[] = $node;
 	} else {

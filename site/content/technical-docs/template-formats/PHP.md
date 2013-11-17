@@ -25,8 +25,8 @@ Servant runs on PHP, and **scriptable PHP pages** are supported out of the box. 
 
 	<ul>
 	<?php
-		foreach ($servant->sitemap()->root()->children() as $child) {
-			print '<li>'.$child->name().'</li>';
+		foreach ($servant->sitemap()->pages() as $page) {
+			print '<li>'.$page->name().'</li>';
 		}
 	?>
 	</ul>

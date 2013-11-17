@@ -3,7 +3,7 @@
 /**
 * Level 1 menu
 */
-$nodes = $servant->sitemap()->root()->children();
+$nodes = $servant->sitemap()->pages();
 if (!empty($nodes)) {
 
 	foreach ($nodes as $node) {
