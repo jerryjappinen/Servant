@@ -32,7 +32,7 @@ This is the basic file structure.
 	backend/
 		...
 	site/
-		content/
+		pages/
 			some-page.txt
 			another-page/
 				content.html
@@ -48,9 +48,9 @@ This is the basic file structure.
 			...
 		...
 
-As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `content/` folder.
+As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `pages/` folder.
 
-You can use the (optional) site settings file `settings.json` to define things like site name, description and favicon. `assets/` contains the stylesheets and JavaScripts of your site. Page-specific styles and scripts can be included under `content/` as well.
+You can use the (optional) site settings file `settings.json` to define things like site name, description and favicon. `assets/` contains the stylesheets and JavaScripts of your site. Page-specific styles and scripts can be included under `pages/` as well.
 
 Template files under `templates/` define the basic structure of your site. One template is used for your site, either the default or the one you define in settings.
 
