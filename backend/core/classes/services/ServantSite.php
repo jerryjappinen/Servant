@@ -199,7 +199,7 @@ class ServantSite extends ServantObject {
 		if (is_array($input) and !empty($input)) {
 
 			// Normalize user input
-			$results = array_flatten($input);
+			$results = $this->normalizePageTreeStrings($input);
 
 		}
 
@@ -288,6 +288,32 @@ class ServantSite extends ServantObject {
 		}
 
 		return $files;
+	}
+
+	private function normalizePageTreeStrings ($strings, $prefix = '') {
+		$results = array();
+
+		if (!empty($prefix)) {
+			$prefix = suffix($prefix.'/');
+		}
+
+		if (is_array($strings) and !empty($strings)) {
+			foreach ($strings as $key => $value) {
+
+				// String values go to results directly
+				if (is_string($value)) {
+					$results[] = $prefix.unsuffix(unprefix($value, '/'), '/');
+
+				// Child arrays are treated recursively
+				} else if (is_array($value)) {
+					$results[] = $prefix.$key;
+					$results = array_merge($results, $this->normalizePageTreeStrings($value, is_string($key) ? $prefix.$key : $prefix));
+				}
+
+			}
+		}
+
+		return $results;
 	}
 
 	// Resolve valid cache time from user input, in minutes

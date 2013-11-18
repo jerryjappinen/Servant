@@ -14,17 +14,23 @@
 		"url-manipulation": "URL manipulation"
 	},
 
-	"pageOrder": [
-		"about",
-		"how-it-works/",
+	"pageOrder": {
+		"about": "about",
+		"how-it-works": "how-it-works/",
 
-		["how-it-works/how-it-works",
-		"how-it-works/features"],
+		"how-it-works/how-it-works": "how-it-works/how-it-works",
+		"how-it-works/features": "how-it-works/features",
 
-		"technical-docs/about/about",
-		"technical-docs/about/template-packages",
-		"technical-docs/about/asset-packages"
-	],
+		"technical-docs": "technical-docs",
+
+		"technical-docs": {
+			"about": [
+				"about/",
+				"template-packages",
+				"/asset-packages"
+			]
+		}
+	},
 
 	"pages": {
 
