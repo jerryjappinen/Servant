@@ -6,16 +6,17 @@
 - General flow
 	- Action objects should be generated in `ServantResponse`, *not* `ServantMain`
 	- `Page` should be selected by actions based on input
-	- `ServantInput` Should not include action or page selection either
-		- It's not `ServantSelected`, but now it serves as just a helper for Main instead of actual input object
+	- `ServantInput` Should not select action
+- Improved usability of `ServantPage` and `ServantCategory`
 
 
 
 ## Core
 
-- Improve usability of `ServantPage` and `ServantCategory`
-- Add pages to `ServantAvailable`
-- If PHP scripts are separated from template formats (as they are in actions now), add the file extension to constants
+- `site()->sitemap()` and `servant->sitemap()` cannot coexist
+- Add pages to `ServantAvailable`? `available()->pages() === sitemap()->root()->children()`?
+- Preserve variables when reading multiple dynamic template files (not just PHP files like in actions)
+	- If PHP scripts are separated from template formats (as they are in actions now), add the file extension to constants
 - Search action (investigate full text search in HTML files)
 - Multiple pieces of content for templates
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
@@ -26,19 +27,22 @@
 	- `templates://`
 	- In different contexts, one of these serves as the default root
 - Input system
-	- Store input for Main in `ServantInput`
+	- Store input privately for `ServantMain` in `ServantInput`
 	- Interpret and merge input of different types
 	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
 	- Pass validated input to actions
-- Allow disabling cache in actions
+- Sitemap configuration in site settings
+- Warnings
+	- Collect warnings under `ServantMain`
+	- Display warnings in e.g. debug template + log
 - Action configuration
-	- Authors can declare actions private: not accessible via HTTP, only other scripts
-	- JSON? Make sure JSON stays secure on server!
-	- Allow users to declare action-specific configs in site settings?
-- Preserve variables when reading multiple dynamic template files (not just PHP files like in actions)
+	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
+	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
+	-> Disabling cache in actions
+	-> Input declarations
 - Data/storage/working directory for actions
-	- Should be under `site/` as it's site-specific
+	- Something like `site/data/` as it's site-specific stuff
 
 
 

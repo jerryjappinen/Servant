@@ -12,6 +12,32 @@
 	"pageNames": {
 		"text-and-markdown": "Text & Markdown",
 		"url-manipulation": "URL manipulation"
+	},
+
+	"pageOrder": [
+		"about",
+		"how-it-works/",
+
+		["how-it-works/how-it-works",
+		"how-it-works/features"],
+
+		"technical-docs/about/about",
+		"technical-docs/about/template-packages",
+		"technical-docs/about/asset-packages"
+	],
+
+	"pages": {
+
+		"about": {
+			"name": "Servant",
+			"template": "html"
+		},
+
+		"technical-docs/about/url-manipulation": {
+			"name": "URL manipulation",
+			"template": "blog"
+		}
+
 	}
 
 }

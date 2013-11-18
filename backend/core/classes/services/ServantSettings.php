@@ -47,11 +47,11 @@ class ServantSettings extends ServantObject {
 		// Run setters if values are given
 		if ($input and is_array($input)) {
 			foreach ($properties as $key) {
-				$parameters = array();
+				$setterParameters = array();
 				if (isset($input[$key]) and !empty($input[$key])) {
-					$parameters[] = to_array($input[$key]);
+					$setterParameters[] = to_array($input[$key]);
+					$this->callSetter($key, $setterParameters);
 				}
-				$this->callSetter($key, $parameters);
 			}
 		}
 

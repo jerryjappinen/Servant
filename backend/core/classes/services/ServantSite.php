@@ -40,6 +40,7 @@ class ServantSite extends ServantObject {
 				'name',
 				'pageNames',
 				'serverCache',
+				'pageOrder',
 				'splashImage',
 				'template',
 			);
@@ -187,6 +188,22 @@ class ServantSite extends ServantObject {
 		}
 
 		return $this->set('pageNames', $pageNames);
+	}
+
+	/**
+	* Manual page order configuration - page ordering and page properties
+	*/
+	protected function setPageOrder ($input = null) {
+		$results = array();
+
+		if (is_array($input) and !empty($input)) {
+
+			// Normalize user input
+			$results = array_flatten($input);
+
+		}
+
+		return $this->set('pageOrder', $results);
 	}
 
 	/**
