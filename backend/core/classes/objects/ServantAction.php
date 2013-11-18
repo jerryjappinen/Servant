@@ -106,7 +106,7 @@ class ServantAction extends ServantObject {
 	}
 
 	// Files in any format
-	public function files ($format = false) {
+	protected function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
@@ -122,7 +122,7 @@ class ServantAction extends ServantObject {
 	}
 
 	// Path in any format
-	public function path ($format = false) {
+	protected function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->paths()->format($path, $format);

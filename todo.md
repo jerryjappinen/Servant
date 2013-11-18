@@ -8,6 +8,7 @@
 	- `Page` should be selected by actions based on input
 	- `ServantInput` Should not select action
 - Improved usability of `ServantPage` and `ServantCategory`
+- Investigate sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
 
 
 
