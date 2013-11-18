@@ -7,6 +7,7 @@ $paths = array(
 
 	// User-facing locations
 	'assets' 		=> 'site/assets/',
+	'data' 			=> 'site/data/',
 	'manifest' 		=> 'site/settings.json',
 	'pages' 		=> 'site/pages/',
 	'templates' 	=> 'templates/',

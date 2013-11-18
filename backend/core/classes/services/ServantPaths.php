@@ -14,6 +14,7 @@ class ServantPaths extends ServantObject {
 	protected $propertyHost 		= null;
 
 	protected $propertyAssets 		= null;
+	protected $propertyData 		= null;
 	protected $propertyManifest 	= null;
 	protected $propertyPages 		= null;
 	protected $propertyTemplates 	= null;
@@ -38,6 +39,7 @@ class ServantPaths extends ServantObject {
 			'index',
 
 			'assets',
+			'data',
 			'manifest',
 			'pages',
 			'templates',
@@ -128,6 +130,9 @@ class ServantPaths extends ServantObject {
 	public function cache ($format = null) {
 		return $this->getPath('cache', $format);
 	}
+	public function data ($format = null) {
+		return $this->getPath('data', $format);
+	}
 	public function manifest ($format = null) {
 		return $this->getPath('manifest', $format);
 	}
@@ -151,7 +156,11 @@ class ServantPaths extends ServantObject {
 	*/
 
 	public function action ($action, $format = null) {
-		return $this->actions($format).$action.'/';
+		return $this->actions($format).suffix($action, '/');
+	}
+
+	public function dataOf ($action, $format = null) {
+		return $this->data($format).suffix($action, '/');
 	}
 
 	public function endpoint ($action, $format = null, $pathParameters = array()) {
@@ -165,7 +174,7 @@ class ServantPaths extends ServantObject {
 	}
 
 	public function template ($template, $format = null) {
-		return $this->templates($format).$template.'/';
+		return $this->templates($format).suffix($template, '/');
 	}
 
 
