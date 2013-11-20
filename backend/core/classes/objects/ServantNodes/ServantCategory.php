@@ -24,6 +24,10 @@ class ServantCategory extends ServantNode {
 		return $this->pick()->endpoint($format);
 	}
 
+	public function home () {
+		return false;
+	}
+
 	public function page () {
 		return false;
 	}

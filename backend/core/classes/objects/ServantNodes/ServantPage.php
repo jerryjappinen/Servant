@@ -36,6 +36,25 @@ class ServantPage extends ServantNode {
 		return array();
 	}
 
+	public function home () {
+		$home = false;
+
+		// If this page is first of its siblings
+		if ($this->index() === 0) {
+
+			$home = true;
+			foreach ($this->parents() as $parent) {
+				if ($parent->index() > 0) {
+					$home = false;
+					break;
+				}
+			}
+
+		}
+
+		return $home;
+	}
+
 	public function page () {
 		return true;
 	}

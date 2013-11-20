@@ -1,11 +1,16 @@
 <?php
 if ($servant->debug()) {
 
+	$pageOrder = array();
+	foreach ($servant->site()->pageOrder() as $key => $value) {
+		$section = substr($value, 0, strrpos($value, '/'));
+		$pageOrder['root'.($section ? '/'.$section : '')][] = unprefix($value, $section.'/');
+	}
+
+	// $pageOrder = $servant->site()->pageOrder();
+
 	$content = array(
-		'Data path' => $servant->paths()->dataOf('foo', 'server'),
-		'Sitemap' => $servant->sitemap()->pages(2)->pick()->name(),
-		'Current page' => $page->name().' ('.implode('/', $page->tree()).')',
-		'Page ordering' => $servant->site()->pageOrder(),
+		'Page ordering' => $pageOrder,
 		'Page names' => $servant->site()->pageNames(),
 	);
 

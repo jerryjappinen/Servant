@@ -61,6 +61,10 @@ class ServantNode extends ServantObject {
 		return array_traverse($tree, $arguments);
 	}
 
+	public function pointer ($includeRoot = false) {
+		return implode('/', $this->tree($includeRoot));
+	}
+
 
 
 	/**

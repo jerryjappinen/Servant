@@ -59,7 +59,7 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Helpers
 	*/
-	public function select ($id = null) {
+	public function select ($tree = null) {
 		$tree = func_get_args();
 		return $this->selectNode(array_flatten($tree), $this->root());
 	}
