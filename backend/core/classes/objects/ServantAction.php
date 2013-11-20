@@ -29,6 +29,16 @@ class ServantAction extends ServantObject {
 
 
 	/**
+	* Convenience
+	*/
+
+	public function dataPath ($format = null) {
+		return $this->servant()->paths()->dataOf($this->id(), $format);
+	}
+
+
+
+	/**
 	* Initialize
 	*
 	* Defaults are set here, and can be overridden by action's code.

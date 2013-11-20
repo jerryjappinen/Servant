@@ -1,5 +1,0 @@
-<?php
-
-$action->contentType('html');
-
-?>

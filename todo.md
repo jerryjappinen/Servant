@@ -14,7 +14,6 @@
 
 ## Core
 
-- `site()->sitemap()` and `servant->sitemap()` cannot coexist
 - Add pages to `ServantAvailable`? `available()->pages() === sitemap()->root()->children()`?
 - Preserve variables when reading multiple dynamic template files (not just PHP files like in actions)
 	- If PHP scripts are separated from template formats (as they are in actions now), add the file extension to constants
@@ -34,6 +33,9 @@
 	- Validate input based on the demands of an action
 	- Pass validated input to actions
 - Sitemap configuration in site settings
+	- Page order
+	- Page names
+	- Page templates
 - Warnings
 	- Collect warnings under `ServantMain`
 	- Display warnings in e.g. debug template + log

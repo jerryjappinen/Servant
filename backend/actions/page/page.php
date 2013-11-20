@@ -33,6 +33,6 @@ $actionsUrl = $servant->paths()->root('domain');
 // Set output
 $servant->utilities()->load('urlmanipulator');
 $manipulate = new UrlManipulator();
-$action->output($manipulate->htmlUrls($page->output(), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
+$action->contentType('html')->output($manipulate->htmlUrls($page->output(), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 
 ?>
