@@ -15,6 +15,10 @@ class ServantWarnings extends ServantObject {
 	* Convenience
 	*/
 
+	public function count () {
+		return $this->servant()->debug() ? count($this->all()) : 0;
+	}
+
 	public function trigger ($input = null) {
 		if ($this->servant()->debug()) {
 
@@ -28,6 +32,12 @@ class ServantWarnings extends ServantObject {
 
 		return $this;
 	}
+
+
+
+	/**
+	* Getters
+	*/
 
 	public function all () {
 		return $this->servant()->debug() ? $this->getAndSet('all') : array();
