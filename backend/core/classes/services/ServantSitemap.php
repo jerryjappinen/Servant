@@ -170,21 +170,47 @@ class ServantSitemap extends ServantObject {
 
 	public function generateNodes ($pages, $parent = null, $pageOrder = array()) {
 
-		if (array_key_exists($parent->pointer(true), $pageOrder)) {
-			log_dump($pageOrder);
+		// Order of children
+		$order = array();
+		$pointer = $parent->pointer(true);
+		if (array_key_exists($pointer, $pageOrder)) {
+			$order = $pageOrder[$pointer];
 		}
 
-		foreach ($pages as $key => $value) {
-			// log_dump($key);
+
+
+		// Reorder $pages according to our order map
+		$orderedPages = array();
+
+		// Pick values in order map first
+		foreach ($order as $id) {
+			if (isset($pages[$id])) {
+				$orderedPages[$id] = $pages[$id];
+			}
+		}
+		unset($id);
+
+		// Add values that weren't already been picked
+		foreach ($pages as $id => $value) {
+			if (!isset($orderedPages[$id])) {
+				$orderedPages[$id] = $value;
+			}
+		}
+		unset($id, $value);
+
+
+
+		// Generate page objects
+		foreach ($orderedPages as $id => $value) {
 
 			// Category
 			if (is_array($value)) {
-				$category = $this->servant()->create()->category($key, $parent);
-				$this->generateNodes($value, $category);
+				$category = $this->servant()->create()->category($id, $parent);
+				$this->generateNodes($value, $category, $pageOrder);
 
 			// Page
 			} else {
-				$page = $this->servant()->create()->page($value, $parent);
+				$page = $this->servant()->create()->page($value, $parent, $id);
 			}
 
 		}
