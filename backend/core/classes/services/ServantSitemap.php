@@ -43,7 +43,16 @@ class ServantSitemap extends ServantObject {
 	* Initialization
 	*/
 	public function initialize () {
-		$this->generateNodes($this->findPageTemplates($this->servant()->paths()->pages('server')), $this->root());
+
+		// Page order
+		$pageOrder = array();
+		foreach ($this->servant()->site()->pageOrder() as $key => $value) {
+			$section = substr($value, 0, strrpos($value, '/'));
+			$pageOrder['root'.($section ? '/'.$section : '')][] = unprefix($value, $section.'/');
+		}
+
+		// Nodes
+		$this->generateNodes($this->findPageTemplates($this->servant()->paths()->pages('server')), $this->root(), $pageOrder);
 		return $this;
 	}
 
@@ -159,9 +168,14 @@ class ServantSitemap extends ServantObject {
 		return $results;
 	}
 
-	public function generateNodes ($pages, $parent = null) {
+	public function generateNodes ($pages, $parent = null, $pageOrder = array()) {
+
+		if (array_key_exists($parent->pointer(true), $pageOrder)) {
+			log_dump($pageOrder);
+		}
 
 		foreach ($pages as $key => $value) {
+			// log_dump($key);
 
 			// Category
 			if (is_array($value)) {
