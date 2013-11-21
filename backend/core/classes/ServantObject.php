@@ -207,6 +207,15 @@ class ServantObject {
 	}
 
 	/**
+	* Report warning, expect implementation in Main
+	*/
+	protected function warn ($message) {
+		$arguments = func_get_args();
+		call_user_func_array(array($this->servant()->warnings(), 'trigger'), $arguments);
+		return $this;
+	}
+
+	/**
 	* Return the ServantObject type of either this object or the object given as argument
 	*/
 	protected function getServantClass ($object = null) {

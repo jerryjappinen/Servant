@@ -16,7 +16,7 @@ class Status {
 	private $core 			= 'core/';
 	private $utilities 		= 'utilities/';
 
-	private $constants 		= 'core/constants/';
+	private $constants 		= 'constants/';
 
 	/**
 	* Lists

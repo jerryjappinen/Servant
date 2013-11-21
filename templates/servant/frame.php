@@ -62,11 +62,8 @@ foreach ($footerLists as $list) {
 /**
 * Full template
 */
-
-// Menus
 $mainmenu = $template->nest('list-toplevelpages');
 $submenu = $action->isRead() ? $template->nest('list-submenu') : '';
-
 $frame = '
 <div class="frame">
 
@@ -98,6 +95,6 @@ $frame = '
 
 </div>';
 
-// Output via the default template
+// Output via the HTML template
 echo $template->nest('html', $frame);
 ?>

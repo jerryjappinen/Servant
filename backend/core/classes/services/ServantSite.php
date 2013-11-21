@@ -251,9 +251,16 @@ class ServantSite extends ServantObject {
 		// Site settings
 		if (!empty($input)) {
 			$template = $input;
+		}
 
-		} else {
+		// Unavailable
+		if (!$this->servant()->available()->template($template)) {
 			$path = $this->servant()->paths()->templates('server');
+
+			// Warn of missing template
+			if ($this->servant()->debug() and !$this->servant()->available()->template($template)) {
+				$this->warn('Attempted using the '.$template.' template, which is not available.');
+			}
 
 			// Try default
 			$default = $this->servant()->settings()->defaults('template');
