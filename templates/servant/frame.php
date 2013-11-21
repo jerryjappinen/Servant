@@ -1,11 +1,7 @@
 <?php
 
 /**
-* Submenu for read action
-*/
-
-/**
-* Footer
+* Footer composition
 */
 
 // Sort pages into pages and categories

@@ -36,6 +36,11 @@ class ServantNode extends ServantObject {
 	* Getters
 	*/
 
+	public function depth ($includeRoot = false) {
+		$depth = $this->getAndSet('depth');
+		return $includeRoot ? $depth : $depth-1;
+	}
+
 	public function id () {
 		$arguments = func_get_args();
 		return $this->getOrSet('id', $arguments);
