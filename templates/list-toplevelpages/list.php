@@ -3,6 +3,7 @@
 /**
 * Level 1 menu
 */
+echo '<ul class="menu-1">';
 $nodes = $servant->sitemap()->pages();
 if (!empty($nodes)) {
 
@@ -17,5 +18,5 @@ if (!empty($nodes)) {
 	}
 
 }
-
+echo '</ul>';
 ?>

@@ -168,6 +168,7 @@ class ServantSitemap extends ServantObject {
 		return $results;
 	}
 
+	// FLAG a little bloated
 	public function generateNodes ($pages, $parent = null, $pageOrder = array()) {
 
 		// Order of children

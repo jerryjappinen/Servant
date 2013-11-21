@@ -7,14 +7,17 @@
 	- Action objects should be generated in `ServantResponse`, *not* `ServantMain`
 	- `Page` should be selected by actions based on input
 	- `ServantInput` Should not select action
-- Improved usability of `ServantPage` and `ServantCategory`
-- Investigate sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
+? Improved usability of `ServantPage` and `ServantCategory`
+? Investigate sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
+? Add-on admin section
+	- Settings file generation
+	- Status board
+	- Online page editor
 
 
 
 ## Core
 
-- Add pages to `ServantAvailable`? `available()->pages() === sitemap()->root()->children()`?
 - Preserve variables when reading multiple dynamic template files (not just PHP files like in actions)
 	- If PHP scripts are separated from template formats (as they are in actions now), add the file extension to constants
 - Search action (investigate full text search in HTML files)
@@ -32,18 +35,16 @@
 	- Allow actions to declare input demands (for validation)
 	- Validate input based on the demands of an action
 	- Pass validated input to actions
-- Sitemap configuration in site settings
-	- Page order
-	- Page names
-	- Page templates
-- Warnings
-	- Collect warnings under `ServantMain`
-	- Display warnings in e.g. debug template + log
 - Action configuration
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
 	-> Disabling cache in actions
 	-> Input declarations
+- Warnings
+	- Collect warnings under `ServantMain`
+	- Display warnings in e.g. debug template + log
+- Page properties in site settings (names, template)
+	-> Page-specific templates
 - Data/storage/working directory for actions
 	- Something like `site/data/` as it's site-specific stuff
 

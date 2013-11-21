@@ -3,80 +3,6 @@
 /**
 * Submenu for read action
 */
-$menu = '';
-if ($action->isRead()) {
-
-	// Generate menu if needed
-	$mainCategory = $page->parents(false, 0);
-	if ($mainCategory) {
-
-		$items = array();
-		foreach ($mainCategory->children() as $node) {
-
-			// Name
-			$name = $node->name();
-
-			// Children
-			$submenu = '';
-			$subItems = array();
-			if ($node->children()) {
-
-				// Rename category
-				$name = $node->name();
-
-				// Include all pages on this level
-				foreach ($node->children() as $subNode) {
-
-					// Child page HTML
-					$url = $subNode->endpoint('domain');
-					$listItem = '<a href="'.$url.'">'.$subNode->name().'</a>';
-
-					// Mark selected subNode
-					if ($page->parents(false, 1) === $node and $page === $subNode) {
-						$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
-					} else {
-						$listItem = '<li>'.$listItem;
-					}
-
-					// Close HTML
-					$listItem .= '</li>';
-
-					// Add item to submenu
-					$subItems[] = $listItem;
-					unset($listItem);
-				}
-
-				$submenu = '<ul class="menu-3">'.implode($subItems).'</ul>';
-			}
-
-			// Link HTML
-			$url = $node->endpoint('domain');
-			$listItem = '<a href="'.$url.'">'.$name.'</a>';
-
-			// Mark selected page
-			if ($page->parents(false, 1) === $node or $page === $node) {
-				$listItem = '<li class="selected"><strong>'.$listItem.'</strong>';
-			} else {
-				$listItem = '<li>'.$listItem;
-			}
-
-			// Close HTML
-			$listItem .= ($submenu ? $submenu : '').'</li>';
-
-			// Add item to menu
-			$items[] = $listItem;
-			unset($listItem);
-
-		}
-
-		// Menu structure
-		$menu = '<ul class="menu-2">'.implode($items).'</ul>';
-
-	}
-
-}
-
-
 
 /**
 * Footer
@@ -140,38 +66,25 @@ foreach ($footerLists as $list) {
 /**
 * Full template
 */
+
+// Menus
+$mainmenu = $template->nest('list-toplevelpages');
+$submenu = $action->isRead() ? $template->nest('list-submenu') : '';
+
 $frame = '
 <div class="frame">
 
 	<div class="frame-header">
 		<div class="frame-container">
 			<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>
-			';
-
-
-
-			// Menu if there are pages
-			$headerMenu = $template->nest('list-toplevelpages');
-			if ($headerMenu) {
-				$frame .= '
-				<div id="responsive-menu">
-					<ul class="menu-1">
-						'.$headerMenu.'
-					</ul>
-				</div>
-				';
-			}
-
-
-
-			$frame .= '
+			'.($mainmenu ? '<div id="responsive-menu">'.$mainmenu.'</div>' : '').'
 			<div class="clear"></div>
 		</div>
 	</div>
 
 	<div class="frame-body">
 		<div class="frame-container">
-			'.($menu ? '<div class="frame-sidebar">'.$menu.'</div>' : '').'
+			'.($submenu ? '<div class="frame-sidebar">'.$submenu.'</div>' : '').'
 			<div class="frame-article">
 				'.$template->content().'
 			</div>
