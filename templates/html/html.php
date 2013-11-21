@@ -102,7 +102,7 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $template->content() ?>
 
-		<?php if ($servant->debug()) { echo $template->nest('debug'); } ?>
+		<?php if ($servant->debug()) { echo $template->nest('warnings'); } ?>
 
 		<script src="<?php echo $servant->paths()->endpoint('sitescripts', 'domain') ?>"></script>
 
