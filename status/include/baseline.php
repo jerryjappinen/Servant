@@ -8,8 +8,30 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-07 09:12 UTC
+* Compiled from source on 2013-11-21 12:04 UTC
 */
+
+
+
+/**
+* Get the first item in an array.
+*
+* @param $array
+*	...
+*
+* @param $traverseChildArrays
+*	If the first item is a child array, treat the stack recursively and find the first non-array value.
+*
+* @return
+*	...
+*/
+function array_first (array $array = array(), $traverseChildArrays = false) {
+	$result = reset($array);
+	if ($traverseChildArrays and is_array($result)) {
+		$result = array_first($result, true);
+	}
+	return $result;
+}
 
 
 
@@ -19,10 +41,10 @@
 * @param $array
 *	...
 *
-* @param $removeChildren
+* @param $removeChildren (optional)
 *	...
 *
-* @param $preserveKeys
+* @param $preserveKeys (optional)
 *	...
 *
 * @return
@@ -64,7 +86,7 @@ function array_flatten (array $array, $removeChildren = false, $preserveKeys = f
 * @param $subject
 *	...
 *
-* @param $keys
+* @param $keys (optional)
 *	...
 *
 * @return
@@ -120,7 +142,7 @@ function array_traverse (array $subject, $keys = array()) {
 * @param $pieces
 *	...
 *
-* @param $glue
+* @param $glue (optional)
 *	...
 *
 * @return
@@ -153,7 +175,7 @@ function implode_wrap ($prefix = '', $suffix = '', $pieces = array(), $glue = ''
 * @param $pieces
 *	...
 *
-* @param $lastGlue
+* @param $lastGlue (optional)
 *	...
 *
 * @return
@@ -675,14 +697,20 @@ function rglob_files ($path = '', $filetypes = array()) {
 /**
 * Shorthand for creating a new object, making chainable object creation possible.
 *
-* @param $object
-*	...
+* @param $classname
+*	Name of the object's class as a string
+*
+* @param $parameter [, $parameter2 ...] (optional)
+*	Any number of parameters to be passed to the constructor of the new object.
 *
 * @return
-*	The created object.
+*	The newly created object.
 */
-function create_object ($object) {
-	return $object;
+function create_object ($classname, $parameter = null) {
+	$parameters = func_get_args();
+	$classname = array_shift($parameters);
+	$class = new ReflectionClass($classname);
+	return $class->newInstanceArgs($parameters);
 }
 
 

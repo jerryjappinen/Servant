@@ -82,14 +82,15 @@ class ServantParser extends ServantObject {
 	*/
 	public function textileToHtml ($textile) {
 		$this->servant()->utilities()->load('textile');
-		return create_object(new Textile())->textileThis($textile);
+		return create_object('Textile')->textileThis($textile);
 	}
 
 	/**
 	* Twig to HTML
 	*/
 	public function twigToHtml ($twig, $scriptVariables = array()) {
-		return create_object(new Twig_Environment(new Twig_Loader_String()))->render($twig, $scriptVariables);
+		$this->servant()->utilities()->load('twig');
+		return create_object('Twig_Environment', create_object('Twig_Loader_String'))->render($twig, $scriptVariables);
 	}
 
 	/**

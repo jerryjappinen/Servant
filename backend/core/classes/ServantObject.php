@@ -36,7 +36,7 @@ class ServantObject {
 		array_shift($arguments);
 
 		// Create and initialize the object
-		$object = create_object(new $className($this->servant()));
+		$object = create_object($className, $this->servant());
 		call_user_func_array(array($object, 'init'), $arguments);
 
 		// NOTE returns the generated object, not $this

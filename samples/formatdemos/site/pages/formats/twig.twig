@@ -1,10 +1,10 @@
 
 <h1>{{ page.name() }}</h1>
 
-<p><code>{{ servant.format().path('formatted/path', 'domain') }}</code></p>
+<p><code>{{ servant.paths().format('formatted/path', 'domain') }}</code></p>
 
 <ul>
-{% for id in page.siblings() %}
-	<li><a href="{{ id }}">{{ servant.format().name(id) }}</a></li>
+{% for node in page.siblings() %}
+	<li><a href="{{ node.id() }}">{{ node.name() }}</a></li>
 {% endfor %}
 </ul>
