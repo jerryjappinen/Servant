@@ -10,34 +10,14 @@
 */
 class ServantParser extends ServantObject {
 
-	/**
-	* HAML to PHP
-	*/
-	public function hamlToPHP ($haml) {
-		$this->servant()->utilities()->load('mthaml');
-		$parser = new MtHaml\Environment('php');
-		return $parser->compileString($haml, '');
-	}
+
 
 	/**
-	* Jade to PHP
+	* To CSS
 	*/
-	public function jadeToPhp ($jade) {
-		$this->servant()->utilities()->load('jade');
-		$parser = new Jade\Jade(true);
-		return $parser->render($jade);
-	}
 
 	/**
-	* Markdown to HTML
-	*/
-	public function markdownToHtml ($markdown) {
-		$this->servant()->utilities()->load('markdown');
-		return Markdown($markdown);
-	}
-
-	/**
-	* Less to CSS
+	* LESS
 	*/
 	public function lessToCss ($less) {
 		$this->servant()->utilities()->load('less');
@@ -52,18 +32,7 @@ class ServantParser extends ServantObject {
 	}
 
 	/**
-	* RST to HTML
-	*
-	* FLAG
-	*   - parser is incomplete
-	*/
-	public function rstToHtml ($rst) {
-		$this->servant()->utilities()->load('rst');
-		return RST($rst);
-	}
-
-	/**
-	* SCSS to CSS
+	* SCSS
 	*/
 	public function scssToCss ($scss) {
 		$this->servant()->utilities()->load('scss');
@@ -77,8 +46,57 @@ class ServantParser extends ServantObject {
 		return $parser->compile($scss);
 	}
 
+
+
 	/**
-	* Textile to HTML
+	* To PHP
+	*/
+
+	/**
+	* HAML
+	*/
+	public function hamlToPhp ($haml) {
+		$this->servant()->utilities()->load('mthaml');
+		$parser = new MtHaml\Environment('php');
+		return $parser->compileString($haml, '');
+	}
+
+	/**
+	* Jade
+	*/
+	public function jadeToPhp ($jade) {
+		$this->servant()->utilities()->load('jade');
+		$parser = new Jade\Jade(true);
+		return $parser->render($jade);
+	}
+
+
+
+	/**
+	* To HTML
+	*/
+
+	/**
+	* Markdown
+	*/
+	public function markdownToHtml ($markdown) {
+		$this->servant()->utilities()->load('markdown');
+		return Markdown($markdown);
+	}
+
+	/**
+	* RST
+	*
+	* FLAG
+	*   - parser is incomplete
+	*/
+	public function rstToHtml ($rst) {
+		$this->servant()->utilities()->load('rst');
+		return RST($rst);
+	}
+
+	/**
+	* Textile
 	*/
 	public function textileToHtml ($textile) {
 		$this->servant()->utilities()->load('textile');
