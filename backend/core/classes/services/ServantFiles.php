@@ -23,23 +23,28 @@ class ServantFiles extends ServantObject {
 	*   - Add support for reading multiple files with shared scriptVariables
 	*/
 	public function read ($files, $scriptVariables = array()) {
-		$result = '';
 
 		// Normalize multiple parameters
 		$scriptVariables = func_get_args();
 		array_shift($scriptVariables);
 		$scriptVariables = array_flatten($scriptVariables, false, true);
 
-		// Single file
-		if (is_string($files) and is_file($files)) {
-			$result = $this->readFile($files, $scriptVariables);
+		// Run each file
+		$output = '';
+		foreach (array_flatten(to_array($files)) as $file) {
+			if (is_string($file) and is_file($file)) {
 
-		// Multiple files
-		} else if (is_array($files)) {
+				// Run file
+				$execution = $this->readFile($files, $scriptVariables);
+				$output .= $execution['output'];
+				$scriptVariables = $execution['scriptVariables'];
+				unset($execution);
 
+			}
 		}
 
-		return $result;
+
+		return $output;
 	}
 
 
@@ -73,11 +78,17 @@ class ServantFiles extends ServantObject {
 		// Type-specific methods
 		$methodName = 'read'.ucfirst($type).'File';
 		if ($type and method_exists($this, $methodName)) {
-			$result = call_user_func(array($this, $methodName), $path, $scriptVariables);
+			$result = array(
+				'output' => call_user_func(array($this, $methodName), $path, $scriptVariables),
+				'scriptVariables' => $scriptVariables,
+			);
 
 		// Generic fallback
 		} else {
-			$result = file_get_contents($path);
+			$result = array(
+				'output' => file_get_contents($path),
+				'scriptVariables' => $scriptVariables,
+			);
 		}
 
 		return $result;
