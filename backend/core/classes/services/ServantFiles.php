@@ -45,10 +45,16 @@ class ServantFiles extends ServantObject {
 
 
 
+
+
+
 	/**
 	* Private helpers
 	*/
 
+	/**
+	* Read individual file
+	*/
 	private function readFile ($path, $scriptVariables) {
 		$result = '';
 
@@ -78,6 +84,28 @@ class ServantFiles extends ServantObject {
 		return $result;
 	}
 
+	/**
+	* Templates that compile into PHP are evaluated through a temp file
+	*/
+	private function saveProcessedFile ($path, $content) {
+
+		// Create directory if it doesn't exist
+		$directory = dirname($path);
+		if (!is_dir($directory)) {
+			mkdir($directory, 0777, true);
+		}
+
+		// File might already exist
+		if (is_file($path)) {
+			return false;
+		} else {
+			return file_put_contents($path, $content);
+		}
+
+	}
+
+
+
 
 
 	/**
@@ -95,7 +123,7 @@ class ServantFiles extends ServantObject {
 
 		// Save and read compiled HAML as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
-		if ($this->saveProcessedFile($tempPath, $this->servant()->parse()->hamlToPhp(file_get_contents($path)))) {
+		if ($this->saveProcessedFile($tempPath, $this->convertHamlToPhp(file_get_contents($path)))) {
 			$output = $this->readPhpFile($tempPath, $scriptVariables);
 
 		// Didn't work out
@@ -127,7 +155,7 @@ class ServantFiles extends ServantObject {
 
 		// Save and read compiled Jade as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
-		if ($this->saveProcessedFile($tempPath, $this->servant()->parse()->jadeToPhp(file_get_contents($path)))) {
+		if ($this->saveProcessedFile($tempPath, $this->convertJadeToPhp(file_get_contents($path)))) {
 			$output = $this->readPhpFile($tempPath, $scriptVariables);
 
 		// Didn't work out
@@ -145,7 +173,7 @@ class ServantFiles extends ServantObject {
 	* Markdown
 	*/
 	private function readMarkdownFile ($path) {
-		return $this->servant()->parse()->markdownToHtml(file_get_contents($path));
+		return $this->convertMarkdownToHtml(file_get_contents($path));
 	}
 
 	/**
@@ -159,50 +187,110 @@ class ServantFiles extends ServantObject {
 	* RST
 	*/
 	private function readRstFile ($path) {
-		return $this->servant()->parse()->rstToHtml(file_get_contents($path));
+		return $this->convertRstToHtml(file_get_contents($path));
 	}
 
 	/**
 	* Textile
 	*/
 	private function readTextileFile ($path) {
-		return $this->servant()->parse()->textileToHtml(file_get_contents($path));;
+		return $this->convertTextileToHtml(file_get_contents($path));;
 	}
 
 	/**
 	* Twig
 	*/
 	private function readTwigFile ($path, $scriptVariables = array()) {
-		return $this->servant()->parse()->twigToHtml(file_get_contents($path), $scriptVariables);
+		return $this->convertTwigToHtml(file_get_contents($path), $scriptVariables);
 	}
 
 	/**
 	* Wiki markup
 	*/
 	private function readWikiFile ($path) {
-		return $this->servant()->parse()->wikiToHtml(file_get_contents($path));
+		return $this->convertWikiToHtml(file_get_contents($path));
 	}
 
 
 
+
+
+
 	/**
-	* Templates that compile into PHP are run through a temp file
+	* Format-to-format converters
 	*/
-	private function saveProcessedFile ($path, $content) {
 
-		// Create directory if it doesn't exist
-		$directory = dirname($path);
-		if (!is_dir($directory)) {
-			mkdir($directory, 0777, true);
-		}
+	/**
+	* PHP from HAML
+	*/
+	private function convertHamlToPhp ($haml) {
+		$this->servant()->utilities()->load('mthaml');
+		$parser = new MtHaml\Environment('php');
+		return $parser->compileString($haml, '');
+	}
 
-		// File might already exist
-		if (is_file($path)) {
-			return false;
-		} else {
-			return file_put_contents($path, $content);
-		}
+	/**
+	* PHP from Jade
+	*/
+	private function convertJadeToPhp ($jade) {
+		$this->servant()->utilities()->load('jade');
+		$parser = new Jade\Jade(true);
+		return $parser->render($jade);
+	}
 
+	/**
+	* HTML from Markdown
+	*/
+	private function convertMarkdownToHtml ($markdown) {
+		$this->servant()->utilities()->load('markdown');
+		return Markdown($markdown);
+	}
+
+	/**
+	* HTML from RST
+	*
+	* FLAG
+	*   - parser is incomplete
+	*/
+	private function convertRstToHtml ($rst) {
+		$this->servant()->utilities()->load('rst');
+		return RST($rst);
+	}
+
+	/**
+	* HTML from Textile
+	*/
+	private function convertTextileToHtml ($textile) {
+		$this->servant()->utilities()->load('textile');
+		return create_object('Textile')->textileThis($textile);
+	}
+
+	/**
+	* HTML from Twig
+	*/
+	private function convertTwigToHtml ($twig, $scriptVariables = array()) {
+		$this->servant()->utilities()->load('twig');
+		return create_object('Twig_Environment', create_object('Twig_Loader_String'))->render($twig, $scriptVariables);
+	}
+
+	/**
+	* HTML from Plain text
+	*/
+	private function convertTxtToHtml ($txt) {
+		return $this->markdownToHtml($txt);
+	}
+
+	/**
+	* HTML from Wiki markup
+	*
+	* FLAG
+	*   - parser is incomplete
+	*/
+	private function convertWikiToHtml ($wiki) {
+		$this->servant()->utilities()->load('wiky');
+		$parser = new wiky;
+		$html = $parser->parse($wiki);
+		return $html ? $html : '';
 	}
 
 
