@@ -140,7 +140,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* HTML
 	*/
-	private function readHtmlFile ($path) {
+	private function readHtmlFile ($path, $scriptVariables = array()) {
 		return file_get_contents($path);
 	}
 
@@ -172,7 +172,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* Markdown
 	*/
-	private function readMarkdownFile ($path) {
+	private function readMarkdownFile ($path, $scriptVariables = array()) {
 		return $this->convertMarkdownToHtml(file_get_contents($path));
 	}
 
@@ -186,14 +186,14 @@ class ServantFiles extends ServantObject {
 	/**
 	* RST
 	*/
-	private function readRstFile ($path) {
+	private function readRstFile ($path, $scriptVariables = array()) {
 		return $this->convertRstToHtml(file_get_contents($path));
 	}
 
 	/**
 	* Textile
 	*/
-	private function readTextileFile ($path) {
+	private function readTextileFile ($path, $scriptVariables = array()) {
 		return $this->convertTextileToHtml(file_get_contents($path));;
 	}
 
@@ -207,7 +207,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* Wiki markup
 	*/
-	private function readWikiFile ($path) {
+	private function readWikiFile ($path, $scriptVariables = array()) {
 		return $this->convertWikiToHtml(file_get_contents($path));
 	}
 
@@ -223,7 +223,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* PHP from HAML
 	*/
-	private function convertHamlToPhp ($haml) {
+	private function convertHamlToPhp ($haml, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('mthaml');
 		$parser = new MtHaml\Environment('php');
 		return $parser->compileString($haml, '');
@@ -232,7 +232,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* PHP from Jade
 	*/
-	private function convertJadeToPhp ($jade) {
+	private function convertJadeToPhp ($jade, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('jade');
 		$parser = new Jade\Jade(true);
 		return $parser->render($jade);
@@ -241,7 +241,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* HTML from Markdown
 	*/
-	private function convertMarkdownToHtml ($markdown) {
+	private function convertMarkdownToHtml ($markdown, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('markdown');
 		return Markdown($markdown);
 	}
@@ -252,7 +252,7 @@ class ServantFiles extends ServantObject {
 	* FLAG
 	*   - parser is incomplete
 	*/
-	private function convertRstToHtml ($rst) {
+	private function convertRstToHtml ($rst, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('rst');
 		return RST($rst);
 	}
@@ -260,7 +260,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* HTML from Textile
 	*/
-	private function convertTextileToHtml ($textile) {
+	private function convertTextileToHtml ($textile, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('textile');
 		return create_object('Textile')->textileThis($textile);
 	}
@@ -276,7 +276,7 @@ class ServantFiles extends ServantObject {
 	/**
 	* HTML from Plain text
 	*/
-	private function convertTxtToHtml ($txt) {
+	private function convertTxtToHtml ($txt, $scriptVariables = array()) {
 		return $this->markdownToHtml($txt);
 	}
 
@@ -286,7 +286,7 @@ class ServantFiles extends ServantObject {
 	* FLAG
 	*   - parser is incomplete
 	*/
-	private function convertWikiToHtml ($wiki) {
+	private function convertWikiToHtml ($wiki, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('wiky');
 		$parser = new wiky;
 		$html = $parser->parse($wiki);
