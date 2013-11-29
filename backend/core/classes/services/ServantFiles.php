@@ -24,21 +24,16 @@ class ServantFiles extends ServantObject {
 	*/
 	public function read ($files, $scriptVariables = array()) {
 
-		// Normalize multiple parameters
-		$scriptVariables = func_get_args();
-		array_shift($scriptVariables);
-		$scriptVariables = array_flatten($scriptVariables, false, true);
-
 		// Run each file
 		$output = '';
 		foreach (array_flatten(to_array($files)) as $file) {
 			if (is_string($file) and is_file($file)) {
 
 				// Run file
-				$execution = $this->readFile($files, $scriptVariables);
-				$output .= $execution['output'];
-				$scriptVariables = $execution['scriptVariables'];
-				unset($execution);
+				$reader = $this->readFile($files, $scriptVariables);
+				$output .= $reader['output'];
+				$scriptVariables = $reader['scriptVariables'];
+				unset($reader);
 
 			}
 		}
@@ -57,7 +52,7 @@ class ServantFiles extends ServantObject {
 	*/
 
 	/**
-	* Read individual file
+	* Read individual file, with format-specific reader if available
 	*/
 	private function readFile ($path, $scriptVariables) {
 		$result = '';
@@ -78,12 +73,9 @@ class ServantFiles extends ServantObject {
 		// Type-specific methods
 		$methodName = 'read'.ucfirst($type).'File';
 		if ($type and method_exists($this, $methodName)) {
-			$result = array(
-				'output' => call_user_func(array($this, $methodName), $path, $scriptVariables),
-				'scriptVariables' => $scriptVariables,
-			);
+			$result = call_user_func(array($this, $methodName), $path, $scriptVariables);
 
-		// Generic fallback
+		// Generic fallback (reads file as direct output)
 		} else {
 			$result = array(
 				'output' => file_get_contents($path),
@@ -134,24 +126,30 @@ class ServantFiles extends ServantObject {
 		// Save and read compiled HAML as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
 		if ($this->saveProcessedFile($tempPath, $this->convertHamlToPhp(file_get_contents($path)))) {
-			$output = $this->readPhpFile($tempPath, $scriptVariables);
+			$result = $this->readPhpFile($tempPath, $scriptVariables);
 
 		// Didn't work out
 		} else {
-			$output = '';
+			$result = array(
+				'output' => '',
+				'scriptVariables' => $scriptVariables,
+			);
 		}
 
 		// Clean up temp file
 		remove_file($tempPath);
 
-		return $output;
+		return $result;
 	}
 
 	/**
 	* HTML
 	*/
 	private function readHtmlFile ($path, $scriptVariables = array()) {
-		return file_get_contents($path);
+		return array(
+			'output' => file_get_contents($path),
+			'scriptVariables' => $scriptVariables,
+		);
 	}
 
 	/**
@@ -166,59 +164,80 @@ class ServantFiles extends ServantObject {
 		// Save and read compiled Jade as PHP
 		$tempPath = $this->servant()->paths()->temp('server').uniqid(rand(), true).'.php';
 		if ($this->saveProcessedFile($tempPath, $this->convertJadeToPhp(file_get_contents($path)))) {
-			$output = $this->readPhpFile($tempPath, $scriptVariables);
+			$result = $this->readPhpFile($tempPath, $scriptVariables);
 
 		// Didn't work out
 		} else {
-			$output = '';
+			$result = array(
+				'output' => '',
+				'scriptVariables' => $scriptVariables,
+			);
 		}
 
 		// Clean up temp file
 		remove_file($tempPath);
 
-		return $output;
+		return $result;
 	}
 
 	/**
 	* Markdown
 	*/
 	private function readMarkdownFile ($path, $scriptVariables = array()) {
-		return $this->convertMarkdownToHtml(file_get_contents($path));
+		return array(
+			'output' => $this->convertMarkdownToHtml(file_get_contents($path), $scriptVariables),
+			'scriptVariables' => $scriptVariables,
+		);
 	}
 
 	/**
 	* PHP
 	*/
 	private function readPhpFile ($path, $scriptVariables = array()) {
-		return run_script($path, $scriptVariables);
+		return array(
+			'output' => run_script($path, $scriptVariables),
+			'scriptVariables' => $scriptVariables,
+		);
 	}
 
 	/**
 	* RST
 	*/
 	private function readRstFile ($path, $scriptVariables = array()) {
-		return $this->convertRstToHtml(file_get_contents($path));
+		return array(
+			'output' => $this->convertRstToHtml(file_get_contents($path), $scriptVariables),
+			'scriptVariables' => $scriptVariables,
+		);
 	}
 
 	/**
 	* Textile
 	*/
 	private function readTextileFile ($path, $scriptVariables = array()) {
-		return $this->convertTextileToHtml(file_get_contents($path));;
+		return array(
+			'output' => $this->convertTextileToHtml(file_get_contents($path), $scriptVariables),
+			'scriptVariables' => $scriptVariables,
+		);
 	}
 
 	/**
 	* Twig
 	*/
 	private function readTwigFile ($path, $scriptVariables = array()) {
-		return $this->convertTwigToHtml(file_get_contents($path), $scriptVariables);
+		return array(
+			'output' => $this->convertTwigToHtml(file_get_contents($path), $scriptVariables),
+			'scriptVariables' => $scriptVariables,
+		);
 	}
 
 	/**
 	* Wiki markup
 	*/
 	private function readWikiFile ($path, $scriptVariables = array()) {
-		return $this->convertWikiToHtml(file_get_contents($path));
+		return array(
+			'output' => $this->convertWikiToHtml(file_get_contents($path), $scriptVariables),
+			'scriptVariables' => $scriptVariables,
+		);
 	}
 
 
@@ -227,7 +246,7 @@ class ServantFiles extends ServantObject {
 
 
 	/**
-	* Format-to-format converters
+	* Format-to-format converters for output
 	*/
 
 	/**
