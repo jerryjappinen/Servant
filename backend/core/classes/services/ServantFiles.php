@@ -30,7 +30,7 @@ class ServantFiles extends ServantObject {
 			if (is_string($file) and is_file($file)) {
 
 				// Run file
-				$reader = $this->readFile($files, $scriptVariables);
+				$reader = $this->readFile($file, $scriptVariables);
 				$output .= $reader['output'];
 				$scriptVariables = $reader['scriptVariables'];
 				unset($reader);
@@ -193,11 +193,47 @@ class ServantFiles extends ServantObject {
 	/**
 	* PHP
 	*/
-	private function readPhpFile ($path, $scriptVariables = array()) {
+	private function readPhpFile () {
+
+		// Check for the file
+		$file = func_get_arg(0);
+		if (is_file($file)) {
+			unset($file);
+
+			// Set script variables
+			foreach (func_get_arg(1) as $____key => $____value) {
+				if (is_string($____key) and !in_array($____key, array('____key', '____value'))) {
+					${$____key} = $____value;
+				}
+			}
+			unset($____key, $____value);
+
+			// Prepare output buffer
+			ob_start();
+
+			// Include script
+			include func_get_arg(0);
+
+			// Store script variables, potentially treated by the script
+			$scriptVariables = get_defined_vars();
+
+			// Catch output reliably
+			$output = ob_get_contents();
+			if (!is_string($output)) {
+				$output = '';
+			}
+
+			// Clear buffer
+			ob_end_clean();
+
+		}
+
+		// Return any output
 		return array(
-			'output' => run_script($path, $scriptVariables),
+			'output' => $output,
 			'scriptVariables' => $scriptVariables,
 		);
+
 	}
 
 	/**
@@ -296,6 +332,9 @@ class ServantFiles extends ServantObject {
 
 	/**
 	* HTML from Twig
+	*
+	* FLAG
+	*   - Retrieving changed variables is not possible
 	*/
 	private function convertTwigToHtml ($twig, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('twig');
@@ -323,110 +362,6 @@ class ServantFiles extends ServantObject {
 	}
 
 
-
-
-
-
-
-
-
-	/**
-	* Run a script file cleanly (no visible variables left around).
-	*
-	* @param 1 ($file)
-	*   Path to a file.
-	*
-	* @param 2 ($scriptVariables)
-	*   Array of variables and values to be created for the script.
-	*
-	* @param 3 ($queue)
-	*   Array of other scripts to include, with variables carried over from previous scripts. When a missing file is encountered, execution on the queue stops.
-	*
-	* @return 
-	*   String content of output buffer after the script has run, false on failure.
-	*/
-	private function run_script () {
-		$output = false;
-
-		$file = func_get_arg(0);
-		if (is_file($file)) {
-			unset($file);
-
-			// Set up variables for the script
-			foreach (func_get_arg(1) as $____key => $____value) {
-				if (is_string($____key) and !in_array($____key, array('____key', '____value'))) {
-					${$____key} = $____value;
-				}
-			}
-			unset($____key, $____value);
-
-			// Run each script
-			ob_start();
-
-			// Include script
-			include func_get_arg(0);
-
-			// Store script variables
-			$definedVars = get_defined_vars();
-
-			// Catch output reliably
-			$output = ob_get_contents();
-			if ($output === false) {
-				$output = '';
-			}
-
-			// Clear buffer
-			ob_end_clean();
-
-			// More scripts to include
-			if (func_num_args() > 2) {
-
-				// Normalize queue
-				$queue = func_get_arg(2);
-				$queue = array_flatten(to_array($queue));
-				$next = array_shift($queue);
-
-				// Run other scripts
-				$others = run_script($next, $definedVars, $queue);
-				if ($others !== false) {
-					return $output.$others;
-				}
-
-			}
-
-		}
-
-		// Return any output
-		return $output;
-	}
-
-
-
-	/**
-	* Shortcut to running a script consisting of multiple files with run_script.
-	*
-	* @param 1 ($files)
-	*   Path to the script files.
-	*
-	* @param 2 ($scriptVariables)
-	*   Array of variables and values to be created for the script (initially).
-	*
-	* @return 
-	*   String content of output buffer after the script has run, false on failure.
-	*/
-	private function run_scripts ($files = array(), $scriptVariables = array()) {
-		$queue = array();
-		$first = '';
-
-		// Normalize
-		$files = array_flatten(to_array($files));
-		if (count($files) >= 1) {
-			$first = array_shift($files);
-			$queue = $files;
-		}
-
-		return run_script($first, $scriptVariables, $queue);
-	}
 
 }
 

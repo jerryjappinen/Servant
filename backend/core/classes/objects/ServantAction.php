@@ -80,12 +80,8 @@ class ServantAction extends ServantObject {
 			'action' => $this,
 		);
 
-		// FLAG we should run any template files like this
-		// foreach ($this->files('server') as $path) {
-		// 	$this->servant()->files()->read($path, $scriptVariables);
-		// }
-
-		run_scripts($this->files('server'), $scriptVariables);
+		// Run the scripts (NOTE that the output is not used)
+		$this->servant()->files()->read($this->files('server'), $scriptVariables);
 
 		return $this;
 	}
@@ -175,12 +171,7 @@ class ServantAction extends ServantObject {
 
 		// All files in directory
 		if (is_dir($path)) {
-
-			// FLAG until we can run any script sets cleanly, not just PHP with Baseline's run_scripts
-			$formats = 'php';
-
-			// $formats = array_flatten($this->servant()->settings()->formats('templates'));
-			foreach (rglob_files($path, $formats) as $file) {
+			foreach (rglob_files($path, $this->servant()->settings()->formats('templates')) as $file) {
 				$files[] = $this->servant()->paths()->format($file, false, 'server');
 			}
 		}

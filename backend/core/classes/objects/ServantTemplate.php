@@ -232,9 +232,7 @@ class ServantTemplate extends ServantObject {
 				'template' => $this,
 			);
 
-			foreach ($files as $path) {
-				$result .= $this->servant()->files()->read($path, $scriptVariables);
-			}
+			$result = $this->servant()->files()->read($files, $scriptVariables);
 
 		// No files - use content directly
 		} else {
