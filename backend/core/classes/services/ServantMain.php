@@ -29,7 +29,6 @@ class ServantMain extends ServantObject {
 	protected $propertyAvailable 	= null;
 	protected $propertyCreate 		= null;
 	protected $propertyFiles 		= null;
-	protected $propertyParse 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
@@ -44,9 +43,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setFiles () {
 		return $this->set('files', $this->generate('files'));
-	}
-	protected function setParse () {
-		return $this->set('parse', $this->generate('parser'));
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));

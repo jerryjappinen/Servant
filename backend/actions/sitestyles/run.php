@@ -62,20 +62,36 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 * Output
 */
 $output = '';
-if ($styles['format']) {
-	$methodName = $styles['format'].'ToCss';
 
-	// Parse if possible
-	if (method_exists($servant->parse(), $methodName)) {
-		$output .= $servant->parse()->$methodName($styles['content']);
-	} else {
-		fail(strtoupper($styles['format']).' language is not supported.');
+// Parse LESS
+if ($styles['format'] === 'less') {
+	$servant->utilities()->load('less');
+	$parser = new lessc();
+
+	// Don't compress in debug mode
+	if (!$servant->debug()) {
+		$parser->setFormatter('compressed');
 	}
 
-// Raw CSS
+	$output .= $parser->parse($styles['content']);
+
+// Parse SCSS
+} else if ($styles['format'] === 'scss') {
+	$servant->utilities()->load('scss');
+	$parser = new scssc();
+
+	// Don't compress in debug mode
+	if (!$servant->debug()) {
+		$parser->setFormatter('scss_formatter_compressed');
+	}
+
+	$output .= $parser->compile($styles['content']);
+
+// Raw CSS, apparently
 } else {
 	$output .= $styles['content'];
 }
+
 $action->output(trim($output));
 
 ?>

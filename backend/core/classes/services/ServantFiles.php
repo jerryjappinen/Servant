@@ -7,7 +7,6 @@
 *
 * DEPENDENCIES
 *   ServantSettings -> formats
-*   ServantParse
 *   ServantPaths 	-> temp
 *
 * FLAG

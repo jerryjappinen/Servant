@@ -117,18 +117,31 @@ if ($stylesheetSets['site']['format'] and $stylesheetSets['site']['format'] === 
 $output = '';
 foreach ($stylesheetSets as $stylesheetSet) {
 
-	// Special format is used
-	if ($stylesheetSet['format']) {
-		$methodName = $stylesheetSet['format'].'ToCss';
+	// Parse LESS
+	if ($stylesheetSet['format'] === 'less') {
+		$servant->utilities()->load('less');
+		$parser = new lessc();
 
-		// Parse if possible
-		if (method_exists($servant->parse(), $methodName)) {
-			$output .= $servant->parse()->$methodName($stylesheetSet['content']);
-		} else {
-			fail(strtoupper($stylesheetSet['format']).' stylesheets are not supported.');
+		// Don't compress in debug mode
+		if (!$servant->debug()) {
+			$parser->setFormatter('compressed');
 		}
 
-	// Raw CSS
+		$output .= $parser->parse($stylesheetSet['content']);
+
+	// Parse SCSS
+	} else if ($stylesheetSet['format'] === 'scss') {
+		$servant->utilities()->load('scss');
+		$parser = new scssc();
+
+		// Don't compress in debug mode
+		if (!$servant->debug()) {
+			$parser->setFormatter('scss_formatter_compressed');
+		}
+
+		$output .= $parser->compile($stylesheetSet['content']);
+
+	// Raw CSS, apparently
 	} else {
 		$output .= $stylesheetSet['content'];
 	}
