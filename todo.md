@@ -46,7 +46,8 @@
 - Page properties in site settings (names, template)
 	-> Page-specific templates
 - Data/storage/working directory for actions
-	- Something like `site/data/` as it's site-specific stuff
+	- `site/data/` as it's site-specific stuff
+	- Kinda there already, provide additional services for actions
 
 
 

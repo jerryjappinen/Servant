@@ -94,7 +94,7 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $meta ?>
 
-		<link rel="stylesheet" href="<?php echo $stylesheetsLink ?>" media="screen">
+		<link rel="stylesheet" href="<?php echo $stylesheetsLink ?>" type="text/css" media="screen">
 
 	</head>
 
