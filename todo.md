@@ -18,8 +18,6 @@
 
 ## Core
 
-- Preserve variables when reading multiple dynamic template files (not just PHP files like in actions)
-	- If PHP scripts are separated from template formats (as they are in actions now), add the file extension to constants
 - Search action (investigate full text search in HTML files)
 - Multiple pieces of content for templates
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
@@ -48,6 +46,7 @@
 - Data/storage/working directory for actions
 	- `site/data/` as it's site-specific stuff
 	- Kinda there already, provide additional services for actions
+- Twig parser of `ServantFiles` does should pass on treated variables
 
 
 
