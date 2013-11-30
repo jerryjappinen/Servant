@@ -184,7 +184,7 @@ class ServantSite extends ServantObject {
 
 		// A flat array will do
 		if ($input and is_array($input)) {
-			$pageNames = array_flatten($input, false, true);
+			$pageNames = $this->normalizePageTreeHash($input);
 		}
 
 		return $this->set('pageNames', $pageNames);
@@ -196,11 +196,9 @@ class ServantSite extends ServantObject {
 	protected function setPageOrder ($input = null) {
 		$results = array();
 
+		// Normalize user input
 		if (is_array($input) and !empty($input)) {
-
-			// Normalize user input
 			$results = $this->normalizePageTreeStrings($input);
-
 		}
 
 		return $this->set('pageOrder', $results);
@@ -297,6 +295,30 @@ class ServantSite extends ServantObject {
 		return $files;
 	}
 
+	private function normalizePageTreeHash ($input, $prefix = '') {
+		$results = array();
+
+		if (!empty($prefix)) {
+			$prefix = suffix($prefix.'/');
+		}
+
+		foreach ($input as $key => $value) {
+			$realKey = $prefix.unsuffix(unprefix($key, '/'), '/');
+
+			// Acceptable value
+			if (is_string($value) or is_numeric($value)) {
+				$results[$realKey] = ''.$value;
+
+			// Children
+			} else if (is_array($value)) {
+				$results = array_merge($results, $this->normalizePageTreeHash($value, $prefix.$realKey));
+			}
+
+		}
+
+		return $results;
+	}
+
 	private function normalizePageTreeStrings ($strings, $prefix = '') {
 		$results = array();
 
@@ -311,7 +333,7 @@ class ServantSite extends ServantObject {
 				if (is_string($value)) {
 					$results[] = $prefix.unsuffix(unprefix($value, '/'), '/');
 
-				// Child arrays are treated recursively
+				// Children
 				} else if (is_array($value)) {
 					$results[] = $prefix.$key;
 					$results = array_merge($results, $this->normalizePageTreeStrings($value, is_string($key) ? $prefix.$key : $prefix));

@@ -160,13 +160,25 @@ class ServantNode extends ServantObject {
 		if (is_string($input)) {
 			$input = trim_text($input, true);
 			if (!empty($input)) {
-				$id = $input;
+				$name = $input;
 			}
 		}
 
 		// Default
 		if (!isset($name)) {
-			$name = $this->generateTitle($this->id());
+
+			// Name given in settings
+			$replacements = $this->servant()->site()->pageNames();
+			$key = $this->pointer();
+			if (array_key_exists($key, $replacements)) {
+				$name = $replacements[$key];
+
+			// Generate
+			} else {
+				$conversions = $this->servant()->settings()->namingConvention();
+				$name = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $this->id())));
+			}
+
 		}
 
 		return $this->set('name', $name);
@@ -193,33 +205,6 @@ class ServantNode extends ServantObject {
 		}
 		$results[] = $this->id();
 		return $this->set('tree', $results);
-	}
-
-
-
-	/**
-	* Private helpers
-	*/
-
-	/**
-	* Generate human-readable title for page from string
-	*/
-	private function generateTitle ($string) {
-		$name = $string;
-
-		// Explicit names given for this string
-		$replacements = $this->servant()->site()->pageNames();
-		$key = mb_strtolower($string);
-		if ($replacements and is_array($replacements) and array_key_exists($key, $replacements)) {
-			$name = $replacements[$key];
-
-		// Generate
-		} else {
-			$conversions = $this->servant()->settings()->namingConvention();
-			$name = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $string)));
-		}
-
-		return $name;
 	}
 
 }

@@ -70,9 +70,12 @@ class ServantPage extends ServantNode {
 	*/
 	public function initialize ($path, $parent, $id = null) {
 		$this->setParent($parent)->setPath($path);
+
+		// Custom ID
 		if ($id) {
 			$this->setId($id);
 		}
+
 		return $this;
 	}
 

@@ -10,7 +10,7 @@
 	"template": "servant",
 
 	"pageNames": {
-		"text-and-markdown": "Text & Markdown",
+		"technical-docs/template-formats/text-and-markdown/": "Text & Markdown",
 		"url-manipulation": "URL manipulation"
 	},
 
@@ -28,7 +28,7 @@
 
 	],
 
-	"pages": {
+	"pageTemplates": {
 
 		"about": {
 			"name": "Servant",

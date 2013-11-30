@@ -18,16 +18,9 @@
 
 ## Core
 
-- Search action (investigate full text search in HTML files)
 - Multiple pieces of content for templates
-- Better (internal) URL scheme: use pseudo protocols to point to different locations
-	- `servant://` (root)
-	- `assets://`
-	- `actions://`
-	- `pages://`
-	- `templates://`
-	- In different contexts, one of these serves as the default root
-- Input system
+- Search action (investigate full text search in HTML files)
+- Input system (for actions)
 	- Store input privately for `ServantMain` in `ServantInput`
 	- Interpret and merge input of different types
 	- Allow actions to declare input demands (for validation)
@@ -38,11 +31,14 @@
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
 	-> Disabling cache in actions
 	-> Input declarations
-- Warnings
-	- Collect warnings under `ServantMain`
-	- Display warnings in e.g. debug template + log
-- Page properties in site settings (names, template)
-	-> Page-specific templates
+- Better (internal) URL scheme: use pseudo protocols to point to different locations
+	- `servant://` (root)
+	- `assets://`
+	- `actions://`
+	- `pages://`
+	- `templates://`
+	- In different contexts, one of these serves as the default root
+- Page/section-specific templates
 - Data/storage/working directory for actions
 	- `site/data/` as it's site-specific stuff
 	- Kinda there already, provide additional services for actions
