@@ -30,7 +30,7 @@
 
 	"pageTemplates": {
 
-		"technical-docs/template-formats/HAML": "html"
+		"blog": "servant-blog"
 
 	}
 
