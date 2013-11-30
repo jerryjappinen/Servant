@@ -17,6 +17,10 @@
 	"pageOrder": [
 
 		"about",
+		"how-it-works/",
+
+		"how-it-works/how-it-works",
+		"how-it-works/features",
 
 		"technical-docs/about/about/",
 		"technical-docs/about/template-packages",
@@ -26,7 +30,7 @@
 
 	"pageTemplates": {
 
-		"about": "html"
+		"blog": "servant-blog"
 
 	}
 

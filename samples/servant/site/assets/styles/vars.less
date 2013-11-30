@@ -7,7 +7,6 @@
 
 // Colors
 @white: #fff;
-@black: #000;
 
 @grey-lightest: #f8f8f8;
 @grey-lighter: #eee;
@@ -29,8 +28,6 @@
 @green-dark: #68b300;
 @green-darker: #4a8000;
 
-@turquoise: #00d1ae;
-
 @magenta-lighter: #ff99c9;
 @magenta-light: #ff4da0;
 @magenta: #e51777;
@@ -49,9 +46,20 @@
 .rounded {
 	.border-radius(0.2em);
 }
-.round {
-	.border-radius(9999em);
+
+// Border mixins
+.thick-border {
+	border-width: 0.5em;
 }
-img.shadows {
-	.rounded;
-}
+	.thick-border-top {
+		border-top-width: 0.5em;
+	}
+	.thick-border-right {
+		border-right-width: 0.5em;
+	}
+	.thick-border-bottom {
+		border-bottom-width: 0.5em;
+	}
+	.thick-border-left {
+		border-left-width: 0.5em;
+	}

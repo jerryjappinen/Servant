@@ -1,8 +1,8 @@
 /*
-Layers CSS 1.0.3 
-Released by Jerry Jäppinen under the MIT license
+Layers CSS by Jerry Jäppinen
+Released under the MIT license
 http://eiskis.net/layers
-2013-11-30 17:01 Europe/Berlin
+2013-10-01 09:54 Europe/Helsinki
 */
 
 /*Basics*/
@@ -18,12 +18,11 @@ article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
 	clear: both;
-	outline-width: 0;
+	outline: 0;
 	border-width: 0;
 	border-style: solid;
 	border-color: transparent;
 	background: transparent;
-	outline-style: solid;
 	vertical-align: baseline;
 }
 html, body, blockquote, pre, table, form {
@@ -35,9 +34,6 @@ figure, button, input, select, textarea {
 }
 img, iframe, button, input, select, textarea {
 	max-width: 100%;
-}
-iframe {
-	width: 100%;
 }
 
 
@@ -147,7 +143,6 @@ input, select, textarea, button {
 }
 input[type=""], input:not([type]), input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], select, textarea, pre, code, kbd, samp {
 	font-size: inherit;
-	line-height: inherit;
 }
 button, input, select, textarea, pre, code, kbd, samp {
 	font-weight: inherit;
@@ -179,11 +174,11 @@ blockquote, q {
 /*Forms & interaction*/
 
 /*Use the same box-model and sizing in all browsers*/
-button, input[type="submit"], input[type="reset"], input[type="button"],
-input[type=""], input:not([type]), input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], textarea {
+button, input[type=""], input:not([type]), input[type="submit"], input[type="reset"], input[type="button"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], textarea {
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
+	line-height: inherit;
 	display: inline-block;
 }
 
@@ -289,7 +284,6 @@ button.plain, input.plain, textarea.plain {
 	padding: 0;
 }
 	button.plain, input[type="submit"].plain, input[type="button"].plain, input[type="reset"].plain {
-		line-height: inherit;
 		font-size: inherit;
 		font-family: inherit;
 	}
@@ -695,7 +689,6 @@ input.buffer, input.buffer-left, textarea.buffer, textarea.buffer-left {
 		margin-right: 10em;
 	}
 	.column.fixed {
-		position: static;
 		clear: none;
 		float: right;
 		margin-right: 0;
@@ -748,31 +741,26 @@ ol.collapse ol {
 	margin-bottom: 0;
 }
 
-/*Plain definition lists*/
-dl.plain dt {
-	font-weight: inherit;
-}
-
 /*Inline lists*/
-ul.inline.right, ol.inline.right, dl.inline.right {
+ul.inline.right, ol.inline.right {
 	text-align: right;
 }
-ul.inline.center, ol.inline.center, dl.inline.center {
+ul.inline.center, ol.inline.center {
 	text-align: center;
 }
-	ul.inline > li, ol.inline > li, dl.inline > dt, dl.inline > dd {
+	ul.inline > li, ol.inline > li {
 		display: inline;
 	}
 
 /*Horizontal lists with block elements*/
-ul.collapse, ol.collapse, dl.collapse {
+ul.collapse, ol.collapse {
 	float: left;
 	clear: none;
 }
-	ul.collapse.right, ol.collapse.right, dl.collapse.right {
+	ul.collapse.right, ol.collapse.right {
 		float: right;
 	}
-		ul.collapse > li, ol.collapse > li, dl.collapse > dt, dl.collapse > dd {
+		ul.collapse > li, ol.collapse > li {
 			float: left;
 			clear: none;
 		}
@@ -800,19 +788,10 @@ p, ul, ol, table, pre, blockquote {
 dl {
 	margin-bottom: 1.34em;
 }
-	dl.plain {
-		margin-top: 0.67em;
-	}
-		dl.reset, dl.reset-top {
-			margin-top: 0;
-		}
 dt {
 	margin-top: 0.67em;
 	margin-bottom: 0;
 }
-	dl.plain > dt, dl.inline > dt, dl.collapse > dt {
-		margin-top: 0;
-	}
 dd {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -924,30 +903,6 @@ p.squeeze-bottom, ul.squeeze-bottom, ol.squeeze-bottom, table.squeeze-bottom, pr
 .no-buffer, .no-buffer-left {
 	padding-left: 0;
 }
-
-/*Table gravity*/
-
-/*Horizontal*/
-th.left, td.left {
-	text-align: left;
-}
-	th.right, td.right {
-		text-align: right;
-	}
-	th.center, td.center {
-		text-align: center;
-	}
-
-/*Vertical*/
-th.top, td.top {
-	vertical-align: top;
-}
-	th.vertical-center, td.vertical-center, th.middle, td.middle {
-		vertical-align: middle;
-	}
-	th.bottom, td.bottom {
-		vertical-align: bottom;
-	}
 /*Overall rhythm*/
 body {
 	word-break: break-word;
@@ -1000,22 +955,6 @@ h1, h2, h3 {
 
 
 
-/*Positioning*/
-.static {
-	position: static;
-}
-.relative {
-	position: relative;
-}
-.absolute {
-	position: static;
-}
-.fixed {
-	position: fixed;
-}
-
-
-
 /*Blocks and inline-blocks*/
 .block {
 	display: block;
@@ -1026,27 +965,19 @@ h1, h2, h3 {
 .inline {
 	display: inline;
 }
-	ul.inline, ol.inline, dl.inline {
+	ul.inline, ol.inline {
 		display: block;
 	}
 
 
 
 /*Utilities for common CSS-based behavior*/
-.hidden {
-	display: none;
-}
 .clear {
 	clear: both;
 }
-.clear-after:after {
-	content: " ";
-	display: table;
-	clear: both;
+.hidden {
+	display: none;
 }
-	.clear-after {
-		*zoom: 1;
-	}
 
 
 

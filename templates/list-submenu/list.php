@@ -45,7 +45,7 @@ if ($mainCategory) {
 				unset($listItem);
 			}
 
-			$submenu = '<ul class="menu-3">'.implode($subItems).'</ul>';
+			$submenu = '<ul>'.implode($subItems).'</ul>';
 		}
 
 		// Link HTML
@@ -69,7 +69,7 @@ if ($mainCategory) {
 	}
 
 	// Menu structure
-	$output = '<ul class="menu-2">'.implode($items).'</ul>';
+	$output = '<ul>'.implode($items).'</ul>';
 
 }
 

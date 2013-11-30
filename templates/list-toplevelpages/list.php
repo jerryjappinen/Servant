@@ -3,8 +3,9 @@
 /**
 * Level 1 menu
 */
-echo '<ul class="menu-1">';
+echo '<ul>';
 $nodes = $servant->sitemap()->pages();
+array_shift($nodes);
 if (!empty($nodes)) {
 
 	foreach ($nodes as $node) {

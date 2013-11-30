@@ -1,77 +1,117 @@
 
-// Home page
-h1, h2, h3 {
-	text-align: center;
+// Inverted sections
+.inverted {
+	color: @white;
+	background-color: @grey-darkest;
+
+	h1, h2, h3 {
+		color: @white;
+	}
+
+	.shadows {
+		.box-shadow(0 0.1em 0.15em rgba(0, 0, 0, 0.75));
+	}
+
+}
+.row.inverted {
+	background-image: url(wallpaper.jpg);
+	background-size: cover;
+	background-position: 50% 50%;
 }
 
-// Main title
-h1 {
-	font-size: 4em;
-	font-weight: 100;
-	margin-top: 0.2em;
-	margin-bottom: 0;
-	color: @magenta;
+.mask {
+	background-image: url(mask.png);
+	background-repeat: repeat-x;
+	background-position: 50% 100%;
 }
 
-// Limited-width areas
-.limit {
-	margin: 0 auto;
-	max-width: 55em;
+
+
+// Header
+.row-header {
+
+	h1 strong a {
+		color: inherit;
+	}
+
+	&.inverted {
+		background: rgba(0, 0, 0, 0.75);
+
+		a {
+
+			&:hover {
+				color: @grey;
+			}
+
+		}
+
+	}
+
 }
 
-// Main propositon
-.showoff {
-	text-align: center;
-	.buffer {
-		padding-top: 8%;
-		@media handheld, only screen and (max-width: @bb-stack) {
-			padding: 0;
+
+
+// Intro
+.row-intro {
+
+	.samples {
+		.sample {
+			width: 28em;
+			margin-right: 3em;
+			margin-left: 3em;
+			font-style: italic;
+			color: @grey;
+			strong {
+				color: @white;
+			}
 		}
 	}
+
 }
 
-// Main description
-.intro {
-	margin-bottom: 2.4em;
 
-	.buttons {
-		margin-top: 5%;
+
+// Description
+.row-description {
+
+	h2 {
 		text-align: center;
 	}
 
-	.button {
-		margin: 0.6em;
-		@media handheld, only screen and (min-width: @bb-accommodate) {
-		}
-		@media handheld, only screen and (max-width: @bb-stack) {
-			display: block;
-			margin-right: 0;
-			margin-top: 1em;
-			margin-bottom: 1em;
-			width: 90%;
-			padding-right: 5%;
-			padding-left: 5%;
-		}
-	}
 }
 
-// My pic
-.author {
-	margin-top: 5%;
-	.column.fixed {
-		width: 8em;
+
+
+// Download
+.row-download {
+
+	.row-content {
+		max-width: 85em;
 	}
-	.column.fluid > .container {
-		margin-left: 9.5em;
+
+	.panel {
+		border-top-width: 0.4em;
+		border-color: @turquoise;
+		.rounded;
+		.box-shadow(0 0.4em 2.8em rgba(0, 0, 0, 0.3));
+		.buffer {
+			padding: 5% 7% 5% 7%;
+		}
 	}
+
 }
 
-// Logos on the bottom
-.logos {
-	margin-top: 5%;
-	img {
-		max-height: 6em;
-		margin-right: 1em;
-		margin-left: 1em;
+
+
+.row-outro {
+
+	.mask {
+		background-image: url(mask-top.png);
+		background-position: 50% 0;
 	}
+
+	.author img {
+		max-height: 5em;
+	}
+
 }
