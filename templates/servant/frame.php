@@ -87,7 +87,6 @@ $frame = '
 
 	<div class="frame-footer">
 		<div class="frame-container">
-			'.html_dump($servant->site()->pageNames()).'
 			'.$footer.'
 			<div class="clear"></div>
 		</div>
