@@ -30,15 +30,7 @@
 
 	"pageTemplates": {
 
-		"about": {
-			"name": "Servant",
-			"template": "html"
-		},
-
-		"technical-docs/about/url-manipulation": {
-			"name": "URL manipulation",
-			"template": "blog"
-		}
+		"technical-docs/template-formats/HAML": "html"
 
 	}
 

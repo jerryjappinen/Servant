@@ -51,6 +51,27 @@ class ServantNode extends ServantObject {
 		return $this->getOrSet('name', $arguments);
 	}
 
+	public function template () {
+
+		$template = $this->getAndSet('template');
+
+		// Bubble
+		if (empty($template)) {
+
+			// Parent
+			if ($this->parent()) {
+				$template = $this->parent()->template();
+
+			// Global
+			} else {
+				$template = $this->servant()->site()->template();
+			}
+
+		}
+
+		return $template;
+	}
+
 	public function tree ($includeRoot = false) {
 		$arguments = func_get_args();
 		$tree = $this->getAndSet('tree');
@@ -195,6 +216,30 @@ class ServantNode extends ServantObject {
 		$category->addChildren($this);
 
 		return $this->set('parent', $category);
+	}
+
+	// Template
+	protected function setTemplate () {
+		$template = '';
+
+		// Template defined in settings
+		$pageTemplates = $this->servant()->site()->pageTemplates();
+		$pointer = $this->pointer();
+
+		if (array_key_exists($pointer, $pageTemplates)) {
+
+			if ($this->servant()->available()->template($pageTemplates[$pointer])) {
+				$template = $pageTemplates[$pointer];
+
+			// Template not available
+			} else {
+				$this->warn('Missing template "'.$template.'" for '.$pointer.'.');
+
+			}
+
+		}
+
+		return $this->set('template', $template);
 	}
 
 	// List of parent IDs + own ID, without root

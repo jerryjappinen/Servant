@@ -8,17 +8,19 @@ class ServantSite extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyBrowserCache = null;
-	protected $propertyDescription 	= null;
-	protected $propertyIcon 		= null;
-	protected $propertyLanguage 	= null;
-	protected $propertyName 		= null;
-	protected $propertyPageNames 	= null;
-	protected $propertyScripts 		= null;
-	protected $propertyServerCache 	= null;
-	protected $propertySplashImage 	= null;
-	protected $propertyStylesheets 	= null;
-	protected $propertyTemplate 	= null;
+	protected $propertyBrowserCache 	= null;
+	protected $propertyDescription 		= null;
+	protected $propertyIcon 			= null;
+	protected $propertyLanguage 		= null;
+	protected $propertyName 			= null;
+	protected $propertyPageNames 		= null;
+	protected $propertyPageOrder 		= null;
+	protected $propertyPageTemplates 	= null;
+	protected $propertyScripts 			= null;
+	protected $propertyServerCache 		= null;
+	protected $propertySplashImage 		= null;
+	protected $propertyStylesheets 		= null;
+	protected $propertyTemplate 		= null;
 
 
 
@@ -39,8 +41,9 @@ class ServantSite extends ServantObject {
 				'language',
 				'name',
 				'pageNames',
-				'serverCache',
 				'pageOrder',
+				'pageTemplates',
+				'serverCache',
 				'splashImage',
 				'template',
 			);
@@ -180,14 +183,28 @@ class ServantSite extends ServantObject {
 	* Overrides for page naming
 	*/
 	protected function setPageNames ($input = null) {
-		$pageNames = array();
+		$names = array();
 
 		// A flat array will do
 		if ($input and is_array($input)) {
-			$pageNames = $this->normalizePageTreeHash($input);
+			$names = $this->normalizePageTreeHash($input);
 		}
 
-		return $this->set('pageNames', $pageNames);
+		return $this->set('pageNames', $names);
+	}
+
+	/**
+	* Page-specific templates
+	*/
+	protected function setPageTemplates ($input = null) {
+		$templates = array();
+
+		// A flat array will do
+		if ($input and is_array($input)) {
+			$templates = $this->normalizePageTreeHash($input);
+		}
+
+		return $this->set('pageTemplates', $templates);
 	}
 
 	/**

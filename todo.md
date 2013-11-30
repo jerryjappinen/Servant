@@ -43,6 +43,7 @@
 	- `site/data/` as it's site-specific stuff
 	- Kinda there already, provide additional services for actions
 - Twig parser of `ServantFiles` does should pass on treated variables
+- Investigate case-insensitive `ServantNode` pointers
 
 
 
