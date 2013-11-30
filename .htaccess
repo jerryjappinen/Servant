@@ -33,7 +33,7 @@ RewriteEngine on
 #
 
 # Forward to default action
-# RewriteRule ^$ %{REQUEST_URI}site/ [R=301,L]
+# RewriteRule ^$ %{REQUEST_URI}read/ [R=301,L]
 
 # Load index.php at root
 DirectoryIndex backend/index.php

@@ -32,7 +32,7 @@ foreach ($categories as $category) {
 	$footerLists[$i] = array();
 
 	// Category title
-	$footerLists[$i][] = '<a href="'.$servant->paths()->endpoint('site', 'domain', $category->id()).'">'.$category->name().'</a>';
+	$footerLists[$i][] = '<a href="'.$servant->paths()->endpoint('read', 'domain', $category->id()).'">'.$category->name().'</a>';
 
 	// Subpages
 	$children = $category->children();
