@@ -1,6 +1,9 @@
 
+.row-content {
+	max-width: 90em;
+}
+
 .row-body {
-	padding-top: 6em;
 	padding-bottom: 10em;
 
 	@media handheld, only screen and (max-width: @bb-accommodate) {
@@ -11,7 +14,7 @@
 		padding-top: 3%;
 	}
 
-	> .row-content > .article {
+	> .row-content > .column.article {
 
 		// Keep the first title close to the top
 		> h1, > h2, > h3, > h4 {
@@ -25,6 +28,13 @@
 			margin: 2.68em -5% 4.02em -5%;
 			width: 110%;
 		}
+		h5 + pre, h5 + table {
+			margin-top: 0;
+		}
+
+		padding: 4% 8%;
+		background-color: @white;
+		.shadows;
 
 	}
 

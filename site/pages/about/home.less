@@ -55,6 +55,10 @@
 // Intro
 .row-intro {
 
+	.row-content {
+		max-width: 74em;
+	}
+
 	.samples {
 		.sample {
 			width: 28em;
@@ -75,6 +79,10 @@
 // Description
 .row-description {
 
+	.row-content {
+		max-width: 74em;
+	}
+
 	h2 {
 		text-align: center;
 	}
@@ -91,13 +99,20 @@
 	}
 
 	.panel {
+		position: relative;
+		z-index: 10;
+		margin-bottom: -14em;
 		border-top-width: 0.4em;
 		border-color: @turquoise;
 		.rounded;
-		.box-shadow(0 0.4em 2.8em rgba(0, 0, 0, 0.3));
+		.box-shadow(0 0.5em 4em rgba(0, 0, 0, 0.5));
 		.buffer {
 			padding: 5% 7% 5% 7%;
 		}
+	}
+
+	dd {
+		color: @grey;
 	}
 
 }
@@ -105,6 +120,9 @@
 
 
 .row-outro {
+	.row-content.buffer {
+		padding-top: 14em;
+	}
 
 	.mask {
 		background-image: url(mask-top.png);
