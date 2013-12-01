@@ -37,15 +37,12 @@
 
 	@media handheld, only screen and (min-width: @bb-stack){
 		width: 100%;
-		// position: fixed;
 		top: 0;
 		left: 0;
 		z-index: 100;
 	}
 
 	// Base look
-	// .box-shadow(0 0.05em 0.4em rgba(0, 0, 0, 0.1));
-	// background-color: rgba(248, 248, 248, 0.92);
 	color: @grey;
 	text-transform: uppercase;
 
@@ -67,13 +64,13 @@
 		.transition-duration(0.1s);
 		font-size: 0.9em;
 		line-height: 1;
-		color: inherit;
+		color: @grey;
 		text-decoration: none;
 		font-weight: 400;
-		padding: 1.8em 1.4em;
+		padding: 3.6em 1.4em 1.8em 1.4em;
 
 		&:hover {
-			color: @grey-dark;
+			color: @white;
 			text-decoration: none;
 		}
 
@@ -86,10 +83,7 @@
 
 	// Selected links
 	strong a, a:active {
-		color: @blue;
-	}
-	strong a:hover {
-		color: @blue-dark;
+		color: @white;
 	}
 
 }

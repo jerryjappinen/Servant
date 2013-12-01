@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="column sample">
-				<p><img src="files.png" alt="" title=""></p>
+				<p><img src="result.png" alt="" title=""></p>
 				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
 			</div>
 
@@ -63,7 +63,7 @@
 			</div>
 
 			<div class="column last sample">
-				<p><img src="files.png" alt="" title=""></p>
+				<p><img src="result.png" alt="" title=""></p>
 				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
 			</div>
 
@@ -145,37 +145,65 @@
 
 				<h2 class="squeeze-top">Download Servant 1.0 <sup>*released 12 March 2014</sup></h2>
 
-				<div class="column six buffer-right">
+				<div class="customize clear-after">
 
-					<dl>
+					<div class="column six buffer-right">
 
-						<dt><input type="checkbox" checked> Servant core</dt>
-						<dd>Full backend functionality that you need for serving your site.</dd>
+						<ul class="plain">
 
-						<dt><input type="checkbox" checked> Placeholder site files</dt>
-						<dd>Site settings, placeholder favicons, a couple of asset files and pages to get you to a good start.</dd>
+							<li>
+								<label class="clear-after">
+									<span class="input"><input type="checkbox" checked></span>
+									<h3 class="reset">Servant core</h3>
+									<p class="reset">Full backend functionality that you need for serving your site.</p>
+								</label>
+							</li>
 
-						<dt><input type="checkbox"> Documentation</dt>
-						<dd>Full technical docs and user guides.</dd>
+							<li>
+								<label class="clear-after">
+									<span class="input"><input type="checkbox" checked></span>
+									<h3 class="reset">Placeholder site files</h3>
+									<p class="reset">Settings, icons, a couple of asset files and pages to get you going.</p>
+								</label>
+							</li>
 
-						<dt><input type="checkbox"> Samples</dt>
-						<dd><a href="">7 sample sites</a> for you to explore and try things out with.</dd>
+						</ul>
 
-					</dl>
+					</div>
 
-					<p>Servant is released under the <a href="#"></a>LGPL</a>.</p>
+					<div class="column six last buffer-right">
+
+						<ul class="plain">
+
+							<li>
+								<label class="clear-after">
+									<span class="input"><input type="checkbox"></span>
+									<h3 class="reset">Documentation</h3>
+									<p class="reset">Full <a href="">technical docs</a> and <a href="">user guides</a>.</p>
+								</label>
+							</li>
+
+							<li>
+								<label class="clear-after">
+									<span class="input"><input type="checkbox"></span>
+									<h3 class="reset">Samples</h3>
+									<p class="reset"><a href="">7 sample sites</a> for you to explore and try things out with.</p>
+								</label>
+							</li>
+
+						</ul>
+
+					</div>
 
 				</div>
 
-				<div class="column six last">
+				<p class="push-top push-bottom"><a href="" class="button turquoise accept">Download .zip, 3.2 MB</a></p>
 
-					<p><a href="" class="button turquoise accept">Download .zip, 3.2 MB</a></p>
+				<p><a href="" class="button plain forward">Changelog for 1.0.2</a></p>
 
-					<p><a href="" class="button plain forward">Changelog for 1.0.2</a></p>
+				<p><a href="" class="button plain forward">Repos on Bitbucket</a></p>
 
-					<p><a href="" class="button plain forward">Repos on Bitbucket</a></p>
-
-				</div>
+				<p>Servant is released under the <a href="#"></a>LGPL</a>.</p>
 
 			</div>
 		</div>

@@ -31,8 +31,21 @@
 .row-header {
 	position: static;
 
-	h1 strong a {
-		color: inherit;
+	h1 {
+
+		// Page title
+		margin-left: -1.2em;
+		font-size: 1em;
+		@media handheld, only screen and (max-width: @bb-accommodate) {
+			margin-left: -0.6em;
+		}
+		@media handheld, only screen and (max-width: @bb-stack) {
+			margin-left: -1.2em;
+		}
+
+		strong a {
+			color: inherit;
+		}
 	}
 
 	&.inverted {
@@ -111,8 +124,36 @@
 		}
 	}
 
-	dd {
-		color: @grey;
+	li {
+		margin-top: 1.34em;
+	}
+
+	.customize {
+
+		.input, h3, p {
+			float: left;
+		}
+
+		.input, h3 {
+			clear: none;
+		}
+
+		.input {
+			width: 2em;
+		}
+
+		p {
+			margin-left: 2em;
+			color: @grey;
+			a {
+				color: inherit;
+			}
+		}
+
+	}
+
+	p.push-bottom {
+		margin-bottom: 4em;
 	}
 
 }
