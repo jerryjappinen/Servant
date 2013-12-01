@@ -9,15 +9,15 @@ $meta = '';
 */
 
 // Page title
-$title = (!$page->home() ? $page->name().' &ndash; ' : '').$servant->site()->name();
+$title = htmlspecialchars((!$page->home() ? $page->name().' &ndash; ' : '').$servant->site()->name());
 $meta .= '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
 unset($title);
 
 // Site name
-$meta .= '<meta name="application-name" content="'.$servant->site()->name().'"><meta property="og:site_name" content="'.$servant->site()->name().'">';
+$meta .= '<meta name="application-name" content="'.htmlspecialchars($servant->site()->name()).'"><meta property="og:site_name" content="'.htmlspecialchars($servant->site()->name()).'">';
 
 // Description
-$description = trim_text($servant->site()->description(), true);
+$description = htmlspecialchars(trim_text($servant->site()->description(), true));
 if ($description) {
 	$meta .= '<meta name="description" content="'.$description.'"><meta property="og:description" content="'.$description.'">';
 }

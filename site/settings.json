@@ -11,16 +11,19 @@
 
 	"pageNames": {
 		"technical-docs/template-formats/text-and-markdown/": "Text & Markdown",
-		"url-manipulation": "URL manipulation"
+		"technical-docs/basics/url-manipulation": "URL manipulation",
+		"tutorials-and-guides": "Tutorials & guides"
 	},
 
 	"pageOrder": [
 
 		"about",
 
-		"technical-docs/about/about/",
-		"technical-docs/about/template-packages",
-		"technical-docs/about/asset-packages"
+		"tutorials-and-guides",
+
+		"technical-docs/basics/about/",
+		"technical-docs/basics/template-packages",
+		"technical-docs/basics/asset-packages"
 
 	],
 

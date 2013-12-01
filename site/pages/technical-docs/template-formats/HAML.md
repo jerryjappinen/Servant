@@ -1,8 +1,6 @@
 
 # HAML pages
 
-##### **Note!** HAML support requires PHP 5.3 or newer.
-
 #### File extension: `.haml`
 
 **HAML** is a templating language built to make it easier to write PHP into HTML. It has a proprietary syntax that matches PHP.

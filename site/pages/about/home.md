@@ -1,23 +1,23 @@
 
-<div class="row row-header toggled inverted">
-	<div class="row-content buffer">
-
-		<h1><strong><a href="/">Servant</a></strong></h1>
-
-		<ul>
-
-			<li><a href="/get-started">Tutorials &amp; guides</a></li>
-			<li><a href="/technical-docs">Technical docs</a></li>
-
-		</ul>
-
-	</div>
-</div>
 
 <div class="row row-intro inverted">
 	<div class="mask">
 
 		<div class="row-content buffer description">
+
+			<div class="row row-header inverted">
+
+				<h1><strong><a href="/">Servant</a></strong></h1>
+
+				<ul>
+
+					<li><a href="/tutorials-and-guides">Tutorials &amp; guides</a></li>
+					<li><a href="/technical-docs">Technical docs</a></li>
+
+				</ul>
+				<div class="clear"></div>
+
+			</div>
 
 			<h2>Welcome to Servant <sup>*a web framework for human beings</sup></h2>
 
@@ -36,6 +36,8 @@
 
 					<p>Servant is practical and made for humans, be it content producers, designers or developers. It scales up or down according to your needs, too. Give it a try - it’s open-source!</p>
 
+					<p><a href="" class="button yellow down">Use cases &amp; features</a> <a href="" class="button turquoise down">Download 1.0.2</a></p>
+
 				</div>
 			</div>
 
@@ -46,12 +48,25 @@
 		<div class="samples buffer-bottom">
 
 			<div class="column first sample">
-
 				<p><img src="files.png" alt="" title=""></p>
-
 				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
-
 			</div>
+
+			<div class="column sample">
+				<p><img src="files.png" alt="" title=""></p>
+				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+			</div>
+
+			<div class="column sample">
+				<p><img src="files.png" alt="" title=""></p>
+				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+			</div>
+
+			<div class="column last sample">
+				<p><img src="files.png" alt="" title=""></p>
+				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+			</div>
+
 			<div class="clear"></div>
 
 		</div>
@@ -97,7 +112,7 @@
 			<p>Zero-config software: practical, sensible defaults can be changed if needed.</p>
 
 			<ul>
-				<li>Stylesheet &amp; script autoloading, compiling, merging and minifying</li>
+				<li>Autoloads, merges and minifies assets</li>
 				<li>LESS + SCSS support</li>
 				<li>Plain text, Markdown, Textile, RST and HTML support for pages and templates</li>
 				<li>PHP, Twig, HAML, Jade for dynamic scripting</li>
@@ -112,7 +127,6 @@
 			<ul>
 				<li>PHP 5.3 or above</li>
 				<li>Apache with rewrite module</li>
-				<li>*No database required</li>
 			</ul>
 
 		</div>
@@ -123,10 +137,10 @@
 
 
 
-<div class="row row-download push-top">
+<div class="row row-download">
 	<div class="row-content buffer">
 
-		<div class="panel inverted push-top">
+		<div class="panel inverted">
 			<div class="buffer clear-after">
 
 				<h2 class="squeeze-top">Download Servant 1.0 <sup>*released 12 March 2014</sup></h2>

@@ -1,8 +1,6 @@
 
 # Twig pages
 
-##### **Note!** Twig support requires PHP 5.3 or newer.
-
 #### File extension: `.twig`, `.tw`
 
 **Twig** is a templating language built to make it easier to write PHP into HTML. It has a proprietary syntax that matches PHP.

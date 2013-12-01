@@ -28,7 +28,7 @@ if ($mainCategory) {
 
 				// Child page HTML
 				$url = $subNode->endpoint('domain');
-				$listItem = '<a href="'.$url.'">'.$subNode->name().'</a>';
+				$listItem = '<a href="'.$url.'">'.htmlspecialchars($subNode->name()).'</a>';
 
 				// Mark selected subNode
 				if ($page->parents(false, 1) === $node and $page === $subNode) {
@@ -50,7 +50,7 @@ if ($mainCategory) {
 
 		// Link HTML
 		$url = $node->endpoint('domain');
-		$listItem = '<a href="'.$url.'">'.$name.'</a>';
+		$listItem = '<a href="'.$url.'">'.htmlspecialchars($name).'</a>';
 
 		// Mark selected page
 		if ($page->parents(false, 1) === $node or $page === $node) {

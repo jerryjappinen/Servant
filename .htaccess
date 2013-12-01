@@ -17,7 +17,7 @@
 AddOutputFilterByType DEFLATE text/plain text/html text/css text/javascript application/javascript
 
 # Disable directory listings
-Options -Indexes
+# Options -Indexes
 
 # Allow URL rewrites (uncomment "+FollowSymLinks" line if needed on your server)
 # Options +FollowSymLinks
