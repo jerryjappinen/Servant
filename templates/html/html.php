@@ -9,7 +9,7 @@ $meta = '';
 */
 
 // Page title
-$title = htmlspecialchars((!$page->home() ? $page->name().' &ndash; ' : '').$servant->site()->name());
+$title = (!$page->home() ? htmlspecialchars($page->name()).' &ndash; ' : '').htmlspecialchars($servant->site()->name());
 $meta .= '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
 unset($title);
 
