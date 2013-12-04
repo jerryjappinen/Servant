@@ -76,7 +76,7 @@
 
 
 
-<div class="row-description push-top">
+<div class="row-description push-top" id="features">
 	<div class="row-content buffer">
 
 		<h2>When you just need a web site</h2>
@@ -138,7 +138,7 @@
 
 
 
-<div class="row row-download">
+<div class="row row-download" id="downloads">
 	<div class="row-content buffer">
 
 		<div class="panel inverted">
@@ -154,7 +154,7 @@
 
 							<li>
 								<label class="clear-after">
-									<span class="input"><input type="checkbox" checked></span>
+									<span class="input"><input type="checkbox" checked disabled></span>
 									<h3 class="reset">Servant core</h3>
 									<p class="reset">Full backend functionality.</p>
 								</label>
@@ -162,7 +162,7 @@
 
 							<li>
 								<label class="clear-after">
-									<span class="input"><input type="checkbox" checked></span>
+									<span class="input"><input type="checkbox" checked disabled></span>
 									<h3 class="reset">Placeholder site files</h3>
 									<p class="reset">Settings, icons, a couple of asset files and pages to get you going.</p>
 								</label>
@@ -178,7 +178,7 @@
 
 							<li>
 								<label class="clear-after">
-									<span class="input"><input type="checkbox"></span>
+									<span class="input"><input type="checkbox" checked disabled></span>
 									<h3 class="reset">Documentation</h3>
 									<p class="reset">Full <a href="">technical docs</a> and <a href="">user guides</a>.</p>
 								</label>
@@ -186,7 +186,7 @@
 
 							<li>
 								<label class="clear-after">
-									<span class="input"><input type="checkbox"></span>
+									<span class="input"><input type="checkbox" checked disabled></span>
 									<h3 class="reset">Samples</h3>
 									<p class="reset"><a href="">7 sample sites</a> for you to explore and try things out with.</p>
 								</label>
@@ -198,13 +198,9 @@
 
 				</div>
 
-				<p class="push-top push-bottom"><a href="" class="button turquoise accept">Download .zip, 3.2 MB</a></p>
+				<p class="push-top push-bottom discreet"><a href="" class="button turquoise accept push-right">Download .zip, 3.2 MB</a> <a href="https://bitbucket.org/Eiskis/servant/" class="discreet push-right" target="_blank">Repos on Bitbucket</a> Released under <a href="http://www.gnu.org/copyleft/lesser.html" class="discreet" target="_blank">LGPL</a>.</p>
 
-				<p><a href="" class="button plain forward">Changelog for 1.0.2</a></p>
-
-				<p><a href="" class="button plain forward">Repos on Bitbucket</a></p>
-
-				<p>Servant is released under the <a href="#"></a>LGPL</a>.</p>
+				<!-- <p><a href="" class="button plain forward">Changelog for 1.0.0</a></p> -->
 
 			</div>
 		</div>
@@ -220,14 +216,14 @@
 
 			<div class="column center limit">
 
-				<a class="column buffer half block shadows rounded push-bottom tutorials">
+				<a class="column buffer half block shadows rounded push-bottom tutorials" href="/tutorials-and-guides">
 
 					<h2 class="reset">Tutorials &amp; guides</h2>
 					<p class="reset">Install Servant and get to learn the basics.</p>
 
 				</a>
 
-				<a class="column buffer half last block shadows rounded push-bottom docs">
+				<a class="column buffer half last block shadows rounded push-bottom docs" href="/technical-docs">
 
 					<h2 class="reset">Technical docs</h2>
 					<p class="reset">Full documentation of Servant insides.</p>
@@ -242,9 +238,7 @@
 
 				<h3>Get help</h3>
 
-				<p>Servant is an open-source project and under very active development. We’re hosted on Bitbucket, and contributions are gladly accepted: clone the source code to get started.</p>
-
-				<p><a href="" class="button red forward">Support on Google Groups</a></p>
+				<p><a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb" class="button red forward" target="_blank">Support on Google Groups</a></p>
 
 			</div>
 
@@ -254,7 +248,7 @@
 
 				<p>We’re an open-source project and under very active development. We’re hosted on Bitbucket, and contributions are gladly accepted: clone the source code to get started.</p>
 
-				<p><a href="" class="button blue bitbucket">Source &amp; issues on Bitbucket</a></p>
+				<p><a href="https://bitbucket.org/Eiskis/servant/" class="button blue bitbucket" target="_blank">Source &amp; issues on Bitbucket</a></p>
 
 			</div>
 
@@ -262,9 +256,9 @@
 
 				<h3>Author</h3>
 
-				<p><a href="http://eiskis.net/"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
+				<p><a href="http://eiskis.net/" target="_blank"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
 
-				<p>Servant is authored by <a href="http://eiskis.net/">Jerry Jäppinen</a>. You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> to ask questions and suggest new features.</p>
+				<p>Servant is authored by <a href="http://eiskis.net/" target="_blank">Jerry Jäppinen</a>. You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> to ask questions and suggest new features.</p>
 
 			</div>
 			<div class="clear"></div>
