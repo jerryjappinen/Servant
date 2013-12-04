@@ -75,20 +75,34 @@
 	}
 
 	.samples {
-		padding-right: 4em;
-		padding-left: 4em;
-		// line-height: 1.4;
 		font-size: 0.9em;
 
+		padding-right: 4em;
+		padding-left: 4em;
+
 		.sample {
-			width: 26em;
-			margin-right: 3em;
-			margin-left: 3em;
+
+			@media handheld, only screen and (max-width: @bb-stack) {
+				text-align: center;
+				margin-bottom: 4em;
+				&.column {
+					float: none;
+					clear: both;
+				}
+			}
+
+			@media handheld, only screen and (min-width: @bb-stack) {
+				width: 26em;
+				margin-right: 3em;
+				margin-left: 3em;
+			}
+
 			font-style: italic;
 			color: @grey;
 			strong {
 				color: @white;
 			}
+
 		}
 	}
 
@@ -163,6 +177,14 @@
 		margin-bottom: 4em;
 	}
 
+	@media handheld, only screen and (max-width: @bb-stack) {
+		.button.push-right {
+			margin-right: 0;
+			margin-bottom: 2em;
+			display: block;
+		}
+	}
+
 	.push-right {
 		margin-right: 4em;
 	}
@@ -183,6 +205,7 @@
 
 
 .row-outro {
+
 	.row-content.buffer {
 		padding-top: 14em;
 		text-align: center;
@@ -215,11 +238,14 @@
 		}
 	}
 
-	a.tutorials {
-	}
-
 	a.docs {
 		background-color: @green;
+	}
+
+	.button {
+		@media handheld, only screen and (max-width: @bb-stack) {
+			width: 80%;
+		}
 	}
 
 	.author {
@@ -230,9 +256,6 @@
 		.column.fixed {
 			width: 4em;
 		}
-	}
-
-	.author img {
 	}
 
 }
