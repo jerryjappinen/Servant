@@ -34,7 +34,8 @@ class Index {
 			call_user_func_array(array($this, 'prepare'), $arguments);
 
 			// Get rid of hazardous globals
-			unset($_SERVER, $_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES, $_SESSION);
+			// unset($_SERVER);
+			unset($_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES, $_SESSION);
 
 			// Run program
 			call_user_func(array($this, 'run'));
