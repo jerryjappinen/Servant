@@ -31,6 +31,8 @@
 
 @turquoise: #00d1ae;
 
+@yellow: #ffe46f;
+
 @magenta-lighter: #ff99c9;
 @magenta-light: #ff4da0;
 @magenta: #e51777;
@@ -43,6 +45,9 @@
 .shadows {
 	.box-shadow(0 0.1em 0.15em @grey);
 }
+	.inverted .shadows {
+		.box-shadow(0 0.1em 0.15em @grey);
+	}
 .bigshadows {
 	.box-shadow(0 0.4em 1.8em rgba(0, 0, 0, 0.1));
 }

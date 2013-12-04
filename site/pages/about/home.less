@@ -3,6 +3,8 @@
 .inverted {
 	color: @white;
 	background-color: @grey-darkest;
+	// -webkit-font-smoothing: antialiased;
+	// font-weight: 200;
 
 	h1, h2, h3 {
 		color: @white;
@@ -73,8 +75,13 @@
 	}
 
 	.samples {
+		padding-right: 4em;
+		padding-left: 4em;
+		// line-height: 1.4;
+		font-size: 0.9em;
+
 		.sample {
-			width: 28em;
+			width: 26em;
 			margin-right: 3em;
 			margin-left: 3em;
 			font-style: italic;
@@ -170,8 +177,46 @@
 		background-position: 50% 0;
 	}
 
+	.limit {
+		max-width: 60em;
+	}
+
+	a.tutorials, a.docs {
+		text-align: center;
+		text-decoration: none;
+		color: @white;
+		background-color: @blue;
+		h2 {
+			line-height: 1.2;
+			color: inherit;
+		}
+		&.buffer {
+			padding-top: 2.8em;
+			padding-bottom: 3.2em;
+		}
+	}
+
+	a.tutorials {
+	}
+
+	a.docs {
+		background-color: @green;
+	}
+
 	.author img {
 		max-height: 5em;
 	}
 
+}
+
+.footnote {
+	text-align: center;
+	a {
+
+		text-decoration: none;
+		color: @grey-darker;
+		&:hover {
+			color: @white;
+		}
+	}
 }

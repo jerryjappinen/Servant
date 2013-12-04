@@ -48,23 +48,23 @@
 		<div class="samples buffer-bottom">
 
 			<div class="column first sample">
-				<p><img src="files.png" alt="" title=""></p>
+				<p><img src="samples/site.png" alt="" title=""></p>
 				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
 			</div>
 
 			<div class="column sample">
-				<p><img src="result.png" alt="" title=""></p>
-				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+				<p><img src="samples/package.png" alt="" title=""></p>
+				<p>We publish our <strong>Markdown documentation</strong> with Servant. Docs stay clean for us, users get a usable, beautiful site.</p>
 			</div>
 
 			<div class="column sample">
-				<p><img src="files.png" alt="" title=""></p>
-				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+				<p><img src="samples/site.png" alt="" title=""></p>
+				<p>A great <strong>lightweight alternative to WordPress or Joomla</strong>. It gives us the things we need with no bloat.</p>
 			</div>
 
 			<div class="column last sample">
-				<p><img src="result.png" alt="" title=""></p>
-				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+				<p><img src="samples/package.png" alt="" title=""></p>
+				<p>I use Servant whenever <strong>I don’t need/want a database</strong>. And when I do, I still build the frontend with Servant.</p>
 			</div>
 
 			<div class="clear"></div>
@@ -112,7 +112,8 @@
 			<p>Zero-config software: practical, sensible defaults can be changed if needed.</p>
 
 			<ul>
-				<li>Autoloads, merges and minifies assets</li>
+				<li>Human-readable URLs</li>
+				<li>Asset autoloading, merging + minification</li>
 				<li>LESS + SCSS support</li>
 				<li>Plain text, Markdown, Textile, RST and HTML support for pages and templates</li>
 				<li>PHP, Twig, HAML, Jade for dynamic scripting</li>
@@ -155,7 +156,7 @@
 								<label class="clear-after">
 									<span class="input"><input type="checkbox" checked></span>
 									<h3 class="reset">Servant core</h3>
-									<p class="reset">Full backend functionality that you need for serving your site.</p>
+									<p class="reset">Full backend functionality.</p>
 								</label>
 							</li>
 
@@ -217,6 +218,26 @@
 	<div class="mask">
 		<div class="row-content buffer">
 
+			<div class="column center limit">
+
+				<a class="column buffer half block shadows rounded push-bottom tutorials">
+
+					<h2 class="reset">Tutorials &amp; guides</h2>
+					<p class="reset">Install Servant and get to learn the basics.</p>
+
+				</a>
+
+				<a class="column buffer half last block shadows rounded push-bottom docs">
+
+					<h2 class="reset">Technical docs</h2>
+					<p class="reset">Full documentation of Servant insides.</p>
+
+				</a>
+				<div class="clear"></div>
+
+			</div>
+			<div class="clear"></div>
+
 			<div class="submenu column third support">
 
 				<h3>Get help</h3>
@@ -247,6 +268,8 @@
 
 			</div>
 			<div class="clear"></div>
+
+			<p class="footnote buffer-top even"><a href=".">servantweb.com</a></p>
 
 		</div>
 	</div>
