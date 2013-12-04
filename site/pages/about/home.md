@@ -36,7 +36,7 @@
 
 					<p>Servant is practical and made for humans, be it content producers, designers or developers. It scales up or down according to your needs, too. Give it a try - it’s open-source!</p>
 
-					<p><a href="" class="button yellow down">Use cases &amp; features</a> <a href="" class="button turquoise down">Download 1.0.2</a></p>
+					<p><a href="#features" class="button yellow down push-right">Use cases &amp; features</a> <a href="#download" class="button turquoise down">Download 1.0.2</a></p>
 
 				</div>
 			</div>
@@ -138,7 +138,7 @@
 
 
 
-<div class="row row-download" id="downloads">
+<div class="row row-download" id="download">
 	<div class="row-content buffer">
 
 		<div class="panel inverted">
@@ -198,7 +198,7 @@
 
 				</div>
 
-				<p class="push-top push-bottom discreet"><a href="" class="button turquoise accept push-right">Download .zip, 3.2 MB</a> <a href="https://bitbucket.org/Eiskis/servant/" class="discreet push-right" target="_blank">Repos on Bitbucket</a> Released under <a href="http://www.gnu.org/copyleft/lesser.html" class="discreet" target="_blank">LGPL</a>.</p>
+				<p class="push-top push-bottom discreet"><a href="https://bitbucket.org/Eiskis/servant/get/tip.zip" class="button turquoise accept push-right">Download .zip, 3.2 MB</a> <a href="https://bitbucket.org/Eiskis/servant/" class="discreet push-right" target="_blank">Repos on Bitbucket</a> Released under <a href="http://www.gnu.org/copyleft/lesser.html" class="discreet" target="_blank">LGPL</a>.</p>
 
 				<!-- <p><a href="" class="button plain forward">Changelog for 1.0.0</a></p> -->
 
@@ -214,54 +214,60 @@
 	<div class="mask">
 		<div class="row-content buffer">
 
-			<div class="column center limit">
+			<div class="limit keep-center">
 
-				<a class="column buffer half block shadows rounded push-bottom tutorials" href="/tutorials-and-guides">
+				<div class="column center">
 
-					<h2 class="reset">Tutorials &amp; guides</h2>
-					<p class="reset">Install Servant and get to learn the basics.</p>
+					<a class="column buffer half block shadows rounded push-bottom tutorials" href="/tutorials-and-guides">
 
-				</a>
+						<h2 class="reset">Tutorials &amp; guides</h2>
+						<p class="reset">Install Servant, get to learn the basics.</p>
 
-				<a class="column buffer half last block shadows rounded push-bottom docs" href="/technical-docs">
+					</a>
 
-					<h2 class="reset">Technical docs</h2>
-					<p class="reset">Full documentation of Servant insides.</p>
+					<a class="column buffer half last block shadows rounded push-bottom docs" href="/technical-docs">
 
-				</a>
+						<h2 class="reset">Technical docs</h2>
+						<p class="reset">Full documentation of Servant insides.</p>
+
+					</a>
+					<div class="clear"></div>
+
+				</div>
+				<div class="clear"></div>
+
+				<div class="push-top"></div>
+
+				<div class="column half support">
+
+					<p><a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb" class="button red forward" target="_blank">Support on Google Groups</a></p>
+
+				</div>
+
+				<div class="column half last contribute">
+
+					<p><a href="https://bitbucket.org/Eiskis/servant/" class="button blue bitbucket" target="_blank">Contribute on Bitbucket</a></p>
+
+				</div>
+				<div class="clear"></div>
+
+				<div class="column half center author push-top">
+
+					<div class="column fluid right">
+						<div class="column-content">
+							<p>Servant is authored by <a href="http://eiskis.net/" target="_blank">Jerry Jäppinen</a>. You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> to ask questions and suggest new features.</p>
+						</div>
+					</div>
+
+					<div class="column fixed right">
+						<p><a href="http://eiskis.net/" target="_blank"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
+					</div>
+					<div class="clear"></div>
+
+				</div>
 				<div class="clear"></div>
 
 			</div>
-			<div class="clear"></div>
-
-			<div class="submenu column third support">
-
-				<h3>Get help</h3>
-
-				<p><a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb" class="button red forward" target="_blank">Support on Google Groups</a></p>
-
-			</div>
-
-			<div class="column third contribute">
-
-				<h3>Contribute</h3>
-
-				<p>We’re an open-source project and under very active development. We’re hosted on Bitbucket, and contributions are gladly accepted: clone the source code to get started.</p>
-
-				<p><a href="https://bitbucket.org/Eiskis/servant/" class="button blue bitbucket" target="_blank">Source &amp; issues on Bitbucket</a></p>
-
-			</div>
-
-			<div class="column third last author">
-
-				<h3>Author</h3>
-
-				<p><a href="http://eiskis.net/" target="_blank"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
-
-				<p>Servant is authored by <a href="http://eiskis.net/" target="_blank">Jerry Jäppinen</a>. You are welcome to <a href="mailto:eiskis@gmail.com" target="_blank">contact Jerry</a> to ask questions and suggest new features.</p>
-
-			</div>
-			<div class="clear"></div>
 
 			<p class="footnote buffer-top even"><a href=".">servantweb.com</a></p>
 
