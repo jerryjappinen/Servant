@@ -46,28 +46,31 @@
 		</div>
 
 		<div class="samples buffer-bottom">
+			<div class="overflow">
 
-			<div class="column first sample">
-				<p><img src="samples/site.png" alt="" title=""></p>
-				<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+				<div class="column first sample">
+					<p><img src="samples/site.png" alt="" title=""></p>
+					<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
+				</div>
+
+				<div class="column sample">
+					<p><img src="samples/package.png" alt="" title=""></p>
+					<p>We publish our <strong>Markdown documentation</strong> with Servant. Docs stay clean for us, users get a usable, beautiful site.</p>
+				</div>
+
+				<div class="column sample">
+					<p><img src="samples/site.png" alt="" title=""></p>
+					<p>A great <strong>lightweight alternative to WordPress or Joomla</strong>. It gives us the things we need with no bloat.</p>
+				</div>
+
+				<div class="column last sample">
+					<p><img src="samples/package.png" alt="" title=""></p>
+					<p>I use Servant whenever <strong>I don’t need/want a database</strong>. And when I do, I still build the frontend with Servant.</p>
+				</div>
+
+				<div class="clear"></div>
+
 			</div>
-
-			<div class="column sample">
-				<p><img src="samples/package.png" alt="" title=""></p>
-				<p>We publish our <strong>Markdown documentation</strong> with Servant. Docs stay clean for us, users get a usable, beautiful site.</p>
-			</div>
-
-			<div class="column sample">
-				<p><img src="samples/site.png" alt="" title=""></p>
-				<p>A great <strong>lightweight alternative to WordPress or Joomla</strong>. It gives us the things we need with no bloat.</p>
-			</div>
-
-			<div class="column last sample">
-				<p><img src="samples/package.png" alt="" title=""></p>
-				<p>I use Servant whenever <strong>I don’t need/want a database</strong>. And when I do, I still build the frontend with Servant.</p>
-			</div>
-
-			<div class="clear"></div>
 
 		</div>
 
@@ -109,21 +112,22 @@
 
 			<h3>Out-of-the-box features</h3>
 
-			<p>Zero-config software: practical, sensible defaults can be changed if needed.</p>
+			<p>Zero-config software: practical, sensible defaults get you going.</p>
 
 			<ul>
 				<li>Human-readable URLs</li>
 				<li>Asset autoloading, merging + minification</li>
-				<li>LESS + SCSS support</li>
-				<li>Plain text, Markdown, Textile, RST and HTML support for pages and templates</li>
-				<li>PHP, Twig, HAML, Jade for dynamic scripting</li>
+				<li><em>LESS</em> + <em>SCSS</em> support</li>
+				<li>Plain text, <em>Markdown</em>, <em>Textile</em>, <em>RST</em> and <em>HTML</em> for pages and templates</li>
+				<li><em>PHP</em>, <em>Twig</em>, <em>HAML</em>, <em>Jade</em> for dynamic scripting</li>
 				<li>Automatic caching</li>
+				<li>Extendable backend actions</li>
 			</ul>
 
 
 			<h3>Requirements</h3>
 
-			<p>Drop-in installation has no behind-the-scenes magic, just move its files and you’re done.</p>
+			<p>Drop-in installation: no behind-the-scenes magic, move files in and you’re done.</p>
 
 			<ul>
 				<li>PHP 5.3 or above</li>

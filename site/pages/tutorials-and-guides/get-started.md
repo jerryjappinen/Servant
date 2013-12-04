@@ -3,8 +3,23 @@
 
 Servant enables effortless web publishing. You can get started by creating nothing but text files as your site's pages, but there are also many ways of making more detailed adjustments.
 
-To create a site, you only need to unzip Servant and **add a text file under `pages/`.** Servant will create menus, fancy URLs, sitemaps, stylesheets and everything else. Here's where to start learning more:
 
+
+## Installation
+
+1. [Download servant.zip](https://bitbucket.org/Eiskis/servant/get/default.zip)
+2. Unzip
+3. Move contents on your server
+
+Usually everything works out-of-the-box. You should see the default sample site when you point your browser to where you installed Servant.
+
+<a href="installation" class="button">Full installation guide</a>
+
+
+
+## Creating a site
+
+To create a site, you only need to unzip Servant and **add a text file under `pages/`.** Servant will create menus, fancy URLs, sitemaps, stylesheets and everything else.
 
 
 <div class="column six">
@@ -26,18 +41,6 @@ To create a site, you only need to unzip Servant and **add a text file under `pa
 	<p class="squeeze-top">Understand Servant's internals to write new backend functionality, like image uploads or database access.</p>
 </div>
 <div class="clear"></div>
-
-
-
-## Installation
-
-1. [Download servant.zip](https://bitbucket.org/Eiskis/servant/get/default.zip)
-2. Unzip
-3. Move contents on your server
-
-Usually everything works out-of-the-box. You should see the default sample site when you point your browser to where you installed Servant.
-
-<a href="installation" class="button">Full installation guide</a>
 
 
 

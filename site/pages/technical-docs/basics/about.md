@@ -7,12 +7,12 @@
 
 ### Basic concepts
 
-You do not need to know about programming when working with Servant. In fact, you son't have to understand almost anything to get started.
+You do not need to know about programming when working with Servant. In fact, you don't have to understand almost anything to get started.
 
 We distinguish four groups of users that work with Servant. On each step you have to know a little bit more:
 
-1. **Users** install Servant and publish sites.
-2. **Web developers** create or customize layouts and templates to create their customized web sites.
+1. **Users** install Servant and publish sites by writing pages.
+2. **Web developers** create or customize layouts and templates to create custom web sites.
 3. **Backend developers** write new backend actions for custom server-side functionality (e.g. accessing a database).
 4. **Servant contributors** develop Servant and write new features for the core system.
 

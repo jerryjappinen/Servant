@@ -25,6 +25,9 @@ h5. @settings.json@
 	"how-it-works/how-it-works"
 	"how-it-works/features"
 ]
+"pageTemplates": [
+	"about": "blog"
+]
 </code></pre>
 
 This format is called _JSON_. Type the name of the property, add a colon and type in the value. Remember to use quotes and separate multiple settings with commas. Some values have children &ndash; <code>{ ... }</code> or <code>[ ... ]</code> are used in this case.
@@ -44,6 +47,7 @@ h3. Supported settings
 |*description*|||
 |*pageNames*|Custom names to use for your pages.||
 |*pageOrder*|Pages to be prioritized when ordering pages in each category.||
+|*pageTemplates*|Pages to be prioritized when ordering pages in each category.||
 
 
 
@@ -53,6 +57,6 @@ Your site's name will be generated from its folder name, but you can also choose
 
 
 
-h2. Page names and ordering
+h2. Sitemap manipulation
 
-You can use the @pageNames@ and @pageOrder@ settings to customize the sitemap automatically generated for your site. Point to any page with its full ID.
+You can use the @pageNames@, @pageOrder@ and @pageTemplates@ settings to customize the sitemap automatically generated for your site. Point to any page with its full ID.
