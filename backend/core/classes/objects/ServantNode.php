@@ -13,6 +13,7 @@ class ServantNode extends ServantObject {
 	protected $propertyIndex 		= null;
 	protected $propertyName 		= null;
 	protected $propertyParent 		= null;
+	protected $propertyTemplate 	= null;
 	protected $propertyTree 		= null;
 
 

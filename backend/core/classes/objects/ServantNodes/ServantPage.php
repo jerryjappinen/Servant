@@ -20,7 +20,6 @@ class ServantPage extends ServantNode {
 	protected $propertyPath 		= null;
 	protected $propertyScripts 		= null;
 	protected $propertyStylesheets 	= null;
-	protected $propertyTemplate 	= null;
 	protected $propertyType 		= null;
 
 
