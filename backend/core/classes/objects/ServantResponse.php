@@ -29,7 +29,9 @@ class ServantResponse extends ServantObject {
 
 		// Set input
 		$arguments = func_get_args();
-		call_user_func_array(array($this, 'setInput'), $arguments);
+		if (!empty($arguments)) {
+			call_user_func_array(array($this, 'setInput'), $arguments);
+		}
 
 		// Generate response
 		// FLAG this is a hack, body should just be auto set (now it's set here so that it fails ASAP because there's no proper error handling)
@@ -92,8 +94,6 @@ class ServantResponse extends ServantObject {
 	protected function setInput () {
 		$arguments = func_get_args();
 		$input = call_user_func_array(array($this->servant()->create(), 'input'), $arguments);
-		log_dump($input->action());
-		log_dump($input->page());
 		return $this->set('input', $input);
 	}
 

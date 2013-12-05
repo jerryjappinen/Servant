@@ -10,8 +10,7 @@ class ServantInput extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyAction 	= null;
-	protected $propertyPage 	= null;
+	protected $propertyValidate = null;
 
 
 
@@ -57,6 +56,37 @@ class ServantInput extends ServantObject {
 
 		return $this;
 	}
+
+
+
+	/**
+	* Public getters
+	*/
+	protected function formats () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->validate(), 'available'), $arguments);
+	}
+	protected function validate () {
+		return $this->getAndSet('validate');
+	}
+
+
+
+	/**
+	* Setters
+	*/
+	protected function setValidate () {
+		$this->servant()->utilities()->load('validator');
+		return $this->set('validate', create_object('Validator'));
+	}
+
+
+
+	/**
+	* Properties
+	*/
+	protected $propertyAction 	= null;
+	protected $propertyPage 	= null;
 
 
 
@@ -116,12 +146,14 @@ class ServantInput extends ServantObject {
 		return $this->set('action', $result);
 	}
 
+
+
 	/**
 	* Page
 	*
 	* List of page IDs for choosing a page
 	*/
-	protected function setPage ($values) {
+	protected function setPage ($values = array()) {
 		$results = array();
 
 		// Sanitize each item
@@ -231,36 +263,6 @@ class ServantInput extends ServantObject {
 
 		return $result;
 	}
-
-
-
-	// /**
-	// * Choose one page from those available, preferring the one detailed in $tree
-	// */
-	// private function selectPage ($pagesOnThisLevel, $tree, $level = 0) {
- 
-	// 	// No preference or preferred item doesn't exist: auto select
-	// 	if (!isset($tree[$level]) or !array_key_exists($tree[$level], $pagesOnThisLevel)) {
-
-	// 		// Cut out the rest of the preferred items
-	// 		$tree = array_slice($tree, 0, $level);
-
-	// 		// Auto select first item on this level
-	// 		$keys = array_keys($pagesOnThisLevel);
-	// 		$tree[] = $keys[0];
-
-	// 	}
-
-	// 	// We need to go deeper
-	// 	if (is_array($pagesOnThisLevel[$tree[$level]])) {
-	// 		return $this->selectPage($pagesOnThisLevel[$tree[$level]], $tree, $level+1);
-
-	// 	// That was it
-	// 	} else {
-	// 		return array_slice($tree, 0, $level+1);
-	// 	}
-
-	// }
 
 }
 
