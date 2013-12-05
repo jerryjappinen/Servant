@@ -85,8 +85,12 @@ class ServantResponse extends ServantObject {
 	*/
 	protected function setAction () {
 
-		$id = $this->input()->action();
-		$page = $this->servant()->sitemap()->select($this->input()->page());
+		// Select action based on input
+		$id = $this->selectAction($this->input()->fetch('id', 'action', ''));
+
+		// Select action's page based on input
+		$pointer = $this->input()->fetch('queue', 'page', array());
+		$page = $this->servant()->sitemap()->select($pointer);
 
 		return $this->set('action', $this->servant()->create()->action($id, $page));
 	}
@@ -322,8 +326,8 @@ class ServantResponse extends ServantObject {
 	protected function selectAction ($input = null) {
 		$result = null;
 
-		if ($this->servant()->available()->action($action)) {
-			$result = $action;
+		if ($this->servant()->available()->action($input)) {
+			$result = $input;
 
 		// Silent fallback
 		} else {
@@ -350,7 +354,7 @@ class ServantResponse extends ServantObject {
 
 
 
-		return $this->set('action', $result);
+		return $result;
 	}
 
 	/**
