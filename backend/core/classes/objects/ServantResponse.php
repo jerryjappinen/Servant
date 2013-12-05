@@ -88,11 +88,7 @@ class ServantResponse extends ServantObject {
 		// Select action based on input
 		$id = $this->selectAction($this->input()->fetch('id', 'action', ''));
 
-		// Select action's page based on input
-		$pointer = $this->input()->fetch('queue', 'page', array());
-		$page = $this->servant()->sitemap()->select($pointer);
-
-		return $this->set('action', $this->servant()->create()->action($id, $page));
+		return $this->set('action', $this->servant()->create()->action($id, $this->input()));
 	}
 
 	/**

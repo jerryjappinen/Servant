@@ -19,11 +19,9 @@
 ## Core
 
 - Input system (for actions)
-	- Store input privately for `ServantMain` in `ServantInput`
-	- Interpret and merge input of different types
+	- Pass input to actions
 	- Allow actions to declare input demands (for validation)
-	- Validate input based on the demands of an action
-	- Pass validated input to actions
+- Stop using `__call`
 - Action configuration
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection

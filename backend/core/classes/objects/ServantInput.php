@@ -16,35 +16,7 @@ class ServantInput extends ServantObject {
 
 
 	/**
-	* Use input
-	*/
-	public function fetch ($format, $key, $default = null) {
-		$value = null;
-
-		// Format must be valid
-		if (!$this->validate()->available($format)) {
-			$this->fail($format.' input is not supported.');
-
-		// Validate raw input
-		} else {
-			$value = $this->validate()->$format($this->raw($key));
-			if ($value === null) {
-				$value = $default;
-			}
-		}
-
-		// Fail on invalid input
-		if ($value === null) {
-			$this->fail('Invalid input provided for '.$key.' ('.$format.' required).');
-		}
-
-		return $value;
-	}
-
-
-
-	/**
-	* Take input
+	* Initialization
 	*/
 	public function initialize () {
 
@@ -74,15 +46,49 @@ class ServantInput extends ServantObject {
 
 
 	/**
-	* Public getters
+	* Convenience
 	*/
 
-	protected function formats () {
+	public function formats () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->validate(), 'available'), $arguments);
 	}
 
-	protected function validate () {
+	public function fetch ($format, $key, $default = null) {
+		$value = null;
+
+		// Format must be valid
+		if (!$this->validate()->available($format)) {
+			$this->fail($format.' input is not supported.');
+
+		// Validate raw input
+		} else {
+			$value = $this->validate()->$format($this->raw($key));
+			if ($value === null) {
+				$value = $default;
+			}
+		}
+
+		// Fail on invalid input
+		if ($value === null) {
+			$this->fail('Invalid input provided for '.$key.' ('.$format.' required).');
+		}
+
+		return $value;
+	}
+
+
+
+	/**
+	* Getters
+	*/
+
+	private function raw () {
+		$arguments = func_get_args();
+		return $this->getAndSet('raw', $arguments);
+	}
+
+	private function validate () {
 		return $this->getAndSet('validate');
 	}
 

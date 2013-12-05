@@ -20,6 +20,7 @@ class ServantAction extends ServantObject {
 	protected $propertyContentType 			= null;
 	protected $propertyFiles 				= null;
 	protected $propertyId 					= null;
+	protected $propertyInput 				= null;
 	protected $propertyIsRead 				= null;
 	protected $propertyPage 				= null;
 	protected $propertyPath 				= null;
@@ -43,11 +44,14 @@ class ServantAction extends ServantObject {
 	*
 	* Defaults are set here, and can be overridden by action's code.
 	*/
-	public function initialize ($id, $page) {
+	public function initialize ($id, $input) {
 
-		// Set ID and action upon initialization
+		// Set ID and input upon initialization
 		$this->setId($id);
-		$this->setPage($page);
+		$this->setInput($input);
+
+		$pointer = $this->input()->fetch('queue', 'page', array());
+		$this->setPage($pointer);
 
 		// Defaults
 		$contentType = $this->servant()->settings()->defaults('contentType');
@@ -90,7 +94,7 @@ class ServantAction extends ServantObject {
 	* Generate a child action
 	*/
 	public function nest ($id) {
-		return $this->servant()->create()->action($id, $this->page())->run();
+		return $this->servant()->create()->action($id, $this->input())->run();
 	}
 
 	/**
@@ -120,6 +124,10 @@ class ServantAction extends ServantObject {
 			}
 		}
 		return $files;
+	}
+
+	protected function input () {
+		return $this->getAndSet('input');
 	}
 
 	public function output () {
@@ -193,6 +201,21 @@ class ServantAction extends ServantObject {
 	}
 
 	/**
+	* Input
+	*/
+	protected function setInput ($input) {
+
+		if ($this->getServantClass($input) !== 'input') {
+			$this->fail('Invalid input passed to action.');
+
+		// Input is acceptable
+		} else {
+			return $this->set('input', $input);
+		}
+
+	}
+
+	/**
 	* Whether or not this is the site action
 	*/
 	protected function setIsRead () {
@@ -220,16 +243,8 @@ class ServantAction extends ServantObject {
 	/**
 	* Current page
 	*/
-	protected function setPage ($page) {
-	
-		if ($this->getServantClass($page) !== 'page') {
-			$this->fail('Invalid page passed to template.');
-
-		// Page is acceptable
-		} else {
-			return $this->set('page', $page);
-		}
-
+	protected function setPage ($pointer) {
+		return $this->set('page', $this->servant()->sitemap()->select($pointer));
 	}
 
 	/**
