@@ -7,9 +7,15 @@
 	"icon": "site/favicon.ico",
 	"splashImage": "site/splash.png",
 
-	"template": "default",
+	"template": "html",
 
 	"pageNames": {
+	},
+
+	"pageOrder": [
+	],
+
+	"pageTemplates": {
 	}
 
 }
