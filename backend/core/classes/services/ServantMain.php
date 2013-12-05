@@ -92,12 +92,9 @@ class ServantMain extends ServantObject {
 	public function response ($get = array(), $post = array(), $put = array(), $delete = array(), $files = array()) {
 		$this->purgeTemp();
 
-		// User input
-		$input = $this->create()->input($get, $post, $put, $delete, $files);
-
 		// Serve a response
 		try {
-			$response = $this->create()->response($input);
+			$response = $this->create()->response($get, $post, $put, $delete, $files);
 
 		} catch (Exception $e) {
 			$this->purgeTemp();
@@ -108,8 +105,7 @@ class ServantMain extends ServantObject {
 
 			// Serve an error page (fake input)
 			try {
-				$input = $this->create()->input(array('action' => $this->settings()->actions('error')));
-				$response = $this->create()->response($input);
+				$response = $this->create()->response(array('action' => $this->settings()->actions('error')));
 
 			// Fuck
 			} catch (Exception $e) {

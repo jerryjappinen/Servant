@@ -64,10 +64,10 @@ class ServantInput extends ServantObject {
 	* Public getters
 	*/
 	public function action () {
-		return $this->get('action');
+		return $this->getAndSet('action');
 	}
 	public function page () {
-		return $this->get('page');
+		return $this->getAndSet('page');
 	}
 
 
@@ -79,7 +79,7 @@ class ServantInput extends ServantObject {
 	/**
 	* Action
 	*/
-	protected function setAction ($value) {
+	protected function setAction ($value = null) {
 		$result = null;
 
 		if ($this->acceptable($value)) {

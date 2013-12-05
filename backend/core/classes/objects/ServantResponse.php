@@ -15,6 +15,7 @@ class ServantResponse extends ServantObject {
 	protected $propertyCors 			= null;
 	protected $propertyExisting 		= null;
 	protected $propertyHeaders 			= null;
+	protected $propertyInput 			= null;
 	protected $propertyPath 			= null;
 	protected $propertyStatus 			= null;
 	protected $propertyStore 			= null;
@@ -22,12 +23,16 @@ class ServantResponse extends ServantObject {
 
 
 	/**
-	* Require action upon initialization
+	* Require action upon initialization (takes user input)
 	*/
-	public function initialize ($input) {
+	public function initialize () {
 
-		$this->setAction($input->action(), $this->servant()->sitemap()->select($input->page()));
+		// Set input
+		$arguments = func_get_args();
+		call_user_func_array(array($this, 'setInput'), $arguments);
 
+		// Generate response
+		// FLAG this is a hack, body should just be auto set (now it's set here so that it fails ASAP because there's no proper error handling)
 		$this->setBody();
 
 		return $this;
@@ -44,7 +49,11 @@ class ServantResponse extends ServantObject {
 	*/
 
 	public function action () {
-		return $this->get('action');
+		return $this->getAndSet('action');
+	}
+
+	public function input () {
+		return $this->getAndSet('input');
 	}
 
 	public function existing ($format = null) {
@@ -72,8 +81,20 @@ class ServantResponse extends ServantObject {
 	/**
 	* Action used for this response
 	*/
-	protected function setAction ($id, $page) {
-		return $this->set('action', $this->servant()->create()->action($id, $page));
+	protected function setAction () {
+		$page = $this->servant()->sitemap()->select($this->input()->page());
+		return $this->set('action', $this->servant()->create()->action($this->input()->action(), $page));
+	}
+
+	/**
+	* User input
+	*/
+	protected function setInput () {
+		$arguments = func_get_args();
+		$input = call_user_func_array(array($this->servant()->create(), 'input'), $arguments);
+		log_dump($input->action());
+		log_dump($input->page());
+		return $this->set('input', $input);
 	}
 
 
