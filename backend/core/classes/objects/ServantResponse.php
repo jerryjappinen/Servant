@@ -84,8 +84,11 @@ class ServantResponse extends ServantObject {
 	* Action used for this response
 	*/
 	protected function setAction () {
+
+		$id = $this->input()->action();
 		$page = $this->servant()->sitemap()->select($this->input()->page());
-		return $this->set('action', $this->servant()->create()->action($this->input()->action(), $page));
+
+		return $this->set('action', $this->servant()->create()->action($id, $page));
 	}
 
 	/**
@@ -311,6 +314,43 @@ class ServantResponse extends ServantObject {
 		$path .= implode('/', $this->action()->page()->tree());
 
 		return $path;
+	}
+
+	/**
+	* Select action based on input
+	*/
+	protected function selectAction ($input = null) {
+		$result = null;
+
+		if ($this->servant()->available()->action($action)) {
+			$result = $action;
+
+		// Silent fallback
+		} else {
+
+			// Global default
+			$default = $this->servant()->settings()->defaults('action');
+			if ($this->servant()->available()->action($default)) {
+				$result = $default;
+
+			} else {
+
+				// Whatever's available
+				$actions = $this->servant()->available()->actions();
+				if (!empty($actions)) {
+					$result = $actions[0];
+
+				// No actions, we fail
+				} else {
+					$this->fail('No actions available.');
+				}
+
+			}
+		}
+
+
+
+		return $this->set('action', $result);
 	}
 
 	/**

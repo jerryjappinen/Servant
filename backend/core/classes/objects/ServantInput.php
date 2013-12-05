@@ -10,7 +10,36 @@ class ServantInput extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyRaw = null;
 	protected $propertyValidate = null;
+
+
+
+	/**
+	* Use input
+	*/
+	public function fetch ($format, $key, $default = null) {
+		$value = null;
+
+		// Format must be valid
+		if (!$this->validate()->available($format)) {
+			$this->fail($format.' input is not supported.');
+
+		// Validate raw input
+		} else {
+			$value = $this->validate()->$format($this->raw($key));
+			if ($value === null) {
+				$value = $default;
+			}
+		}
+
+		// Fail on invalid input
+		if ($value === null) {
+			$this->fail('Invalid input provided for '.$key.' ('.$format.' required).');
+		}
+
+		return $value;
+	}
 
 
 
@@ -19,13 +48,10 @@ class ServantInput extends ServantObject {
 	*/
 	public function initialize () {
 
-		// Set defaults to all properties
-		$this->setAction('')->setPage(array());
-
 		// Merge inputs
 		$arguments = func_get_args();
 		$input = array();
-		foreach ($arguments as $value) {
+		foreach (array_reverse($arguments) as $value) {
 
 			// Normalize input
 			if (empty($value)) {
@@ -35,9 +61,19 @@ class ServantInput extends ServantObject {
 			}
 
 			// Merge inputs (first parameters are prioritized)
-			$input = array_merge($value, $input);
+			$input = array_merge($input, $value);
 
 		}
+
+		// Store raw input
+		$this->setRaw($input);
+
+
+
+
+
+		// Set defaults to all properties
+		$this->setAction('')->setPage(array());
 
 		// Select things if we have any
 		if (!empty($input)) {
@@ -62,10 +98,12 @@ class ServantInput extends ServantObject {
 	/**
 	* Public getters
 	*/
+
 	protected function formats () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->validate(), 'available'), $arguments);
 	}
+
 	protected function validate () {
 		return $this->getAndSet('validate');
 	}
@@ -75,10 +113,21 @@ class ServantInput extends ServantObject {
 	/**
 	* Setters
 	*/
+
+	protected function setRaw ($raw = array()) {
+		return $this->set('raw', $raw);
+	}
+
 	protected function setValidate () {
 		$this->servant()->utilities()->load('validator');
 		return $this->set('validate', create_object('Validator'));
 	}
+
+
+
+
+
+
 
 
 
@@ -206,6 +255,20 @@ class ServantInput extends ServantObject {
 	private function normalizeString ($value) {
 		return trim(strval($value));
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	* Decodes a string into an array (probably from GET)

@@ -93,8 +93,8 @@ class ServantMain extends ServantObject {
 		$this->purgeTemp();
 
 		// Serve a response
-			$response = $this->create()->response($get, $post, $put, $delete, $files);
 		try {
+			$response = $this->create()->response($get, $post, $put, $delete, $files);
 
 		} catch (Exception $e) {
 			$this->purgeTemp();
