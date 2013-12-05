@@ -85,7 +85,7 @@ class Index {
 			'post' => $_POST,
 			'put' => array(),
 			'delete' => array(),
-			'files' => array(),
+			'files' => $_FILES,
 		);
 
 
@@ -102,7 +102,12 @@ class Index {
 
 		// Start and run the main program
 		$servant = create_object('ServantMain')->init($this->paths, $this->constantsJson, ($this->debug ? true : false));
-		return $servant->serve($servant->response($this->input));
+
+		// Input
+		$i = $this->input;
+
+		// Serve response
+		return $servant->serve($servant->response($i['get'], $i['post'], $i['put'], $i['delete'], $i['files']));
 
 	}
 

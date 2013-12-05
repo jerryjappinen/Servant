@@ -18,16 +18,30 @@ class ServantInput extends ServantObject {
 	/**
 	* Take input
 	*/
-	public function initialize ($input = null) {
+	public function initialize () {
 
 		// Set defaults to all properties
 		$this->setAction('')->setPage(array());
 
-		// Select things if we have any
-		if (!empty($input) and is_array($input)) {
+		// Merge inputs
+		$arguments = func_get_args();
+		$input = array();
+		foreach ($arguments as $value) {
 
-			// Accepting only GET input
-			$input = $input['get'];
+			// Normalize input
+			if (empty($value)) {
+				$value = array();
+			} else {
+				$value = to_array($value);
+			}
+
+			// Merge inputs (first parameters are prioritized)
+			$input = array_merge($value, $input);
+
+		}
+
+		// Select things if we have any
+		if (!empty($input)) {
 
 			// Look for whatever we support
 			foreach (array('action', 'page') as $id) {

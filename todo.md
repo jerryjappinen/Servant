@@ -18,8 +18,6 @@
 
 ## Core
 
-- Multiple pieces of content for templates
-- Search action (investigate full text search in HTML files)
 - Input system (for actions)
 	- Store input privately for `ServantMain` in `ServantInput`
 	- Interpret and merge input of different types
@@ -38,12 +36,13 @@
 	- `pages://`
 	- `templates://`
 	- In different contexts, one of these serves as the default root
-- Page/section-specific templates
 - Data/storage/working directory for actions
 	- `site/data/` as it's site-specific stuff
 	- Kinda there already, provide additional services for actions
-- Twig parser of `ServantFiles` does should pass on treated variables
-- Investigate case-insensitive `ServantNode` pointers
+- Multiple pieces of content for templates
+- Search action (investigate full text search in HTML files)
+- Twig parser of `ServantFiles` should pass on treated variables
+- Case-insensitive `ServantNode` pointers
 
 
 

@@ -24,9 +24,9 @@ class ServantResponse extends ServantObject {
 	/**
 	* Require action upon initialization
 	*/
-	public function initialize ($actionId, $pageTree) {
+	public function initialize ($input) {
 
-		$this->setAction($actionId, $this->servant()->sitemap()->select($pageTree));
+		$this->setAction($input->action(), $this->servant()->sitemap()->select($input->page()));
 
 		$this->setBody();
 
