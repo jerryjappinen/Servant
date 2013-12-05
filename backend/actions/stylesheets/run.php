@@ -71,6 +71,10 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 * FLAG
 *   - We only want these in read action (we should print this upon request only - needs input support)
 */
+
+// Select page
+$page = $servant->sitemap()->select($input->fetch('queue', 'page', array()));
+
 foreach ($page->stylesheets('plain') as $path) {
 
 	// A preprocessor format is used

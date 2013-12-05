@@ -1,5 +1,10 @@
 <?php
 
+// Select page
+$page = $servant->sitemap()->select($input->fetch('queue', 'page', array()));
+
+
+
 /**
 * URL manipulation for page content
 */

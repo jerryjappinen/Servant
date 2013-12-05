@@ -5,6 +5,9 @@
 */
 $output = '';
 
+// Select page
+$page = $servant->sitemap()->select($input->fetch('queue', 'page', array()));
+
 foreach ($page->scripts('server') as $path) {
 	$output .= file_get_contents($path);
 }

@@ -19,9 +19,9 @@
 ## Core
 
 - Input system (for actions)
-	- Pass input to actions
 	- Allow actions to declare input demands (for validation)
 - Stop using `__call`
+- Make page optional for templates
 - Action configuration
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection

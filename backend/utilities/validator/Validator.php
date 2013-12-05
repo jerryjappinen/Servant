@@ -221,7 +221,7 @@ class HashValidatorRoutine extends ValidatorRoutine {
 
 			// Parse as JSON
 			// FLAG Validator should include JSON with normalizations
-			$temp = json_decode(suffix(prefix($string, '{'), '}'));
+			$temp = json_decode(suffix(prefix($input, '{'), '}'));
 			if (is_array($temp)) {
 				$input = $temp;
 

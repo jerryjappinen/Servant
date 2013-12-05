@@ -3,9 +3,6 @@
 /**
 * An action
 *
-* FLAG
-*   - Action should take input, not a page in initialization (they can create a page if needed or select it from the sitemap)
-*
 * DEPENDENCIES
 *   ServantFiles 	-> read
 *   ServantFormat 	-> path
@@ -22,7 +19,6 @@ class ServantAction extends ServantObject {
 	protected $propertyId 					= null;
 	protected $propertyInput 				= null;
 	protected $propertyIsRead 				= null;
-	protected $propertyPage 				= null;
 	protected $propertyPath 				= null;
 	protected $propertyOutput 				= null;
 	protected $propertyStatus 				= null;
@@ -49,9 +45,6 @@ class ServantAction extends ServantObject {
 		// Set ID and input upon initialization
 		$this->setId($id);
 		$this->setInput($input);
-
-		$pointer = $this->input()->fetch('queue', 'page', array());
-		$this->setPage($pointer);
 
 		// Defaults
 		$contentType = $this->servant()->settings()->defaults('contentType');
@@ -80,7 +73,7 @@ class ServantAction extends ServantObject {
 		// Variables to pass to action's scripts
 		$scriptVariables = array(
 			'servant' => $this->servant(),
-			'page' => $this->page(),
+			'input' => $this->input(),
 			'action' => $this,
 		);
 
@@ -100,8 +93,8 @@ class ServantAction extends ServantObject {
 	/**
 	* Generate a template
 	*/
-	public function nestTemplate ($id, $content = null) {
-		return $this->servant()->create()->template($id, $this, $this->page(), $content)->output();
+	public function nestTemplate ($id, $page, $content = null) {
+		return $this->servant()->create()->template($id, $this, $page, $content)->output();
 	}
 
 
@@ -142,10 +135,6 @@ class ServantAction extends ServantObject {
 			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
-	}
-
-	public function page () {
-		return $this->get('page');
 	}
 
 	public function status () {
@@ -238,13 +227,6 @@ class ServantAction extends ServantObject {
 	*/
 	protected function setPath () {
 		return $this->set('path', $this->servant()->paths()->actions().$this->id().'/');
-	}
-
-	/**
-	* Current page
-	*/
-	protected function setPage ($pointer) {
-		return $this->set('page', $this->servant()->sitemap()->select($pointer));
 	}
 
 	/**

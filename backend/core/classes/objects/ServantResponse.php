@@ -304,14 +304,14 @@ class ServantResponse extends ServantObject {
 	private function basePath ($format = null) {
 
 		// Base dir from settings
-		$path = $this->servant()->paths()->cache($format);
+		$path = $this->servant()->paths()->cache($format).'/';
 
 		// Action's get their own dir
-		$path .= $this->action()->id().'/';
+		$tree = array($this->action()->id());
 
 		// Each page gets their own file
-		// FLAG this should use input, not page tree
-		$path .= implode('/', $this->action()->page()->tree());
+		// FLAG this should be a generic serialization of input
+		$path .= implode('/', array_merge($tree, $this->action()->input()->fetch('queue', 'page', array())));
 
 		return $path;
 	}
