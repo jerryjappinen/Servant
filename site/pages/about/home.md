@@ -7,7 +7,7 @@
 
 			<div class="row row-header inverted">
 
-				<h1><strong><a href="/">Servant</a></strong></h1>
+				<h1><strong><a href="/">About Servant</a></strong> <a href="#features">Features</a> <a href="#download">Downloads</a></h1>
 
 				<ul>
 
@@ -277,7 +277,7 @@
 
 			</div>
 
-			<p class="footnote buffer-top even"><a href=".">servantframework.com</a></p>
+			<p class="footnote buffer-top even"><a href="/">servantframework.com</a></p>
 
 		</div>
 	</div>
