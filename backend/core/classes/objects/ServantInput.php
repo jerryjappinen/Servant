@@ -77,6 +77,31 @@ class ServantInput extends ServantObject {
 		return $value;
 	}
 
+	public function serialize () {
+		$result = '';
+		foreach ($this->raw() as $key => $value) {
+			$result .= '.'.base64_encode(serialize($value));
+		}
+		return substr($string, 1);
+	}
+
+	// Unserialize an array back into a sane format
+	public function unserialize ($string = '') {
+		$result = array();
+
+		// Exploding serialized data
+		if (!empty($string)) {
+			foreach (explode('.', $string) as $value) {
+				$result[] = unserialize(base64_decode($value));
+			}
+		}
+
+		return $result;
+	}
+
+
+
+
 
 
 	/**

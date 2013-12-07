@@ -201,7 +201,7 @@ class ServantResponse extends ServantObject {
 
 		// Look for a file that matches criteria work
 		$path = $this->basePath('server');
-		$potential = glob($path.'.*.*');
+		$potential = glob($path.'*.*');
 		if (!empty($potential)) {
 			$path = $potential[0];
 		}
@@ -254,7 +254,7 @@ class ServantResponse extends ServantObject {
 
 		// Response doesn't exist, we'll be creating a new one
 		} else {
-			$path = $this->basePath().'.'.$this->status().'.'.$this->contentType();
+			$path = $this->basePath().$this->status().'.'.$this->contentType();
 		}
 
 		return $this->set('path', $path);
@@ -304,14 +304,11 @@ class ServantResponse extends ServantObject {
 	private function basePath ($format = null) {
 
 		// Base dir from settings
-		$path = $this->servant()->paths()->cache($format).'/';
-
-		// Action's get their own dir
-		$tree = array($this->action()->id());
+		$path = $this->servant()->paths()->cache($format).'/'.$this->action()->id().'/';
 
 		// Each page gets their own file
 		// FLAG this should be a generic serialization of input
-		$path .= implode('/', array_merge($tree, $this->action()->input()->fetch('queue', 'page', array())));
+		$path .= implode('/', $this->action()->input()->fetch('queue', 'page', array())).'/';
 
 		return $path;
 	}
