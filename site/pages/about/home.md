@@ -49,22 +49,22 @@
 			<div class="overflow">
 
 				<div class="column first sample">
-					<p><img src="samples/site.png" alt="" title=""></p>
+					<p><img src="samples/site.png" alt="Inversion" title="Inversion" class="rounded shadows"></p>
 					<p><strong>Usable for everyone in our team</strong>. Producers, designers and developers can all contribute when we use Servant.</p>
 				</div>
 
 				<div class="column sample">
-					<p><img src="samples/package.png" alt="" title=""></p>
+					<p><img src="samples/package.png" alt="Inversion" title="Inversion" class="rounded shadows"></p>
 					<p>We publish our <strong>Markdown documentation</strong> with Servant. Docs stay clean for us, users get a usable, beautiful site.</p>
 				</div>
 
 				<div class="column sample">
-					<p><img src="samples/site.png" alt="" title=""></p>
+					<p><img src="samples/inversion.png" alt="Inversion" title="Inversion" class="rounded shadows"></p>
 					<p>A great <strong>lightweight alternative to WordPress or Joomla</strong>. It gives us the things we need with no bloat.</p>
 				</div>
 
 				<div class="column last sample">
-					<p><img src="samples/package.png" alt="" title=""></p>
+					<p><img src="samples/package.png" alt="Inversion" title="Inversion" class="rounded shadows"></p>
 					<p>I use Servant whenever <strong>I don’t need/want a database</strong>. And when I do, I still build the frontend with Servant.</p>
 				</div>
 
