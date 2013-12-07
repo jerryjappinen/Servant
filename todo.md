@@ -41,6 +41,9 @@
 - Search action (investigate full text search in HTML files)
 - Twig parser of `ServantFiles` should pass on treated variables
 - Case-insensitive `ServantNode` pointers
+- Arbitrary content types
+	- Allow action to set the content type directly
+	- Store full content type in cache file name
 
 
 
