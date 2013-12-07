@@ -53,7 +53,6 @@ if ($this->debug) {
 			<body>
 				<h1>Something went wrong :(</h1>
 				<p>We\'ve been notified now, and will fix this as soon as possible.</p>
-				'.$message.'
 			</body>
 		</html>
 		';

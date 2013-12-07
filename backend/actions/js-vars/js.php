@@ -5,7 +5,7 @@ $js = array();
 $js['paths'] = array(
 	'root' => prefix($servant->paths()->root(), '/'),
 	'host' => $servant->paths()->host(),
-	'actions' => $servant->paths()->endpoints(),
+	'actions' => unprefix($servant->paths()->endpoints(), $servant->paths()->root()),
 	'assets' => $servant->paths()->assets(),
 	'pages' => $servant->paths()->pages(),
 	'templates' => $servant->paths()->templates(),
@@ -26,12 +26,12 @@ $js['site'] = array(
 
 // Full output
 $js = '/*
- * Servant JS component
+ * Environment variables for JS component
  *
  * Exposes Servant-related configuration to client-side
  */
-(function(window, undefined ) {
-	var system = {'.str_replace('\\/', '/', json_encode($js)).'};
-	window.system = system;
-})(window);';
+var servantConstants = function () {
+	var constants = '.str_replace('\\/', '/', json_encode($js)).';
+	return constants;
+};';
 ?>

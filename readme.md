@@ -17,11 +17,11 @@
 
 1. Download Servant
 2. Unzip the download on a server with PHP 5.3 or newer
-3. Make sure `mod_rewrite` or `rewrite_module` is enabled the server.
+3. Make sure `mod_rewrite` or `rewrite_module` is enabled on the server.
 
 Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at [eiskis.net/servant](http://eiskis.net/servant/site/get-started/installation/) if you encounter any problems.
+Consult troubleshooting guide at [eiskis.net/servant](http://eiskis.net/servant/site/tutorials-and-guides/installation/) if you encounter any problems.
 
 
 
@@ -43,8 +43,8 @@ This is the basic file structure.
 			...
 		settings.json
 	templates/
-		default/
-			header.php
+		html/
+			html.php
 			...
 		...
 

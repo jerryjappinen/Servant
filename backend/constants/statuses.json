@@ -6,6 +6,7 @@
 		"102": "102 Processing",
 
 		"200": "200 OK",
+		"201": "201 Created",
 		"202": "202 Accepted",
 		"203": "203 Non-Authoritative Information",
 		"204": "204 No Content",

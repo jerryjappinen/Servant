@@ -86,19 +86,23 @@
 
 		<div class="column eight buffer-right">
 
-			<h3>Effortless content production</h3>
 
-			<p>Servant takes the text files, Markdown, HTML, PHP... you name it - and turns them into a web site. Minimum technical skills required. No installations, no database, no migrations, no deployments, no template jungling, no admin panels, no user access, no hassle. Edit your site and upload - that’s it.</p>
 
-			<h3>Effortless development</h3>
+			<h3>It's Effortless</h3>
 
-			<p>With Servant’s minimum configuration and sensible defaults, you get your home page up in minutes. You can use existing backend, templates and themes or start out from scratch - Servant scales according to your needs, but only if needed.</p>
+			<p>With Servant’s minimum configuration and sensible defaults, you get your home page up in minutes. You can use existing backend, templates and themes or start out from scratch &ndash; Servant scales according to your needs, but only if needed.</p>
 
-			<p>If you want to focus on just frontend development, there’s no need to open the backend/ directory. More importantly, Servant supports your development needs without requiring extensive knowledge about how other things work.</p>
+			<p>Servant takes the text files, Markdown, HTML, PHP... you name it - and turns them into a web site. Minimum technical skills required.</p>
+
+			<p>No installations, no database, no migrations, no deployments, no admin panels, no access control. Edit your site and upload &ndash; that’s it.</p>
+
+
 
 			<h3>Work without frustrations</h3>
 
-			<p>Servant is simple. When you keep your development stack light, less things go wrong and less often. You also make it possible for other people from different backgrounds and less technical competence to contribute - when we ask less of other people, we get more.</p>
+			<p>Servant is simple. With its light development stack that's easy to understand, less things can go wrong and less often.</p>
+
+
 
 			<h3>Who is Servant not for?</h3>
 
@@ -184,7 +188,7 @@
 								<label class="clear-after">
 									<span class="input"><input type="checkbox" checked disabled></span>
 									<h3 class="reset">Documentation</h3>
-									<p class="reset">Full <a href="">technical docs</a> and <a href="">user guides</a>.</p>
+									<p class="reset"><a href="/technical-docs">Documentation</a> and <a href="/tutorials-and-guides">user guides</a>.</p>
 								</label>
 							</li>
 
@@ -202,7 +206,7 @@
 
 				</div>
 
-				<p class="push-top push-bottom discreet"><a href="https://bitbucket.org/Eiskis/servant/get/tip.zip" class="button turquoise accept push-right">Download .zip, 3.2 MB</a> <a href="https://bitbucket.org/Eiskis/servant/" class="discreet push-right" target="_blank">Repos on Bitbucket</a> Released under <a href="http://www.gnu.org/copyleft/lesser.html" class="discreet" target="_blank">LGPL</a>.</p>
+				<p class="push-top push-bottom discreet"><a href="https://bitbucket.org/Eiskis/servant/get/tip.zip" class="button turquoise accept push-right">Download .zip, 3.2 MB</a> <a href="https://bitbucket.org/Eiskis/servant/src" class="discreet push-right" target="_blank">Repos on Bitbucket</a> Released under <a href="http://www.gnu.org/copyleft/lesser.html" class="discreet" target="_blank">LGPL</a>.</p>
 
 				<!-- <p><a href="" class="button plain forward">Changelog for 1.0.0</a></p> -->
 
@@ -273,7 +277,7 @@
 
 			</div>
 
-			<p class="footnote buffer-top even"><a href=".">servantweb.com</a></p>
+			<p class="footnote buffer-top even"><a href=".">servantframework.com</a></p>
 
 		</div>
 	</div>
