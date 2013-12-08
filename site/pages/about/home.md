@@ -36,7 +36,7 @@
 
 					<p>Servant is practical and made for humans, be it content producers, designers or developers. It scales up or down according to your needs, too. Give it a try - it’s open-source!</p>
 
-					<p><a href="#features" class="button yellow down push-right">Use cases &amp; features</a> <a href="#download" class="button turquoise down">Download 1.0.2</a></p>
+					<p><a href="#features" class="button yellow down push-right">Use cases &amp; features<span class="icon"></span></a> <a href="#download" class="button turquoise down">Download 1.0.2<span class="icon"></span></a></p>
 
 				</div>
 			</div>
@@ -64,7 +64,7 @@
 				</div>
 
 				<div class="column last sample">
-					<p><img src="samples/package.png" alt="Inversion" title="Inversion" class="rounded shadows"></p>
+					<p><img src="samples/project.png" alt="Inversion" title="Inversion" class="rounded shadows"></p>
 					<p>I use Servant whenever <strong>I don’t need/want a database</strong>. And when I do, I still build the frontend with Servant.</p>
 				</div>
 
@@ -152,7 +152,7 @@
 		<div class="panel inverted">
 			<div class="buffer clear-after">
 
-				<h2 class="squeeze-top">Download Servant 1.0 <sup>*released 12 March 2014</sup></h2>
+				<h2 class="squeeze-top">Download Servant Alpha <sup>*released in Dec 2013</sup></h2>
 
 				<div class="customize clear-after">
 
@@ -206,7 +206,7 @@
 
 				</div>
 
-				<p class="push-top push-bottom discreet"><a href="https://bitbucket.org/Eiskis/servant/get/tip.zip" class="button turquoise accept push-right">Download .zip, 3.2 MB</a> <a href="https://bitbucket.org/Eiskis/servant/src" class="discreet push-right" target="_blank">Repos on Bitbucket</a> Released under <a href="http://www.gnu.org/copyleft/lesser.html" class="discreet" target="_blank">LGPL</a>.</p>
+				<p class="push-top push-bottom discreet"><a href="https://bitbucket.org/Eiskis/servant/get/tip.zip" class="button turquoise accept push-right">Download .zip, 3.2 MB<span class="icon"></span></a> <a href="https://bitbucket.org/Eiskis/servant/src" class="discreet push-right" target="_blank">Repos on Bitbucket</a> Released under <a href="http://www.gnu.org/copyleft/lesser.html" class="discreet" target="_blank">LGPL</a>.</p>
 
 				<!-- <p><a href="" class="button plain forward">Changelog for 1.0.0</a></p> -->
 
@@ -248,13 +248,13 @@
 
 				<div class="column half support">
 
-					<p><a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb" class="button red forward" target="_blank">Support on Google Groups</a></p>
+					<p><a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb" class="button red forward" target="_blank">Support on Google Groups<span class="icon"></span></a></p>
 
 				</div>
 
 				<div class="column half last contribute">
 
-					<p><a href="https://bitbucket.org/Eiskis/servant/" class="button blue bitbucket" target="_blank">Contribute on Bitbucket</a></p>
+					<p><a href="https://bitbucket.org/Eiskis/servant/" class="button blue forward" target="_blank">Contribute on Bitbucket<span class="icon"></span></a></p>
 
 				</div>
 				<div class="clear"></div>
