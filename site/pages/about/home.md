@@ -24,9 +24,9 @@
 			<div class="column six">
 				<div class="buffer-right">
 
-					<p>Convert text documents to web sites. On the fly. On PHP, the easiest and most popular language used by web hosting services today. With minimum requirements.</p>
+					<p><em>Servant</em> is a practical and approachable micro framework for web developers, designed for us humans who prefer understandable environments and frequently whip up new web sites.</p>
 
-					<p>Asset auto loaders, LESS+SCSS support, fancy URLs, caching... all included out-of-the-box. Extendable actions allow custom functionality, both backend and AJAX.</p>
+					<p>Write pages in <em>Markdown</em>, <em>HTML</em>, <em>PHP</em> or any other of the supported formats. Use the zero-config asset pipeline, <em>LESS</em>+<em>SCSS</em> compilers, fancy URLs, caching... all out-of-the-box. Or write custon backend actions.</p>
 
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 			<div class="column six last">
 				<div class="buffer-right">
 
-					<p>Servant is practical and made for humans, be it content producers, designers or developers. It scales up or down according to your needs, too. Give it a try - it’s open-source!</p>
+					<p>Servant runs on your regular PHP environment with no head scratching required. It's open-source and the setup is a breeze &ndash; try it out!</p>
 
 					<p><a href="#features" class="button yellow down push-right">Use cases &amp; features<span class="icon"></span></a> <a href="#download" class="button turquoise down">Download 1.0.2<span class="icon"></span></a></p>
 
