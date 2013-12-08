@@ -91,6 +91,21 @@
 		max-width: 74em;
 	}
 
+	.button, .button.push-right {
+		margin-bottom: 1em;
+	}
+
+	@media handheld, only screen and (max-width: @bb-stack) {
+		.button, .button.push-right {
+			margin-right: 0;
+			display: block;
+			max-width: 18em;
+		}
+		.buffer-right {
+			padding-right: 0;
+		}
+	}
+
 	.samples {
 		font-size: 0.9em;
 		overflow-x: auto;
