@@ -1,11 +1,7 @@
 
 # Site component
 
-	$servant->site()
-
-
-
-### Properties with public getters
+### Properties
 
 Property name   | Description | Return values
 --------------- | ----------- | -------------

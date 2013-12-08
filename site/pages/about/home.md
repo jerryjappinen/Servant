@@ -11,6 +11,7 @@
 
 				<ul>
 
+					<li><a href="/">About</a></li>
 					<li><a href="/tutorials-and-guides">Tutorials &amp; guides</a></li>
 					<li><a href="/technical-docs">Technical docs</a></li>
 

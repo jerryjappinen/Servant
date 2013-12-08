@@ -2,7 +2,7 @@
 # Servant
 
 - Intro, download & docs
-	- [eiskis.net/servant](http://www.eiskis.net/servant/)
+	- [servantframework.com](http://servantframework.com/)
 - Source & issues
 	- [bitbucket.org/Eiskis/servant](http://bitbucket.org/Eiskis/servant/)
 - By Jerry Jäppinen
@@ -21,7 +21,7 @@
 
 Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at [eiskis.net/servant](http://eiskis.net/servant/site/tutorials-and-guides/installation/) if you encounter any problems.
+Consult troubleshooting guide at [servantframework.com](http://servantframework.com/) if you encounter any problems.
 
 
 
@@ -56,4 +56,4 @@ Template files under `templates/` define the basic structure of your site. One t
 
 Servant compiles all this into a functioning web site. Servant's files itself are located under `backend/`, but you shouldn't have to ever go there.
 
-See full documentation at [eiskis.net/servant](http://www.eiskis.net/servant/).
+See full documentation at [servantframework.com](http://servantframework.com/).

@@ -1,62 +1,66 @@
 
 h1. Site settings
 
-Site settings are **completely optional**, but you probably want to manually define some things, like your the name of your page. By adding @settings.json@ in your site's folder you can define these things with a very simple syntax. Here's an example:
+To manually define things like the name of your site, page order and favicon, it's possible to use _site settings_. Add @settings.json@ in your site's folder and use the simple syntax.
+
+Site settings are **completely optional**.
 
 
 
-h5. @settings.json@
+h5. site/settings.json
 
-<pre><code>"browserCache":   "0*3*60",
-"serverCache":    "0*7*24*7*60",
-"template":       "default",
+<pre><code>"browserCache":   "3*60",
+"serverCache":    "7*24*7*60",
+"template":       "html",
 "language":       "en",
-"name":           "Servant",
+"name":           "My Site Name",
 "description":    "Effortless publishing for the web",
 "icon":           "site/favicon.ico",
 "splashImage":    "site/splash.png",
 "pageNames": {
-	"text-and-markdown": "Text & Markdown",
-	"url-manipulation": "URL manipulation"
+	"technical-docs/basics/text-and-markdown": "Text & Markdown",
+	"technical-docs/basics/url-manipulation": "URL manipulation"
 }
 "pageOrder": [
-	"about",
-	"how-it-works",
-	"how-it-works/how-it-works"
-	"how-it-works/features"
+	"tutorials-and-guides",
+	"technical-docs",
+	"technical-docs/basics"
+	"technical-docs/template-formats"
 ]
 "pageTemplates": [
 	"about": "blog"
 ]
 </code></pre>
 
-This format is called _JSON_. Type the name of the property, add a colon and type in the value. Remember to use quotes and separate multiple settings with commas. Some values have children &ndash; <code>{ ... }</code> or <code>[ ... ]</code> are used in this case.
 
 
-
-h3. Supported settings
-
-|_. Setting|_. Description|_. Example values|
-|*browserCache*|Suggested caching time for browsers, in minutes.| @"3*60"@ |
-|*serverCache*|Caching time used by Servant, in minutes.| @"2*24*60"@ |
-|*template*|The template under "templates/" to pick for your site.|@"default"@, @"mytemplate"@|
-|*language*|Two-letter language code, the main language of your site.|@"en"@, @"fr"@|
-|*icon*|Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"site/favicon.png"@|
-|*splashImage*|Path (relative to Servant root) to an splash image file.|@"site/splash.png"@|
-|*name*|||
-|*description*|||
-|*pageNames*|Custom names to use for your pages.||
-|*pageOrder*|Pages to be prioritized when ordering pages in each category.||
-|*pageTemplates*|Pages to be prioritized when ordering pages in each category.||
-
-
-
-h2. Name & icon
+h2. Name & icons
 
 Your site's name will be generated from its folder name, but you can also choose another name in your site's settings. Templates usually put this name in the site's header and browser's title bar. You can also do the same for page names.
+
+|_. Supported setting|_. Example values|
+|*name*||
+|*description*||
+|*icon*<br>Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"site/favicon.png"@|
+|*splashImage*<br>Path (relative to Servant root) to an splash image file.|@"site/splash.png"@|
 
 
 
 h2. Sitemap manipulation
 
 You can use the @pageNames@, @pageOrder@ and @pageTemplates@ settings to customize the sitemap automatically generated for your site. Point to any page with its full ID.
+
+|_. Supported setting|_. Example values|
+|*pageNames*<br>Custom names to use for your pages.||
+|*pageOrder*<br>Pages to be prioritized when ordering pages in each category.||
+|*pageTemplates*<br>Page-specific template to be used instead of the site default.||
+
+
+
+h2. Misc.
+
+|_. Supported setting|_. Example values|
+|*browserCache*<br>Suggested caching time for browsers, in minutes.| @"3*60"@ |
+|*serverCache*<br>Caching time used by Servant, in minutes.| @"2*24*60"@ |
+|*template*<br>The template under "templates/" to pick for your site.|@"default"@, @"mytemplate"@|
+|*language*<br>Two-letter language code, the main language of your site.|@"en"@, @"fr"@|

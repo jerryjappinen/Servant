@@ -1,12 +1,11 @@
 
 # Page component
 
-- A page has an ID.
-- Pages are sorted into nested categories, based on site's directory structure.
+Pages are sorted into nested categories, based on site's directory structure.
 
 
 
-### Properties with public getters
+### Properties
 
 Property name   | Description
 --------------- | -----------

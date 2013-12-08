@@ -5,7 +5,7 @@ These are detailed instructions on how to set up Servant. You'll have it running
 
 ### 1. Access a server
 
-You need *PHP 5.2+* and a server with support for *rewrite_module* (sometimes called *mod_rewrite*). Most servers have this.
+You need *PHP 5.3+* and a server with support for *rewrite_module* (sometimes called *mod_rewrite*). Most servers have this.
 
 **Note!** If you have installed [WAMP](http://www.wampserver.com/en/) on Windows as a local development environment, you need to manually enable this module in the settings.
 
