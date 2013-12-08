@@ -153,7 +153,7 @@
 		<div class="panel inverted">
 			<div class="buffer clear-after">
 
-				<h2 class="squeeze-top">Download Servant Alpha <sup>*released in Dec 2013</sup></h2>
+				<h2 class="squeeze-top">Download Servant <sup>*alpha, Dec 2013</sup></h2>
 
 				<div class="customize clear-after">
 
