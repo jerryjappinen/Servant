@@ -127,7 +127,7 @@ class ServantResponse extends ServantObject {
 				$output = $this->action()->output();
 
 				// Store if needed
-				if ($cacheEnabled and !$this->existing() and $this->status() < 400) {
+				if ($cacheEnabled and $this->action()->cache() and !$this->existing() and $this->status() < 400) {
 					$this->store($output);
 				}
 

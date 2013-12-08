@@ -1,16 +1,11 @@
 
 # Servant development
 
-## Needs refactoring (but works)
+## ???
 
-- General flow
-	- Action objects should be generated in `ServantResponse`, *not* `ServantMain`
-	- `Page` should be selected by actions based on input
-	- `ServantInput` Should not select action
-? Improved usability of `ServantPage` and `ServantCategory`
-? Investigate sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
+? Sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
 ? Add-on admin section
-	- Settings file generation
+	- Settings file generation + maintenance
 	- Status board
 	- Online page editor
 
@@ -25,7 +20,6 @@
 - Action configuration
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
-	-> Disabling cache in actions
 	-> Input declarations
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
 	- `servant://` (root)
@@ -34,9 +28,9 @@
 	- `pages://`
 	- `templates://`
 	- In different contexts, one of these serves as the default root
-- Data/storage/working directory for actions
-	- `site/data/` as it's site-specific stuff
-	- Kinda there already, provide additional services for actions
+- Data/storage/working directory services for actions
+	- file traversal
+	- adding files
 - Multiple pieces of content for templates
 - Search action (investigate full text search in HTML files)
 - Twig parser of `ServantFiles` should pass on treated variables

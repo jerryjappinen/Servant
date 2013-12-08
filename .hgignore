@@ -8,3 +8,4 @@ syntax: glob
 cache/
 *.orig
 temp/
+site/data/

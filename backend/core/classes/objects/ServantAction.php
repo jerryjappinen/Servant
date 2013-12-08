@@ -14,14 +14,15 @@ class ServantAction extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyContentType 			= null;
-	protected $propertyFiles 				= null;
-	protected $propertyId 					= null;
-	protected $propertyInput 				= null;
-	protected $propertyIsRead 				= null;
-	protected $propertyPath 				= null;
-	protected $propertyOutput 				= null;
-	protected $propertyStatus 				= null;
+	protected $propertyCache 		= null;
+	protected $propertyContentType 	= null;
+	protected $propertyFiles 		= null;
+	protected $propertyId 			= null;
+	protected $propertyInput 		= null;
+	protected $propertyIsRead 		= null;
+	protected $propertyPath 		= null;
+	protected $propertyOutput 		= null;
+	protected $propertyStatus 		= null;
 
 
 
@@ -103,6 +104,11 @@ class ServantAction extends ServantObject {
 	* Public getters
 	*/
 
+	public function cache () {
+		$arguments = func_get_args();
+		return $this->getOrSet('cache', $arguments);
+	}
+
 	public function contentType () {
 		$arguments = func_get_args();
 		return $this->getOrSet('contentType', $arguments);
@@ -147,6 +153,13 @@ class ServantAction extends ServantObject {
 	/**
 	* Setters
 	*/
+
+	/**
+	* Disable or enable cache
+	*/
+	protected function setCache ($cache = true) {
+		return $this->set('cache', $cache ? true : false);
+	}
 
 	/**
 	* Content type
