@@ -46,6 +46,10 @@
 .row-header {
 	position: static;
 
+	@media handheld, only screen and (max-width: @bb-stack) {
+		display: none;
+	}
+
 	h1 {
 
 		// Page title
@@ -144,6 +148,12 @@
 				color: @white;
 			}
 
+			p:last-of-type {
+				max-width: 30em;
+				margin-right: auto;
+				margin-left: auto;
+			}
+
 		}
 	}
 
@@ -236,6 +246,7 @@
 			margin-right: 0;
 			margin-bottom: 2em;
 			display: block;
+			max-width: 18em;
 		}
 	}
 
@@ -272,6 +283,9 @@
 
 	.limit {
 		max-width: 60em;
+		@media handheld, only screen and (max-width: @bb-stack) {
+			max-width: 30em;
+		}
 	}
 
 	.push-top {

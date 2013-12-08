@@ -227,18 +227,15 @@
 				<div class="column center">
 
 					<a class="column buffer half block shadows rounded push-bottom tutorials" href="/tutorials-and-guides">
-
 						<h2 class="reset">Tutorials &amp; guides</h2>
 						<p class="reset">Install Servant, get to learn the basics.</p>
-
 					</a>
 
 					<a class="column buffer half last block shadows rounded push-bottom docs" href="/technical-docs">
-
 						<h2 class="reset">Technical docs</h2>
 						<p class="reset">Full documentation of Servant insides.</p>
-
 					</a>
+
 					<div class="clear"></div>
 
 				</div>

@@ -27,9 +27,15 @@ h1, h2 {
 }
 h1 {
 	font-size: 2.4em;
+	@media handheld, only screen and (max-width: @bb-stack) {
+		font-size: 2em;
+	}
 }
 h2 {
 	font-size: 2em;
+	@media handheld, only screen and (max-width: @bb-stack) {
+		font-size: 1.6em;
+	}
 }
 h3 {
 	font-size: 1.2em;
