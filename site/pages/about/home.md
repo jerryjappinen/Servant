@@ -7,7 +7,7 @@
 
 			<div class="row row-header inverted">
 
-				<h1><strong><a href="/">About Servant</a></strong> <a href="#features">Features</a> <a href="#download">Downloads</a></h1>
+				<h1><strong><a href="/">About Servant</a></strong> <a href="#features" class="scroll">Features</a> <a href="#download" class="scroll">Downloads</a></h1>
 
 				<ul>
 
@@ -36,7 +36,7 @@
 
 					<p>Servant runs on your regular PHP environment with no head scratching required. It's open-source and the setup is a breeze &ndash; try it out!</p>
 
-					<p><a href="#features" class="button yellow down push-right">Use cases &amp; features<span class="icon"></span></a> <a href="#download" class="button turquoise down">Download 1.0.2<span class="icon"></span></a></p>
+					<p><a href="#features" class="button yellow down push-right scroll">Use cases &amp; features<span class="icon"></span></a> <a href="#download" class="button turquoise down scroll">Download 1.0.2<span class="icon"></span></a></p>
 
 				</div>
 			</div>
