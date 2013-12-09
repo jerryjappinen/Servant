@@ -31,9 +31,6 @@ $frame = '
 			$frame .= '
 			<div class="article">
 				'.$template->content().'
-
-				'.html_dump($servant->create()->input(array('foo' => 'bar', 'esa' => array(1, 2, 3)))->serialize()).'
-
 			</div>
 			';
 
