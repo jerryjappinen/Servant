@@ -97,7 +97,7 @@
 
 			<h3>Work without frustrations</h3>
 
-			<p>Servant is simple. No installations, no database, no deployments, no admin panels. Edit your site and upload &ndash; that’s it. The lightweight stack is easy to understand, and not a lot of things can go wrong very often</p>
+			<p>Servant is simple. No installations, no database, no deployments, no admin panels. Edit your site and upload &ndash; that’s it. The lightweight stack is easy to understand, and not a lot of things can go wrong very often.</p>
 
 
 			<h3>Who is Servant not for?</h3>

@@ -31,12 +31,21 @@ pre {
 		color: inherit;
 	}
 
+	 td code, {
+		display: inline;
+		padding: 0;
+		border-width: 0;
+		.border-radius(0);
+		background-color: transparent;
+	}
+
 	td pre {
 		margin: 0;
 		padding: 0;
 		.box-shadow(none);
 		background-color: transparent;
 		border-left-width: 0;
+
 		code {
 			display: inline-block;
 			padding: 0.1em 0.4em 0 0.4em;
@@ -45,4 +54,5 @@ pre {
 			background-color: @grey-lightest;
 			font-weight: normal;
 		}
+
 	}
