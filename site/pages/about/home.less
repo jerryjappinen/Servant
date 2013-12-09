@@ -13,6 +13,7 @@
 }
 
 
+
 // Inverted sections
 .inverted {
 	color: @white;
@@ -78,6 +79,12 @@
 
 		}
 
+	}
+
+	@media handheld, only screen and (max-width: @bb-accommodate) {
+		a.scroll {
+			display: none;
+		}
 	}
 
 }

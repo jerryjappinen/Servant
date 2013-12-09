@@ -44,3 +44,25 @@ body.page-tutorials-and-guides, body.page-technical-docs {
 	}
 
 }
+
+/*Breakpoints*/
+@media handheld, only screen and (max-width: @bb-break) {
+	.hide-under-break {
+		display: none;
+	}
+}
+@media handheld, only screen and (min-width: @bb-break) {
+	.hide-over-break {
+		display: none;
+	}
+}
+@media handheld, only screen and (max-width: @bb-accommodate) {
+	.hide-under-accommodate {
+		display: none;
+	}
+}
+@media handheld, only screen and (min-width: @bb-accommodate) {
+	.hide-over-accommodate {
+		display: none;
+	}
+}

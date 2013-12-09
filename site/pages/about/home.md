@@ -20,7 +20,7 @@
 
 			</div>
 
-			<h2>Welcome to Servant <sup>*a web framework for human beings</sup></h2>
+			<h2>Welcome to Servant <sup class="hide-under-accommodate">*a web framework for human beings</sup></h2>
 
 			<div class="column six">
 				<div class="buffer-right">
@@ -151,7 +151,7 @@
 		<div class="panel inverted">
 			<div class="buffer clear-after">
 
-				<h2 class="squeeze-top">Download Servant <sup>*alpha, Dec 2013</sup></h2>
+				<h2 class="squeeze-top">Download Servant <sup class="hide-under-accommodate">*alpha, Dec 2013</sup></h2>
 
 				<div class="customize clear-after">
 
