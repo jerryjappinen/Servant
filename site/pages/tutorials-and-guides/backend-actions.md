@@ -1,0 +1,57 @@
+
+# Backend actions
+
+Servant is easily extendable via the built-in action system. Actions are backend code snippets that generally respond to HTTP requests. They're ideal for quickly setting up custom functionality to support your frontend, for example responding to AJAX requests. Example uses include proxys and database access.
+
+Servant automatically exposes all actions via dedicated URLs. The core release also uses actions itself, for example to output all pages and minified stylesheets for a site.
+
+
+
+## How they work
+
+Each directory under `backend/actions/` is an action. All the script files of an action are executed in alphabetical order, recursively.
+
+Generally, an action does what it does based on user input, and then responds with an HTML status code and some output.
+
+<p><a href="/technical-docs/components/action" class="button">Full action reference</a></p>
+
+
+
+## What they're not for
+
+Actions are not a full-fledged solution for your apps business logic. They're created to support the frontend, and meant to be accessible for developers.
+
+If you're creating a complex web app, consider creating the business logic from the frontend as a separate program and communicating to clients via APIs.
+
+
+
+## Example
+
+##### File structure
+
+	backend/
+		actions/
+			myaction/
+				prepare.php
+				output.php
+
+##### ...myaction/prepare.php
+
+	// Set some variables
+	$myvar = '';
+	if ($servant->debug()) {
+		$myvar = '<p>Bar</p>';
+	}
+
+##### ...myaction/output.php
+
+	// Variables are available in all files
+	$action->output($myvar);
+	
+	// Set content type, status and output
+	$action->output($myvar)->contentType('html')->status(200);
+
+	// Show error if output is empty
+	if (!$action->output()) {
+		$action->contentType('text')->status(500);
+	}

@@ -27,7 +27,7 @@
 
 					<p><em>Servant</em> is a practical and approachable micro framework for web developers, designed for us humans who prefer understandable environments and frequently whip up new web sites.</p>
 
-					<p>Write pages in <em>Markdown</em>, <em>HTML</em>, <em>PHP</em> or any other of the supported formats. Use the zero-config asset pipeline, <em>LESS</em>+<em>SCSS</em> compilers, fancy URLs, caching... all out-of-the-box. Or write custon backend actions.</p>
+					<p>Write pages in <em>Markdown</em>, <em>HTML</em>, <em>PHP</em> or any other of the supported formats. Use the zero-config asset pipeline, <em>LESS</em>+<em>SCSS</em> compilers, fancy URLs, caching... all out-of-the-box. Or write custom backend actions.</p>
 
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 			<div class="column six last">
 				<div class="buffer-right">
 
-					<p>Servant runs on your regular PHP environment with no head scratching required. It's open-source and the setup is a breeze &ndash; try it out!</p>
+					<p>Servant runs on your regular Apache + PHP environment with minimum head scratching. It's open-source and the setup is a breeze &ndash; try it out!</p>
 
 					<p><a href="#features" class="button yellow down push-right scroll">Use cases &amp; features<span class="icon"></span></a> <a href="#download" class="button turquoise down scroll">Download 1.0.2<span class="icon"></span></a></p>
 
@@ -80,7 +80,7 @@
 
 
 
-<div class="row-description push-top" id="features">
+<div class="row-features push-top" id="features">
 	<div class="row-content buffer">
 
 		<h2>When you just need a web site</h2>
@@ -89,35 +89,28 @@
 
 
 
-			<h3>It's Effortless</h3>
+			<p>With Servant’s minimum configuration and sensible defaults, you get your home page up in minutes. A basic setup reads your text, Markdown, HTML etc. files and creates a sitemap out of them, styled with the assets you throw at it.</p>
 
-			<p>With Servant’s minimum configuration and sensible defaults, you get your home page up in minutes. You can use existing backend, templates and themes or start out from scratch &ndash; Servant scales according to your needs, but only if needed.</p>
-
-			<p>Servant takes the text files, Markdown, HTML, PHP... you name it - and turns them into a web site. Minimum technical skills required.</p>
-
-			<p>No installations, no database, no migrations, no deployments, no admin panels, no access control. Edit your site and upload &ndash; that’s it.</p>
+			<p><em>You</em> choose whether to start out developing your own layout and look or use existing themes and templates to get output immediately. Servant scales according to your needs &ndash; up to a point, if needed.</p>
 
 
 
 			<h3>Work without frustrations</h3>
 
-			<p>Servant is simple. With its light development stack that's easy to understand, less things can go wrong and less often.</p>
-
+			<p>Servant is simple. No installations, no database, no deployments, no admin panels. Edit your site and upload &ndash; that’s it. The lightweight stack is easy to understand, and not a lot of things can go wrong very often</p>
 
 
 			<h3>Who is Servant not for?</h3>
 
-			<p>Servant helps you create web sites for humans, potentially spiced with bite-sized web actions for lightweight API-like usage (e.g. AJAX actions). If you are doing complex things in the backend (e.g. requiring authentication and heavy operations with a database), you probably want to use something else.</p>
+			<p>Servant helps you create <strong>web sites</strong>. It's not a web app platform. There's a fuzzy and shifting line between those, and you need to be the judge.</p>
 
-			<p>That said, Servant is still a great candidate for creating your user-facing web pages since you should separeate your concerns! Maybe write your APIs with Play Framework, web site with Servant for example?</p>
+			<p>For complex things in the backend, like authentication and heavy database operations, you probably shouldn't use Servant. It's always a great candidate for your user-facing web pages, still: writing your app's business logic and APIs with something like <a href="http://www.playframework.com/" target="_blank">Play Framework</a> while setting up a lightweight client and a marketing site with Servant would be a great idea!</p>
 
 		</div>
 
 		<div class="column four last">
 
-			<h3>Out-of-the-box features</h3>
-
-			<p>Zero-config software: practical, sensible defaults get you going.</p>
+			<h3 class="reset-top">Out-of-the-box features</h3>
 
 			<ul>
 				<li>Human-readable URLs</li>
@@ -129,15 +122,20 @@
 				<li>Extendable backend actions</li>
 			</ul>
 
+			<p>All zero-config: change the practical, sensible defaults only if needed.</p>
+
+
 
 			<h3>Requirements</h3>
-
-			<p>Drop-in installation: no behind-the-scenes magic, move files in and you’re done.</p>
 
 			<ul>
 				<li>PHP 5.3 or above</li>
 				<li>Apache with rewrite module</li>
 			</ul>
+
+			<p>Drop-in installation, minimum head scratching involved.</p>
+
+
 
 		</div>
 		<div class="clear"></div>

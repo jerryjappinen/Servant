@@ -23,6 +23,9 @@
 
 		"tutorials-and-guides/get-started",
 		"tutorials-and-guides/pages",
+		"tutorials-and-guides/look",
+		"tutorials-and-guides/site-settings",
+		"tutorials-and-guides/backend-actions",
 
 		"technical-docs/basics/about/",
 		"technical-docs/basics/template-packages",

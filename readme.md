@@ -16,12 +16,14 @@
 ## Setup
 
 1. Download Servant
-2. Unzip the download on a server with PHP 5.3 or newer
-3. Make sure `mod_rewrite` or `rewrite_module` is enabled on the server.
+2. Unzip the downloaded package
+3. Move files to a server
+
+PHP 5.3 or newer is required, and Apache's `mod_rewrite` (or `rewrite_module`) must be enabled on the server.
 
 Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at [servantframework.com](http://servantframework.com/) if you encounter any problems.
+Consult troubleshooting guide at [servantframework.com](http://servantframework.com/read/tutorials-and-guides) if you encounter any problems.
 
 
 
@@ -48,9 +50,9 @@ This is the basic file structure.
 			...
 		...
 
-As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `pages/` folder.
+As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `site/pages/` folder.
 
-You can use the (optional) site settings file `settings.json` to define things like site name, description and favicon. `assets/` contains the stylesheets and JavaScripts of your site. Page-specific styles and scripts can be included under `pages/` as well.
+You can use `site/settings.json` to define things like site name, description and favicon. `site/assets/` contains the stylesheets and JavaScripts of your site. Page-specific styles and scripts can be included under `site/pages/` as well.
 
 Template files under `templates/` define the basic structure of your site. One template is used for your site, either the default or the one you define in settings.
 
