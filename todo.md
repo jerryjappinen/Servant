@@ -16,6 +16,8 @@
 - Input system (for actions)
 	- Allow actions to declare input demands (for validation)
 - Stop using `__call`
+- Support multiple locations for templates, actions etc. (defined in `paths.php`)
+	- Allow's to keep site-specific templates under one directory
 - Make page optional for templates
 - Action configuration
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?

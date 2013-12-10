@@ -5,7 +5,13 @@ In Servant, paths are stored in a consistent format and always handled in the sa
 
 
 
-## Path formats
+## Changing paths
+
+Servant core looks for specific files based on how they're defined in `backend/paths.php`. You can move files/directories around if you wish: just make sure your changes are reflected here.
+
+
+
+## Using paths internally
 
 Servant can handle arbitrary paths in three different formats. A path can be converted from one format to another with `paths()->format()`, or requested in any format when using any getter method of a path-related property.
 
