@@ -27,7 +27,7 @@
 
 					<p><em>Servant</em> is a practical and approachable micro framework for web developers, designed for us humans who prefer understandable environments and frequently whip up new web sites.</p>
 
-					<p>Write pages in <em>Markdown</em>, <em>HTML</em>, <em>PHP</em> or any other of the supported formats. Use the zero-config asset pipeline, <em>LESS</em>+<em>SCSS</em> compilers, fancy URLs, caching... all out-of-the-box. Or write custom backend actions.</p>
+					<p>Write pages in <em>Markdown</em>, <em>HTML</em>, <em>PHP</em> or any other of the supported formats. Use the fully automated asset pipeline, <em>LESS</em>+<em>SCSS</em> compilers, fancy URLs, caching... all out-of-the-box. Or write custom backend actions.</p>
 
 				</div>
 			</div>
