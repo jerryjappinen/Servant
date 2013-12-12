@@ -1,7 +1,7 @@
 
 # Technical documentation
 
-<big>If you are a user who simply wishes to get started using Servant, there is a [better guide for you](/get-started). This section is for those who want to know how the internals of Servant work.</big>
+<big>If you are a user who simply wishes to get started using Servant, there is a [better guide for you](/tutorials-and-guides). This section is for those who want to know how the internals of Servant work.</big>
 
 
 
