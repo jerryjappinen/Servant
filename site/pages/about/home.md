@@ -264,7 +264,7 @@
 					</div>
 
 					<div class="column fixed right">
-						<p><a href="http://eiskis.net/" target="_blank"><img src="author.png" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
+						<p><a href="http://eiskis.net/" target="_blank"><img src="/images/jerry.jpg" alt="Jerry Jäppinen" title="Jerry Jäppinen" class="shadows avatar"></a></p>
 					</div>
 					<div class="clear"></div>
 

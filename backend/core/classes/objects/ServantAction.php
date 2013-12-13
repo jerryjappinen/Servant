@@ -87,8 +87,11 @@ class ServantAction extends ServantObject {
 	/**
 	* Generate a child action
 	*/
-	public function nest ($id) {
-		return $this->servant()->create()->action($id, $this->input())->run();
+	public function nest ($id, $input = null) {
+		if (!$input) {
+			$input = $this->input();
+		}
+		return $this->servant()->create()->action($id, $input)->run();
 	}
 
 	/**

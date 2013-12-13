@@ -95,7 +95,7 @@ foreach ($tree as $value) {
 	$temp[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
-$bodyClasses = 'action-'.$action->id().' depth-'.$page->depth().' index-'.$page->index().' '.implode(' ', $temp);
+$bodyClasses = 'action-'.$action->id().' depth-'.$page->depth().' index-'.$page->index().' '.implode(' ', $temp).' template-'.$page->template();
 unset($temp, $tree, $i, $value);
 
 ?>

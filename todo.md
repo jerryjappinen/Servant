@@ -37,12 +37,20 @@
 	- file traversal
 	- adding files
 - Multiple pieces of content for templates
+- Support selecting category node
+	- Pick a page in template or read action or something when needed
 - Search action (investigate full text search in HTML files)
 - Twig parser of `ServantFiles` should pass on treated variables
 - Case-insensitive `ServantNode` pointers
 - Arbitrary content types
 	- Allow action to set the content type directly
 	- Store full content type in cache file name
+
+
+
+## Bugs
+
+- Page pointers are weird if there is only one directory under subfolder
 
 
 

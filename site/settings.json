@@ -21,6 +21,8 @@
 
 		"about",
 
+		"blog",
+
 		"tutorials-and-guides",
 
 		"tutorials-and-guides/get-started",
@@ -37,7 +39,8 @@
 
 	"pageTemplates": {
 
-		"about": "html"
+		"about": "html",
+		"blog": "servantblog"
 
 	}
 
