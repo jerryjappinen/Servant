@@ -57,9 +57,31 @@ unset($splashImage, $icon);
 
 
 /**
-* Asset links
+* Links to stylesheets (external from settings + internal from stylesheets action)
 */
-$stylesheetsLink = $servant->paths()->endpoint('stylesheets', 'domain', ($action->isRead() ? $tree = $page->tree() : array()));
+$stylesheetsLinks = '';
+$urls = $servant->site()->externalStylesheets();
+$urls[] = $servant->paths()->endpoint('stylesheets', 'domain', ($action->isRead() ? $tree = $page->tree() : array()));
+foreach ($urls as $url) {
+	$stylesheetsLinks .= '<link rel="stylesheet" type="text/css" href="'.$url.'" media="screen">';
+}
+unset($urls, $url);
+
+
+
+/**
+* Links to scripts (external from settings + internal from script actions)
+*/
+$scriptLinks = '';
+$urls = $servant->site()->externalScripts();
+$urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
+if ($action->isRead()) {
+	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $action->isRead() ? $tree = $page->tree() : array());
+}
+foreach ($urls as $url) {
+	$scriptLinks .= '<script type="text/javascript" src="'.$url.'"></script>';
+}
+unset($urls, $url);
 
 
 
@@ -94,7 +116,7 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $meta ?>
 
-		<link rel="stylesheet" href="<?php echo $stylesheetsLink ?>" type="text/css" media="screen">
+		<?php echo $stylesheetsLinks ?>
 
 	</head>
 
@@ -102,15 +124,13 @@ unset($temp, $tree, $i, $value);
 
 		<?php echo $template->content() ?>
 
-		<?php if ($servant->available()->template('warnings') and $servant->debug()) { echo $template->nest('warnings'); } ?>
-
-		<script src="<?php echo $servant->paths()->endpoint('sitescripts', 'domain') ?>"></script>
-
 		<?php
-		if ($action->isRead()) {
-			echo '<script src="'.$servant->paths()->endpoint('pagescripts', 'domain', $action->isRead() ? $tree = $page->tree() : array()).'"></script>';
+		if ($servant->available()->template('warnings') and $servant->debug()) {
+			echo $template->nest('warnings');
 		}
 		?>
+
+		<?php echo $scriptLinks ?>
 
 	</body>
 </html>

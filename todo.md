@@ -18,6 +18,7 @@
 	- Save cache files for (serialized) input
 	- Pass arbitrary GET from fancy URLs to actions properly
 - Stop using `__call`
+- Rename `ServantSettings` to `ServantConstants`
 - Support multiple locations for templates, actions etc. (defined in `paths.php`)
 	- Allow's to keep site-specific templates under one directory
 - Make page optional for templates
