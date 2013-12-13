@@ -53,14 +53,6 @@ $frame = '
 		</div>
 	</div>
 </div>
-
-<!--
-<div class="row row-footer">
-	<div class="row-content buffer clear-after">
-		'.$footer.'
-	</div>
-</div>
--->
 ';
 
 echo $template->nest('html', $frame);
