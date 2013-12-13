@@ -14,7 +14,9 @@
 ## Core
 
 - Input system (for actions)
-	- Allow actions to declare input demands (for validation)
+	- Add serialization to `ServantInput`
+	- Save cache files for (serialized) input
+	- Pass arbitrary GET from fancy URLs to actions properly
 - Stop using `__call`
 - Support multiple locations for templates, actions etc. (defined in `paths.php`)
 	- Allow's to keep site-specific templates under one directory

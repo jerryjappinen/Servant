@@ -36,6 +36,8 @@ $frame = '
 
 		}
 
+		$frame .= html_dump($servant->site()->externalScripts(), $servant->site()->externalStylesheets());
+
 		$frame .= '
 	</div>
 </div>

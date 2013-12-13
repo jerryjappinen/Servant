@@ -8,19 +8,21 @@ class ServantSite extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyBrowserCache 	= null;
-	protected $propertyDescription 		= null;
-	protected $propertyIcon 			= null;
-	protected $propertyLanguage 		= null;
-	protected $propertyName 			= null;
-	protected $propertyPageNames 		= null;
-	protected $propertyPageOrder 		= null;
-	protected $propertyPageTemplates 	= null;
-	protected $propertyScripts 			= null;
-	protected $propertyServerCache 		= null;
-	protected $propertySplashImage 		= null;
-	protected $propertyStylesheets 		= null;
-	protected $propertyTemplate 		= null;
+	protected $propertyBrowserCache 		= null;
+	protected $propertyDescription 			= null;
+	protected $propertyExternalScripts 		= null;
+	protected $propertyExternalStylesheets 	= null;
+	protected $propertyIcon 				= null;
+	protected $propertyLanguage 			= null;
+	protected $propertyName 				= null;
+	protected $propertyPageNames 			= null;
+	protected $propertyPageOrder 			= null;
+	protected $propertyPageTemplates 		= null;
+	protected $propertyScripts 				= null;
+	protected $propertyServerCache 			= null;
+	protected $propertySplashImage 			= null;
+	protected $propertyStylesheets 			= null;
+	protected $propertyTemplate 			= null;
 
 
 
@@ -34,7 +36,9 @@ class ServantSite extends ServantObject {
 		if ($manifest) {
 
 			// This is what we can set
+			// FLAG direct dependency between user-facing setting names and class properties
 			$properties = array(
+				'assets',
 				'browserCache',
 				'description',
 				'icon',
@@ -47,6 +51,7 @@ class ServantSite extends ServantObject {
 				'splashImage',
 				'template',
 			);
+
 			// Run setters if values are given
 			foreach ($properties as $key) {
 				$parameters = array();
@@ -64,8 +69,24 @@ class ServantSite extends ServantObject {
 
 
 	/**
-	* Public getters
+	* Getters
 	*/
+
+	/**
+	* External scripts
+	*/
+	protected function externalScripts () {
+		$arguments = func_get_args();
+		return $this->getAndSet('externalScripts', $arguments);
+	}
+
+	/**
+	* External stylesheets
+	*/
+	protected function externalStylesheets () {
+		$arguments = func_get_args();
+		return $this->getAndSet('externalStylesheets', $arguments);
+	}
 
 	public function icon ($format = null) {
 		$path = $this->getAndSet('icon');
@@ -106,6 +127,54 @@ class ServantSite extends ServantObject {
 
 
 	/**
+	* Manifest setters
+	*
+	* These call class property setters. Manifest can include anything that we map to class properties with these.
+	*/
+
+	// protected function setManifestAssets
+	protected function setAssets ($input = null) {
+		$scripts = array();
+		$stylesheets = array();
+
+		$formats = $this->servant()->settings()->formats();
+		$scriptFormats = $formats['scripts']['js'];
+		$stylesheetFormats = $formats['stylesheets']['css'];
+
+		// Pick and sort URLs based on file extension
+		$input = array_flatten(to_array($input));
+		if (!empty($input)) {
+			foreach ($input as $url) {
+
+				$url = trim($url);
+				$extension = pathinfo($url, PATHINFO_EXTENSION);
+
+				// JavaScript
+				if (in_array($extension, $scriptFormats)) {
+					$scripts[] = $url;
+
+				// Stylesheet
+				} else if (in_array($extension, $stylesheetFormats)) {
+					$stylesheets[] = $url;
+				}
+
+			}
+		}
+
+		// Call property setters
+		if (!empty($scripts)) {
+			call_user_func(array($this, 'setExternalScripts'), $scripts);
+		}
+		if (!empty($stylesheets)) {
+			call_user_func(array($this, 'setExternalStylesheets'), $stylesheets);
+		}
+
+		return $this;
+	}
+
+
+
+	/**
 	* Setters
 	*/
 
@@ -128,6 +197,30 @@ class ServantSite extends ServantObject {
 		}
 
 		return $this->set('description', trim_text($result));
+	}
+
+	/**
+	* External scripts
+	*/
+	protected function setExternalScripts () {
+		$result = array();
+		$arguments = func_get_args();
+		if (!empty($arguments)) {
+			$result = array_flatten(to_array($arguments));
+		}
+		return $this->set('externalScripts', $result);
+	}
+
+	/**
+	* External stylesheets
+	*/
+	protected function setExternalStylesheets () {
+		$result = array();
+		$arguments = func_get_args();
+		if (!empty($arguments)) {
+			$result = array_flatten(to_array($arguments));
+		}
+		return $this->set('externalStylesheets', $result);
 	}
 
 	/**

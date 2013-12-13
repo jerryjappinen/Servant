@@ -15,6 +15,9 @@ h5. site/settings.json
 "language":       "en",
 "name":           "My Site Name",
 "description":    "Effortless publishing for the web",
+"assets":          [
+	"http://code.jquery.com/jquery-2.0.3.min.js"
+],
 "icon":           "site/favicon.ico",
 "splashImage":    "site/splash.png",
 "pageNames": {
@@ -60,7 +63,8 @@ You can use the @pageNames@, @pageOrder@ and @pageTemplates@ settings to customi
 h2. Misc.
 
 |_. Supported setting|_. Example values|
+|*assets*<br>URLs of external assets (i.e. _CSS_ or _JS_) to load.||
 |*browserCache*<br>Suggested caching time for browsers, in minutes.| @"3*60"@ |
 |*serverCache*<br>Caching time used by Servant, in minutes.| @"2*24*60"@ |
-|*template*<br>The template under "templates/" to pick for your site.|@"default"@, @"mytemplate"@|
 |*language*<br>Two-letter language code, the main language of your site.|@"en"@, @"fr"@|
+|*template*<br>The template under "templates/" to pick for your site.|@"default"@, @"mytemplate"@|
