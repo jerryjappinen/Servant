@@ -1,7 +1,7 @@
 <?php
 
 // Select page
-$page = $servant->sitemap()->select($input->fetch('queue', 'page', array()));
+$page = $servant->sitemap()->select($input->fetch('page', 'queue', array()));
 
 // Error page via template
 $template = $action->nestTemplate($servant->site()->template(), $page, '<h2>Something went wrong :(</h2>');

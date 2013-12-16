@@ -86,7 +86,7 @@ class ServantResponse extends ServantObject {
 	protected function setAction () {
 
 		// Select action based on input
-		$id = $this->selectAction($this->input()->fetch('id', 'action', ''));
+		$id = $this->selectAction($this->input()->fetch('action', 'id', ''));
 
 		return $this->set('action', $this->servant()->create()->action($id, $this->input()));
 	}
@@ -308,7 +308,7 @@ class ServantResponse extends ServantObject {
 
 		// Each page gets their own file
 		// FLAG this should be a generic serialization of input
-		$path .= implode('/', $this->action()->input()->fetch('queue', 'page', array())).'/';
+		$path .= implode('/', $this->action()->input()->fetch('page', 'queue', array())).'/';
 
 		return $path;
 	}

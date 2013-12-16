@@ -1,7 +1,7 @@
 <?php
 
 // Select page
-$page = $servant->sitemap()->select($input->fetch('queue', 'page', array()));
+$page = $servant->sitemap()->select($input->fetch('page', 'queue', array()));
 
 // Nest the page action
 $pageAction = $action->nest('page');

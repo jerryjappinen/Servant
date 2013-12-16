@@ -32,6 +32,7 @@ class ServantMain extends ServantObject {
 	protected $propertyFiles 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertySite 		= null;
+	protected $propertySitemap 		= null;
 	protected $propertyUtilities 	= null;
 	protected $propertyWarnings 	= null;
 
@@ -53,21 +54,14 @@ class ServantMain extends ServantObject {
 	protected function setSite () {
 		return $this->set('site', $this->generate('site'));
 	}
+	protected function setSitemap () {
+		return $this->set('sitemap', $this->generate('sitemap'));
+	}
 	protected function setUtilities () {
 		return $this->set('utilities', $this->generate('utilities'));
 	}
 	protected function setWarnings () {
 		return $this->set('warnings', $this->generate('warnings'));
-	}
-
-
-
-	/**
-	* Deprecated
-	*/
-	protected $propertySitemap 		= null;
-	protected function setSitemap () {
-		return $this->set('sitemap', $this->create()->sitemap());
 	}
 
 

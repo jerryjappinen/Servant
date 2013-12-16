@@ -54,7 +54,7 @@ class ServantInput extends ServantObject {
 		return call_user_func_array(array($this->validate(), 'available'), $arguments);
 	}
 
-	public function fetch ($format, $key, $default = null) {
+	public function fetch ($key, $format, $default = null) {
 		$value = null;
 
 		// Format must be valid

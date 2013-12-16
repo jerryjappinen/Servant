@@ -19,7 +19,7 @@
 	- Pass GET from fancy URLs to actions properly
 - Stop using `__call`
 - Support multiple locations for templates, actions etc. (defined in `paths.php`)
-	- Allow's to keep site-specific templates under one directory
+	- Allows keeping site-specific templates under one directory
 - Action configuration
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
@@ -74,6 +74,16 @@
 
 
 
+## Security
+
+- What can I allow users to see?
+- What do I allow users to see?
+- `.htaccess` usage is error-prone
+	- Too much separate files
+	- Easy to omit when moving files via GUI
+
+
+
 ## Status board
 
 Some kind of status page that indicates if things like paths are in order, what settings are active etc. Helps during installation and warns about common pitfalls.
@@ -87,7 +97,7 @@ Some kind of status page that indicates if things like paths are in order, what 
 
 The system needs to be properly tested on various environments.
 
-- Different PHP versions (from 5.2 up?)
+- Different PHP versions
 - Different Apache configurations (especially when missing `rewrite_module`)
 - Any other differences between environments
 	- Common things
@@ -101,12 +111,3 @@ The system needs to be properly tested on various environments.
 - Can I use ReactPHP?
 	- Investigate, try out
 	- Attempt to provide a version, with minimum differences, that takes advantage of React
-
-
-
-## Security
-
-- What can I allow users to see?
-- `.htaccess` usage is error-prone
-	- Too much separate files
-	- Easy to omit when moving files via GUI
