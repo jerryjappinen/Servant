@@ -137,7 +137,7 @@ class ServantSite extends ServantObject {
 		$scripts = array();
 		$stylesheets = array();
 
-		$formats = $this->servant()->settings()->formats();
+		$formats = $this->servant()->constants()->formats();
 		$scriptFormats = $formats['scripts']['js'];
 		$stylesheetFormats = $formats['stylesheets']['css'];
 
@@ -182,7 +182,7 @@ class ServantSite extends ServantObject {
 	* Browser cache time (used in cache headers)
 	*/
 	protected function setBrowserCache ($input = null) {
-		return $this->set('browserCache', $this->resolveCacheTime($input, $this->servant()->settings()->defaults('browserCache')));
+		return $this->set('browserCache', $this->resolveCacheTime($input, $this->servant()->constants()->defaults('browserCache')));
 	}
 
 	/**
@@ -246,7 +246,7 @@ class ServantSite extends ServantObject {
 
 		// Global default
 		} else {
-			$globalDefault = $this->servant()->settings()->defaults('language');
+			$globalDefault = $this->servant()->constants()->defaults('language');
 			if ($globalDefault and is_string($globalDefault)) {
 				$result = $globalDefault;
 			}
@@ -259,14 +259,17 @@ class ServantSite extends ServantObject {
 	* Name comes from settings or is created from ID
 	*
 	* FLAG
-	*   - Hardcoded default name (-> add to settings()->defaults())
+	*   - Attempt to generate name from path
+	*   - Hardcoded fallback (add to constants()->defaults())
 	*/
 	protected function setName ($input = null) {
-		$result = 'Home';
+		$result = '';
 
 		// A string will do
 		if ($input and is_string($input)) {
 			$result = $input;
+		} else {
+			$result = 'Home';
 		}
 
 		return $this->set('name', trim_text($result, true));
@@ -318,14 +321,14 @@ class ServantSite extends ServantObject {
 	* Script files
 	*/
 	protected function setScripts () {
-		return $this->set('scripts', $this->findAssetFiles($this->servant()->settings()->formats('scripts')));
+		return $this->set('scripts', $this->findAssetFiles($this->servant()->constants()->formats('scripts')));
 	}
 
 	/**
 	* Server cache time (how old can a stored response be to be valid)
 	*/
 	protected function setServerCache ($input = null) {
-		return $this->set('serverCache', $this->resolveCacheTime($input, $this->servant()->settings()->defaults('serverCache')));
+		return $this->set('serverCache', $this->resolveCacheTime($input, $this->servant()->constants()->defaults('serverCache')));
 	}
 
 	/**
@@ -339,7 +342,7 @@ class ServantSite extends ServantObject {
 	* Stylesheet files
 	*/
 	protected function setStylesheets () {
-		return $this->set('stylesheets', $this->findAssetFiles($this->servant()->settings()->formats('stylesheets')));
+		return $this->set('stylesheets', $this->findAssetFiles($this->servant()->constants()->formats('stylesheets')));
 	}
 
 	/**
@@ -371,7 +374,7 @@ class ServantSite extends ServantObject {
 			}
 
 			// Try default
-			$default = $this->servant()->settings()->defaults('template');
+			$default = $this->servant()->constants()->defaults('template');
 			if ($this->servant()->available()->template($default)) {
 				$template = $default;
 
@@ -493,7 +496,7 @@ class ServantSite extends ServantObject {
 
 			// File format must be acceptable
 			$extension = pathinfo($path, PATHINFO_EXTENSION);
-			if (in_array($extension, $this->servant()->settings()->formats('iconImages'))) {
+			if (in_array($extension, $this->servant()->constants()->formats('iconImages'))) {
 
 				// File must exist
 				if (is_file($this->servant()->paths()->format($path, 'server'))) {

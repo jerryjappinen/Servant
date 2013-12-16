@@ -140,7 +140,7 @@ class ServantPage extends ServantNode {
 
 	// Path to this page in read action
 	protected function setEndpoint () {
-		$action = $this->servant()->settings()->actions('read');
+		$action = $this->servant()->constants()->actions('read');
 		return $this->set('endpoint', $this->servant()->paths()->endpoint($action, 'plain', $this->tree()));
 	}
 
@@ -227,7 +227,7 @@ class ServantPage extends ServantNode {
 		$files = array();
 		foreach ($dirs as $dir) {
 			$dir = $pagesDir.$dir;
-			foreach (glob_files($dir, $this->servant()->settings()->formats($formatType)) as $file) {
+			foreach (glob_files($dir, $this->servant()->constants()->formats($formatType)) as $file) {
 				$files[] = $this->servant()->paths()->format($file, false, 'server');
 			}
 		}

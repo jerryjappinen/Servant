@@ -50,7 +50,7 @@ class ServantAvailable extends ServantObject {
 	*/
 	protected function setTemplates () {
 		$path = $this->servant()->paths()->templates('server');
-		$formats = $this->servant()->settings()->formats('templates');
+		$formats = $this->servant()->constants()->formats('templates');
 		return $this->set('templates', $this->findNonEmptyDirs($path, $formats));
 	}
 

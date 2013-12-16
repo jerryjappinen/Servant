@@ -6,7 +6,7 @@
 * If SCSS or LESS is used, the first such file determines the type used for the whole set. These cannot be mixed within one set.
 */
 $allowedFormats = array();
-$temp = $servant->settings()->formats('stylesheets');
+$temp = $servant->constants()->formats('stylesheets');
 unset($temp['css']);
 foreach ($temp as $type => $extensions) {
 	foreach ($extensions as $extension) {

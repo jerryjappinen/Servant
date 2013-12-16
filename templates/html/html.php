@@ -45,7 +45,7 @@ if ($icon) {
 
 	// Image icons for browsers and various platforms
 	} else {
-		$meta .= '<link rel="icon" href="'.$icon.'" type="'.$servant->settings()->contentTypes($extension).'"><link rel="apple-touch-icon-precomposed" href="'.$icon.'" />';
+		$meta .= '<link rel="icon" href="'.$icon.'" type="'.$servant->constants()->contentTypes($extension).'"><link rel="apple-touch-icon-precomposed" href="'.$icon.'" />';
 		echo ($splashImage ? '' : '<meta name="msapplication-TileImage" content="'.$icon.'"/>');
 	}
 

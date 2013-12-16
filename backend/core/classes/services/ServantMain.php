@@ -27,10 +27,10 @@ class ServantMain extends ServantObject {
 	*/
 
 	protected $propertyAvailable 	= null;
+	protected $propertyConstants 	= null;
 	protected $propertyCreate 		= null;
 	protected $propertyFiles 		= null;
 	protected $propertyPaths 		= null;
-	protected $propertySettings 	= null;
 	protected $propertySite 		= null;
 	protected $propertyUtilities 	= null;
 	protected $propertyWarnings 	= null;
@@ -47,8 +47,8 @@ class ServantMain extends ServantObject {
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));
 	}
-	protected function setSettings ($settings = null) {
-		return $this->set('settings', $this->generate('settings', $settings));
+	protected function setConstants ($constants = null) {
+		return $this->set('constants', $this->generate('constants', $constants));
 	}
 	protected function setSite () {
 		return $this->set('site', $this->generate('site'));
@@ -79,11 +79,11 @@ class ServantMain extends ServantObject {
 	/**
 	* Wake-up
 	*/
-	public function initialize ($paths, $settings = null, $debug = false) {
+	public function initialize ($paths, $constants = null, $debug = false) {
 		if ($debug) {
 			$this->enableDebug();
 		}
-		return $this->setPaths($paths)->setSettings($settings);
+		return $this->setPaths($paths)->setConstants($constants);
 	}
 
 	/**
@@ -105,7 +105,7 @@ class ServantMain extends ServantObject {
 
 			// Serve an error page (fake input)
 			try {
-				$response = $this->create()->response(array('action' => $this->settings()->actions('error')));
+				$response = $this->create()->response(array('action' => $this->constants()->actions('error')));
 
 			// Fuck
 			} catch (Exception $e) {

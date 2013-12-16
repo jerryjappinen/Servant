@@ -4,10 +4,10 @@
 * An action
 *
 * DEPENDENCIES
-*   ServantFiles 	-> read
-*   ServantFormat 	-> path
-*   ServantPaths 	-> actions
-*   ServantSettings -> defaults
+*   ServantFiles 		-> read
+*   ServantFormat 		-> path
+*   ServantPaths 		-> actions
+*   ServantConstants 	-> defaults
 */
 class ServantAction extends ServantObject {
 
@@ -48,8 +48,8 @@ class ServantAction extends ServantObject {
 		$this->setInput($input);
 
 		// Defaults
-		$contentType = $this->servant()->settings()->defaults('contentType');
-		$status = $this->servant()->settings()->defaults('status');
+		$contentType = $this->servant()->constants()->defaults('contentType');
+		$status = $this->servant()->constants()->defaults('status');
 		$output = '';
 
 		return $this->contentType($contentType)->status($status)->output($output);
@@ -184,7 +184,7 @@ class ServantAction extends ServantObject {
 
 		// All files in directory
 		if (is_dir($path)) {
-			foreach (rglob_files($path, $this->servant()->settings()->formats('templates')) as $file) {
+			foreach (rglob_files($path, $this->servant()->constants()->formats('templates')) as $file) {
 				$files[] = $this->servant()->paths()->format($file, false, 'server');
 			}
 		}
@@ -224,7 +224,7 @@ class ServantAction extends ServantObject {
 	* Whether or not this is the site action
 	*/
 	protected function setIsRead () {
-		return $this->set('isRead', $this->id() === $this->servant()->settings()->actions('read'));
+		return $this->set('isRead', $this->id() === $this->servant()->constants()->actions('read'));
 	}
 
 	/**

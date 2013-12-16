@@ -13,7 +13,8 @@ $page = $servant->sitemap()->select($input->fetch('queue', 'page', array()));
 $srcUrl = $servant->paths()->pages('domain');
 
 // Root path for hrefs
-$hrefUrl = $servant->paths()->root('domain').$servant->settings()->actions('read').'/';
+// FLAG use servant->paths->action
+$hrefUrl = $servant->paths()->root('domain').$servant->constants()->actions('read').'/';
 
 // Relative location for SRC urls
 $dirname = suffix(dirname($page->path('plain')), '/');

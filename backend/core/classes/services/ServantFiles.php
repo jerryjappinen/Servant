@@ -6,8 +6,8 @@
 * Read content of files of various templating formats
 *
 * DEPENDENCIES
-*   ServantSettings -> formats
-*   ServantPaths 	-> temp
+*   ServantConstants 	-> formats
+*   ServantPaths 		-> temp
 *
 * FLAG
 *   - Add support for LESS and SCSS
@@ -62,7 +62,7 @@ class ServantFiles extends ServantObject {
 		$extension = pathinfo($path, PATHINFO_EXTENSION);
 
 		// FLAG I should take all formats into account, not just templates
-		$formats = $this->servant()->settings()->formats('templates');
+		$formats = $this->servant()->constants()->formats('templates');
 		foreach ($formats as $key => $extensions) {
 			if (in_array($extension, $extensions)) {
 				$type = $key;

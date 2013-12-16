@@ -1,9 +1,9 @@
 <?php
 
 /**
-* Settings service
+* Constants service
 */
-class ServantSettings extends ServantObject {
+class ServantConstants extends ServantObject {
 
 	/**
 	* Properties

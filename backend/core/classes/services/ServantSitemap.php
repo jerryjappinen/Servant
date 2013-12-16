@@ -137,7 +137,7 @@ class ServantSitemap extends ServantObject {
 	* Find template files in file system
 	*/
 	public function findPageTemplates ($path) {
-		$formats = $this->servant()->settings()->formats('templates');
+		$formats = $this->servant()->constants()->formats('templates');
 		$results = array();
 
 		// Files on this level

@@ -6,10 +6,10 @@
 * Template objects work without any actual template files. Their content is set to '' by default.
 *
 * DEPENDENCIES
-*   ServantFiles	-> read
-*   ServantFormat	-> path
-*   ServantPaths	-> actions
-*   ServantSettings	-> defaults
+*   ServantFiles		-> read
+*   ServantFormat		-> path
+*   ServantPaths		-> actions
+*   ServantConstants	-> defaults
 */
 class ServantTemplate extends ServantObject {
 
@@ -185,7 +185,7 @@ class ServantTemplate extends ServantObject {
 
 		// All template files in directory
 		if (!empty($plainPath) and is_dir($serverPath)) {
-			foreach (rglob_files($serverPath, $this->servant()->settings()->formats('templates')) as $file) {
+			foreach (rglob_files($serverPath, $this->servant()->constants()->formats('templates')) as $file) {
 
 				// Store each file's path to plain format
 				$files[] = $this->servant()->paths()->format($file, false, 'server');

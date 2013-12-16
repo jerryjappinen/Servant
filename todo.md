@@ -16,12 +16,10 @@
 - Input system (for actions)
 	- Add serialization to `ServantInput`
 	- Save cache files for (serialized) input
-	- Pass arbitrary GET from fancy URLs to actions properly
+	- Pass GET from fancy URLs to actions properly
 - Stop using `__call`
-- Rename `ServantSettings` to `ServantConstants`
 - Support multiple locations for templates, actions etc. (defined in `paths.php`)
 	- Allow's to keep site-specific templates under one directory
-- Make page optional for templates
 - Action configuration
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
@@ -37,7 +35,8 @@
 	- file traversal
 	- adding files
 - Multiple pieces of content for templates
-- Support selecting category node
+- Make page optional for templates
+	- Support selecting category node (pick page in template if necessary)
 	- Pick a page in template or read action or something when needed
 - Search action (investigate full text search in HTML files)
 - Twig parser of `ServantFiles` should pass on treated variables

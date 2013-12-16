@@ -159,7 +159,7 @@ class ServantResponse extends ServantObject {
 	*
 	* FLAG
 	*   - allow action to set the content type directly (detecting slash - needs changes to treating existing responses, too)?
-	*   - request settings()->defaults('contentType')?
+	*   - request servant()->constants()->defaults('contentType')?
 	*/
 	protected function setContentType () {
 
@@ -173,7 +173,7 @@ class ServantResponse extends ServantObject {
 		}
 
 		// Invalid
-		if (!$this->servant()->settings()->contentTypes($contentType)) {
+		if (!$this->servant()->constants()->contentTypes($contentType)) {
 			$this->fail('No valid content type determined');
 
 		// Valid
@@ -280,7 +280,7 @@ class ServantResponse extends ServantObject {
 
 
 		// Invalid status
-		if (!$this->servant()->settings()->statuses($status)) {
+		if (!$this->servant()->constants()->statuses($status)) {
 			$this->fail('Invalid status code given');
 
 		// Valid status
@@ -326,7 +326,7 @@ class ServantResponse extends ServantObject {
 		} else {
 
 			// Global default
-			$default = $this->servant()->settings()->defaults('action');
+			$default = $this->servant()->constants()->defaults('action');
 			if ($this->servant()->available()->action($default)) {
 				$result = $default;
 
@@ -383,7 +383,7 @@ class ServantResponse extends ServantObject {
 	}
 
 	private function generateContentTypeHeader ($contentType) {
-		$headerString = 'Content-Type: '.$this->servant()->settings()->contentTypes($contentType);
+		$headerString = 'Content-Type: '.$this->servant()->constants()->contentTypes($contentType);
 
 		// Add character set if needed
 		if (in_array(substr($contentType, 0, strpos($contentType, '/')), array('text', 'application'))) {
@@ -398,7 +398,7 @@ class ServantResponse extends ServantObject {
 	}
 
 	private function generateStatusHeader ($statusCode) {
-		return 'HTTP/1.1 '.$this->servant()->settings()->statuses($statusCode);
+		return 'HTTP/1.1 '.$this->servant()->constants()->statuses($statusCode);
 	}
 
 }

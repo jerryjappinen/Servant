@@ -8,7 +8,7 @@ $urlManipulator = new UrlManipulator();
 
 // Find out what preprocessor formats are supported
 $allowedFormats = array();
-$temp = $servant->settings()->formats('stylesheets');
+$temp = $servant->constants()->formats('stylesheets');
 unset($temp['css']);
 foreach ($temp as $type => $extensions) {
 	foreach ($extensions as $extension) {

@@ -16,7 +16,7 @@ Read more about HAML on [haml.info](http://haml.info/). This PHP version uses Mt
 	%h1 This is HAML
 
 	%ul#users
-		-foreach($servant->settings()->formats('templates') as $formats)
+		-foreach($servant->constants()->formats('templates') as $formats)
 			-foreach($formats as $format)
 				%li.format
 					= $format

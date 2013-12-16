@@ -197,7 +197,7 @@ class ServantNode extends ServantObject {
 
 			// Generate
 			} else {
-				$conversions = $this->servant()->settings()->namingConvention();
+				$conversions = $this->servant()->constants()->namingConvention();
 				$name = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $this->id())));
 			}
 
