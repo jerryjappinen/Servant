@@ -115,6 +115,7 @@ class ServantConstants extends ServantObject {
 			'contentType' => null,
 			'language' => null,
 			'serverCache' => null,
+			'siteName' => null,
 			'status' => null,
 			'template' => null,
 		);
@@ -123,7 +124,7 @@ class ServantConstants extends ServantObject {
 		if ($input) {
 			foreach ($results as $key => $null) {
 				if (isset($input[$key])) {
-					$results[$key] = is_numeric($input[$key]) ? $input[$key] : strval($input[$key]);
+					$results[$key] = is_numeric($input[$key]) ? $input[$key] : trim(strval($input[$key]));
 				}
 			}
 		}

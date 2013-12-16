@@ -2,6 +2,10 @@
 
 /**
 * A web site, available as service
+*
+* FLAG
+*   - Remove direct dependency between user-facing setting names and class properties
+* 
 */
 class ServantSite extends ServantObject {
 
@@ -36,7 +40,6 @@ class ServantSite extends ServantObject {
 		if ($manifest) {
 
 			// This is what we can set
-			// FLAG direct dependency between user-facing setting names and class properties
 			$properties = array(
 				'assets',
 				'browserCache',
@@ -260,7 +263,6 @@ class ServantSite extends ServantObject {
 	*
 	* FLAG
 	*   - Attempt to generate name from path
-	*   - Hardcoded fallback (add to constants()->defaults())
 	*/
 	protected function setName ($input = null) {
 		$result = '';
@@ -269,7 +271,7 @@ class ServantSite extends ServantObject {
 		if ($input and is_string($input)) {
 			$result = $input;
 		} else {
-			$result = 'Home';
+			$result = $this->servant()->constants()->defaults('siteName');
 		}
 
 		return $this->set('name', trim_text($result, true));

@@ -26,8 +26,29 @@ class ServantAvailable extends ServantObject {
 		return in_array($id, $this->templates());
 	}
 
-	public function utilities ($id) {
+	public function utility ($id) {
 		return in_array($id, $this->templates());
+	}
+
+
+
+	/**
+	* Getters
+	*/
+
+	public function actions () {
+		$arguments = func_get_args();
+		return $this->getAndSet('actions', $arguments);
+	}
+
+	public function templates () {
+		$arguments = func_get_args();
+		return $this->getAndSet('templates', $arguments);
+	}
+
+	public function utilities () {
+		$arguments = func_get_args();
+		return $this->getAndSet('utilities', $arguments);
 	}
 
 

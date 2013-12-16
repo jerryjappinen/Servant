@@ -17,13 +17,17 @@
 	- Add serialization to `ServantInput`
 	- Save cache files for (serialized) input
 	- Pass GET from fancy URLs to actions properly
-- Stop using `__call`
-- Support multiple locations for templates, actions etc. (defined in `paths.php`)
-	- Allows keeping site-specific templates under one directory
-- Action configuration
+- Action-specific user settings
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
-	-> Input declarations
+- Data/storage/working directory services for actions
+	- file traversal
+	- adding files
+	- `ServantData`?
+- Stop using `__call`
+- Arbitrary content types
+	- Allow action to set the content type directly
+	- Store full content type in cache file name
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
 	- `servant://` (root)
 	- `assets://`
@@ -31,19 +35,16 @@
 	- `pages://`
 	- `templates://`
 	- In different contexts, one of these serves as the default root
-- Data/storage/working directory services for actions
-	- file traversal
-	- adding files
-- Multiple pieces of content for templates
 - Make page optional for templates
 	- Support selecting category node (pick page in template if necessary)
 	- Pick a page in template or read action or something when needed
+- Multiple pieces of content for templates
+- Make `servant()->create()` more useful instead of relying on `nest` methods
 - Search action (investigate full text search in HTML files)
-- Twig parser of `ServantFiles` should pass on treated variables
 - Case-insensitive `ServantNode` pointers
-- Arbitrary content types
-	- Allow action to set the content type directly
-	- Store full content type in cache file name
+- Twig parser of `ServantFiles` should pass on treated variables
+- Support multiple locations for templates, actions etc. (defined in `paths.php`)
+	- Allows keeping site-specific templates under one directory
 
 
 
