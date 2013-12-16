@@ -27,7 +27,10 @@ class ServantAction extends ServantObject {
 
 
 	/**
-	* Convenience
+	* Data
+	*
+	* FLAG
+	*   - This should be a ServantData object
 	*/
 
 	public function dataPath ($format = null) {
@@ -37,7 +40,7 @@ class ServantAction extends ServantObject {
 
 
 	/**
-	* Initialize
+	* Initialization
 	*
 	* Defaults are set here, and can be overridden by action's code.
 	*/
@@ -58,16 +61,13 @@ class ServantAction extends ServantObject {
 
 
 	/**
-	* Wrapper methods
+	* Convenience
 	*/
 
 	/**
 	* Run
 	*
 	* Run custom scripts from action's package cleanly
-	*
-	* FLAG
-	*   - I should create a dummy object for action's scripts so that $this and variable scope works nicely
 	*/
 	public function run () {
 
@@ -86,6 +86,8 @@ class ServantAction extends ServantObject {
 
 	/**
 	* Generate a child action
+	*
+	* FLAG nest methods should be removed, use ServantCreator
 	*/
 	public function nest ($id, $input = null) {
 		if (!$input) {
@@ -96,6 +98,8 @@ class ServantAction extends ServantObject {
 
 	/**
 	* Generate a template
+	*
+	* FLAG nest methods should be removed, use ServantCreator
 	*/
 	public function nestTemplate ($id, $page, $content = null) {
 		return $this->servant()->create()->template($id, $this, $page, $content)->output();
@@ -104,14 +108,16 @@ class ServantAction extends ServantObject {
 
 
 	/**
-	* Public getters
+	* Getters
 	*/
 
+	// 
 	public function cache () {
 		$arguments = func_get_args();
 		return $this->getOrSet('cache', $arguments);
 	}
 
+	// 
 	public function contentType () {
 		$arguments = func_get_args();
 		return $this->getOrSet('contentType', $arguments);
@@ -128,10 +134,22 @@ class ServantAction extends ServantObject {
 		return $files;
 	}
 
+	// 
+	public function id () {
+		return $this->getAndSet('id');
+	}
+
+	// 
+	public function isRead () {
+		return $this->getAndSet('isRead');
+	}
+
+	// 
 	protected function input () {
 		return $this->getAndSet('input');
 	}
 
+	// 
 	public function output () {
 		$arguments = func_get_args();
 		return $this->getOrSet('output', $arguments);
@@ -146,6 +164,7 @@ class ServantAction extends ServantObject {
 		return $path;
 	}
 
+	// 
 	public function status () {
 		$arguments = func_get_args();
 		return $this->getOrSet('status', $arguments);

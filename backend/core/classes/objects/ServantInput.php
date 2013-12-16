@@ -77,23 +77,28 @@ class ServantInput extends ServantObject {
 		return $value;
 	}
 
+	// Create a string representation of this input
+	// FLAG should be somewhere else
 	public function serialize () {
 		$result = '';
-		foreach ($this->raw() as $key => $value) {
-			$result .= '.'.base64_encode(serialize($value));
+		$raw = $this->raw();
+
+		// Serialize & encode raw input
+		if (!empty($raw)) {
+			$result = base64_encode(serialize($raw));
 		}
-		return substr($string, 1);
+
+		return $result;
 	}
 
-	// Unserialize an array back into a sane format
+	// Undo a serialization a string back
+	// FLAG should be somewhere else
 	public function unserialize ($string = '') {
 		$result = array();
 
 		// Exploding serialized data
 		if (!empty($string)) {
-			foreach (explode('.', $string) as $value) {
-				$result[] = unserialize(base64_decode($value));
-			}
+			$result = unserialize(base64_decode($string));
 		}
 
 		return $result;
@@ -108,12 +113,12 @@ class ServantInput extends ServantObject {
 	* Getters
 	*/
 
-	private function raw () {
+	protected function raw () {
 		$arguments = func_get_args();
 		return $this->getAndSet('raw', $arguments);
 	}
 
-	private function validate () {
+	public function validate () {
 		return $this->getAndSet('validate');
 	}
 
