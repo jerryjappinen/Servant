@@ -2,6 +2,12 @@
 
 /**
 * A holder node with children
+*
+* NOTE
+*   - User does not usually know if she has a category or page node
+*
+* DEPENDENCIES
+*   ???
 */
 class ServantCategory extends ServantNode {
 
@@ -18,10 +24,6 @@ class ServantCategory extends ServantNode {
 
 	public function category () {
 		return true;
-	}
-
-	public function endpoint ($format = false) {
-		return $this->pick()->endpoint($format);
 	}
 
 	public function home () {
@@ -43,7 +45,22 @@ class ServantCategory extends ServantNode {
 
 
 	/**
-	* Allow passing child pages in init
+	* Page-like behavior
+	*/
+
+	public function endpoint ($format = false) {
+		return $this->pick()->endpoint($format);
+	}
+
+	public function output () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->pick(), 'output'), $arguments);
+	}
+
+
+
+	/**
+	* Initialization
 	*/
 
 	public function initialize ($id, $parent = null) {
@@ -63,23 +80,42 @@ class ServantCategory extends ServantNode {
 
 
 	/**
-	* Parent node
+	* Getters
 	*/
 
-	protected function setParent ($category = null) {
+	public function children () {
+		$arguments = func_get_args();
+		return $this->getAndSet('children', $arguments);
+	}
 
-		// Set false for root categories
-		if (!func_num_args()) {
-			$category = false;
 
-		} else {
 
-			if ($this->getServantClass($category) !== 'category') {
+	/**
+	* Setters
+	*/
+
+	protected function setChildren ($pages = array()) {
+		return $this->set('children', $pages);
+	}
+
+	protected function setParent ($parent = null) {
+
+		// False is for root categories
+		$category = false;
+
+		// Input given
+		if ($parent !== null) {
+
+			if ($this->getServantClass($parent) === 'category') {
+				$category = $parent;
+
+				// Add this page object to the parent's list of children
+				// FLAG this behavior isn't very clear...
+				$category->addChildren($this);
+
+			} else {
 				$this->fail('Pages need a category parent to take care of them.');
 			}
-
-			// FLAG this behavior isn't very clear...
-			$category->addChildren($this);
 
 		}
 
@@ -90,12 +126,8 @@ class ServantCategory extends ServantNode {
 
 
 	/**
-	* Children
+	* Helpers
 	*/
-
-	protected function setChildren ($pages = array()) {
-		return $this->set('children', $pages);
-	}
 
 	// Adding child page(s)
 	public function addChildren ($pages = array()) {

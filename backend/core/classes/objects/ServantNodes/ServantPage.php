@@ -3,6 +3,9 @@
 /**
 * A page
 *
+* NOTE
+*   - User does not usually know if she has a category or page node
+*
 * FLAG
 *   - Could be made looser (no template needed, no parent needed)
 *	- node, page and category could probably be fused into one node class
@@ -30,10 +33,6 @@ class ServantPage extends ServantNode {
 
 	public function category () {
 		return false;
-	}
-
-	public function children () {
-		return array();
 	}
 
 	public function home () {
@@ -66,6 +65,16 @@ class ServantPage extends ServantNode {
 
 
 	/**
+	* Category-like behavior
+	*/
+
+	public function children () {
+		return array();
+	}
+
+
+
+	/**
 	* Template path is needed upon initialization
 	*/
 	public function initialize ($path, $parent, $id = null) {
@@ -82,20 +91,10 @@ class ServantPage extends ServantNode {
 
 
 	/**
-	* Getter-setters
+	* Getters
 	*/
 
-	public function output () {
-		$arguments = func_get_args();
-		return $this->getOrSet('output', $arguments);
-	}
-
-
-
-	/**
-	* Path-style getters
-	*/
-
+	// User-facing URL
 	public function endpoint ($format = false) {
 		$path = $this->getAndSet('endpoint');
 		if ($format) {
@@ -104,7 +103,13 @@ class ServantPage extends ServantNode {
 		return $path;
 	}
 
-	public function path ($format = false) {
+	public function output () {
+		$arguments = func_get_args();
+		return $this->getOrSet('output', $arguments);
+	}
+
+	// Template file
+	protected function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->paths()->format($path, $format);
@@ -112,6 +117,7 @@ class ServantPage extends ServantNode {
 		return $path;
 	}
 
+	// Script files
 	public function scripts ($format = false) {
 		$files = $this->getAndSet('scripts');
 		if ($format) {
@@ -122,6 +128,7 @@ class ServantPage extends ServantNode {
 		return $files;
 	}
 
+	// Stylesheet files
 	public function stylesheets ($format = false) {
 		$files = $this->getAndSet('stylesheets');
 		if ($format) {
@@ -130,6 +137,11 @@ class ServantPage extends ServantNode {
 			}
 		}
 		return $files;
+	}
+
+	// Template format
+	public function type () {
+		return $this->getAndSet('type');
 	}
 
 

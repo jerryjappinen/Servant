@@ -22,6 +22,37 @@ class ServantNode extends ServantObject {
 	* Convenience
 	*/
 
+	public function parents ($includeRoot = false) {
+		$arguments = func_get_args();
+		$parents = array();
+
+		// Inherit grandparents
+		$parent = $this->parent();
+		if ($parent) {
+			$parents = $parent->parents(true);
+			$parents[] = $parent;
+		}
+
+		// FLAG this behavior is a bit odd, it's a hacky solution
+		if (is_bool($includeRoot)) {
+			array_shift($arguments);
+		}
+		if ($includeRoot === false) {
+			array_shift($parents);
+		}
+
+		// Traverse parents
+		return array_traverse($parents, $arguments);
+	}
+
+	public function pointer ($includeRoot = false) {
+		return implode('/', $this->tree($includeRoot));
+	}
+
+	public function root () {
+		return $this->parents(true, 0);
+	}
+
 	public function sibling () {
 		$arguments = func_get_args();
 		return array_traverse($this->siblings(), $arguments);
@@ -47,9 +78,17 @@ class ServantNode extends ServantObject {
 		return $this->getOrSet('id', $arguments);
 	}
 
+	public function index () {
+		return $this->getAndSet('index');
+	}
+
 	public function name () {
 		$arguments = func_get_args();
 		return $this->getOrSet('name', $arguments);
+	}
+
+	public function parent () {
+		return $this->getAndSet('parent');
 	}
 
 	public function template () {
@@ -86,43 +125,6 @@ class ServantNode extends ServantObject {
 		}
 
 		return array_traverse($tree, $arguments);
-	}
-
-	public function pointer ($includeRoot = false) {
-		return implode('/', $this->tree($includeRoot));
-	}
-
-
-
-	/**
-	* Parent(s)
-	*/
-
-	public function root () {
-		return $this->parents(true, 0);
-	}
-
-	public function parents ($includeRoot = false) {
-		$arguments = func_get_args();
-		$parents = array();
-
-		// Inherit grandparents
-		$parent = $this->parent();
-		if ($parent) {
-			$parents = $parent->parents(true);
-			$parents[] = $parent;
-		}
-
-		// FLAG this behavior is a bit odd, it's a hacky solution
-		if (is_bool($includeRoot)) {
-			array_shift($arguments);
-		}
-		if ($includeRoot === false) {
-			array_shift($parents);
-		}
-
-		// Traverse parents
-		return array_traverse($parents, $arguments);
 	}
 
 
@@ -209,6 +211,7 @@ class ServantNode extends ServantObject {
 	// Parent node
 	protected function setParent ($category) {
 
+		// Make sure the parent is a category
 		if ($this->getServantClass($category) !== 'category') {
 			$this->fail('Pages need a category parent to take care of them.');
 		}
