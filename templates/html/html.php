@@ -1,40 +1,62 @@
 <?php
-$bodyClasses = '';
+
+/**
+* Preparing meta info
+*/
 $meta = '';
 
 
 
 /**
-* Preparing meta info
+* Page title
 */
-
-// Page title
 $title = (!$page->home() ? htmlspecialchars($page->name()).' &ndash; ' : '').htmlspecialchars($servant->site()->name());
 $meta .= '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
 unset($title);
 
-// Site name
-$meta .= '<meta name="application-name" content="'.htmlspecialchars($servant->site()->name()).'"><meta property="og:site_name" content="'.htmlspecialchars($servant->site()->name()).'">';
 
-// Description
+
+/**
+* Site name
+*/
+$meta .= '<meta name="application-name" content="'.htmlspecialchars($servant->site()->name()).'">'
+        .'<meta property="og:site_name" content="'.htmlspecialchars($servant->site()->name()).'">';
+
+
+
+/**
+* Description
+*/
 $description = htmlspecialchars(trim_text($servant->site()->description(), true));
 if ($description) {
-	$meta .= '<meta name="description" content="'.$description.'"><meta property="og:description" content="'.$description.'">';
+	$meta .= '<meta name="description" content="'.$description.'">'
+	        .'<meta property="og:description" content="'.$description.'">';
 }
 unset($description);
 
-// Other Open Graph stuff
-$meta .= '<meta property="og:type" content="'.($page->home() ? 'website' : 'article').'"><meta property="og:url" content="'.$servant->paths()->root('url').'">';
+
+
+/**
+* Other Open Graph stuff
+*/
+$meta .= '<meta property="og:type" content="'.($page->home() ? 'website' : 'article').'">'
+         .'<meta property="og:url" content="'.$servant->paths()->root('url').'">';
 
 
 
-// Splash image
+/**
+* Splash image
+*/
 $splashImage = $servant->site()->splashImage('url');
 if ($splashImage) {
-	$meta .= '<meta property="og:image" content="'.$splashImage.'"><meta name="msapplication-TileImage" content="'.$splashImage.'"/>';
+	$meta .= '<meta property="og:image" content="'.$splashImage.'">'
+	        .'<meta name="msapplication-TileImage" content="'.$splashImage.'"/>'
+	        .'<link rel="apple-touch-startup-image" href="'.$splashImage.'">';
 }
 
-// Icon
+/**
+* Icon
+*/
 $icon = $servant->site()->icon('domain');
 if ($icon) {
 	$extension = pathinfo($icon, PATHINFO_EXTENSION);
@@ -45,8 +67,9 @@ if ($icon) {
 
 	// Image icons for browsers and various platforms
 	} else {
-		$meta .= '<link rel="icon" href="'.$icon.'" type="'.$servant->constants()->contentTypes($extension).'"><link rel="apple-touch-icon-precomposed" href="'.$icon.'" />';
-		echo ($splashImage ? '' : '<meta name="msapplication-TileImage" content="'.$icon.'"/>');
+		$meta .= '<link rel="icon" href="'.$icon.'" type="'.$servant->constants()->contentTypes($extension).'">'
+		        .'<link rel="apple-touch-icon" href="'.$icon.'" />'
+		        .($splashImage ? '' : '<meta name="msapplication-TileImage" content="'.$icon.'"/>');
 	}
 
 	unset($extension);
@@ -54,6 +77,11 @@ if ($icon) {
 }
 unset($splashImage, $icon);
 
+
+
+// Web app with internal navigation? Fullscreen?
+// $meta .= '<meta name="mobile-web-app-capable" content="yes">'
+//         .'<meta name="apple-mobile-web-app-capable" content="yes">';
 
 
 /**

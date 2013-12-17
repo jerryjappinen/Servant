@@ -18,7 +18,6 @@ class ServantResponse extends ServantObject {
 	protected $propertyInput 			= null;
 	protected $propertyPath 			= null;
 	protected $propertyStatus 			= null;
-	protected $propertyStore 			= null;
 
 
 
@@ -43,19 +42,27 @@ class ServantResponse extends ServantObject {
 
 
 	/**
-	* Special getters
-	*/
-
-	/**
-	* Paths in any format
+	* Getters
 	*/
 
 	public function action () {
 		return $this->getAndSet('action');
 	}
 
-	public function input () {
-		return $this->getAndSet('input');
+	public function body () {
+		return $this->getAndSet('body');
+	}
+
+	public function browserCacheTime () {
+		return $this->getAndSet('browserCacheTime');
+	}
+
+	public function contentType () {
+		return $this->getAndSet('contentType');
+	}
+
+	public function cors () {
+		return $this->getAndSet('cors');
 	}
 
 	public function existing ($format = null) {
@@ -66,12 +73,25 @@ class ServantResponse extends ServantObject {
 		return $path;
 	}
 
-	public function path ($format = null) {
+	public function headers () {
+		$arguments = func_get_args();
+		return $this->getAndSet('headers', $arguments);
+	}
+
+	public function input () {
+		return $this->getAndSet('input');
+	}
+
+	protected function path ($format = null) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
+	}
+
+	public function status () {
+		return $this->getAndSet('status');
 	}
 
 
@@ -89,15 +109,6 @@ class ServantResponse extends ServantObject {
 		$id = $this->selectAction($this->input()->fetch('action', 'id', ''));
 
 		return $this->set('action', $this->servant()->create()->action($id, $this->input()));
-	}
-
-	/**
-	* User input
-	*/
-	protected function setInput () {
-		$arguments = func_get_args();
-		$input = call_user_func_array(array($this->servant()->create(), 'input'), $arguments);
-		return $this->set('input', $input);
 	}
 
 
@@ -159,9 +170,9 @@ class ServantResponse extends ServantObject {
 	*
 	* FLAG
 	*   - allow action to set the content type directly (detecting slash - needs changes to treating existing responses, too)?
-	*   - request servant()->constants()->defaults('contentType')?
 	*/
 	protected function setContentType () {
+		$contentType = '';
 
 		// Read content type from file extension
 		if ($this->existing()) {
@@ -170,22 +181,29 @@ class ServantResponse extends ServantObject {
 		// Get content type from action
 		} else {
 			$contentType = $this->action()->contentType();
+
+			// Invalid action content type
+			if (!$this->servant()->constants()->contentTypes($contentType)) {
+				$this->fail('No valid content type determined');
+			}
+
 		}
 
-		// Invalid
-		if (!$this->servant()->constants()->contentTypes($contentType)) {
-			$this->fail('No valid content type determined');
-
-		// Valid
-		} else {
-			return $this->set('contentType', $contentType);
+		// System default
+		if (!$contentType) {
+			$contentType = $this->servant()->constants()->defaults('contentType');
 		}
+
+		return $this->set('contentType', $contentType);
 	}
 
 
 
 	/**
-	* CORS is always on for now.
+	* CORS is always on as far as we're concerned
+	*
+	* FLAG
+	*   - Is there a need for a setting?
 	*/
 	protected function setCors () {
 		return $this->set('cors', true);
@@ -239,6 +257,17 @@ class ServantResponse extends ServantObject {
 
 		// Run internal methods for getting valid strings
 		return $this->set('headers', $results);
+	}
+
+
+
+	/**
+	* User input
+	*/
+	protected function setInput () {
+		$arguments = func_get_args();
+		$input = call_user_func_array(array($this->servant()->create(), 'input'), $arguments);
+		return $this->set('input', $input);
 	}
 
 
@@ -316,7 +345,7 @@ class ServantResponse extends ServantObject {
 	/**
 	* Select action based on input
 	*/
-	protected function selectAction ($input = null) {
+	private function selectAction ($input = null) {
 		$result = null;
 
 		if ($this->servant()->available()->action($input)) {
@@ -359,18 +388,21 @@ class ServantResponse extends ServantObject {
 
 		// Create directory if it doesn't exist
 		if (!is_dir($directory)) {
-			mkdir($directory, 0777, true);
+
+			// Catch permissions fail
+			if (!@mkdir($directory, 0777, true)) {
+				$this->warn('Can\'t create cache directory.');
+			}
+
 		}
 
-		file_put_contents($filepath, $content);
+		// Save file
+		if (is_dir($directory) and is_writable($directory)) {
+			file_put_contents($filepath, $content);
+		}
 
 		return $this;
 	}
-
-
-
-
-
 
 
 
