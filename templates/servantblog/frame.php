@@ -42,7 +42,7 @@ $frame = '
 <div class="row row-header">
 	<div class="row-content buffer clear-after">
 		<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>
-		'.$mainmenu.'
+		<ul>'.$mainmenu.'</ul>
 	</div>
 </div>
 

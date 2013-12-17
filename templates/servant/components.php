@@ -56,7 +56,7 @@
 // 	$footer .= '</dl>';
 // }
 
-$footer = '<p class="footnote buffer-top even"><a href="/">servantframework.com</a></p>';
+$footer = '<h1><a href="/" class="plain">This is Servant</a></h1>';
 
 // Menus
 $mainmenu = $template->nest('list-toplevelpages');

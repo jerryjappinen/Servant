@@ -4,7 +4,7 @@
 
 	"name": "Servant",
 	"description": "Effortless publishing for the web",
-	"icon": "site/favicon.ico",
+	"icon": "site/icon.png",
 	"splashImage": "site/splash.png",
 
 	"template": "servant",
@@ -12,36 +12,17 @@
 	"assets": "http://code.jquery.com/jquery-2.0.3.min.js",
 
 	"pageNames": {
-		"technical-docs/template-formats/text-and-markdown/": "Text & Markdown",
-		"technical-docs/basics/url-manipulation": "URL manipulation",
-		"tutorials-and-guides": "Tutorials & guides"
+		"home": "Servant"
 	},
 
 	"pageOrder": [
-
-		"about",
-
+		"home",
 		"blog",
-
-		"tutorials-and-guides",
-
-		"tutorials-and-guides/get-started",
-		"tutorials-and-guides/pages",
-		"tutorials-and-guides/look",
-		"tutorials-and-guides/site-settings",
-		"tutorials-and-guides/backend-actions",
-
-		"technical-docs/basics/about/",
-		"technical-docs/basics/template-packages",
-		"technical-docs/basics/asset-packages"
-
+		"guides"
 	],
 
 	"pageTemplates": {
-
-		"about": "html",
-		"blog": "servantblog"
-
+		"home": "html"
 	}
 
 }

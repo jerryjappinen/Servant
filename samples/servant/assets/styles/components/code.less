@@ -4,24 +4,21 @@ code {
 	display: inline-block;
 	padding: 0.1em 0.4em 0 0.4em;
 	border-width: 1px;
-	.border-radius(0.2em);
-	background-color: #fafafa;
-	border-color: #ccc;
+	.border-radius(0.3em);
+	background-color: @grey-lightest;
+	border-color: @grey-lighter;
 	font-weight: normal;
-}
-
-pre {
-	margin: 2.68em -5% 4.02em -5%;
-	width: 110%;
+	color: @magenta-dark;
 }
 
 pre {
 	.border-box;
-	.border-radius(0.2em);
 	padding: 5%;
-	background-color: #fafafa;
-	border-color: #ccc;
+	background-color: @white;
+	border-color: @grey-light;
 	border-width: 1px;
+	.rounded;
+	.bigshadows;
 }
 
 	pre code, th[scope="col"] code, h1 code, h2 code, h5 code {

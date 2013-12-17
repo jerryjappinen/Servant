@@ -5,10 +5,16 @@
 */
 
 $frame = '
-<div class="row row-header">
-	<div class="row-content buffer clear-after">
+<div class="row row-menu">
+	<div class="row-content buffer-left buffer-right">
+
 		<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>
-		'.$mainmenu.'
+		<ul class="reset plain collapse">
+			'.$mainmenu.'
+		</ul>
+
+		<div class="clear"></div>
+
 	</div>
 </div>
 
@@ -19,22 +25,16 @@ $frame = '
 		if ($action->isRead() and $submenu) {
 
 			$frame .= '
-			<div class="column three submenu">'.$submenu.'</div>
-
-			<div class="column nine last article">
-				'.$template->content().'
-			</div>
-			';
-
-		} else {
-
-			$frame .= '
-			<div class="article">
-				'.$template->content().'
-			</div>
+			<div class="submenu clear-after">'.$submenu.'</div>
 			';
 
 		}
+
+		$frame .= '
+		<div class="article clear-after">
+			'.$template->content().'
+		</div>
+		';
 
 		$frame .= '
 	</div>

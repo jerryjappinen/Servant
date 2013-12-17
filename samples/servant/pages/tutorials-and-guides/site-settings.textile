@@ -1,0 +1,70 @@
+
+h1. Site settings
+
+To manually define things like the name of your site, page order and favicon, it's possible to use _site settings_. Add @settings.json@ in your site's folder and use the simple syntax.
+
+Site settings are **completely optional**.
+
+
+
+h5. site/settings.json
+
+<pre><code>"browserCache":   "3*60",
+"serverCache":    "7*24*7*60",
+"template":       "html",
+"language":       "en",
+"name":           "My Site Name",
+"description":    "Effortless publishing for the web",
+"assets":          [
+	"http://code.jquery.com/jquery-2.0.3.min.js"
+],
+"icon":           "site/favicon.ico",
+"splashImage":    "site/splash.png",
+"pageNames": {
+	"technical-docs/basics/text-and-markdown": "Text & Markdown",
+	"technical-docs/basics/url-manipulation": "URL manipulation"
+}
+"pageOrder": [
+	"tutorials-and-guides",
+	"technical-docs",
+	"technical-docs/basics"
+	"technical-docs/template-formats"
+]
+"pageTemplates": [
+	"about": "blog"
+]
+</code></pre>
+
+
+
+h2. Name & icons
+
+Your site's name will be generated from its folder name, but you can also choose another name in your site's settings. Templates usually put this name in the site's header and browser's title bar. You can also do the same for page names.
+
+|_. Supported setting|_. Example values|
+|*name*||
+|*description*||
+|*icon*<br>Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"site/favicon.png"@|
+|*splashImage*<br>Path (relative to Servant root) to an splash image file.|@"site/splash.png"@|
+
+
+
+h2. Sitemap manipulation
+
+You can use the @pageNames@, @pageOrder@ and @pageTemplates@ settings to customize the sitemap automatically generated for your site. Point to any page with its full ID.
+
+|_. Supported setting|_. Example values|
+|*pageNames*<br>Custom names to use for your pages.||
+|*pageOrder*<br>Pages to be prioritized when ordering pages in each category.||
+|*pageTemplates*<br>Page-specific template to be used instead of the site default.||
+
+
+
+h2. Misc.
+
+|_. Supported setting|_. Example values|
+|*assets*<br>URLs of external assets (i.e. _CSS_ or _JS_) to load.||
+|*browserCache*<br>Suggested caching time for browsers, in minutes.| @"3*60"@ |
+|*serverCache*<br>Caching time used by Servant, in minutes.| @"2*24*60"@ |
+|*language*<br>Two-letter language code, the main language of your site.|@"en"@, @"fr"@|
+|*template*<br>The template under "templates/" to pick for your site.|@"default"@, @"mytemplate"@|

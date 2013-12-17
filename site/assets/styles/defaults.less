@@ -1,0 +1,101 @@
+
+
+
+/**
+* Generic styles
+*/
+
+body {
+	color: #333;
+	background-color: #fff;
+	font-family: "Helvetica Neue", "Helvetica", "Segoe UI", "Segoe WP", "Arial", sans-serif;
+	font-weight: 500;
+	line-height: 1.4;
+
+	// Font size
+	font-size: 1.1em;
+	@media handheld, only screen and (min-width: @bb-accommodate) {
+		// font-size: 1.2em;
+	}
+
+	-webkit-tap-highlight-color: transparent;
+}
+
+.row-content {
+	max-width: 55em;
+}
+
+.inverted {
+	color: #fff;
+	background-color: #202020;
+	-webkit-font-smoothing: antialiased;
+}
+
+.limit {
+	max-width: 30em;
+}
+
+.discreet {
+	color: #999;
+	strong {
+		color: #333;
+	}
+}
+	.inverted .discreet {
+		color: #808080;
+		strong {
+			color: #fff;
+		}
+	}
+
+
+
+/*Typography*/
+
+h1, h2 {
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2 {
+	font-size: 2.2em;
+}
+
+h3, big {
+	font-size: 1.4em;
+}
+
+h3 {
+	line-height: 1.2;
+}
+
+a {
+	position: relative;
+	display: inline-block;
+	top: 0;
+	color: @blue;
+	text-decoration: none;
+
+	.transition-duration(150ms);
+	.transition-property(all);
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&:active {
+		top: 0.1em;
+	}
+
+	&.plain {
+		color: inherit;
+		text-decoration: inherit;
+		&:hover {
+			text-decoration: inherit;
+		}
+	}
+
+}

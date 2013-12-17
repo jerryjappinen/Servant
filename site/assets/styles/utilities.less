@@ -1,0 +1,44 @@
+
+/*Breakpoints*/
+@media handheld, only screen and (max-width: @bb-break) {
+	.hide-under-break {
+		display: none;
+	}
+}
+@media handheld, only screen and (min-width: @bb-break) {
+	.hide-over-break {
+		display: none;
+	}
+}
+@media handheld, only screen and (max-width: @bb-accommodate) {
+	.hide-under-accommodate {
+		display: none;
+	}
+}
+@media handheld, only screen and (min-width: @bb-accommodate) {
+	.hide-over-accommodate {
+		display: none;
+	}
+}
+
+// Text alignments
+@media handheld, only screen and (min-width: @bb-break) {
+	.align, .align-left {
+		text-align: left;
+	}
+	.align-center {
+		text-align: center;
+	}
+	.align-right {
+		text-align: right;
+	}
+}
+.always-align, .always-align-left {
+	text-align: left;
+}
+.always-align-center {
+	text-align: center;
+}
+.always-align-right {
+	text-align: right;
+}
