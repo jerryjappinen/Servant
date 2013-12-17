@@ -85,26 +85,28 @@
 
 		<h2>When you just need a web site</h2>
 
-		<div class="column eight buffer-right">
+		<div class="column eight">
+
+			<div class="limit">
+
+				<p>With Servant’s minimum configuration and sensible defaults, you get your home page up in minutes. A basic setup reads your text, Markdown, HTML etc. files and creates a sitemap out of them, styled with the assets you throw at it.</p>
+
+				<p><em>You</em> choose whether to start out developing your own layout and look or use existing themes and templates to get output immediately. Servant scales according to your needs &ndash; up to a point, if needed.</p>
 
 
 
-			<p>With Servant’s minimum configuration and sensible defaults, you get your home page up in minutes. A basic setup reads your text, Markdown, HTML etc. files and creates a sitemap out of them, styled with the assets you throw at it.</p>
+				<h3>Work without frustrations</h3>
 
-			<p><em>You</em> choose whether to start out developing your own layout and look or use existing themes and templates to get output immediately. Servant scales according to your needs &ndash; up to a point, if needed.</p>
-
-
-
-			<h3>Work without frustrations</h3>
-
-			<p>Servant is simple. No installations, no database, no deployments, no admin panels. Edit your site and upload &ndash; that’s it. The lightweight stack is easy to understand, and not a lot of things can go wrong very often.</p>
+				<p>Servant is simple. No installations, no database, no deployments, no admin panels. Edit your site and upload &ndash; that’s it. The lightweight stack is easy to understand, and not a lot of things can go wrong very often.</p>
 
 
-			<h3>Who is Servant not for?</h3>
+				<h3>Who is Servant not for?</h3>
 
-			<p>Servant helps you create <strong>web sites</strong>. It's not a web app platform. There's a fuzzy and shifting line between those, and you need to be the judge.</p>
+				<p>Servant helps you create <strong>web sites</strong>. It's not a web app platform. There's a fuzzy and shifting line between those, and you need to be the judge.</p>
 
-			<p>For complex things in the backend, like authentication and heavy database operations, you probably shouldn't use Servant. It's always a great candidate for your user-facing web pages, still: writing your app's business logic and APIs with something like <a href="http://www.playframework.com/" target="_blank">Play Framework</a> while setting up a lightweight client and a marketing site with Servant would be a great idea!</p>
+				<p>For complex things in the backend, like authentication and heavy database operations, you probably shouldn't use Servant. It's always a great candidate for your user-facing web pages, still: writing your app's business logic and APIs with something like <a href="http://www.playframework.com/" target="_blank">Play Framework</a> while setting up a lightweight client and a marketing site with Servant would be a great idea!</p>
+
+			</div>
 
 		</div>
 
