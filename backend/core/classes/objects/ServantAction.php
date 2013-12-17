@@ -4,10 +4,10 @@
 * An action
 *
 * DEPENDENCIES
+*   ServantConstants 	-> defaults
 *   ServantFiles 		-> read
 *   ServantFormat 		-> path
 *   ServantPaths 		-> actions
-*   ServantConstants 	-> defaults
 */
 class ServantAction extends ServantObject {
 

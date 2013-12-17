@@ -2,6 +2,9 @@
 
 /**
 * A traversable node with potential for parents or children
+*
+* DEPENDENCIES
+*   ???
 */
 class ServantNode extends ServantObject {
 

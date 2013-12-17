@@ -6,10 +6,10 @@
 * Template objects work without any actual template files. Their content is set to '' by default.
 *
 * DEPENDENCIES
+*   ServantConstants	-> defaults
 *   ServantFiles		-> read
 *   ServantFormat		-> path
 *   ServantPaths		-> actions
-*   ServantConstants	-> defaults
 */
 class ServantTemplate extends ServantObject {
 
@@ -27,7 +27,46 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Initialize
+	* Convenience
+	*/
+
+	/**
+	* Create and initialize a child template
+	*
+	* FLAG
+	*   - I should remove nest methods
+	*/
+	public function nest ($templateId, $content = null) {
+
+		// Normalize arguments
+		$arguments = func_get_args();
+		array_shift($arguments);
+		array_unshift($arguments, 'template', $templateId, $this->action(), $this->page());
+
+		// Create the template object
+		$template = call_user_func_array(array($this, 'generate'), $arguments);
+
+		// Return the output of the template
+		return $template->output();
+	}
+
+	/**
+	* Generate a child action, return output
+	*
+	* FLAG
+	*   - I should remove nest methods
+	*/
+	public function nestAction ($id) {
+		return $this->servant()->create()->action($id, $this->page())->run()->output();
+	}
+
+
+
+	/**
+	* Initialization
+	*
+	* FLAG
+	*   - Way too effortless: action and page should be optional or something
 	*/
 	public function initialize ($id, $action, $page, $content = null) {
 		$arguments = func_get_args();
@@ -52,37 +91,7 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Convenience
-	*/
-
-	/**
-	* Create and initialize a child template
-	*/
-	public function nest ($templateId, $content = null) {
-
-		// Normalize arguments
-		$arguments = func_get_args();
-		array_shift($arguments);
-		array_unshift($arguments, 'template', $templateId, $this->action(), $this->page());
-
-		// Create the template object
-		$template = call_user_func_array(array($this, 'generate'), $arguments);
-
-		// Return the output of the template
-		return $template->output();
-	}
-
-	/**
-	* Generate a child action, return output
-	*/
-	public function nestAction ($id) {
-		return $this->servant()->create()->action($id, $this->page())->run()->output();
-	}
-
-
-
-	/**
-	* Public getters
+	* Getters
 	*/
 
 	public function action () {
@@ -94,10 +103,8 @@ class ServantTemplate extends ServantObject {
 		return $this->getOrSet('content', $arguments);
 	}
 
-	/**
-	* Files can be fetched with their paths in any format
-	*/
-	public function files ($format = false) {
+	// Files can be fetched with their paths in any format
+	protected function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
@@ -107,19 +114,25 @@ class ServantTemplate extends ServantObject {
 		return $files;
 	}
 
-	/**
-	* Paths can be fetched in any format
-	*/
-	public function path ($format = false) {
+	public function id () {
+		return $this->getAndSet('id');
+	}
+
+	public function output () {
+		return $this->getAndSet('output');
+	}
+
+	public function page () {
+		return $this->get('page');
+	}
+
+	// Paths can be fetched in any format
+	protected function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
-	}
-
-	public function page () {
-		return $this->get('page');
 	}
 
 

@@ -2,6 +2,9 @@
 
 /**
 * Request input container
+*
+* DEPENDENCIES
+*   ???
 */
 class ServantInput extends ServantObject {
 

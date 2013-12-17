@@ -2,6 +2,9 @@
 
 /**
 * An HTTP response
+*
+* DEPENDENCIES
+*   ???
 */
 class ServantResponse extends ServantObject {
 
@@ -22,7 +25,7 @@ class ServantResponse extends ServantObject {
 
 
 	/**
-	* Require action upon initialization (takes user input)
+	* Take input upon initialization
 	*/
 	public function initialize () {
 
