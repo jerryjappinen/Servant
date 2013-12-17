@@ -79,9 +79,10 @@ unset($splashImage, $icon);
 
 
 
-// Web app with internal navigation? Fullscreen?
+// Web app capabilities
 // $meta .= '<meta name="mobile-web-app-capable" content="yes">'
 //         .'<meta name="apple-mobile-web-app-capable" content="yes">';
+$meta .= '<meta name="apple-mobile-web-app-status-bar-style" content="black">';
 
 
 /**
