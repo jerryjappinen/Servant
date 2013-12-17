@@ -4,6 +4,7 @@
 * Preparing meta info
 */
 $meta = '';
+$links = '';
 
 
 
@@ -49,9 +50,9 @@ $meta .= '<meta property="og:type" content="'.($page->home() ? 'website' : 'arti
 */
 $splashImage = $servant->site()->splashImage('url');
 if ($splashImage) {
-	$meta .= '<meta property="og:image" content="'.$splashImage.'">'
-	        .'<meta name="msapplication-TileImage" content="'.$splashImage.'"/>'
-	        .'<link rel="apple-touch-startup-image" href="'.$splashImage.'">';
+	$links .= '<meta property="og:image" content="'.$splashImage.'">'
+	         .'<meta name="msapplication-TileImage" content="'.$splashImage.'"/>'
+	         .'<link rel="apple-touch-startup-image" href="'.$splashImage.'">';
 }
 
 /**
@@ -63,11 +64,11 @@ if ($icon) {
 
 	// .ico for browsers
 	if ($extension === 'ico') {
-		$meta .= '<link rel="shortcut icon" href="'.$icon.'" type="image/x-icon">';
+		$links .= '<link rel="shortcut icon" href="'.$icon.'" type="image/x-icon">';
 
 	// Image icons for browsers and various platforms
 	} else {
-		$meta .= '<link rel="icon" href="'.$icon.'" type="'.$servant->constants()->contentTypes($extension).'">'
+		$links .= '<link rel="icon" href="'.$icon.'" type="'.$servant->constants()->contentTypes($extension).'">'
 		        .'<link rel="apple-touch-icon" href="'.$icon.'" />'
 		        .($splashImage ? '' : '<meta name="msapplication-TileImage" content="'.$icon.'"/>');
 	}
@@ -82,7 +83,6 @@ unset($splashImage, $icon);
 // Web app capabilities
 // $meta .= '<meta name="mobile-web-app-capable" content="yes">'
 //         .'<meta name="apple-mobile-web-app-capable" content="yes">';
-$meta .= '<meta name="apple-mobile-web-app-status-bar-style" content="black">';
 
 
 /**
@@ -136,14 +136,20 @@ unset($temp, $tree, $i, $value);
 	<head>
 
 		<meta charset="utf-8">
+
+		<?php echo $meta ?>
+
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="misapplication-tap-highlight" content="no">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<style type="text/css">
 			@-ms-viewport{width: device-width;}
 			@-o-viewport{width: device-width;}
 			@viewport{width: device-width;}
+			body{-webkit-tap-highlight-color: transparent;}
 		</style>
 
-		<?php echo $meta ?>
+		<?php echo $links ?>
 
 		<?php echo $stylesheetsLinks ?>
 
