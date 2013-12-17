@@ -120,6 +120,7 @@
 				<li><em>PHP</em>, <em>Twig</em>, <em>HAML</em>, <em>Jade</em> for dynamic scripting</li>
 				<li>Automatic caching</li>
 				<li>Extendable backend actions</li>
+				<li>Smart templates generate HTML meta tags</li>
 			</ul>
 
 			<p>All zero-config: change the practical, sensible defaults only if needed.</p>
