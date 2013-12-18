@@ -28,10 +28,6 @@
 		}
 	}
 
-	h1 {
-		display: none;
-	}
-
 	// Links
 	a {
 		display: block;
@@ -48,52 +44,56 @@
 
 	strong {
 		font-weight: inherit;
-	}
-	strong a {
-		color: inherit;
+		a {
+			color: inherit;
+		}
 	}
 
-	li:first-of-type {
+	// List positioning
+	h1 {
+		float: left;
+		margin-top: 0;
+		margin-bottom: 0;
 		margin-left: -1.4em;
+		margin-right: 0;
+		font-weight: inherit;
+		font-size: inherit;
+		line-height: 1.4;
+	}
+
+	ul {
+
+		li:first-of-type {
+			display: none;
+		}
+
+		li:first-of-type {
+			float: left;
+			margin-left: -1.4em;
+		}
+
 	}
 
 
 
 	// Responsive adjustments
 	@media handheld, only screen and (max-width: @bb-break) {
-		.hide-under {
-			display: none;
-		}
-	}
-
-	@media handheld, only screen and (min-width: @bb-break) {
-		.hide-over {
-			display: none;
-		}
-	}
-
-	@media handheld, only screen and (max-width: @bb-break) {
 		font-size: 0.85em;
 		position: fixed;
 		z-index: 10;
 		background-color: #fff;
 
+		h1 {
+			width: 34%;
+			margin-left: 0;
+		}
+
 		ul {
-			width: 64%;
-			&.right {
-				width: 36%;
-				li {
-					width: 50%;
-				}
-			}
+			width: 66%;
 		}
 
 		li {
-			width: 30%;
-			&:first-of-type {
-				width: 10%;
-				margin-left: 0;
-			}
+			width: 50%;
 		}
 
 		a {
@@ -104,6 +104,13 @@
 
 	}
 
+}
+
+// Select home page link
+body.depth-0.index-0 {
+	.row-menu h1 a {
+		color: #ccc;
+	}
 }
 
 
