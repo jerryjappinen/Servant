@@ -5,7 +5,7 @@
 	"name": "Servant",
 	"description": "Effortless publishing for the web",
 	"icon": "site/icon.png",
-	"splashImage": "site/splash.png",
+	"splashImage": "site/splash.jpg",
 
 	"template": "servant",
 
