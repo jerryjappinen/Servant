@@ -65,26 +65,10 @@ h2 {
 		max-width: 9em;
 	}
 
-	.samples {
-		font-style: italic;
-
-		&.row-content {
-			max-width: 76em;
+	.lists {
+		ul {
+			margin-bottom: 2.68em;
 		}
-	
-		&.buffer {
-			padding-top: 0;
-		}
-
-		.limit {
-			max-width: 24em;
-		}
-
-		img {
-			.border-radius(0.2em);
-			.box-shadow(0 0.1em 0.2em #000);
-		}
-
 	}
 
 	.reel {
@@ -125,14 +109,20 @@ h2 {
 
 	blockquote {
 		@media handheld, only screen and (min-width: @bb-break) {
-			.buffer-top {
-				padding-top: 2.4em;
+			p:first-of-type {
+				margin-right: 2.4em;
+			}
+			.column.last {
+				padding-top: 1.6em;
+				p:first-of-type {
+					margin-right: 0;
+				}
+				p:last-of-type {
+					margin-left: 2.4em;
+				}
 			}
 		}
 		@media handheld, only screen and (max-width: @bb-break) {
-			.buffer-top {
-				padding-top: 0;
-			}
 			.keep-right {
 				float: none;
 			}
