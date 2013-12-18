@@ -1,6 +1,6 @@
 
-Look
-====
+Assets
+======
 
 Your site's look is defined in *stylesheets* and *scripts*. `CSS`, `LESS`, `SCSS` are supported for styles and `JS` for scripts.
 

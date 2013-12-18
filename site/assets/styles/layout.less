@@ -124,8 +124,11 @@ body.depth-0.index-0 {
 	.submenu {
 		width: 25%;
 		margin-right: 5%;
-		padding-top: 3em;
 		float: left;
+		padding-top: 3em;
+		@media handheld, only screen and (max-width: @bb-break) {
+			padding-top: 6em;
+		}
 
 		font-weight: 400;
 
@@ -166,6 +169,11 @@ body.depth-0.index-0 {
 		font-size: 0.9em;
 		line-height: 1.6;
 		font-weight: 400;
+
+		@media handheld, only screen and (max-width: @bb-break) {
+			padding-top: 3em;
+		}
+
 	}
 
 }

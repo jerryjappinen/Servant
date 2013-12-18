@@ -15,7 +15,7 @@ To create a site, you only need to unzip Servant and **have a text file under `s
 <div class="clear"></div>
 
 <div class="column six">
-	<h3 class="reset-bottom"><a href="look">Layout &amp; look</a></h3>
+	<h3 class="reset-bottom"><a href="assets">Layout &amp; look</a></h3>
 	<p class="squeeze-top">Learn how to use and extend different sample layouts and looks.</p>
 </div>
 <div class="column six last">
