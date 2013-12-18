@@ -18,7 +18,7 @@ $frame = '
 	</div>
 </div>
 
-<div class="row row-body">
+<div class="row row-body" id="body">
 	<div class="row-content buffer clear-after">
 	';
 

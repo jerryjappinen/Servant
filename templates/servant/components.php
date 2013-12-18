@@ -1,6 +1,6 @@
 <?php
 
-$footer = '<h1><a href="'.$servant->paths()->root('domain').'" class="plain">This is Servant</a></h1>';
+$footer = '<h1><a href="'.$servant->paths()->root('domain').'" data-target="body" class="plain scroll">This is Servant</a></h1>';
 
 $mainmenu = $template->nest('list-toplevelpages');
 

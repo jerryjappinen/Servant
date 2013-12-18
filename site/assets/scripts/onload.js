@@ -9,12 +9,15 @@ doc.ready(function () {
 
 
 
-	// Page scroll links
+	// Page scrolling links
 	$('a.scroll').click(function (event) {
 		event.preventDefault();
 
 		var link = $(this);
-		var target = $(link.attr('href'));
+		var target = $(link.attr('data-target'));
+		if (!target) {
+			target = $(link.attr('href'));
+		}
 
 		$('html, body').animate({
 			scrollTop: target.offset().top
@@ -38,6 +41,7 @@ doc.ready(function () {
 	doc.ready(function (event) {
 		treatScroll();
 	});
+	treatScroll();
 
 
 
