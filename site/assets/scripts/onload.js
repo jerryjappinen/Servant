@@ -41,7 +41,6 @@ doc.ready(function () {
 	doc.ready(function (event) {
 		treatScroll();
 	});
-	treatScroll();
 
 
 
@@ -69,5 +68,7 @@ doc.ready(function () {
 
 	}
 
+	// Initiate scrolling
+	treatScroll();
 
 }, false);
