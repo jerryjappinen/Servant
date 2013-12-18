@@ -37,7 +37,9 @@
 	- In different contexts, one of these serves as the default root
 	- Have one PHP methods that handle these conversions (so you can write something like `pointer('assets://foo')`)
 	- Apply url parsing to HTML form's action tag
-- Make page optional for templates
+- `ServantTemplate` improvements
+	- Support running Sevrant without templates (rendering HTML directly)
+	- Make page optional for templates
 	- Support selecting category node (pick page in template if necessary)
 	- Pick a page in template or read action or something when needed
 - Multiple pieces of content for templates

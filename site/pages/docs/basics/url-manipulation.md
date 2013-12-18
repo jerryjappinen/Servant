@@ -1,9 +1,7 @@
 
 # URLs in stylesheets
 
-URL calues used in CSS are manipulated so that they point to the right place on the final page with a single merged stylesheet file. URLs work in the same manner in both pages and stylesheets.
-
-Here are some examples of how the URLs will change.
+URLs in CSS and HTML are manipulated on the final site, as they must point to the right place on the rendered page. Here are some examples:
 
 
 

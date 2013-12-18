@@ -29,8 +29,8 @@
 		"guides/backend-actions",
 
 		"docs/basics/about/",
-		"docs/basics/template-packages",
-		"docs/basics/asset-packages"
+		"docs/basics/asset-pipeline",
+		"docs/basics/template-packages"
 
 	],
 
