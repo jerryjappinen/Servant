@@ -35,7 +35,7 @@ doc.ready(function () {
 			body.addClass('scrolled');
 		}
 	};
-	doc.scroll(function (event) {
+	doc.on('scroll scrollmove', function (event) {
 		treatScroll();
 	});
 	doc.ready(function (event) {
