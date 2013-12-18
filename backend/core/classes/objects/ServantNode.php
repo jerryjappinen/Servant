@@ -25,6 +25,16 @@ class ServantNode extends ServantObject {
 	* Convenience
 	*/
 
+	// Next sibling
+	public function next () {
+		$result = false;
+		$target = $this->sibling($this->index()+1);
+		if ($target) {
+			$result = $target;
+		}
+		return $result;
+	}
+
 	public function parents ($includeRoot = false) {
 		$arguments = func_get_args();
 		$parents = array();
@@ -52,6 +62,16 @@ class ServantNode extends ServantObject {
 		return implode('/', $this->tree($includeRoot));
 	}
 
+	// Previous sibling
+	public function previous () {
+		$result = false;
+		$target = $this->sibling($this->index()-1);
+		if ($target) {
+			$result = $target;
+		}
+		return $result;
+	}
+
 	public function root () {
 		return $this->parents(true, 0);
 	}
@@ -62,7 +82,8 @@ class ServantNode extends ServantObject {
 	}
 
 	public function siblings () {
-		return $this->parent()->children();
+		$arguments = func_get_args();
+		return call_user_func_array(array($this->parent(), 'children'), $arguments);
 	}
 
 

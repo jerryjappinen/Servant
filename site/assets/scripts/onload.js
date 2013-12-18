@@ -14,13 +14,13 @@ doc.ready(function () {
 		event.preventDefault();
 
 		var link = $(this);
-		var target = $(link.attr('data-target'));
+		var target = link.attr('data-target');
 		if (!target) {
-			target = $(link.attr('href'));
+			target = link.attr('href');
 		}
 
 		$('html, body').animate({
-			scrollTop: target.offset().top
+			scrollTop: $(target).offset().top
 		}, 600);
 
 	});

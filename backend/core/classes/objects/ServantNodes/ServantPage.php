@@ -69,7 +69,7 @@ class ServantPage extends ServantNode {
 	*/
 
 	public function children () {
-		return array();
+		return func_num_args() ? null : array();
 	}
 
 

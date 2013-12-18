@@ -40,6 +40,7 @@ $frame = '
 		$frame .= '
 		<div class="article clear-after">
 			'.$template->content().'
+			'.$prevnext.'
 		</div>
 		';
 
