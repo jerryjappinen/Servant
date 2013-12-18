@@ -9,7 +9,7 @@ For each page a template is picked, either the global default or the one defined
 
 
 
-## Writing templates
+### Variables
 
 The following variables are available to you when you're writing dynamic templates in *PHP* or any of the other supported scripting languages.
 
