@@ -81,6 +81,42 @@ h2 {
 
 	}
 
+	.reel {
+
+		@media handheld, only screen and (min-width: @bb-break) {
+
+			p {
+				height: 24em;
+				line-height: 24em;
+				text-align: center;
+			}
+
+			img {
+				max-height: 18em;
+				vertical-align: middle;
+			}
+
+			.main {
+				position: absolute;
+				z-index: 5;
+				left: 0;
+				width: 100%;
+				
+				img {
+					max-height: 24em;
+				}
+			}
+
+			.column.last {
+				img {
+					max-height: 16em;
+				}
+			}		
+
+		}
+
+	}
+
 	blockquote {
 		@media handheld, only screen and (min-width: @bb-break) {
 			.buffer-top {
