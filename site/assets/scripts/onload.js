@@ -68,7 +68,10 @@ doc.ready(function () {
 
 	}
 
-	// Initiate scrolling
+
+
+	// Initializations
+    FastClick.attach(document.body);
 	treatScroll();
 
 }, false);
