@@ -7,4 +7,4 @@ Stylesheet files and scripts are packaged under one directory (`assets/`) where 
 
 Page-specific styles and scripts under `pages/` will be loaded when needed.
 
-[docs/basics/asset-pipeline]
+<a href="/docs/basics/asset-pipeline" class="button pull-left">Asset pipeline documentation</a>
