@@ -4,7 +4,7 @@ $output = '';
 
 
 /**
-* Level 2+3 menu
+* Full level 2+3 menu
 */
 $mainCategory = $page->parents(false, 0);
 if ($mainCategory) {

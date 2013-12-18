@@ -2,6 +2,13 @@
 var doc = $(document);
 doc.ready(function () {
 
+	// DOM
+	var win = $(window);
+	var body = $('body');
+	var responsiveMenu = body.find('.submenu .hide-over-break');
+
+
+
 	// Page scroll links
 	$('a.scroll').click(function (event) {
 		event.preventDefault();
@@ -17,10 +24,6 @@ doc.ready(function () {
 
 
 
-	// Fixed menu
-	var win = $(window);
-	var body = $('body');
-
 	// Mark scrolled document
 	var treatScroll = function () {
 		if (doc.scrollTop() < 1) {
@@ -29,7 +32,6 @@ doc.ready(function () {
 			body.addClass('scrolled');
 		}
 	};
-
 	doc.scroll(function (event) {
 		treatScroll();
 	});
@@ -37,6 +39,31 @@ doc.ready(function () {
 		treatScroll();
 	});
 
+
+
+	// Responsive menu
+	if (responsiveMenu.length) {
+		var responsiveMenuLists = responsiveMenu.find('ul');
+
+		// Close on document load
+		responsiveMenuLists.addClass('closed');
+
+		// Add closing buttons
+		responsiveMenuLists.prepend('<li><a href="" class="close">Close</a></li>');
+
+		// Bind opening
+		responsiveMenu.on('click', '.closed a', function (event) {
+			event.preventDefault();
+			$(this).parents('ul').removeClass('closed');
+		});
+
+		// Bind closing
+		responsiveMenu.on('click', '.close', function (event) {
+			event.preventDefault();
+			$(this).parents('ul').addClass('closed');
+		});
+
+	}
 
 
 }, false);

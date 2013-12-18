@@ -1,5 +1,5 @@
 
-# Installing Servant
+# Troubles?
 
 These are detailed instructions on how to set up Servant. You'll have it running in minutes.
 

@@ -116,33 +116,37 @@ body.depth-0.index-0 {
 
 
 /**
-* Article
+* Article + submenu
 */
 
 .row-body {
 
-	.submenu {
-		width: 25%;
-		margin-right: 5%;
-		float: left;
-		padding-top: 3em;
-		@media handheld, only screen and (max-width: @bb-break) {
-			padding-top: 6em;
-		}
-
+	.article {
+		font-size: 0.9em;
+		line-height: 1.6;
 		font-weight: 400;
 
-		a {
-			display: block;
-			color: #999;
-			padding: 0.3em 0.4em;
+		@media handheld, only screen and (min-width: @bb-break) {
+			width: 65%;
+			max-width: 40em;
+			float: left;
+			clear: none;
 		}
 
-		strong a {
-			font-weight: inherit;
-			color: inherit;
+	}
+
+	.submenu {
+		padding-top: 6em;
+		font-weight: 400;
+
+		@media handheld, only screen and (min-width: @bb-break) {
+			width: 25%;
+			margin-right: 10%;
+			float: left;
+			padding-top: 3em;
 		}
 
+		// Submenu lists
 		ul {
 			list-style: none;
 			margin-left: -0.2em;
@@ -158,20 +162,68 @@ body.depth-0.index-0 {
 
 		}
 
-	}
+		// Links in both submenus
+		a {
+			display: block;
+			color: #999;
+			padding: 0.3em 0.4em;
+		}
 
-	.article {
-		width: 70%;
-		max-width: 40em;
-		float: left;
-		clear: none;
+		strong a {
+			font-weight: inherit;
+			color: inherit;
+		}
 
-		font-size: 0.9em;
-		line-height: 1.6;
-		font-weight: 400;
+		// Responsive menu
+		.hide-over-break {
+			ul {
+				&:first-of-type {
+					border-top-width: 1px;
+				}
 
-		@media handheld, only screen and (max-width: @bb-break) {
-			padding-top: 3em;
+				border-bottom-width: 1px;
+				border-color: #ccc;
+
+				margin-right: -1.2em;
+				margin-left: -1.2em;
+
+				// Typography
+				font-weight: 500;
+				a {
+					padding: 0.4em 1.2em;
+					color: @blue;
+					&.close {
+						color: #ccc;
+					}
+				}
+				strong {
+					font-weight: inherit;
+				}
+				strong a {
+					color: inherit;
+				}
+				li:first-of-type a {
+					padding-top: 0.78em;
+				}
+				li:last-of-type a {
+					padding-bottom: 0.78em;
+				}
+
+				// Closed menu
+				&.closed {
+					li {
+						display: none;
+						&.selected {
+							display: block;
+						}
+					}
+					a {
+						padding-top: 0.78em;
+						padding-bottom: 0.78em;
+					}
+				}
+
+			}
 		}
 
 	}

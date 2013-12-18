@@ -25,7 +25,14 @@ $frame = '
 		if ($action->isRead() and $submenu) {
 
 			$frame .= '
-			<div class="submenu clear-after">'.$submenu.'</div>
+			<div class="submenu clear-after">
+				<div class="hide-over-break">
+					'.implode_wrap('<ul class="reset plain">', '</ul>', $sectionmenus).'
+				</div>
+				<div class="hide-under-break">
+					'.$submenu.'
+				</div>
+			</div>
 			';
 
 		}
