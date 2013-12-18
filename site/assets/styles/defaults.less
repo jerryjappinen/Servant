@@ -23,12 +23,6 @@ body {
 	max-width: 55em;
 }
 
-.inverted {
-	color: #fff;
-	background-color: #202020;
-	-webkit-font-smoothing: antialiased;
-}
-
 .limit {
 	max-width: 30em;
 }
@@ -39,12 +33,6 @@ body {
 		color: #333;
 	}
 }
-	.inverted .discreet {
-		color: #808080;
-		strong {
-			color: #fff;
-		}
-	}
 
 
 
@@ -86,6 +74,13 @@ h5 {
 		margin-top: 0;
 	}
 
+dd {
+	color: #999;
+}
+
+
+
+// Links & buttons
 a {
 	position: relative;
 	display: inline-block;
@@ -114,7 +109,7 @@ a {
 
 	&.button {
 		padding: 0.4em 0.6em;
-		.border-radius(0.15em);
+		.border-radius(0.2em);
 
 		&:hover {
 			text-decoration: none;
@@ -126,6 +121,29 @@ a {
 			margin-left: -0.6em;
 		}
 
+	}
+
+}
+
+
+
+// Dark colors
+.inverted {
+	color: #fff;
+	background-color: #202020;
+	-webkit-font-smoothing: antialiased;
+
+	.discreet {
+		color: #808080;
+		strong {
+			color: #fff;
+		}
+	}
+
+	.button {
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
 	}
 
 }
