@@ -21,14 +21,14 @@ h5. site/settings.json
 "icon":           "site/favicon.ico",
 "splashImage":    "site/splash.png",
 "pageNames": {
-	"technical-docs/basics/text-and-markdown": "Text & Markdown",
-	"technical-docs/basics/url-manipulation": "URL manipulation"
+	"docs/basics/text-and-markdown": "Text & Markdown",
+	"docs/basics/url-manipulation": "URL manipulation"
 }
 "pageOrder": [
-	"tutorials-and-guides",
-	"technical-docs",
-	"technical-docs/basics"
-	"technical-docs/template-formats"
+	"guides",
+	"docs",
+	"docs/basics"
+	"docs/template-formats"
 ]
 "pageTemplates": [
 	"about": "blog"

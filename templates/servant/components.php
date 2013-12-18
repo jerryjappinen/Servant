@@ -56,7 +56,7 @@
 // 	$footer .= '</dl>';
 // }
 
-$footer = '<h1><a href="/" class="plain">This is Servant</a></h1>';
+$footer = '<h1><a href="'.$servant->paths()->root('domain').'" class="plain">This is Servant</a></h1>';
 
 // Menus
 $mainmenu = $template->nest('list-toplevelpages');

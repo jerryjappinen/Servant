@@ -13,7 +13,7 @@ The following variables are available to you when you're writing dynamic templat
 
 Variable    | Description                        | Read more                                              |
 ----------- | ---------------------------------- | ------------------------------------------------------ |
-`$servant`  | Main services provided by Servant. | [ServantMain](/technical-docs/components/main)         |
-`$template` | This template.                     | [ServantTemplate](/technical-docs/components/template) |
-`$action`   | The current action.                | [ServantAction](/technical-docs/components/action)     |
-`$page`     | The current page.                  | [ServantPage](/technical-docs/components/page)         |
+`$servant`  | Main services provided by Servant. | [ServantMain](/docs/components/main)         |
+`$template` | This template.                     | [ServantTemplate](/docs/components/template) |
+`$action`   | The current action.                | [ServantAction](/docs/components/action)     |
+`$page`     | The current page.                  | [ServantPage](/docs/components/page)         |

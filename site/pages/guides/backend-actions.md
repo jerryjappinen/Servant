@@ -13,7 +13,7 @@ Each directory under `backend/actions/` is an action. All the script files of an
 
 Generally, an action does what it does based on user input, and then responds with an HTTP status code and some output.
 
-<p><a href="/technical-docs/components/action" class="button">Full action reference</a></p>
+<p><a href="/docs/components/action" class="button">Full action reference</a></p>
 
 
 

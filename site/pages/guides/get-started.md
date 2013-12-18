@@ -3,7 +3,7 @@
 
 To create a site, you only need to unzip Servant and **have a text file under `site/pages/`.** Servant will create menus, fancy URLs, sitemaps, stylesheets and everything else.
 
-
+<!-- 
 <div class="column six">
 	<h3 class="reset-bottom"><a href="pages">Writing pages</a></h3>
 	<p class="squeeze-top">Write pages in plain text or other formats. Add page-specific styles and behavior if you want.</p>
@@ -23,10 +23,10 @@ To create a site, you only need to unzip Servant and **have a text file under `s
 	<p class="squeeze-top">Understand the internals to write new functionality like image uploads or database access.</p>
 </div>
 <div class="clear"></div>
+ -->
 
 
-
-## Installation
+## Setup
 
 1. [Download servant.zip](https://bitbucket.org/Eiskis/servant/get/default.zip)
 2. Unzip

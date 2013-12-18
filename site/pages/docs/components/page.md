@@ -25,4 +25,4 @@ Property name   | Description
 `type()`		|
 `scripts()`		|
 `stylesheets()`	|
-`template()`	| Path to the page file. [Formattable](/technical-docs/about/paths/).
+`template()`	| Path to the page file. [Formattable](/docs/about/paths/).

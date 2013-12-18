@@ -18,7 +18,20 @@
 	"pageOrder": [
 		"home",
 		"blog",
-		"guides"
+		"guides",
+
+		"guides",
+
+		"guides/get-started",
+		"guides/pages",
+		"guides/look",
+		"guides/site-settings",
+		"guides/backend-actions",
+
+		"docs/basics/about/",
+		"docs/basics/template-packages",
+		"docs/basics/asset-packages"
+
 	],
 
 	"pageTemplates": {
