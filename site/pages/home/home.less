@@ -59,19 +59,24 @@ h2 {
 		max-width: 9em;
 	}
 
-	.samples.row-content {
-		max-width: 76em;
-	}
+	.samples {
+		&.row-content {
+			max-width: 76em;
+		}
+	
+		&.buffer {
+			padding-top: 0;
+		}
 
-	.samples img {
-		.border-radius(0.15em);
-		.box-shadow(0 0.1em 0.2em #000);
-	}
+		.limit {
+			max-width: 24em;
+		}
 
-	.samples.buffer {
-		padding-top: 0;
+		img {
+			.border-radius(0.15em);
+			.box-shadow(0 0.1em 0.2em #000);
+		}
 	}
-
 }
 
 
