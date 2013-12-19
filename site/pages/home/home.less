@@ -72,13 +72,13 @@ h2 {
 	}
 
 	.reel {
+		text-align: center;
 
 		@media handheld, only screen and (min-width: @bb-break) {
 
 			p {
 				height: 24em;
 				line-height: 24em;
-				text-align: center;
 			}
 
 			img {
@@ -102,6 +102,25 @@ h2 {
 					max-height: 16em;
 				}
 			}		
+
+		}
+
+		@media handheld, only screen and (max-width: @bb-break) {
+
+			.column {
+				margin-top: -45%;
+				img {
+					max-width: 80%;
+				}
+
+				&.last {
+					margin-top: -35%;
+					img {
+						max-width: 60%;
+					}
+				}
+
+			}
 
 		}
 
