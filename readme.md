@@ -52,7 +52,7 @@ This is the basic file structure.
 			...
 		...
 
-As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `site/pages/` folder. Pages are shown in generated menus, and have fancy URLs for users (e.g. `http://domain.com/servant/read/categoryname/pagename`).
+As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `site/pages/` folder. Pages are shown in generated menus, and have fancy URLs for users (e.g. `http://servant.com/read/<category>/<page>`).
 
 You can use `site/settings.json` to define things like site name, description and favicon. `site/assets/` contains the stylesheets and JavaScripts of your site. Page-specific styles and scripts can be included under `site/pages/` as well.
 
