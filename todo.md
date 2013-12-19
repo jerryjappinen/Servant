@@ -14,15 +14,15 @@
 ## Core
 
 - Input system (for actions)
-	- Add serialization to `ServantInput`
-	- Save cache files for (serialized) input
 	- Pass GET from fancy URLs to actions properly
+	- Save cache files for (serialized) input, not pages
 - Action-specific user settings
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
 - Data/storage/working directory services for actions
 	- file traversal
 	- adding files
+	- making sure directory is available and writable
 	- `ServantData`?
 - Stop using `__call`
 - Arbitrary content types
