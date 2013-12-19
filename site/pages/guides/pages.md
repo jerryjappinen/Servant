@@ -1,7 +1,7 @@
 
 # Pages
 
-Each text document under `site/pages/` will be shown as a page on your site. **Just creating a new `.txt` file will result in a new page**, but you can also write files in [Markdown](/docs/template-formats/text-and-markdown), [HTML](/docs/template-formats/HTML), [PHP](/docs/template-formats/PHP), or any of the other [supported formats](/docs/template-formats).
+Each text document under `site/pages/` will be shown as a page on your site. **Just creating a new `.txt` file will result in a new page**, but you can also write files in [Markdown](/docs/template-formats/markdown), [HTML](/docs/template-formats/HTML), [PHP](/docs/template-formats/PHP), or any of the other [supported formats](/docs/template-formats).
 
 All files are converted and served to your users as HTML automatically. For example, your site's folder could look like this:
 
@@ -24,7 +24,7 @@ Pages can be nested in directories, and Servant will use those to generate categ
 
 Pointing to other documents with links, or adding images to a page is really easy. Defining links and images can be done in different ways depending on the file format, but the URLs always work in the same way.
 
-Here are some examples in [Markdown](/docs/template-formats/text-and-markdown).
+Here are some examples in [Markdown](/docs/template-formats/markdown).
 
 ### Relative URLs
 

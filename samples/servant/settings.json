@@ -12,7 +12,7 @@
 	"assets": "http://code.jquery.com/jquery-2.0.3.min.js",
 
 	"pageNames": {
-		"technical-docs/template-formats/text-and-markdown/": "Text & Markdown",
+		"technical-docs/template-formats/markdown/": "Text & Markdown",
 		"technical-docs/basics/url-manipulation": "URL manipulation",
 		"tutorials-and-guides": "Tutorials & guides"
 	},

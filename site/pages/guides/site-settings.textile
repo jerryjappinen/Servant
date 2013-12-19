@@ -21,7 +21,7 @@ h5. site/settings.json
 "icon":           "site/favicon.ico",
 "splashImage":    "site/splash.png",
 "pageNames": {
-	"docs/basics/text-and-markdown": "Text & Markdown",
+	"docs/basics/markdown": "Text & Markdown",
 	"docs/basics/url-manipulation": "URL manipulation"
 }
 "pageOrder": [
