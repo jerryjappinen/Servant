@@ -1,7 +1,5 @@
 <?php
 
-$footer = '<h1><a href="'.$servant->paths()->root('domain').'" data-target="body" class="plain scroll">This is Servant</a></h1>';
-
 $mainmenu = $template->nest('list-toplevelpages');
 
 $submenu = $template->nest('list-submenu');
@@ -58,5 +56,7 @@ if ($page->depth() > 0) {
 
 	$prevnext = $prevnext ? '<div class="prevnext clear-after"><ul class="plain collapse">'.$prevnext.'</ul></div>' : '';
 }
+
+$footer = '<h1><a href="'.$servant->paths()->root('domain').'" data-target="body" class="plain scroll">This is Servant<span class="inline-block pull-right">.</span></a></h1>';
 
 ?>
