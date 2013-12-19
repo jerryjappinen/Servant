@@ -371,7 +371,7 @@ class ServantSite extends ServantObject {
 			$path = $this->servant()->paths()->templates('server');
 
 			// Warn of missing template
-			if ($this->servant()->debug() and !$this->servant()->available()->template($template)) {
+			if ($this->servant()->debug() and !empty($input)) {
 				$this->warn('Attempted using the '.$template.' template, which is not available.');
 			}
 
@@ -518,12 +518,21 @@ class ServantSite extends ServantObject {
 		// Look for a settings file
 		if (is_file($path)) {
 
-			// Read settings file as JSON, turn into an array
-			$temp = json_decode(suffix(prefix(trim(file_get_contents($path)), '{'), '}'), true);
-			if (is_array($temp)) {
-				$result = $temp;
+			// Normalize JSON
+			$json = trim(file_get_contents($path));
+			if (substr($json, 0, 1) !== '{') {
+				$json = suffix(prefix($json, '{'), '}');
 			}
-			unset($temp);
+			$json = json_decode($json, true);
+
+			// Decode JSON file, turn into an array
+			if (is_array($json)) {
+				$result = $json;
+			} else {
+				$this->warn('Site settings file ("'.$this->servant()->paths()->format($path, false, 'server').'") is malformed.');
+			}
+
+			unset($json);
 
 		}
 
