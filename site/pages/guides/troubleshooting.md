@@ -13,7 +13,7 @@ You need *PHP 5.3+* and a server with support for *rewrite_module* (sometimes ca
 
 ### 2. Download Servant
 
-[Download Servant](https://bitbucket.org/Eiskis/servant/get/default.zip). It will come in the form of a `.zip` file that you need to extract and move to your server.
+[Download Servant](https://github.com/Eiskis/Servant/archive/master.zip). It will come in the form of a `.zip` file that you need to extract and move to your server.
 
 
 

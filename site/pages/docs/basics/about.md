@@ -22,4 +22,4 @@ You only need very basic HTML skills to get started, if that. On each step you h
 
 Servant is written in *PHP*, and currently supported on PHP 5.3 and up. If you're contributing, make an attempt to write code that can recover even when the circumstances aren't perfectly in your control.
 
-If you are interested in contributing to the project, please visit our [Bitbucket page](https://bitbucket.org/Eiskis/servant/) and clone the repository to get started.
+If you are interested in contributing to the project, please visit our [Github page](https://github.com/Eiskis/Servant/) and clone the repository to get started.

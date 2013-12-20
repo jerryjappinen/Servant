@@ -7,7 +7,7 @@ To create a site, you only need to unzip Servant and **have a text file under `s
 
 ## Setup
 
-1. [Download servant.zip](https://bitbucket.org/Eiskis/servant/get/default.zip)
+1. [Download Servant](https://github.com/Eiskis/Servant/archive/master.zip)
 2. Unzip
 3. Move contents on your server
 
