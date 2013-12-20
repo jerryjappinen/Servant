@@ -6,6 +6,8 @@ table {
 	width: 110%;
 	.box-shadow(0 0.2em 4em rgba(0, 0, 0, 0.1));
 	.border-radius(0.3em);
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 th {
@@ -41,18 +43,16 @@ th {
 
 
 // Rows
-td, th[scope="row"] {
+td {
+	border-right-width: 1px;
 	border-bottom-width: 1px;
-	border-color: #ddd;
+	border-color: #eee;
 }
-	tr:last-child td, tr:last-child th[scope="row"] {
-		border-bottom-width: 0;
+	tr:first-child td {
+		border-top-width: 1px;
 	}
-th, td {
-	border-left-width: 1px;
-}
-	th:first-of-type, td:first-child {
-		border-left-width: 0;
+	td:first-child {
+		border-left-width: 1px;
 	}
 table table td {
 	padding: 0.335em 0.67em;
