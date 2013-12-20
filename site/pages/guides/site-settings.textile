@@ -64,7 +64,7 @@ h2. Misc.
 
 |_. Supported setting|_. Example values|
 |*assets*<br>URLs of external assets (i.e. _CSS_ or _JS_) to load.||
-|*browserCache*<br>Suggested caching time for browsers, in minutes.| @"3*60"@ |
-|*serverCache*<br>Caching time used by Servant, in minutes.| @"2*24*60"@ |
+|*browserCache*<br>Suggested caching time for browsers, in minutes.| @"3*60"@, @60@ |
+|*serverCache*<br>Caching time used by Servant, in minutes.| @"2*24*60"@, @180@ |
 |*language*<br>Two-letter language code, the main language of your site.|@"en"@, @"fr"@|
 |*template*<br>The template under "templates/" to pick for your site.|@"default"@, @"mytemplate"@|
