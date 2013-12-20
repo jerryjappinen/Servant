@@ -2,6 +2,9 @@
 *.esproj
 *.log
 .idea/
-cache/
 *.orig
+
+# Servant-specific
+cache/
 temp/
+data/
