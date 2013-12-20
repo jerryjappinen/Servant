@@ -308,7 +308,9 @@ class ServantFiles extends ServantObject {
 	*/
 	private function convertMarkdownToHtml ($markdown, $scriptVariables = array()) {
 		$this->servant()->utilities()->load('markdown');
-		return Markdown($markdown);
+		$parser = new \Michelf\MarkdownExtra;
+		// $parser->no_entities = true;
+		return $parser->transform($parser->transform($markdown));
 	}
 
 	/**
