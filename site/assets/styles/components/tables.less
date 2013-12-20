@@ -2,19 +2,17 @@
 /*Tables*/
 table {
 	.border-box;
-	border-width: 1px;
-	border-color: #ddd;
-
 	margin: 2.68em -5% 4.02em -5%;
 	width: 110%;
 	.box-shadow(0 0.2em 4em rgba(0, 0, 0, 0.1));
+	.border-radius(0.3em);
 }
 
 th {
 	vertical-align: baseline;
 	font-weight: normal;
 	background-color: #eee;
-	border-color: #ddd;
+	border-color: #eee;
 
 	&[scope="row"] {
 		background-color: transparent;
@@ -23,6 +21,23 @@ th {
 	}
 
 }
+
+	tr:first-of-type {
+		th:first-of-type, td:first-of-type {
+			border-top-left-radius: 0.3em;
+		}
+		th:last-of-type, td:last-of-type {
+			border-top-right-radius: 0.3em;
+		}
+	}
+	tr:last-of-type {
+		th:first-of-type, td:first-of-type {
+			border-bottom-left-radius: 0.3em;
+		}
+		th:last-of-type, td:last-of-type {
+			border-bottom-right-radius: 0.3em;
+		}
+	}
 
 
 // Rows
