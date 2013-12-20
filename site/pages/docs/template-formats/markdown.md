@@ -16,4 +16,4 @@ Here's an example of the simple syntax:
 	- Here's a list item
 	- Here's another item
 
-See all the details of Markdown at <a href="http://daringfireball.net/projects/markdown/">daringfireball.net</a>.
+See all the details of Markdown at <a href="http://daringfireball.net/projects/markdown/">daringfireball.net</a>. Servant's parser supports [extended Markdown](http://michelf.ca/projects/php-markdown/extra/), so you can use inline HTML, tables and other extra features.

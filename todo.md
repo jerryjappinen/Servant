@@ -36,7 +36,8 @@
 	- `templates://`
 	- In different contexts, one of these serves as the default root
 	- Have one PHP methods that handle these conversions (so you can write something like `pointer('assets://foo')`)
-	- Apply url parsing to HTML form's action tag
+	- Apply URL parsing to HTML form's action tag
+	- Treat `../` as expected when parsing URLs
 - `ServantTemplate` improvements
 	- Support running Sevrant without templates (rendering HTML directly)
 	- Make page optional for templates

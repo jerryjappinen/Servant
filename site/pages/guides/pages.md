@@ -20,6 +20,14 @@ Pages can be nested in directories, and Servant will use those to generate categ
 
 
 
+## Friendly URLs
+
+Normally, if a user points her browser to a non-existing page, Servant will try to avoid an error page and instead show a parent page if possible.
+
+For example, if the user goes to `docs/components/settings/` but this page is not available, Servant will show the `docs/components/` page if it exists. This works automatically and results in fewer broken links for end users.
+
+
+
 ## Links & images
 
 Pointing to other documents with links, or adding images to a page is really easy. Defining links and images can be done in different ways depending on the file format, but the URLs always work in the same way.

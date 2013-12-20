@@ -39,6 +39,9 @@ class ServantMain extends ServantObject {
 	protected function setAvailable () {
 		return $this->set('available', $this->generate('available'));
 	}
+	protected function setConstants ($constants = null) {
+		return $this->set('constants', $this->generate('constants', $constants));
+	}
 	protected function setCreate () {
 		return $this->set('create', $this->generate('creator'));
 	}
@@ -47,9 +50,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));
-	}
-	protected function setConstants ($constants = null) {
-		return $this->set('constants', $this->generate('constants', $constants));
 	}
 	protected function setSite () {
 		return $this->set('site', $this->generate('site'));

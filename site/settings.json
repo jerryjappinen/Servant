@@ -12,7 +12,8 @@
 	"assets": "http://code.jquery.com/jquery-2.0.3.min.js",
 
 	"pageNames": {
-		"home": "Servant"
+		"home": "Servant",
+		"guides/actions": "Backend actions"
 	},
 
 	"pageOrder": [
@@ -26,11 +27,13 @@
 		"guides/pages",
 		"guides/assets",
 		"guides/site-settings",
-		"guides/backend-actions",
+		"guides/actions",
 
 		"docs/basics/about/",
 		"docs/basics/asset-pipeline",
-		"docs/basics/template-packages"
+		"docs/basics/template-scripting",
+
+		"docs/components/main"
 
 	],
 

@@ -1,17 +1,13 @@
 
-# Templates
+# Template scripting
 
-Templates decide the basic structure for your site, i.e. how pages are rendered. They dynamically generate HTML (headers, meta tags, menus etc.).
-
-Multiple templates are available under `templates/`. Simply editing these files is enough to edit the templates in use.
-
-For each page a template is picked, either the global default or the one defined in settings.
+Each directory under `templates/` is a directory. A template can be split into multiple files, which are autoloaded when a template is used. The output of all the included files is used as template content.
 
 
 
 ### Variables
 
-The following variables are available to you when you're writing dynamic templates in *PHP* or any of the other supported scripting languages.
+The following variables are available to you when you're writing dynamic **templates** in *PHP* or any other supported scripting language.
 
 Variable    | Description                        | Read more                                              |
 ----------- | ---------------------------------- | ------------------------------------------------------ |

@@ -32,8 +32,8 @@
 		"tutorials-and-guides/backend-actions",
 
 		"technical-docs/basics/about/",
-		"technical-docs/basics/template-packages",
-		"technical-docs/basics/asset-packages"
+		"technical-docs/basics/template-scripting",
+		"technical-docs/basics/asset-pipeline"
 
 	],
 
