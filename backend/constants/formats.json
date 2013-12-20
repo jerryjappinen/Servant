@@ -48,7 +48,7 @@
 		"stylesheets": {
 			"css": "css",
 			"less": "less",
-			"scss": ["sass", "scss"]
+			"scss": ["scss"]
 		},
 
 		"scripts": {
