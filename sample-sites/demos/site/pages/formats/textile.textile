@@ -19,7 +19,7 @@ h2. Site settings
 
 Site settings are **completely optional**, but you probably want to manually define some things, like the template and theme you're using. By adding @settings.json@ in your site's folder you can define these things with a very simple syntax. Here's an example:
 
-h5. @sites/my-site/settings.json@
+h5. @settings.json@
 
 <pre>@"icon": "favicon.png",
 "template": "bootstrap",

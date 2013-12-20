@@ -13,7 +13,7 @@ Read more about it on [Twig's site](http://twig.sensiolabs.org/doc/templates.htm
 
 ## Basic example
 
-##### site/pages/some-category/some-page.twig
+##### pages/some-category/some-page.twig
 
 	<h1>{{ page.name() }}</h1>
 

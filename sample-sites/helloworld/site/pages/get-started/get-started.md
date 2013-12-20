@@ -11,24 +11,23 @@ If your setup seems to be broken, there's a troubleshooting guide at [servantfra
 
 This is the basic file structure.
 
+	assets/
+		behavior.js
+		style.css
+		...
 	backend/
 		...
-	site/
-		pages/
-			some-page.txt
-			another-page/
-				content.html
-			...
-		assets/
-			behavior.js
-			style.css
-			...
-		settings.json
+	pages/
+		some-page.txt
+		another-page/
+			content.html
+		...
 	templates/
 		html/
 			html.php
 			...
 		...
+	settings.json
 
 Servant compiles all this into a functioning web site. Servant's files itself are located under `backend/`, but you shouldn't have to go there unless you want to extend the backend functionality.
 
@@ -36,7 +35,7 @@ Servant compiles all this into a functioning web site. Servant's files itself ar
 
 ## Editing pages
 
-As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `site/pages/` folder. Pages are shown in generated menus, and have fancy URLs for users (e.g. `http://servant.com/read/<category>/<page>`).
+As you might guess, you create pages and site content by adding `.txt`, `.html`, `.md` etc. files under the `pages/` folder. Pages are shown in generated menus, and have fancy URLs for users (e.g. `http://servant.com/read/<category>/<page>`).
 
 Template files under `templates/` define the basic structure of your site. One template is used for your site, either the default or the one you define in settings.
 
@@ -46,7 +45,7 @@ Template files under `templates/` define the basic structure of your site. One t
 
 ## Editing site settings
 
-You can use `site/settings.json` to define things like site name, description and favicon.
+You can use `settings.json` to define things like site name, description and favicon.
 
 [More about site settings](http://servantframework.com/read/guides/site-settings/)
 
@@ -54,7 +53,7 @@ You can use `site/settings.json` to define things like site name, description an
 
 ## Writing styles and scripts
 
-`site/assets/` contains the stylesheets and JavaScripts of your site. Page-specific styles and scripts can be included under `site/pages/` as well.
+`assets/` contains the stylesheets and JavaScripts of your site. Page-specific styles and scripts can be included under `pages/` as well.
 
 LESS and SCSS are supported out-of-the-box.
 

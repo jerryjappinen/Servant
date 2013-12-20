@@ -1,13 +1,13 @@
 
 # Pages
 
-Each text document under `site/pages/` will be shown as a page on your site. **Just creating a new `.txt` file will result in a new page**, but you can also write files in [Markdown](/docs/template-formats/markdown), [HTML](/docs/template-formats/HTML), [PHP](/docs/template-formats/PHP), or any of the other [supported formats](/docs/template-formats).
+Each text document under `pages/` will be shown as a page on your site. **Just creating a new `.txt` file will result in a new page**, but you can also write files in [Markdown](/docs/template-formats/markdown), [HTML](/docs/template-formats/HTML), [PHP](/docs/template-formats/PHP), or any of the other [supported formats](/docs/template-formats).
 
 All files are converted and served to your users as HTML automatically. For example, your site's folder could look like this:
 
 
 
-##### site/
+##### mysite/
 	pages/
 		about.txt
 		documentation.textile
@@ -36,13 +36,13 @@ Here are some examples in [Markdown](/docs/template-formats/markdown).
 
 ### Relative URLs
 
-##### site/pages/welcome.md
+##### pages/welcome.md
 	[Get in touch](contact-us)
 	[See where we are](contact-us/map)
 
 ### Root-relative URLs
 
-##### site/pages/contact-us/map.md
+##### pages/contact-us/map.md
 	[Back to home page](/)
 	[Welcome page on the root level](/welcome)
 	[See where we are](/contact-us/map)

@@ -1,7 +1,7 @@
 {
 
-	"icon": "site/favicon.ico",
-	"splashImage": "site/splash.png",
+	"icon": "favicon.ico",
+	"splashImage": "splash.png",
 	"language": "en",
 	"name": "Baseline.php",
 

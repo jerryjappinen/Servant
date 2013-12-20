@@ -4,8 +4,8 @@
 	"name": 		"My site",
 	"description": 	"A slick description for my site - not too short, not too long",
 
-	"icon": 		"site/icon.png",
-	"splashImage": 	"site/splash.jpg",
+	"icon": 		"icon.png",
+	"splashImage": 	"splash.jpg",
 	"template": 	"html",
 
 	"assets": [

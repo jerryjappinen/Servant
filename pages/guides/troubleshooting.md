@@ -45,8 +45,8 @@ There's one file in the root folder, and three in other directories:
 
 - `.htaccess` (root directory)
 - `backend/.htaccess` (the same place as `index.php`)
-- `site/pages/.htaccess` (pages folder)
-- `site/templates/.htaccess` (template folder)
+- `pages/.htaccess` (pages folder)
+- `templates/.htaccess` (template folder)
 
 
 

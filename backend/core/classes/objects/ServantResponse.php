@@ -358,6 +358,7 @@ class ServantResponse extends ServantObject {
 		} else {
 
 			// Global default
+			// FLAG should check action name mappings from constants
 			$default = $this->servant()->constants()->defaults('action');
 			if ($this->servant()->available()->action($default)) {
 				$result = $default;

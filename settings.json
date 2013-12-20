@@ -4,8 +4,8 @@
 
 	"name": "Servant",
 	"description": "Effortless publishing for the web",
-	"icon": "site/icon.png",
-	"splashImage": "site/splash.jpg",
+	"icon": "icon.png",
+	"splashImage": "splash.jpg",
 
 	"template": "servant",
 

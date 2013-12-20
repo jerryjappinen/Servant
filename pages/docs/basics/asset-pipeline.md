@@ -1,7 +1,7 @@
 
 # Asset pipeline
 
-The styles, scripts and accompanying assets that create the look and feel for any template are located under the assets directory (`site/assets/` by default). They usually target a specific template at least to some extent.
+The styles, scripts and accompanying assets that create the look and feel for any template are located under the assets directory (`assets/` by default). They usually target a specific template at least to some extent.
 
 Servant supports `.css`, `.less` and `.scss` files out of the box. For scripts, only `.js` files are used.
 
@@ -19,7 +19,7 @@ There's no reason to use `@import` statements in stylesheets, as all source file
 
 ### Example
 
-##### site/assets/
+##### assets/
 	images/
 		menu.png
 	scripts/

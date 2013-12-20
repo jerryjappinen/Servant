@@ -1,7 +1,7 @@
 
 # Get started with Servant
 
-To create a site, you only need to unzip Servant and **have a text file under `site/pages/`.** Servant will create menus, fancy URLs, sitemaps, stylesheets and everything else.
+To create a site, you only need to unzip Servant and **have a text file under `pages/`.** Servant will create menus, fancy URLs, sitemaps, stylesheets and everything else.
 
 
 

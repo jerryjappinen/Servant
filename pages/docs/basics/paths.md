@@ -16,13 +16,13 @@ Servant can internally handle arbitrary paths in different formats. A path can b
 - `'plain'`
 	- Relative to Servant's root
 	- This is always the default and the format paths are stored in
-	- e.g. `site/assets/jquery/`
+	- e.g. `assets/jquery/`
 - `'domain'`
 	- Relative to domain root
-	- e.g. `mysite/www/site/assets/jquery/`
+	- e.g. `mysite/www/assets/jquery/`
 - `'url'`
 	- Absolute URL with host included
-	- e.g. `http://www.foo.com/mysite/site/assets/jquery/`
+	- e.g. `http://www.foo.com/mysite/assets/jquery/`
 - `'server'`
 	- Relative to document root
-	- e.g. `Users/username/Documents/htdocs/mysite/site/assets/jquery/`
+	- e.g. `Users/username/Documents/htdocs/mysite/assets/jquery/`

@@ -7,7 +7,7 @@ Site settings are **completely optional**.
 
 
 
-h5. site/settings.json
+h5. settings.json
 
 <pre><code>"browserCache":   "3*60",
 "serverCache":    "7*24*7*60",
@@ -18,8 +18,8 @@ h5. site/settings.json
 "assets":          [
 	"http://code.jquery.com/jquery-2.0.3.min.js"
 ],
-"icon":           "site/favicon.ico",
-"splashImage":    "site/splash.png",
+"icon":           "favicon.ico",
+"splashImage":    "splash.png",
 "pageNames": {
 	"docs/basics/markdown": "Text & Markdown",
 	"docs/basics/url-manipulation": "URL manipulation"
@@ -44,8 +44,8 @@ Your site's name will be generated from its folder name, but you can also choose
 |_. Supported setting|_. Example values|
 |*name*||
 |*description*||
-|*icon*<br>Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"site/favicon.png"@|
-|*splashImage*<br>Path (relative to Servant root) to an splash image file.|@"site/splash.png"@|
+|*icon*<br>Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"favicon.png"@|
+|*splashImage*<br>Path (relative to Servant root) to an splash image file.|@"splash.png"@|
 
 
 
