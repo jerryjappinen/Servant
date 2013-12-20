@@ -6,7 +6,7 @@ Servant is a practical and approachable micro framework for web developers, desi
 - Intro, download & docs
 	- [servantframework.com](http://servantframework.com/)
 - Source & issues
-	- [bitbucket.org/Eiskis/servant](http://bitbucket.org/Eiskis/servant/)
+	- [github.com/Eiskis/Servant](https://github.com/Eiskis/Servant)
 - By Jerry Jäppinen
 	- Released under LGPL
 	- [eiskis@gmail.com](mailto:eiskis@gmail.com)
