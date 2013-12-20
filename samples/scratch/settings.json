@@ -1,13 +1,15 @@
 {
 
-	"language": "en",
+	"language": 	"en",
+	"name": 		"My site",
+	"description": 	"A slick description for my site - not too short, not too long",
 
-	"name": "My site",
-	"description": "My description",
-	"icon": "site/favicon.ico",
-	"splashImage": "site/splash.png",
+	"icon": 		"site/icon.png",
+	"splashImage": 	"site/splash.jpg",
+	"template": 	"html",
 
-	"template": "html",
+	"assets": [
+	],
 
 	"pageNames": {
 	},

@@ -25,7 +25,7 @@ PHP 5.3 or newer is required, and Apache's `mod_rewrite` (or `rewrite_module`) m
 
 Things should work out-of-the-box. You should see the demo site when you point your browser to where you put Servant.
 
-Consult troubleshooting guide at [servantframework.com](http://servantframework.com/read/tutorials-and-guides) if you encounter any problems.
+Consult troubleshooting guide at [servantframework.com](http://servantframework.com/read/guides/troubleshooting) if you encounter any problems.
 
 
 

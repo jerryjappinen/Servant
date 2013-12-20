@@ -1,3 +1,0 @@
-# Hello world!
-
-This site runs on [Servant](http://eiskis.net/servant/).
