@@ -7,4 +7,4 @@ Multiple templates are available under `templates/`. Simply editing these files 
 
 For each page a template is picked, either the global default or the one defined in settings.
 
-<a href="/docs/basics/template-scripting" class="button">Full documentation</a>
+<a href="/docs/basics/template-scripting" class="button pull-left">Full documentation</a>
