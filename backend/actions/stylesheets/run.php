@@ -67,9 +67,6 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 
 /**
 * Page-specific style files
-*
-* FLAG
-*   - We only want these in read action (we should print this upon request only - needs input support)
 */
 
 // Select page

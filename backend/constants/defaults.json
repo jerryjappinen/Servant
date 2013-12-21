@@ -1,7 +1,7 @@
 {
 
 	"defaults": {
-		"action": "read",
+		"action": "site",
 		"browserCache": "12*60",
 		"contentType": "html",
 		"language": "en",

@@ -150,9 +150,9 @@ class ServantPage extends ServantNode {
 	* Setters
 	*/
 
-	// Path to this page in read action
+	// Path to this page in the site action
 	protected function setEndpoint () {
-		$action = $this->servant()->constants()->actions('read');
+		$action = $this->servant()->constants()->actions('site');
 		return $this->set('endpoint', $this->servant()->paths()->endpoint($action, 'plain', $this->tree()));
 	}
 

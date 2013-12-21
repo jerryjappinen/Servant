@@ -243,7 +243,7 @@ class ServantAction extends ServantObject {
 	* Whether or not this is the site action
 	*/
 	protected function setIsRead () {
-		return $this->set('isRead', $this->id() === $this->servant()->constants()->actions('read'));
+		return $this->set('isRead', $this->id() === $this->servant()->constants()->actions('site'));
 	}
 
 	/**

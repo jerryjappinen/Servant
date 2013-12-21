@@ -42,7 +42,7 @@
 	- Support running Sevrant without templates (rendering HTML directly)
 	- Make page optional for templates
 	- Support selecting category node (pick page in template if necessary)
-	- Pick a page in template or read action or something when needed
+	- Pick a page in template or something, if needed (template can normalize `$node` with `pick()`)
 - Multiple pieces of content for templates
 - Make `servant()->create()` more useful instead of relying on `nest` methods
 - Search action (investigate full text search in HTML files)
@@ -50,6 +50,9 @@
 - Twig parser of `ServantFiles` should pass on treated variables
 - Support multiple locations for templates, actions etc. (defined in `paths.php`)
 	- Allows keeping site-specific templates under one directory
+- Replace current action name mappings with a new system
+	- Action IDs are always mapped via constants
+	- Users see, in URLs, the names defined in `constants()->actions()`
 
 
 

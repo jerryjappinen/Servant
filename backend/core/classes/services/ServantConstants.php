@@ -73,7 +73,7 @@ class ServantConstants extends ServantObject {
 
 		// Base format
 		$results = array(
-			'read' => null,
+			'site' => null,
 			'error' => null,
 		);
 
