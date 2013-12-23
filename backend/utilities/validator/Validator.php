@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-12-05 21:30 UTC
+* Compiled from source on 2013-12-23 10:16 UTC
 *
 * DEPENDENCIES
 *
@@ -31,12 +31,15 @@ class Validator {
 	private $availableList = array(
 		'string',
 			'base64',
+			'email',
 			'fulltext',
-			'oneliner',
 			'id',
+			'json',
+			'oneliner',
 		'hash',
 			'flathash',
 			'queue',
+				'ids',
 	);
 
 	// List available routines, or check if a specific one is available
@@ -220,8 +223,12 @@ class HashValidatorRoutine extends ValidatorRoutine {
 		if (is_string($input)) {
 
 			// Parse as JSON
-			// FLAG Validator should include JSON with normalizations
-			$temp = json_decode(suffix(prefix($input, '{'), '}'));
+			$temp = trim($temp);
+			$first = substr($temp, 0, 1);
+			if ($first !== '[' or $first !== '{') {
+				$temp = '{'.$temp.'}';
+			}
+			$temp = json_decode($temp);
 			if (is_array($temp)) {
 				$input = $temp;
 
@@ -397,6 +404,49 @@ class QueueValidatorRoutine extends HashValidatorRoutine {
 
 
 /**
+* List of IDs
+*
+* RESULT
+* 	Type: Array
+*   Stripped: Child arrays, keys; each item validated for ID
+*/
+class IdsValidatorRoutine extends QueueValidatorRoutine {
+
+
+
+	// Child validator
+	private $validate = null;
+	public function __construct () {
+		$this->validate = new Validator();
+		return $this;
+	}
+
+
+
+	/**
+	* Children are normalized, keys are removed
+	*/
+	protected function sanitizeInput ($input) {
+
+		// Sanitize all children
+		$result = array();
+		foreach (array_flatten($input) as $value) {
+			$value = $this->validate->id($value);
+			if ($value) {
+				$result[] = $value;
+			}
+		}
+
+		return $result;
+	}
+
+
+
+}
+
+
+
+/**
 * Base64-formatted string (extend Strings)
 *
 * RESULT
@@ -422,6 +472,39 @@ class Base64ValidatorRoutine extends StringValidatorRoutine {
 	protected function validInput ($input) {
 		return base64_decode($input, true) === false ? false : true;
 	}
+
+
+}
+
+
+
+/**
+* Email (extend Strings)
+*
+* RESULT
+* 	Type: String
+* 	Stripped: all whitespace
+*/
+class EmailValidatorRoutine extends StringValidatorRoutine {
+
+
+
+	/**
+	* Trim all whitespace
+	*/
+	protected function sanitizeInput ($input) {
+		return trim_whitespace($input);
+	}
+
+
+
+	/**
+	* Must match email address format
+	*/
+	protected function validInput ($input) {
+		return preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $input);
+	}
+
 
 
 }
@@ -468,6 +551,51 @@ class IdValidatorRoutine extends StringValidatorRoutine {
 	*/
 	protected function sanitizeInput ($input) {
 		return trim_whitespace($input);
+	}
+
+
+
+}
+
+
+
+/**
+* JSON (extends String)
+*
+* RESULT
+* 	Type: String, valid JSON
+*/
+class JsonValidatorRoutine extends StringValidatorRoutine {
+
+
+
+	/**
+	* Override String's type normalization
+	*/
+	protected function normalizeType ($input) {
+		return $input;
+	}
+	protected function validType ($input) {
+		return true;
+	}
+
+
+
+	/**
+	* Attempt to parse as JSON
+	*/
+	protected function sanitizeInput ($input) {
+		return json_encode($input);
+	}
+
+
+
+	/**
+	* Must be valid JSON
+	*/
+	protected function validInput ($input) {
+		$valid = json_decode($input);
+		return (json_last_error() == JSON_ERROR_NONE);
 	}
 
 
