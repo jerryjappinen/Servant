@@ -13,7 +13,8 @@ class ServantInput extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyRaw = null;
+	protected $propertyPointer 	= null;
+	protected $propertyRaw 		= null;
 	protected $propertyValidate = null;
 
 
@@ -60,21 +61,29 @@ class ServantInput extends ServantObject {
 	public function fetch ($key, $format, $default = null) {
 		$value = null;
 
-		// Format must be valid
-		if (!$this->validate()->available($format)) {
-			$this->fail($format.' input is not supported.');
+		// FLAG hardcoded pointer key, weird behavior
+		if ($key === 'pointer') {
+			$this->fail('Use ServantInput->pointer() to access pointer parameters.');
 
-		// Validate raw input
 		} else {
-			$value = $this->validate()->$format($this->raw($key));
-			if ($value === null) {
-				$value = $default;
-			}
-		}
 
-		// Fail on invalid input
-		if ($value === null) {
-			$this->fail('Invalid input provided for '.$key.' ('.$format.' required).');
+			// Format must be valid
+			if (!$this->validate()->available($format)) {
+				$this->fail($format.' input is not supported.');
+
+			// Validate raw input
+			} else {
+				$value = $this->validate()->$format($this->raw($key));
+				if ($value === null) {
+					$value = $default;
+				}
+			}
+
+			// Fail on invalid input
+			if ($value === null) {
+				$this->fail('Invalid input provided for '.$key.' ('.$format.' required).');
+			}
+
 		}
 
 		return $value;
@@ -116,6 +125,39 @@ class ServantInput extends ServantObject {
 	* Getters
 	*/
 
+	public function pointer ($index = null, $includeAction = null) {
+		$pointer = $this->getAndSet('pointer');
+
+		// Normalize parameters
+		if (is_bool($index)) {
+			$temp = $includeAction;
+			$includeAction = $index;
+			$index = $temp;
+			unset($temp);
+		}
+
+		// Skip action
+		if (!$includeAction) {
+			array_shift($pointer);
+		}
+
+		// Get specific value
+		if ($index !== null) {
+
+			// Default to empty string
+			$result = '';
+			if (array_key_exists($index, $pointer)) {
+				$result = $pointer[$index];
+			}
+
+		// Full pointer
+		} else {
+			$result = $pointer;
+		}
+
+		return $result;
+	}
+
 	protected function raw () {
 		$arguments = func_get_args();
 		return $this->getAndSet('raw', $arguments);
@@ -130,6 +172,22 @@ class ServantInput extends ServantObject {
 	/**
 	* Setters
 	*/
+
+	protected function setPointer () {
+
+		// Fetch user input
+		$pointer = $this->raw('pointer');
+
+		// Normalize type
+		if (!$pointer) {
+			$pointer = '';
+
+		} else if (is_array($pointer)) {
+			$pointer = array_flatten($pointer);
+		}
+
+		return $this->set('pointer', $this->validate()->ids($pointer));
+	}
 
 	protected function setRaw ($raw = array()) {
 		return $this->set('raw', $raw);

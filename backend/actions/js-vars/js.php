@@ -1,4 +1,5 @@
 <?php
+$page = $servant->sitemap()->select($input->fetch('page', 'queue', array()));
 $js = array();
 
 // Paths
@@ -8,6 +9,7 @@ $js['paths'] = array(
 	'actions' => unprefix($servant->paths()->endpoints(), $servant->paths()->root()),
 	'assets' => $servant->paths()->assets(),
 	'pages' => $servant->paths()->pages(),
+	'page' => $page->endpoint(),
 	'templates' => $servant->paths()->templates(),
 );
 
@@ -20,6 +22,16 @@ $js['site'] = array(
 	'icon' => $servant->site()->icon(),
 	'splashImage' => $servant->site()->splashImage(),
 	'template' => $servant->site()->template(),
+);
+
+
+
+// Page
+$js['page'] = array(
+	'name' => $page->name(),
+	'id' => $page->id(),
+	'pointer' => $page->pointer(),
+	'template' => $page->template(),
 );
 
 
