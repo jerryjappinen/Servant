@@ -6,5 +6,5 @@
 
 # Servant-specific
 cache/
-temp/
+backend/temp/
 data/

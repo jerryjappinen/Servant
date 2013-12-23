@@ -94,7 +94,7 @@ class ServantMain extends ServantObject {
 			$this->purgeTemp();
 
 			if ($this->debug()) {
-				echo html_dump($e->getMessage());
+				echo log_dump('FAIL', $e->getMessage());
 			}
 
 			// Serve an error page (fake input)
