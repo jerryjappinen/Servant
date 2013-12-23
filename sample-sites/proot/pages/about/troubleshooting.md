@@ -11,8 +11,8 @@ Make sure you have `mod_rewrite` or `rewrite_module` enabled in Apache. In rare 
 ### Check PHP's path settings
 Proot will attempt to find out where it is running on its own, but sometimes you have to manually define its location in `paths.php`.
 
-- Make sure that the initial value of `$paths['root']` represents the location you moved Proot to. Uncomment the line to override automatic detection.
-- `$_SERVER['DOCUMENT_ROOT']` is used, but in some rare cases it doesn't work as intended. You might have to hack the path it gives.
+- Make sure that the initial value of `'root'` represents the location you moved Proot to. Uncomment the line to override automatic detection.
+- `'DOCUMENT_ROOT'` is used, but in some rare cases it doesn't work as intended. You might have to hack the path it gives.
 
 ### Check .htaccess
 
