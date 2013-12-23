@@ -109,7 +109,8 @@ class ServantResponse extends ServantObject {
 	protected function setAction () {
 
 		// Select action based on input
-		$id = $this->selectAction($this->input()->fetch('action', 'id', ''));
+		$pointer = $this->input()->fetch('pointer', 'queue', array());
+		$id = $this->selectAction($pointer[0]);
 
 		return $this->set('action', $this->servant()->create()->action($id, $this->input()));
 	}

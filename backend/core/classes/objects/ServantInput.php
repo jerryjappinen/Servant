@@ -23,7 +23,7 @@ class ServantInput extends ServantObject {
 	*/
 	public function initialize () {
 
-		// Merge inputs
+		// Merge inputs, first one is treated as most important
 		$arguments = func_get_args();
 		$input = array();
 		foreach (array_reverse($arguments) as $value) {
@@ -41,7 +41,7 @@ class ServantInput extends ServantObject {
 		}
 
 		// Store raw input
-		$this->setRaw($input);
+		$this->setRaw(array_reverse($input));
 
 		return $this;
 	}
