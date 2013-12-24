@@ -16,7 +16,7 @@ Usually everything works out-of-the-box. You should see the default sample site 
 <a href="troubleshooting" class="button pull-left">Troubleshooting guide</a>
 
 
-
+<!--
 ## Support
 
 Having problems? If these instructions don't answer your questions, or you have feature requests or any other feedback, please post on <a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb">Servant's Google group</a> for support.
@@ -24,3 +24,4 @@ Having problems? If these instructions don't answer your questions, or you have 
 <a href="https://groups.google.com/forum/?fromgroups#!forum/servantweb" class="button pull-left">Visit Servant's Google group</a>
 
 You can also contact the author of Servant <a href="mailto:eiskis@gmail.com">directly via email</a> if you want.
+-->
