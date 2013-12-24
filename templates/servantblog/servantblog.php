@@ -10,11 +10,11 @@ $max = 3;
 $category = $page->parents(false, 0);
 $posts = array();
 foreach (array_reverse($category->children()) as $node) {
-	if ($node->page()) {
+	if ($node->isPage()) {
 		$posts[] = $node;
-	} else if ($node->category()) {
+	} else if ($node->isCategory()) {
 		foreach (array_reverse($node->children()) as $subnode) {
-			if ($subnode->page()) {
+			if ($subnode->isPage()) {
 				$posts[] = $subnode;
 			}
 		}

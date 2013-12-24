@@ -25,6 +25,10 @@ class ServantNode extends ServantObject {
 	* Convenience
 	*/
 
+	public function isRoot () {
+		return $this->parents(true) ? false : true;
+	}
+
 	// Next sibling
 	public function next () {
 		$result = false;
@@ -58,6 +62,7 @@ class ServantNode extends ServantObject {
 		return array_traverse($parents, $arguments);
 	}
 
+	// Tree as string
 	public function pointer ($includeRoot = false) {
 		return implode('/', $this->tree($includeRoot));
 	}
@@ -72,8 +77,9 @@ class ServantNode extends ServantObject {
 		return $result;
 	}
 
+	// Root node
 	public function root () {
-		return $this->parents(true, 0);
+		return $this->isRoot() ? $this : $this->parents(true, 0);
 	}
 
 	public function sibling () {

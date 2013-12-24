@@ -28,14 +28,18 @@ class ServantPage extends ServantNode {
 
 
 	/**
-	* Convenience
+	* Convenience API for pages
 	*/
 
 	public function category () {
+		return $this->parent();
+	}
+
+	public function isCategory () {
 		return false;
 	}
 
-	public function home () {
+	public function isHome () {
 		$home = false;
 
 		// If this page is first of its siblings
@@ -54,11 +58,11 @@ class ServantPage extends ServantNode {
 		return $home;
 	}
 
-	public function page () {
+	public function isPage () {
 		return true;
 	}
 
-	public function pick () {
+	public function page () {
 		return $this;
 	}
 

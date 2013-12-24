@@ -19,25 +19,29 @@ class ServantCategory extends ServantNode {
 
 
 	/**
-	* Convenience
+	* Convenience API for categories
 	*/
 
 	public function category () {
+		return $this;
+	}
+
+	public function isCategory () {
 		return true;
 	}
 
-	public function home () {
+	public function isHome () {
+		return false;
+	}
+
+	public function isPage () {
 		return false;
 	}
 
 	public function page () {
-		return false;
-	}
-
-	public function pick () {
 		$child = $this->children(0);
-		if ($child->category()) {
-			$child = $child->pick();
+		if ($child->isCategory()) {
+			$child = $child->page();
 		}
 		return $child;
 	}
@@ -49,12 +53,12 @@ class ServantCategory extends ServantNode {
 	*/
 
 	public function endpoint ($format = false) {
-		return $this->pick()->endpoint($format);
+		return $this->page()->endpoint($format);
 	}
 
 	public function output () {
 		$arguments = func_get_args();
-		return call_user_func_array(array($this->pick(), 'output'), $arguments);
+		return call_user_func_array(array($this->page(), 'output'), $arguments);
 	}
 
 

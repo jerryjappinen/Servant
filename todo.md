@@ -16,6 +16,8 @@
 - Input system (for actions)
 	- Pass GET from fancy URLs to actions properly
 	- Save cache files for (serialized) input, not pages
+- Pointer
+	- Make usage more consistent (with pages, pointer means string and tree means what pointer is in input)
 - Action-specific user settings
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection

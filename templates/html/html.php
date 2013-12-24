@@ -11,7 +11,7 @@ $links = '';
 /**
 * Page title
 */
-$title = (!$page->home() ? htmlspecialchars($page->name()).' &ndash; ' : '').htmlspecialchars($servant->site()->name());
+$title = (!$page->isHome() ? htmlspecialchars($page->name()).' &ndash; ' : '').htmlspecialchars($servant->site()->name());
 $meta .= '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
 unset($title);
 
@@ -40,7 +40,7 @@ unset($description);
 /**
 * Other Open Graph stuff
 */
-$meta .= '<meta property="og:type" content="'.($page->home() ? 'website' : 'article').'">'
+$meta .= '<meta property="og:type" content="'.($page->isHome() ? 'website' : 'article').'">'
          .'<meta property="og:url" content="'.$servant->paths()->root('url').'">';
 
 

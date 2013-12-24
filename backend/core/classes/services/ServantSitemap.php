@@ -120,7 +120,7 @@ class ServantSitemap extends ServantObject {
 		}
 
 		// Fallback to go deeper
-		if ($result->category()) {
+		if ($result->isCategory()) {
 			$result = $this->selectNode('', $result->children(0));
 		}
 
