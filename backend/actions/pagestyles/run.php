@@ -4,7 +4,6 @@
 * FLAG
 *   - Not very elegant or dynamic
 */
-$urlManipulator = new UrlManipulator();
 
 // Find out what preprocessor formats are supported
 $allowedFormats = array();
@@ -18,10 +17,8 @@ foreach ($temp as $type => $extensions) {
 unset($temp, $type, $extensions, $extension);
 
 // All stylesheets go here
-$stylesheetSets = array(
-	'site' => array('format' => false, 'content' => ''),
-	'page' => array('format' => false, 'content' => ''),
-);
+$siteStyles = array('format' => false, 'content' => '');
+$pageStyles = array('format' => false, 'content' => '');
 
 // We need this for URL manipulations
 $actionsPath = $servant->paths()->root('domain');
@@ -32,6 +29,9 @@ $actionsPath = $servant->paths()->root('domain');
 * Site-wide styles
 *
 * If SCSS or LESS is used, the first such file determines the type used for the whole set. These cannot be mixed within one set.
+*
+* NOTE
+*   - We don't output site-wide styles, we just need to have it there to preprocess page styles
 */
 foreach ($servant->site()->stylesheets('plain') as $path) {
 
@@ -40,11 +40,11 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 	if (array_key_exists($extension, $allowedFormats)) {
 
 		// Set's format has not been selected yet, we'll do it now
-		if (!$stylesheetSets['site']['format']) {
-			$stylesheetSets['site']['format'] = $allowedFormats[$extension];
+		if (!$siteStyles['format']) {
+			$siteStyles['format'] = $allowedFormats[$extension];
 
 		// Mixing preprocessor formats will fail
-		} else if ($stylesheetSets['site']['format'] !== $allowedFormats[$extension]) {
+		} else if ($siteStyles['format'] !== $allowedFormats[$extension]) {
 			fail('CSS preprocessor formats cannot be mixed in assets');
 		}
 
@@ -60,7 +60,7 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->paths()->assets('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$stylesheetSets['site']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->paths()->format($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
+	$siteStyles['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->paths()->format($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 
@@ -79,11 +79,11 @@ foreach ($page->stylesheets('plain') as $path) {
 	if (array_key_exists($extension, $allowedFormats)) {
 
 		// Set's format has not been selected yet, we'll do it now
-		if (!$stylesheetSets['page']['format']) {
-			$stylesheetSets['page']['format'] = $allowedFormats[$extension];
+		if (!$pageStyles['format']) {
+			$pageStyles['format'] = $allowedFormats[$extension];
 
 		// Mixing specia formats will fail
-		} else if ($stylesheetSets['page']['format'] !== $allowedFormats[$extension]) {
+		} else if ($pageStyles['format'] !== $allowedFormats[$extension]) {
 			fail('CSS preprocessor formats cannot be mixed in page styles');
 		}
 
@@ -99,7 +99,7 @@ foreach ($page->stylesheets('plain') as $path) {
 	$relativeUrl = substr((dirname($path).'/'), strlen($servant->paths()->pages('plain')));
 
 	// Get CSS file contents with URLs replaced
-	$stylesheetSets['page']['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->paths()->format($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
+	$pageStyles['content'] .= $urlManipulator->cssUrls(file_get_contents($servant->paths()->format($path, 'server')), $rootUrl, $relativeUrl, $actionsPath);
 }
 
 
@@ -108,15 +108,18 @@ foreach ($page->stylesheets('plain') as $path) {
 * Output
 */
 
-// Site and page styles use the same superset format; parse as one (so variables from site can be used in page styles, for example)
-if ($stylesheetSets['site']['format'] and $stylesheetSets['site']['format'] === $stylesheetSets['page']['format']) {
-	$stylesheetSets['site']['content'] = $stylesheetSets['site']['content'].$stylesheetSets['page']['content'];
-	unset($stylesheetSets['page']);
+// If site and page styles use the same superset format, we parse them as one so variables from site can be used in page styles
+$parseAsOne = false;
+if ($siteStyles['format'] and $siteStyles['format'] === $pageStyles['format']) {
+	$parseAsOne = true;
+
+	// We merge site stylesheets into page styles, and remove them after parsing
+	$pageStyles['content'] = $siteStyles['content'].$pageStyles['content'];
 }
 
 // Parse sets
-$output = '';
-foreach ($stylesheetSets as $stylesheetSet) {
+$output = array();
+foreach (array($siteStyles, $pageStyles) as $stylesheetSet) {
 
 	// Parse LESS
 	if ($stylesheetSet['format'] === 'less') {
@@ -128,7 +131,7 @@ foreach ($stylesheetSets as $stylesheetSet) {
 			$parser->setFormatter('compressed');
 		}
 
-		$output .= $parser->parse($stylesheetSet['content']);
+		$output[] = $parser->parse($stylesheetSet['content']);
 
 	// Parse SCSS
 	} else if ($stylesheetSet['format'] === 'scss') {
@@ -140,13 +143,20 @@ foreach ($stylesheetSets as $stylesheetSet) {
 			$parser->setFormatter('scss_formatter_compressed');
 		}
 
-		$output .= $parser->compile($stylesheetSet['content']);
+		$output[] = $parser->compile($stylesheetSet['content']);
 
 	// Raw CSS, apparently
 	} else {
-		$output .= $stylesheetSet['content'];
+		$output[] = $stylesheetSet['content'];
 	}
 
+}
+
+// Remove prepended sitestyles from output
+if ($parseAsOne) {
+	$output = substr($output[1], strlen($output[0]));
+} else {
+	$output = $output[1];
 }
 
 

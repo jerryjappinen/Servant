@@ -89,8 +89,19 @@ unset($splashImage, $icon);
 * Links to stylesheets (external from settings + internal from stylesheets action)
 */
 $stylesheetsLinks = '';
+
+// External stylesheets
 $urls = $servant->site()->externalStylesheets();
-$urls[] = $servant->paths()->endpoint('stylesheets', 'domain', ($action->isRead() ? $tree = $page->tree() : array()));
+
+// Assets
+$urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
+
+// Page-specific stylesheets
+if ($action->isRead()) {
+	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->tree());
+}
+
+// Generate HTML
 foreach ($urls as $url) {
 	$stylesheetsLinks .= '<link rel="stylesheet" type="text/css" href="'.$url.'" media="screen">';
 }
@@ -102,11 +113,19 @@ unset($urls, $url);
 * Links to scripts (external from settings + internal from script actions)
 */
 $scriptLinks = '';
+
+// External scripts
 $urls = $servant->site()->externalScripts();
+
+// Assets
 $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
+
+// Page-specific scripts
 if ($action->isRead()) {
-	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $action->isRead() ? $tree = $page->tree() : array());
+	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->tree());
 }
+
+// Generate HTML
 foreach ($urls as $url) {
 	$scriptLinks .= '<script type="text/javascript" src="'.$url.'"></script>';
 }
@@ -160,8 +179,8 @@ unset($temp, $tree, $i, $value);
 		<?php echo $template->content() ?>
 
 		<?php
-		if ($servant->available()->template('warnings') and $servant->debug()) {
-			echo $template->nest('warnings');
+		if ($servant->debug()) {
+			echo $template->nest('debug');
 		}
 		?>
 
