@@ -1,11 +1,34 @@
 <?php
 
 // Select page
-$page = $servant->sitemap()->select($input->pointer());
+$page = $servant->sitemap()->select();
+
+// Pointers
+$code = 500;
+try {
+	$pointer = $input->pointer(0);
+	$pointer = intval($pointer);
+	if ($pointer >= 400 and $pointer < 600) {
+		if ($servant->constants()->statuses($pointer)) {
+			$code = $pointer;
+		}
+	}
+} catch (Exception $e) {
+	$code = 500;
+}
+
+
 
 // Error page via template
-$template = $action->nestTemplate($servant->site()->template(), $page, '<h2>Something went wrong :(</h2>');
+$message = '
+	<h2>Something went wrong :(</h2>
+	<p class="http-message">'.$servant->constants()->statuses($code).'</p>
+';
+$template = $action->nestTemplate($servant->site()->template(), $page, $message);
 
-$action->status(500)->contentType('html')->output($template);
+
+
+// Action output
+$action->status($code)->contentType('html')->output($template);
 
 ?>

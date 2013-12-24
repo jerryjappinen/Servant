@@ -68,9 +68,9 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Helpers
 	*/
-	public function select ($tree = null) {
+	public function select ($tree = array()) {
 		$tree = func_get_args();
-		return $this->selectNode(array_flatten($tree), $this->root());
+		return $this->selectNode($tree, $this->root());
 	}
 
 	/**
@@ -80,7 +80,7 @@ class ServantSitemap extends ServantObject {
 	*   - This works with sitemap-generated robust sitemap, but not very dynamically with arbitrary node maps
 	*/
 	public function selectNode ($tree, $parent) {
-		$tree = to_array($tree);
+		$tree = array_flatten(to_array($tree));
 
 		// Will always return a node, the current one by default
 		$result = $parent;

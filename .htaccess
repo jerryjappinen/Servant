@@ -16,12 +16,12 @@
 # Enable compression for HTML, CSS and JavaScript
 AddOutputFilterByType DEFLATE text/plain text/html text/css text/javascript application/javascript
 
-# Disable directory listings
-# Options -Indexes
-
 # Allow URL rewrites (uncomment "+FollowSymLinks" line if needed on your server)
 # Options +FollowSymLinks
 RewriteEngine on
+
+# Disable directory listings
+# Options -Indexes
 
 # Might be required for CORS (uncomment if needed on your server)
 # Header set Access-Control-Allow-Origin *
@@ -33,7 +33,7 @@ RewriteEngine on
 #
 
 # Forward to default action
-# RewriteRule ^$ %{REQUEST_URI}read/ [R=301,L]
+# RewriteRule ^$ %{REQUEST_URI}site/ [R=301,L]
 
 # Load index.php at root
 DirectoryIndex backend/index.php
@@ -44,3 +44,17 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # Actions
 RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?pointer=$1;$2;$3;$4;$5;$6;$7;$8;$9
+
+
+
+#
+#   ERROR REDIRECTS
+#
+#	You can use these if you know your document root
+#
+
+# ErrorDocument 400 /document/root/error/400
+# ErrorDocument 401 /document/root/error/404
+# ErrorDocument 402 /document/root/error/402
+# ErrorDocument 403 /document/root/error/404
+# ErrorDocument 404 /document/root/error/404
