@@ -75,28 +75,60 @@ class ServantSite extends ServantObject {
 	* Getters
 	*/
 
-	/**
-	* External scripts
-	*/
+	// Browser cache time
+	public function browserCache () {
+		return $this->getAndSet('browserCache');
+	}
+
+	// Description as string
+	public function description () {
+		return $this->getAndSet('description');
+	}
+
+	// External scripts
 	protected function externalScripts () {
 		$arguments = func_get_args();
 		return $this->getAndSet('externalScripts', $arguments);
 	}
 
-	/**
-	* External stylesheets
-	*/
+	// External stylesheets
 	protected function externalStylesheets () {
 		$arguments = func_get_args();
 		return $this->getAndSet('externalStylesheets', $arguments);
 	}
 
+	// Icon file
 	public function icon ($format = null) {
 		$path = $this->getAndSet('icon');
 		if ($format and !empty($path)) {
 			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
+	}
+
+	// Language code
+	public function language () {
+		return $this->getAndSet('language');
+	}
+
+	// Site name
+	public function name () {
+		return $this->getAndSet('name');
+	}
+
+	public function pageNames () {
+		$arguments = func_get_args();
+		return $this->getAndSet('pageNames', $arguments);
+	}
+
+	public function pageOrder () {
+		$arguments = func_get_args();
+		return $this->getAndSet('pageOrder', $arguments);
+	}
+
+	public function pageTemplates () {
+		$arguments = func_get_args();
+		return $this->getAndSet('pageTemplates', $arguments);
 	}
 
 	public function scripts ($format = false) {
@@ -107,6 +139,10 @@ class ServantSite extends ServantObject {
 			}
 		}
 		return $files;
+	}
+
+	public function serverCache () {
+		return $this->getAndSet('serverCache');
 	}
 
 	public function splashImage ($format = null) {
@@ -125,6 +161,10 @@ class ServantSite extends ServantObject {
 			}
 		}
 		return $files;
+	}
+
+	public function template () {
+		return $this->getAndSet('template');
 	}
 
 
@@ -241,7 +281,7 @@ class ServantSite extends ServantObject {
 	*   - Should this be a list of supported languages in order of preference?
 	*/
 	protected function setLanguage ($input = null) {
-		$result = 'en';
+		$result = '';
 
 		// Language from site settings
 		if ($input and is_string($input)) {

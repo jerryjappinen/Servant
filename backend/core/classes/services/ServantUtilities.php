@@ -19,8 +19,9 @@ class ServantUtilities extends ServantObject {
 
 
 	/**
-	* Load a (new) utility
+	* Convenience
 	*/
+
 	public function load () {
 		$arguments = func_get_args();
 		$arguments = array_flatten($arguments);
@@ -36,12 +37,9 @@ class ServantUtilities extends ServantObject {
 
 
 	/**
-	* Public getters
+	* Getters
 	*/
 
-	/**
-	* Loaded
-	*/
 	public function loaded ($name = null) {
 
 		// Check for a specific utility
@@ -64,7 +62,7 @@ class ServantUtilities extends ServantObject {
 
 
 	/**
-	* Private helpers
+	* Helpers
 	*/
 
 	/**

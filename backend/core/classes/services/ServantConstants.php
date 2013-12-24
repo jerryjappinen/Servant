@@ -61,10 +61,43 @@ class ServantConstants extends ServantObject {
 
 
 	/**
-	* Setters
+	* Getters
 	*/
 
+	public function actions () {
+		$arguments = func_get_args();
+		return $this->getAndSet('actions', $arguments);
+	}
+	public function contentTypes () {
+		$arguments = func_get_args();
+		return $this->getAndSet('contentTypes', $arguments);
+	}
+	public function defaults () {
+		$arguments = func_get_args();
+		return $this->getAndSet('defaults', $arguments);
+	}
+	public function formats () {
+		$arguments = func_get_args();
+		return $this->getAndSet('formats', $arguments);
+	}
+	public function namingConvention () {
+		$arguments = func_get_args();
+		return $this->getAndSet('namingConvention', $arguments);
+	}
+	public function patterns () {
+		$arguments = func_get_args();
+		return $this->getAndSet('patterns', $arguments);
+	}
+	public function statuses () {
+		$arguments = func_get_args();
+		return $this->getAndSet('statuses', $arguments);
+	}
 
+
+
+	/**
+	* Setters
+	*/
 
 	/**
 	* Action names

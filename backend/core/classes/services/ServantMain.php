@@ -2,6 +2,8 @@
 
 class ServantMain extends ServantObject {
 
+
+
 	/**
 	* Override constructor (would normally require main)
 	*/
@@ -9,32 +11,65 @@ class ServantMain extends ServantObject {
 		return $this;
 	}
 
-	/**
-	* Debug mode
-	*/
-	protected $propertyDebug = null;
-	protected function setDebug () {
-		return $this->set('debug', false);
-	}
-	protected function enableDebug () {
-		return $this->set('debug', true);
-	}
-
 
 
 	/**
-	* Services
+	* Properties
 	*/
 
 	protected $propertyAvailable 	= null;
 	protected $propertyConstants 	= null;
 	protected $propertyCreate 		= null;
+	protected $propertyDebug 		= null;
 	protected $propertyFiles 		= null;
 	protected $propertyPaths 		= null;
 	protected $propertySite 		= null;
 	protected $propertySitemap 		= null;
 	protected $propertyUtilities 	= null;
 	protected $propertyWarnings 	= null;
+
+
+
+	/**
+	* Getters
+	*/
+
+	public function available () {
+		return $this->getAndSet('available');
+	}
+	public function constants () {
+		return $this->getAndSet('constants');
+	}
+	public function create () {
+		return $this->getAndSet('create');
+	}
+	public function debug () {
+		return $this->getAndSet('debug');
+	}
+	public function files () {
+		return $this->getAndSet('files');
+	}
+	public function paths () {
+		return $this->getAndSet('paths');
+	}
+	public function site () {
+		return $this->getAndSet('site');
+	}
+	public function sitemap () {
+		return $this->getAndSet('sitemap');
+	}
+	public function utilities () {
+		return $this->getAndSet('utilities');
+	}
+	public function warnings () {
+		return $this->getAndSet('warnings');
+	}
+
+
+
+	/**
+	* Setters
+	*/
 
 	protected function setAvailable () {
 		return $this->set('available', $this->generate('available'));
@@ -44,6 +79,9 @@ class ServantMain extends ServantObject {
 	}
 	protected function setCreate () {
 		return $this->set('create', $this->generate('creator'));
+	}
+	protected function setDebug () {
+		return $this->set('debug', false);
 	}
 	protected function setFiles () {
 		return $this->set('files', $this->generate('files'));
@@ -67,10 +105,6 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Flow
-	*/
-
-	/**
 	* Wake-up
 	*/
 	public function initialize ($paths, $constants = null, $debug = false) {
@@ -79,6 +113,12 @@ class ServantMain extends ServantObject {
 		}
 		return $this->setPaths($paths)->setConstants($constants);
 	}
+
+
+
+	/**
+	* Flow
+	*/
 
 	/**
 	* Run actions, generate response
@@ -135,6 +175,10 @@ class ServantMain extends ServantObject {
 	/**
 	* Private helpers
 	*/
+
+	protected function enableDebug () {
+		return $this->set('debug', true);
+	}
 
 	/**
 	* Purge and remove the temp directory

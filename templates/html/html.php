@@ -151,7 +151,7 @@ unset($temp, $tree, $i, $value);
 
 
 <!DOCTYPE html>
-<html lang="<?php echo $servant->site()->language() ?>">
+<html<?php echo $servant->site()->language() ? ' lang="'.$servant->site()->language().'"' : '' ?>>
 	<head>
 
 		<meta charset="utf-8">

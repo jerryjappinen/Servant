@@ -13,9 +13,6 @@
 
 ## Core
 
-- Input system (for actions)
-	- Pass GET from fancy URLs to actions properly
-	- Save cache files for (serialized) input, not pages
 - Action-specific user settings
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
@@ -43,6 +40,7 @@
 	- Make page optional for templates
 	- Support selecting category node (pick page in template if necessary)
 	- Pick a page in template or something, if needed (template can normalize `$node` with `pick()`)
+- Save cache files for serialized raw input?
 - Multiple pieces of content for templates
 - Make `servant()->create()` more useful instead of relying on `nest` methods
 - Search action (investigate full text search in HTML files)

@@ -37,37 +37,6 @@ class ServantSitemap extends ServantObject {
 		return $this->root()->children($arguments);
 	}
 
-
-
-	/**
-	* Initialization
-	*/
-	public function initialize () {
-
-		// Page order
-		$pageOrder = array();
-		foreach ($this->servant()->site()->pageOrder() as $key => $value) {
-			$section = substr($value, 0, strrpos($value, '/'));
-			$pageOrder['root'.($section ? '/'.$section : '')][] = unprefix($value, $section.'/');
-		}
-
-		// Nodes
-		$this->generateNodes($this->findPageTemplates($this->servant()->paths()->pages('server')), $this->root(), $pageOrder);
-		return $this;
-	}
-
-	/**
-	* Root page node
-	*/
-	protected function setRoot () {
-		return $this->set('root', $this->servant()->create()->category('root'));
-	}
-
-
-
-	/**
-	* Helpers
-	*/
 	public function select ($tree = array()) {
 		$tree = func_get_args();
 		return $this->selectNode($tree, $this->root());
@@ -130,13 +99,42 @@ class ServantSitemap extends ServantObject {
 
 
 	/**
+	* Initialization
+	*/
+	public function initialize () {
+
+		// Page order
+		$pageOrder = array();
+		foreach ($this->servant()->site()->pageOrder() as $key => $value) {
+			$section = substr($value, 0, strrpos($value, '/'));
+			$pageOrder['root'.($section ? '/'.$section : '')][] = unprefix($value, $section.'/');
+		}
+
+		// Nodes
+		$this->generateNodes($this->findPageTemplates($this->servant()->paths()->pages('server')), $this->root(), $pageOrder);
+		return $this;
+	}
+
+
+
+	/**
+	* Setters
+	*/
+
+	protected function setRoot () {
+		return $this->set('root', $this->servant()->create()->category('root'));
+	}
+
+
+
+	/**
 	* Private helpers
 	*/
 
 	/**
 	* Find template files in file system
 	*/
-	public function findPageTemplates ($path) {
+	private function findPageTemplates ($path) {
 		$formats = $this->servant()->constants()->formats('templates');
 		$results = array();
 
@@ -169,7 +167,7 @@ class ServantSitemap extends ServantObject {
 	}
 
 	// FLAG a little bloated
-	public function generateNodes ($pages, $parent = null, $pageOrder = array()) {
+	private function generateNodes ($pages, $parent = null, $pageOrder = array()) {
 
 		// Order of children
 		$order = array();

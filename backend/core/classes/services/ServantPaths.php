@@ -13,21 +13,20 @@ class ServantPaths extends ServantObject {
 	protected $propertyIndex 		= null;
 	protected $propertyHost 		= null;
 
+	protected $propertyActions 		= null;
 	protected $propertyAssets 		= null;
+	protected $propertyCache 		= null;
 	protected $propertyData 		= null;
 	protected $propertyManifest 	= null;
 	protected $propertyPages 		= null;
-	protected $propertyTemplates 	= null;
-
-	protected $propertyActions 		= null;
-	protected $propertyCache 		= null;
 	protected $propertyTemp 		= null;
+	protected $propertyTemplates 	= null;
 	protected $propertyUtilities 	= null;
 
 
 
 	/**
-	* Kickstart all paths
+	* Initialization
 	*/
 	public function initialize ($paths) {
 
@@ -86,7 +85,35 @@ class ServantPaths extends ServantObject {
 
 
 	/**
-	* Public getters
+	* Convenience
+	*/
+
+	public function action ($action, $format = null) {
+		return $this->actions($format).suffix($action, '/');
+	}
+
+	public function dataOf ($action, $format = null) {
+		return $this->data($format).suffix($action, '/');
+	}
+
+	public function endpoint ($action, $format = null, $pathParameters = array()) {
+		$arguments = func_get_args();
+		unset($arguments[1]);
+		return $this->endpoints($format).implode_wrap('', '/', array_flatten($arguments));
+	}
+
+	public function endpoints ($format = null) {
+		return $this->root($format);
+	}
+
+	public function template ($template, $format = null) {
+		return $this->templates($format).suffix($template, '/');
+	}
+
+
+
+	/**
+	* Getters
 	*/
 
 	/**
@@ -147,34 +174,6 @@ class ServantPaths extends ServantObject {
 	}
 	public function utilities ($format = null) {
 		return $this->getPath('utilities', $format);
-	}
-
-
-
-	/**
-	* Convenience getters
-	*/
-
-	public function action ($action, $format = null) {
-		return $this->actions($format).suffix($action, '/');
-	}
-
-	public function dataOf ($action, $format = null) {
-		return $this->data($format).suffix($action, '/');
-	}
-
-	public function endpoint ($action, $format = null, $pathParameters = array()) {
-		$arguments = func_get_args();
-		unset($arguments[1]);
-		return $this->endpoints($format).implode_wrap('', '/', array_flatten($arguments));
-	}
-
-	public function endpoints ($format = null) {
-		return $this->root($format);
-	}
-
-	public function template ($template, $format = null) {
-		return $this->templates($format).suffix($template, '/');
 	}
 
 
