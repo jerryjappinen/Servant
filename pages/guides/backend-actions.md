@@ -3,7 +3,7 @@
 
 Servant is easily extendable via the built-in action system. Actions are backend code snippets that generally respond to HTTP requests. They're ideal for quickly setting up custom functionality to support your frontend, for example responding to AJAX requests. Example uses include proxys and database access.
 
-Servant automatically exposes all actions via dedicated URLs. The core release also uses actions itself, for example to output all pages and minified stylesheets for a site.
+Servant automatically exposes all actions via dedicated URLs. The core release includes uses actions for outputting things like minified stylesheets and sitemaps.
 
 
 

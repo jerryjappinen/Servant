@@ -1,5 +1,6 @@
 <?php
 
+$mainmenu = $template->nest('list-toplevelpages');
 $content = '';
 $max = 3;
 

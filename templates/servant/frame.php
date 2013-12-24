@@ -4,7 +4,7 @@
 * Full template
 */
 
-$frame = '
+$output = '
 <div class="row row-menu">
 	<div class="row-content buffer-left buffer-right">
 
@@ -22,9 +22,10 @@ $frame = '
 	<div class="row-content buffer clear-after">
 	';
 
+		// Submenus
 		if ($action->isRead() and $submenu) {
 
-			$frame .= '
+			$output .= '
 			<div class="submenu clear-after">
 				<div class="hide-over-break">
 					'.implode_wrap('<ul class="reset plain">', '</ul>', $sectionmenus).'
@@ -37,19 +38,20 @@ $frame = '
 
 		}
 
-		$frame .= '
+		// Page content
+		$output .= '
 		<div class="article clear-after">
 			'.$template->content().'
 			'.$prevnext.'
 		</div>
 		';
 
-		$frame .= '
+		$output .= '
 	</div>
 </div>
 ';
 
-$frame .= '
+$output .= '
 <div class="row row-footer">
 	<div class="row-content buffer clear-after">
 		'.$footer.'
@@ -57,5 +59,5 @@ $frame .= '
 </div>
 ';
 
-echo $template->nest('html', $frame);
+echo $template->nest('html', $output);
 ?>
