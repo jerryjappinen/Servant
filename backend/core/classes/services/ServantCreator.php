@@ -17,6 +17,12 @@ class ServantCreator extends ServantObject {
 		return call_user_func_array(array($this, 'generate'), $arguments);
 	}
 
+	public function data () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'data');
+		return call_user_func_array(array($this, 'generate'), $arguments);
+	}
+
 	public function input () {
 		$arguments = func_get_args();
 		array_unshift($arguments, 'input');

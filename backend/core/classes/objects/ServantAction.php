@@ -16,6 +16,7 @@ class ServantAction extends ServantObject {
 	*/
 	protected $propertyCache 		= null;
 	protected $propertyContentType 	= null;
+	protected $propertyData 		= null;
 	protected $propertyFiles 		= null;
 	protected $propertyId 			= null;
 	protected $propertyInput 		= null;
@@ -23,19 +24,6 @@ class ServantAction extends ServantObject {
 	protected $propertyPath 		= null;
 	protected $propertyOutput 		= null;
 	protected $propertyStatus 		= null;
-
-
-
-	/**
-	* Data
-	*
-	* FLAG
-	*   - This should be in a ServantData object
-	*/
-
-	public function dataPath ($format = null) {
-		return $this->servant()->paths()->dataOf($this->id(), $format);
-	}
 
 
 
@@ -122,6 +110,10 @@ class ServantAction extends ServantObject {
 		return $this->getOrSet('contentType', $arguments);
 	}
 
+	public function data () {
+		return $this->getAndSet('data');
+	}
+
 	// Files in any format
 	public function files ($format = false) {
 		$files = $this->getAndSet('files');
@@ -196,6 +188,13 @@ class ServantAction extends ServantObject {
 		}
 
 		return $this->set('contentType', $contentType);
+	}
+
+	/**
+	* Data service
+	*/
+	public function setData () {
+		return $this->set('data', $this->servant()->create()->data($this->id()));
 	}
 
 	/**

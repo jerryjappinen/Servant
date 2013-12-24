@@ -1,5 +1,5 @@
 <?php
 
-$action->contentType('txt')->output($action->contentType().': '.implode('/', $input->pointer()));
+$action->contentType('txt')->output(dump($action->data()->rglob()));
 
 ?>
