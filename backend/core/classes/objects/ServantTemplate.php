@@ -104,7 +104,7 @@ class ServantTemplate extends ServantObject {
 	}
 
 	// Files can be fetched with their paths in any format
-	protected function files ($format = false) {
+	public function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
@@ -127,7 +127,7 @@ class ServantTemplate extends ServantObject {
 	}
 
 	// Paths can be fetched in any format
-	protected function path ($format = false) {
+	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->paths()->format($path, $format);
@@ -258,7 +258,7 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Template is either a folder within the templates directory
+	* Template is a folder within the templates directory
 	*/
 	protected function setPath () {
 		$path = '';

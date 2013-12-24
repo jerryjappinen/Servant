@@ -86,13 +86,13 @@ class ServantSite extends ServantObject {
 	}
 
 	// External scripts
-	protected function externalScripts () {
+	public function externalScripts () {
 		$arguments = func_get_args();
 		return $this->getAndSet('externalScripts', $arguments);
 	}
 
 	// External stylesheets
-	protected function externalStylesheets () {
+	public function externalStylesheets () {
 		$arguments = func_get_args();
 		return $this->getAndSet('externalStylesheets', $arguments);
 	}

@@ -50,15 +50,6 @@ class ServantObject {
 	*/
 
 	/**
-	* _call
-	*
-	* When calling an inaccessible method, the fallback is getAndSet()
-	*/
-	public function __call ($id, $arguments) {
-		return $this->getAndSet($id, $arguments);
-	}
-
-	/**
 	* __construct
 	*/
 	public function __construct ($main) {

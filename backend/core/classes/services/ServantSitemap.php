@@ -118,6 +118,16 @@ class ServantSitemap extends ServantObject {
 
 
 	/**
+	* Getters
+	*/
+
+	protected function root () {
+		return $this->getAndSet('root');
+	}
+
+
+
+	/**
 	* Setters
 	*/
 

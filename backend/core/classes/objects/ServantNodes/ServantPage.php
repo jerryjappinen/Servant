@@ -113,7 +113,7 @@ class ServantPage extends ServantNode {
 	}
 
 	// Template file
-	protected function path ($format = false) {
+	public function path ($format = false) {
 		$path = $this->getAndSet('path');
 		if ($format) {
 			$path = $this->servant()->paths()->format($path, $format);
