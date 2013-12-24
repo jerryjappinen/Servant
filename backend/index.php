@@ -1,8 +1,11 @@
 <?php
-error_reporting(E_ALL|E_STRICT);
+error_reporting(0);
 ini_set('display_errors', '0');
 ini_set('error_log', 'errors.log');
+mb_internal_encoding('UTF-8');
 date_default_timezone_set('UTC');
+
+
 
 /**
 * Welcome
