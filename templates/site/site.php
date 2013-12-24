@@ -24,7 +24,7 @@ $output .= '
 	';
 
 		// Submenus
-		if ($action->isRead() and $submenu) {
+		if ($action->isSite() and $submenu) {
 
 			$output .= '
 			<div class="submenu">

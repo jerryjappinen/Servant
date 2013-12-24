@@ -97,7 +97,7 @@ $urls = $servant->site()->externalStylesheets();
 $urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
 
 // Page-specific stylesheets
-if ($action->isRead()) {
+if ($action->isSite()) {
 	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->tree());
 }
 
@@ -121,7 +121,7 @@ $urls = $servant->site()->externalScripts();
 $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
 
 // Page-specific scripts
-if ($action->isRead()) {
+if ($action->isSite()) {
 	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->tree());
 }
 

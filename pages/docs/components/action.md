@@ -10,6 +10,6 @@ Property name   | Description |
 `dataPath()` 	| Path to the data directory of this action. [Formattable](/docs/about/paths/). |
 `id()` 			|  |
 `input()` 		| User input. See [input component](/docs/components/input). |
-`isRead()` 		|  |
+`isSite()` 		|  |
 `output()` 		| Action output. Defaults to `''`. |
 `status()` 		| HTTP status code for the response. Defaults to `200`. |

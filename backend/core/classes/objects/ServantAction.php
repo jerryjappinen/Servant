@@ -19,7 +19,7 @@ class ServantAction extends ServantObject {
 	protected $propertyFiles 		= null;
 	protected $propertyId 			= null;
 	protected $propertyInput 		= null;
-	protected $propertyIsRead 		= null;
+	protected $propertyIsSite 		= null;
 	protected $propertyPath 		= null;
 	protected $propertyOutput 		= null;
 	protected $propertyStatus 		= null;
@@ -140,8 +140,8 @@ class ServantAction extends ServantObject {
 	}
 
 	// 
-	public function isRead () {
-		return $this->getAndSet('isRead');
+	public function isSite () {
+		return $this->getAndSet('isSite');
 	}
 
 	// 
@@ -242,8 +242,8 @@ class ServantAction extends ServantObject {
 	/**
 	* Whether or not this is the site action
 	*/
-	protected function setIsRead () {
-		return $this->set('isRead', $this->id() === $this->servant()->constants()->actions('site'));
+	protected function setIsSite () {
+		return $this->set('isSite', $this->id() === $this->servant()->constants()->actions('site'));
 	}
 
 	/**
