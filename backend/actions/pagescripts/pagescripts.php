@@ -6,7 +6,7 @@
 $output = '';
 
 // Select page
-$page = $servant->sitemap()->select($input->pointer());
+$page = $servant->sitemap()->select($input->pointer())->page();
 
 foreach ($page->scripts('server') as $path) {
 	$output .= file_get_contents($path);

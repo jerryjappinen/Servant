@@ -1,5 +1,5 @@
 <?php
-$page = $servant->sitemap()->select($input->pointer());
+$page = $servant->sitemap()->select($input->pointer())->page();
 $js = array();
 
 // Paths

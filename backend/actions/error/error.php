@@ -1,7 +1,7 @@
 <?php
 
 // Select page
-$page = $servant->sitemap()->select();
+$page = $servant->sitemap()->select()->page();
 
 // Pointers
 $code = 500;

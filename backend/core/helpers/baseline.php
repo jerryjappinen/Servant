@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-21 12:04 UTC
+* Compiled from source on 2013-12-24 12:35 UTC
 */
 
 
@@ -72,6 +72,28 @@ function array_flatten (array $array, $removeChildren = false, $preserveKeys = f
 		} else if (!$removeChildren) {
 			$result = array_merge($result, array_flatten($value, $removeChildren, $preserveKeys));
 		}
+	}
+	return $result;
+}
+
+
+
+/**
+* Get the last item in an array.
+*
+* @param $array
+*	...
+*
+* @param $traverseChildArrays
+*	If the last item is a child array, treat the stack recursively and find the last non-array value.
+*
+* @return
+*	...
+*/
+function array_last (array $array = array(), $traverseChildArrays = false) {
+	$result = end($array);
+	if ($traverseChildArrays and is_array($result)) {
+		$result = array_last($result, true);
 	}
 	return $result;
 }
@@ -456,7 +478,6 @@ function remove_file ($path) {
 *   String content of output buffer after the script has run, false on failure.
 */
 function run_script () {
-	$output = false;
 
 	$file = func_get_arg(0);
 	if (is_file($file)) {
@@ -481,7 +502,7 @@ function run_script () {
 
 		// Catch output reliably
 		$output = ob_get_contents();
-		if ($output === false) {
+		if (!is_string($output)) {
 			$output = '';
 		}
 
@@ -553,7 +574,7 @@ function glob_dir ($path = '') {
 
 	// Normalize path
 	if (!empty($path)) {
-		$path = suffix($path, '/');
+		$path = preg_replace('/(\*|\?|\[)/', '[$1]', suffix($path, '/'));
 	}
 
 	// Find directories in the path
@@ -599,7 +620,7 @@ function glob_files ($path = '', $filetypes = array()) {
 
 	// Handle path input
 	if (!empty($path)) {
-		$path = suffix($path, '/');
+		$path = preg_replace('/(\*|\?|\[)/', '[$1]', suffix($path, '/'));
 	}
 
 	// Do the glob()

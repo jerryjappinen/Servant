@@ -119,10 +119,10 @@ class ServantSitemap extends ServantObject {
 
 		}
 
-		// Fallback to go deeper
-		if ($result->isCategory()) {
-			$result = $this->selectNode('', $result->children(0));
-		}
+		// Always select page
+		// if ($result->isCategory()) {
+		// 	$result = $this->selectNode('', $result->children(0));
+		// }
 
 		return $result;
 	}

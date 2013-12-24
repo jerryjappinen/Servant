@@ -70,7 +70,7 @@ foreach ($servant->site()->stylesheets('plain') as $path) {
 */
 
 // Select page
-$page = $servant->sitemap()->select($input->pointer());
+$page = $servant->sitemap()->select($input->pointer())->page();
 
 foreach ($page->stylesheets('plain') as $path) {
 

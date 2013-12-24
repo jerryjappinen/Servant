@@ -1,7 +1,7 @@
 <?php
 
 // Select page
-$page = $servant->sitemap()->select($input->pointer());
+$page = $servant->sitemap()->select($input->pointer())->page();
 
 // Create custom HTML for sitemap page
 $output = '<h1>Sitemap</h1>'.html_dump($sitemap->dump());
