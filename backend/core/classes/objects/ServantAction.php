@@ -30,7 +30,7 @@ class ServantAction extends ServantObject {
 	* Data
 	*
 	* FLAG
-	*   - This should be a ServantData object
+	*   - This should be in a ServantData object
 	*/
 
 	public function dataPath ($format = null) {
@@ -53,9 +53,8 @@ class ServantAction extends ServantObject {
 		// Defaults
 		$contentType = $this->servant()->constants()->defaults('contentType');
 		$status = $this->servant()->constants()->defaults('status');
-		$output = '';
 
-		return $this->contentType($contentType)->status($status)->output($output);
+		return $this->contentType($contentType)->status($status);
 	}
 
 
@@ -124,7 +123,7 @@ class ServantAction extends ServantObject {
 	}
 
 	// Files in any format
-	protected function files ($format = false) {
+	public function files ($format = false) {
 		$files = $this->getAndSet('files');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
@@ -140,13 +139,13 @@ class ServantAction extends ServantObject {
 	}
 
 	// 
-	public function isSite () {
-		return $this->getAndSet('isSite');
+	protected function input () {
+		return $this->getAndSet('input');
 	}
 
 	// 
-	protected function input () {
-		return $this->getAndSet('input');
+	public function isSite () {
+		return $this->getAndSet('isSite');
 	}
 
 	// 
@@ -188,7 +187,14 @@ class ServantAction extends ServantObject {
 	*
 	* A code for content type, available in settings. Should be available in settings.
 	*/
-	protected function setContentType ($contentType) {
+	protected function setContentType ($input = null) {
+		$contentType = '';
+
+		// Valid content type passed
+		if (is_string($input) or is_numeric($input)) {
+			$contentType = trim(''.$input);
+		}
+
 		return $this->set('contentType', $contentType);
 	}
 
@@ -250,9 +256,19 @@ class ServantAction extends ServantObject {
 	* Output
 	*
 	* The complete body content given for response.
+	*
+	* FLAG
+	*   - Add support for images
 	*/
-	protected function setOutput ($output) {
-		return $this->set('output', trim(''.$output));
+	protected function setOutput ($input = null) {
+		$output = '';
+
+		// Valid output passed
+		if (is_string($input) or is_numeric($input)) {
+			$output = trim(''.$input);
+		}
+
+		return $this->set('output', $output);
 	}
 
 	/**

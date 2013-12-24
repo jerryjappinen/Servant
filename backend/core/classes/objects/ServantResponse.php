@@ -171,31 +171,31 @@ class ServantResponse extends ServantObject {
 
 	/**
 	* Get content type from action
-	*
-	* FLAG
-	*   - allow action to set the content type directly (detecting slash - needs changes to treating existing responses, too)?
 	*/
 	protected function setContentType () {
 		$contentType = '';
 
 		// Read content type from file extension
 		if ($this->existing()) {
-			$contentType = pathinfo($this->existing(), PATHINFO_EXTENSION);
+			$contentType = str_replace('.', '/', substr(pathinfo($this->existing(), PATHINFO_FILENAME), 4));
 
 		// Get content type from action
 		} else {
-			$contentType = $this->action()->contentType();
-
-			// Invalid action content type
-			if (!$this->servant()->constants()->contentTypes($contentType)) {
-				$this->fail('No valid content type determined');
+			$actionContentType = trim($this->action()->contentType());
+			if (is_string($actionContentType)) {
+				$contentType = $actionContentType;
 			}
-
 		}
 
 		// System default
 		if (!$contentType) {
 			$contentType = $this->servant()->constants()->defaults('contentType');
+		}
+
+		// Real string defined in constants
+		$constant = $this->servant()->constants()->contentTypes($contentType);
+		if ($constant) {
+			$contentType = $constant;
 		}
 
 		return $this->set('contentType', $contentType);
@@ -223,7 +223,7 @@ class ServantResponse extends ServantObject {
 
 		// Look for a file that matches criteria work
 		$path = $this->basePath('server');
-		$potential = glob($path.'*.*');
+		$potential = glob($path.'*.*.*.*');
 		if (!empty($potential)) {
 			$path = $potential[0];
 		}
@@ -287,7 +287,19 @@ class ServantResponse extends ServantObject {
 
 		// Response doesn't exist, we'll be creating a new one
 		} else {
-			$path = $this->basePath().$this->status().'.'.$this->contentType();
+			$contentType = $this->contentType();
+
+			// Cache file extension
+			$extension = 'cache';
+			$constants = array_flip(array_reverse($this->servant()->constants()->contentTypes()));
+			if (array_key_exists($contentType, $constants)) {
+				$extension = $constants[$contentType];
+			}
+
+			// Full file path
+			$path = $this->basePath().$this->status()
+			   .'.'.str_replace('/', '.', $contentType)
+			   .'.'.$extension;
 		}
 
 		return $this->set('path', $path);
@@ -303,7 +315,7 @@ class ServantResponse extends ServantObject {
 		// Read status from filename
 		if ($this->existing()) {
 			$split = explode('.', basename($this->existing()));
-			$status = $split[count($split)-2];
+			$status = intval($split[0]);
 
 		// Get status from action
 		} else {
@@ -425,7 +437,7 @@ class ServantResponse extends ServantObject {
 	}
 
 	private function generateContentTypeHeader ($contentType) {
-		$headerString = 'Content-Type: '.$this->servant()->constants()->contentTypes($contentType);
+		$headerString = 'Content-Type: '.$contentType;
 
 		// Add character set if needed
 		if (in_array(substr($contentType, 0, strpos($contentType, '/')), array('text', 'application'))) {
