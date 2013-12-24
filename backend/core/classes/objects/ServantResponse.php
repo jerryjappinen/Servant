@@ -339,11 +339,11 @@ class ServantResponse extends ServantObject {
 		// Base dir from settings
 		$path = $this->servant()->paths()->cache($format).'/'.$this->action()->id().'/';
 
-		// Each page gets their own file
-		// FLAG this should be a generic serialization of input
-		$path .= implode('/', $this->action()->input()->fetch('page', 'queue', array())).'/';
+		// Each input permutation gets their own file
+		// FLAG other input is not taken into account
+		$path .= implode('/', $this->input()->pointer());
 
-		return $path;
+		return suffix($path, '/');
 	}
 
 	/**

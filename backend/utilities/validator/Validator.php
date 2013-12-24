@@ -223,7 +223,7 @@ class HashValidatorRoutine extends ValidatorRoutine {
 		if (is_string($input)) {
 
 			// Parse as JSON
-			$temp = trim($temp);
+			$temp = trim($input);
 			$first = substr($temp, 0, 1);
 			if ($first !== '[' or $first !== '{') {
 				$temp = '{'.$temp.'}';
