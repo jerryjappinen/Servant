@@ -23,8 +23,8 @@ h2 {
 
 }
 
-/*Header*/
-.row-header {
+/*Intro*/
+.row-intro {
 
 	@media handheld, only screen and (max-width: @bb-break) {
 		h1 {
@@ -169,6 +169,15 @@ h2 {
 
 	h2 {
 		max-width: 8em;
+		@media handheld, only screen and (min-width: @bb-break) {
+			&.squeeze-top {
+				margin-top: 0.2em;
+			}
+		}
+	}
+
+	.column.third {
+		// padding-top: 1em;
 	}
 
 	a, .discreet {
@@ -196,14 +205,16 @@ h2 {
 		color: #333;
 
 		&:hover {
-			// .box-shadow(0 0.1em 0.2em #297ea3);
 			background-color: #fff;
 		}
 
 		&:focus {
 			background-color: #fff;
 			outline: 0;
-			// .box-shadow(0 0.1em 0.6em #297ea3);
+		}
+
+		&.pull-left {
+			margin-left: -0.6em;
 		}
 
 	}
