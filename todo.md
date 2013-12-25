@@ -16,11 +16,6 @@
 - Action-specific user settings
 	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
-- Data/storage/working directory services for actions
-	- file traversal
-	- adding files
-	- making sure directory is available and writable
-	- `ServantData`?
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
 	- `servant://` (root)
 	- `assets://`
@@ -32,16 +27,17 @@
 	- Apply URL parsing to HTML form's action tag
 	- Treat `../` as expected when parsing URLs
 - `ServantTemplate` improvements
-	- Support running Sevrant without templates (rendering HTML directly)
-	- Make page optional for templates
 	- Support selecting category node (pick page in template if necessary)
+	- Support running Servant without template files (rendering content directly)
+	- Make page optional for templates
 	- Pick a page in template or something, if needed (template can normalize `$node` with `pick()`)
+	- Multiple pieces of content
 - Save cache files for serialized raw input?
-- Multiple pieces of content for templates
 - Make `servant()->create()` more useful instead of relying on `nest` methods
 - Search action (investigate full text search in HTML files)
 - Case-insensitive `ServantNode` pointers
 - Twig parser of `ServantFiles` should pass on treated variables
+- Better data/storage/working directory services for actions
 - Support multiple locations for templates, actions etc. (defined in `paths.php`)
 	- Allows keeping site-specific templates under one directory
 - Replace current action name mappings with a new system
