@@ -1,11 +1,6 @@
 <?php
+
 $output = '';
-
-
-
-/**
-* Full level 2+3 menu
-*/
 $mainCategory = $page->parents(false, 0);
 if ($mainCategory) {
 

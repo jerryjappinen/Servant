@@ -83,15 +83,6 @@ class ServantAction extends ServantObject {
 		return $this->servant()->create()->action($id, $input)->run();
 	}
 
-	/**
-	* Generate a template
-	*
-	* FLAG nest methods should be removed, use ServantCreator
-	*/
-	public function nestTemplate ($id, $page, $content = null) {
-		return $this->servant()->create()->template($id, $this, $page, $content)->output();
-	}
-
 
 
 	/**

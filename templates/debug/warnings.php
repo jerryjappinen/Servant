@@ -1,10 +1,13 @@
 <?php
 
 /**
-* Warnings as HTML
+* Warnings printed out as HTML
+*
+* NESTED TEMPLATES
+*	(none)
 *
 * CONTENT PARAMETERS
-*	-
+*	(none)
 */
 
 if ($servant->warnings()->count()) {

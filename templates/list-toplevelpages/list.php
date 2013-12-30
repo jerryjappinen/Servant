@@ -1,8 +1,17 @@
 <?php
 
 /**
-* Level 1 menu
+* Generates HTML main menu for this site
+*
+* NESTED TEMPLATES
+*	(none)
+*
+* CONTENT PARAMETERS
+*	0: Current page (ServantPage)
 */
+
+$page = $template->content();
+
 $nodes = $servant->sitemap()->pages();
 if (!empty($nodes)) {
 

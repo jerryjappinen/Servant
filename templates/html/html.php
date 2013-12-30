@@ -3,9 +3,17 @@
 /**
 * HTML meta tags and boilerplate code
 *
+* NESTED TEMPLATES
+*	debug
+*
 * CONTENT PARAMETERS
 *	0: Body content (string)
+*	1: Current page (ServantPage)
+*	2: usePageAssets (truy or falsy)		// FLAG this is true if $page is not available?
 */
+
+$page = $template->content(1);
+$usePageAssets = $template->content(2) ? true : false;
 
 
 
@@ -106,7 +114,7 @@ $urls = $servant->site()->externalStylesheets();
 $urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
 
 // Page-specific stylesheets
-if ($template->isSite()) {
+if ($usePageAssets) {
 	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->tree());
 }
 
@@ -130,7 +138,7 @@ $urls = $servant->site()->externalScripts();
 $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
 
 // Page-specific scripts
-if ($template->isSite()) {
+if ($usePageAssets) {
 	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->tree());
 }
 

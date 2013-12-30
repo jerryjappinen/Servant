@@ -1,9 +1,8 @@
 <?php
 
-$mainmenu = $template->nest('list-toplevelpages');
-
-$submenu = $template->nest('list-submenu');
-
+// Menus
+$mainmenu = $template->nest('list-toplevelpages', $page);
+$submenu = $template->nest('list-submenu', $page);
 $sectionmenus = array();
 
 // Level 2

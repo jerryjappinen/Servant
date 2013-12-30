@@ -24,11 +24,13 @@ $message = '
 	<h2>Something went wrong :(</h2>
 	<p class="http-message">'.$servant->constants()->statuses($code).'</p>
 ';
-$template = $action->nestTemplate($servant->site()->template(), $page, $message);
+
+// FLAG I can't know what content the template wants - I'm assuming the same as site action
+$template = $servant->create()->template($servant->site()->template(), $message, $page);
 
 
 
 // Action output
-$action->status($code)->contentType('html')->output($template);
+$action->status($code)->contentType('html')->output($template->output());
 
 ?>

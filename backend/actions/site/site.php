@@ -3,10 +3,15 @@
 // Select page
 $page = $servant->sitemap()->select($input->pointer())->page();
 
-// Nest the page action
+// Get page content via page action
+// $pageAction = $servant->create()->action('page', $input)->run();
 $pageAction = $action->nest('page');
-$output = $action->nestTemplate($page->template(), $page, $pageAction->output());
+
+
+
+// FLAG I can't know what content the template wants - I'm just assuming this
+$template = $servant->create()->template($servant->site()->template(), $pageAction->output(), $page, true);
 
 // Output page content
-$action->contentType('html')->contentType($pageAction->contentType())->output($output);
+$action->contentType('html')->contentType($pageAction->contentType())->output($template->output());
 ?>

@@ -25,63 +25,13 @@ class ServantTemplate extends ServantObject {
 
 
 	/**
-	* Legacy
-	*
-	* FLAG
-	*   - Replace with multiple template content/parameters (if a template needs this info, it's passed this)
-	*/
-
-	// Action
-	public function isSite () {
-		return $this->action()->isSite();
-	}
-	protected $propertyAction = null;
-	public function action () {
-		return $this->get('action');
-	}
-	protected function setAction ($action) {
-		if ($this->getServantClass($action) !== 'action') {
-			$this->fail('Invalid action passed to template.');
-
-		// Action is acceptable
-		} else {
-			return $this->set('action', $action);
-		}
-
-	}
-
-	// Page
-	protected $propertyPage = null;
-	public function page () {
-		return $this->get('page');
-	}
-	protected function setPage ($page) {
-	
-		if ($this->getServantClass($page) !== 'page') {
-			$this->fail('Invalid page passed to template.');
-
-		// Page is acceptable
-		} else {
-			return $this->set('page', $page);
-		}
-
-	}
-
-	/**
 	* Make a child template (returns output directly)
-	*
-	* FLAG
-	*   - I should remove nest methods (use $servant->create() instead)
 	*/
-	public function nest ($templateId, $content = null) {
+	public function nest ($templateId) {
 
-		// Normalize arguments
+		// Create a template object
 		$arguments = func_get_args();
-		array_shift($arguments);
-		array_unshift($arguments, 'template', $templateId, $this->action(), $this->page());
-
-		// Create the template object
-		$template = call_user_func_array(array($this, 'generate'), $arguments);
+		$template = call_user_func_array(array($this->servant()->create(), 'template'), $arguments);
 
 		// Return the output of the template
 		return $template->output();
@@ -111,23 +61,18 @@ class ServantTemplate extends ServantObject {
 
 	/**
 	* Initialization
-	*
-	* FLAG
-	*   - Way too effortless: action and page should be optional or something
 	*/
 
-	public function initialize ($id, $action, $page) {
+	public function initialize ($id) {
 		$arguments = func_get_args();
-		$contentArguments = array_slice($arguments, 3);
+		array_shift($arguments);
 
 		// Set ID and action
 		$this->setId($id);
-		$this->setAction($action);
-		$this->setPage($page);
 
 		// Set content
-		if (!empty($contentArguments)) {
-			call_user_func_array(array($this, 'setContents'), $contentArguments);
+		if (!empty($arguments)) {
+			call_user_func_array(array($this, 'setContents'), $arguments);
 		}
 
 		return $this;
@@ -250,7 +195,6 @@ class ServantTemplate extends ServantObject {
 			// Variables passed to template scripts
 			$scriptVariables = array(
 				'servant' => $this->servant(),
-				'page' => $this->page(),
 				'template' => $this,
 			);
 

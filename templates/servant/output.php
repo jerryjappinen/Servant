@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Full template
+* Full printout
 */
 
 $output = '
@@ -23,7 +23,7 @@ $output = '
 	';
 
 		// Submenus
-		if ($template->isSite() and $submenu) {
+		if ($usePageAssets and $submenu) {
 
 			$output .= '
 			<div class="submenu clear-after">
@@ -59,5 +59,5 @@ $output .= '
 </div>
 ';
 
-echo $template->nest('html', $output);
+echo $template->nest('html', $output, $page, $usePageAssets);
 ?>
