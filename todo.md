@@ -26,25 +26,18 @@
 - `ServantTemplate` improvements
 	- Support selecting category node (pick page in template if necessary)
 	- Support running Servant without template files (rendering content directly)
-	- Make page optional for templates
-	- Pick a page in template or something, if needed (template can normalize `$node` with `pick()`)
-	- Multiple pieces of content
 - Save cache files for all serialized raw input?
-- Stop relying on `nest` methods (use `servant()->create()`)
 - Action-specific user settings
-	- JSON (must stay secure on server)?  Allow users to declare action-specific configs in site settings?
+	- JSON (must stay secure on server)? Allow users to declare action-specific configs in site settings?
+	- User-facing action names via `constants()->actionNames()`
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
-- Search action (investigate full text search in HTML files)
-- Twig parser of `ServantFiles` should pass on treated variables
-- Better data/storage/working directory services for actions
 - Support multiple locations for templates, actions etc. (defined in `paths.php`)
 	- Allows keeping site-specific templates under one directory
-- Replace current action name mappings with a new system
-	- Action IDs are always mapped via constants
-	- Users see, in URLs, the names defined in `constants()->actions()`
-- Pointers (`ServantNode` and `ServantInput`)
-	- Make usage more consistent (with pages, pointer means string and tree means what pointer is in input)
-	- Case-insensitive
+	- Makes updating Servant easier
+- Better data/storage/working directory services for actions
+- Search action (investigate full text search in HTML files)
+- Twig parser of `ServantFiles` should pass on treated variables
+- Case-insensitive pointers (`ServantNode` and `ServantInput`)?
 
 
 
