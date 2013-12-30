@@ -39,6 +39,7 @@ class ServantNode extends ServantObject {
 		return $result;
 	}
 
+	// Parent nodes
 	public function parents ($includeRoot = false) {
 		$arguments = func_get_args();
 		$parents = array();
@@ -62,11 +63,6 @@ class ServantNode extends ServantObject {
 		return array_traverse($parents, $arguments);
 	}
 
-	// Pointer as string
-	public function stringPointer ($includeRoot = false) {
-		return implode('/', $this->pointer($includeRoot));
-	}
-
 	// Previous sibling
 	public function previous () {
 		$result = false;
@@ -82,14 +78,28 @@ class ServantNode extends ServantObject {
 		return $this->isRoot() ? $this : $this->parents(true, 0);
 	}
 
+	// Any sibling by index
 	public function sibling () {
 		$arguments = func_get_args();
 		return array_traverse($this->siblings(), $arguments);
 	}
 
+	// All siblings, including self
 	public function siblings () {
 		$arguments = func_get_args();
 		return call_user_func_array(array($this->parent(), 'children'), $arguments);
+	}
+
+	// Pointer as string
+	public function stringPointer ($includeRoot = false) {
+		return implode('/', $this->pointer($includeRoot));
+	}
+
+	// Parents + self
+	public function tree ($includeRoot = false) {
+		$nodes = $this->parents($includeRoot);
+		$nodes[] = $this;
+		return $nodes;
 	}
 
 
