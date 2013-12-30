@@ -76,7 +76,7 @@ class ServantAction extends ServantObject {
 	*/
 	public function nest ($id) {
 
-		// No new input, use 
+		// No new input, use parent action's
 		if (func_num_args() < 2) {
 			$input = $this->input();
 

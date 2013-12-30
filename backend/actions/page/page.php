@@ -36,9 +36,24 @@ $actionsUrl = $servant->paths()->root('domain');
 
 
 
-// Set output
+// Run page scripts with URL parameters, excluding page pointers
+$parameters = $input->pointer();
+$tree = $page->pointer();
+$i = 0;
+for ($i = 0; $i < count($tree); $i++) { 
+	if ($tree[$i] !== $parameters[$i]) {
+		break;
+	}	
+}
+$parameters = array_slice($parameters, $i);
+
+$output = $page->output($parameters);
+
+
+
+// Set manipulated output
 $servant->utilities()->load('urlmanipulator');
 $manipulate = new UrlManipulator();
-$action->contentType('html')->output($manipulate->htmlUrls($page->output(), $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
+$action->contentType('html')->output($manipulate->htmlUrls($output, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
 
 ?>

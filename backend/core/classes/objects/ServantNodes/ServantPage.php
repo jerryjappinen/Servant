@@ -108,8 +108,16 @@ class ServantPage extends ServantNode {
 	}
 
 	public function output () {
-		$arguments = func_get_args();
-		return $this->getOrSet('output', $arguments);
+		$output = $this->get('output');
+
+		// Unset
+		if ($output === null) {
+			$arguments = func_get_args();
+			call_user_func_array(array($this, 'setOutput'), $arguments);
+			$output = $this->get('output');
+		}
+
+		return $output;
 	}
 
 	// Template file
@@ -181,9 +189,14 @@ class ServantPage extends ServantNode {
 	// Template content as a string
 	protected function setOutput () {
 
+
+		// Allow passing input to page when generating page
+		$arguments = func_get_args();
+
 		// Variables passed to page scripts
 		$scriptVariables = array(
 			'servant' => $this->servant(),
+			'parameters' => array_flatten($arguments),
 			'page' => $this,
 		);
 
