@@ -17,21 +17,6 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Convenience
 	*/
-	public function dump ($parent = false) {
-
-		// Dump from root if not specified
-		if (!$parent) {
-			$parent = $this->root()->children();
-		}
-
-		$output = array();
-		foreach ($parent as $node) {
-			$output[$node->id()] = $node->children() ? $this->dump($node->children()) : $node->name();
-		}
-
-		return $output;
-	}
-
 	public function pages () {
 		$arguments = func_get_args();
 		return $this->root()->children($arguments);
@@ -88,11 +73,6 @@ class ServantSitemap extends ServantObject {
 
 		}
 
-		// Always select page
-		// if ($result->isCategory()) {
-		// 	$result = $this->selectNode('', $result->children(0));
-		// }
-
 		return $result;
 	}
 
@@ -121,7 +101,7 @@ class ServantSitemap extends ServantObject {
 	* Getters
 	*/
 
-	protected function root () {
+	public function root () {
 		return $this->getAndSet('root');
 	}
 
