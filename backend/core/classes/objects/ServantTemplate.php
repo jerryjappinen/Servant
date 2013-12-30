@@ -99,7 +99,7 @@ class ServantTemplate extends ServantObject {
 		}
 
 		// Set content
-		call_user_func_array(array($this, 'content'), $contentArguments);
+		call_user_func_array(array($this, 'setContent'), $contentArguments);
 
 		return $this;
 	}
@@ -112,7 +112,7 @@ class ServantTemplate extends ServantObject {
 
 	public function content ($content = null) {
 		$arguments = func_get_args();
-		return $this->getOrSet('content', $arguments);
+		return $this->getAndSet('content', $arguments);
 	}
 
 	// Files can be fetched with their paths in any format
