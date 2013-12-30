@@ -4,14 +4,11 @@
 $page = $servant->sitemap()->select($input->pointer())->page();
 
 // Get page content via page action
-// $pageAction = $servant->create()->action('page', $input)->run();
 $pageAction = $action->nest('page');
-
-
 
 // FLAG I can't know what content the template wants - I'm just assuming this
 $template = $servant->create()->template($servant->site()->template(), $pageAction->output(), $page, true);
 
 // Output page content
-$action->contentType('html')->contentType($pageAction->contentType())->output($template->output());
+$action->contentType($pageAction->contentType())->output($template->output());
 ?>

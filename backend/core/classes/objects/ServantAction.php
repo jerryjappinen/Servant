@@ -73,13 +73,28 @@ class ServantAction extends ServantObject {
 
 	/**
 	* Generate a child action
-	*
-	* FLAG nest methods should be removed, use ServantCreator
 	*/
-	public function nest ($id, $input = null) {
-		if (!$input) {
+	public function nest ($id) {
+
+		// No new input, use 
+		if (func_num_args() < 2) {
 			$input = $this->input();
+
+		} else {
+			$arguments = func_get_args();
+			array_shift($arguments);
+
+			// Input object passed
+			if ($this->getServantClass($arguments[0]) === 'input') {
+				$input = $arguments[0];
+
+			// New input
+			} else {
+				$input = call_user_func_array(array($this->servant()->create(), 'input'), $arguments);
+			}
+
 		}
+
 		return $this->servant()->create()->action($id, $input)->run();
 	}
 
