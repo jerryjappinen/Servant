@@ -3,7 +3,7 @@
 /**
 * A template
 *
-* Template objects work without any actual template files. Their content is set to '' by default.
+* Template objects, potentially with template files
 *
 * DEPENDENCIES
 *   ServantConstants	-> defaults
@@ -16,11 +16,10 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyContent 	= null;
+	protected $propertyContents = null;
 	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
 	protected $propertyOutput 	= null;
-	protected $propertyPage 	= null;
 	protected $propertyPath 	= null;
 
 
@@ -32,10 +31,11 @@ class ServantTemplate extends ServantObject {
 	*   - Replace with multiple template content/parameters (if a template needs this info, it's passed this)
 	*/
 
+	// Action
 	public function isSite () {
 		return $this->action()->isSite();
 	}
-	protected $propertyAction 	= null;
+	protected $propertyAction = null;
 	public function action () {
 		return $this->get('action');
 	}
@@ -50,17 +50,28 @@ class ServantTemplate extends ServantObject {
 
 	}
 
+	// Page
+	protected $propertyPage = null;
+	public function page () {
+		return $this->get('page');
+	}
+	protected function setPage ($page) {
+	
+		if ($this->getServantClass($page) !== 'page') {
+			$this->fail('Invalid page passed to template.');
 
+		// Page is acceptable
+		} else {
+			return $this->set('page', $page);
+		}
+
+	}
 
 	/**
-	* Convenience
-	*/
-
-	/**
-	* Create and initialize a child template
+	* Make a child template (returns output directly)
 	*
 	* FLAG
-	*   - I should remove nest methods
+	*   - I should remove nest methods (use $servant->create() instead)
 	*/
 	public function nest ($templateId, $content = null) {
 
@@ -78,28 +89,46 @@ class ServantTemplate extends ServantObject {
 
 
 
+
+
+
+
+
+
+	/**
+	* Convenience
+	*/
+
+	public function content () {
+		$arguments = func_get_args();
+		if (empty($arguments)) {
+			$arguments[] = 0;
+		}
+		return call_user_func_array(array($this, 'contents'), $arguments);
+	}
+
+
+
 	/**
 	* Initialization
 	*
 	* FLAG
 	*   - Way too effortless: action and page should be optional or something
 	*/
-	public function initialize ($id, $action, $page, $content = null) {
+
+	public function initialize ($id, $action, $page) {
 		$arguments = func_get_args();
-		$contentArguments = array_slice($arguments, 2);
+		$contentArguments = array_slice($arguments, 3);
 
 		// Set ID and action
 		$this->setId($id);
 		$this->setAction($action);
 		$this->setPage($page);
 
-		// Default to empty content
-		if (empty($contentArguments)) {
-			$contentArguments = array('');
-		}
-
 		// Set content
-		call_user_func_array(array($this, 'setContent'), $contentArguments);
+		if (!empty($contentArguments)) {
+			call_user_func_array(array($this, 'setContents'), $contentArguments);
+		}
 
 		return $this;
 	}
@@ -110,9 +139,9 @@ class ServantTemplate extends ServantObject {
 	* Getters
 	*/
 
-	public function content ($content = null) {
+	public function contents () {
 		$arguments = func_get_args();
-		return $this->getAndSet('content', $arguments);
+		return $this->getAndSet('contents', $arguments);
 	}
 
 	// Files can be fetched with their paths in any format
@@ -134,10 +163,6 @@ class ServantTemplate extends ServantObject {
 		return $this->getAndSet('output');
 	}
 
-	public function page () {
-		return $this->get('page');
-	}
-
 	// Paths can be fetched in any format
 	public function path ($format = false) {
 		$path = $this->getAndSet('path');
@@ -154,35 +179,20 @@ class ServantTemplate extends ServantObject {
 	*/
 
 	/**
-	* Template content, whereever it comes
+	* Zero, one or more pieces of template content - any type, loosely determined by template scripts
 	*/
-	protected function setContent ($input = null) {
-		$content = '';
+	protected function setContents () {
+		$result = array();
 
-		// Normalize multiple parameters
+		// Take in content items
 		$arguments = func_get_args();
-		$arguments = array_flatten($arguments);
-
-		// String or numerical input
-		if (!empty($arguments)) {
-
-			// Normalize all input
-			$valids = array();
-			foreach ($arguments as $value) {
-				$value = $this->normalizeContent($value);
-				if (!empty($value)) {
-					$valids[] = $value;
-				}
+		foreach ($arguments as $value) {
+			if ($value !== null) {
+				$result[] = $value;
 			}
-
-			// Accept new content
-			if (!empty($valids)) {
-				$content = implode("\n\n", $valids);
-			}
-
 		}
 
-		return $this->set('content', $content);
+		return $this->set('contents', $result);
 	}
 
 	/**
@@ -234,7 +244,7 @@ class ServantTemplate extends ServantObject {
 		$result = '';
 		$files = $this->files('server');
 
-		// Use template files (might or might not include $template->content())
+		// Use template files
 		if (!empty($files)) {
 
 			// Variables passed to template scripts
@@ -246,9 +256,9 @@ class ServantTemplate extends ServantObject {
 
 			$result = $this->servant()->files()->read($files, $scriptVariables);
 
-		// No files - use content directly
+		// No files - attempt to use content directly
 		} else {
-			$result = $this->content();
+			$result = ''.implode("\n\n", $this->contents());
 		}
 
 		return $this->set('output', trim($result));
@@ -269,35 +279,6 @@ class ServantTemplate extends ServantObject {
 		}
 
 		return $this->set('path', $path);
-	}
-
-	/**
-	* Current page
-	*/
-	protected function setPage ($page) {
-	
-		if ($this->getServantClass($page) !== 'page') {
-			$this->fail('Invalid page passed to template.');
-
-		// Page is acceptable
-		} else {
-			return $this->set('page', $page);
-		}
-
-	}
-
-
-
-	/**
-	* Private helpers
-	*/
-
-	private function normalizeContent ($input) {
-		$content = '';
-		if (is_string($input) or is_numeric($input)) {
-			$content = trim(''.$input);
-		}
-		return $content;
 	}
 
 }

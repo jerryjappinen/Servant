@@ -1,4 +1,12 @@
 <?php
+
+/**
+* Warnings as HTML
+*
+* CONTENT PARAMETERS
+*	-
+*/
+
 if ($servant->warnings()->count()) {
 	echo '<div style="margin: 0; position: relative; top: 0; left: 0; width: 100%; z-index: 9999;">
 		<div style="padding: 2em; background: #C92816; color: #f3f3f3;" onlick="">

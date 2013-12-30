@@ -1,6 +1,15 @@
 <?php
 
 /**
+* HTML meta tags and boilerplate code
+*
+* CONTENT PARAMETERS
+*	0: Body content (string)
+*/
+
+
+
+/**
 * Preparing meta info
 */
 $meta = '';
