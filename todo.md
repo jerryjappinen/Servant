@@ -20,7 +20,7 @@
 	- `pages://`
 	- `templates://`
 	- In different contexts, one of these serves as the default root
-	- Have one PHP methods that handle these conversions (so you can write something like `pointer('assets://foo')`)
+	- Have one PHP method that handles these conversions (so you can write something like `pointer('assets://foo')`)
 	- Apply URL parsing to HTML form's action tag
 	- Treat `../` as expected when parsing URLs
 - `ServantTemplate` improvements
