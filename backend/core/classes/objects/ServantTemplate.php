@@ -9,20 +9,46 @@
 *   ServantConstants	-> defaults
 *   ServantFiles		-> read
 *   ServantFormat		-> path
-*   ServantPaths		-> actions
+*   ServantPaths		-> template, format
 */
 class ServantTemplate extends ServantObject {
 
 	/**
 	* Properties
 	*/
-	protected $propertyAction 	= null;
 	protected $propertyContent 	= null;
 	protected $propertyFiles 	= null;
 	protected $propertyId 		= null;
 	protected $propertyOutput 	= null;
 	protected $propertyPage 	= null;
 	protected $propertyPath 	= null;
+
+
+
+	/**
+	* Legacy
+	*
+	* FLAG
+	*   - Replace with multiple template content/parameters (if a template needs this info, it's passed this)
+	*/
+
+	public function isSite () {
+		return $this->action()->isSite();
+	}
+	protected $propertyAction 	= null;
+	public function action () {
+		return $this->get('action');
+	}
+	protected function setAction ($action) {
+		if ($this->getServantClass($action) !== 'action') {
+			$this->fail('Invalid action passed to template.');
+
+		// Action is acceptable
+		} else {
+			return $this->set('action', $action);
+		}
+
+	}
 
 
 
@@ -48,16 +74,6 @@ class ServantTemplate extends ServantObject {
 
 		// Return the output of the template
 		return $template->output();
-	}
-
-	/**
-	* Generate a child action, return output
-	*
-	* FLAG
-	*   - I should remove nest methods
-	*/
-	public function nestAction ($id) {
-		return $this->servant()->create()->action($id, $this->page())->run()->output();
 	}
 
 
@@ -93,10 +109,6 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Getters
 	*/
-
-	public function action () {
-		return $this->get('action');
-	}
 
 	public function content ($content = null) {
 		$arguments = func_get_args();
@@ -140,20 +152,6 @@ class ServantTemplate extends ServantObject {
 	/**
 	* Setters
 	*/
-
-	/**
-	* Action
-	*/
-	protected function setAction ($action) {
-		if ($this->getServantClass($action) !== 'action') {
-			$this->fail('Invalid action passed to template.');
-
-		// Action is acceptable
-		} else {
-			return $this->set('action', $action);
-		}
-
-	}
 
 	/**
 	* Template content, whereever it comes
@@ -238,9 +236,10 @@ class ServantTemplate extends ServantObject {
 
 		// Use template files (might or might not include $template->content())
 		if (!empty($files)) {
+
+			// Variables passed to template scripts
 			$scriptVariables = array(
 				'servant' => $this->servant(),
-				'action' => $this->action(),
 				'page' => $this->page(),
 				'template' => $this,
 			);

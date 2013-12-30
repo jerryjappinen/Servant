@@ -27,7 +27,7 @@ foreach (array_reverse($category->children()) as $node) {
 $i = 0;
 foreach ($posts as $post) {
 	if ($i < $max) {
-		$content .= '<article class="post">'.$action->nest('page', $servant->create()->input(array('page' => $post->tree())))->output().'</article>';
+		$content .= '<article class="post">'.$servant->create()->action('page', $servant->create()->input(array('page' => $post->tree())))->output().'</article>';
 		$i++;
 	}
 }

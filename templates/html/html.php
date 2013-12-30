@@ -97,7 +97,7 @@ $urls = $servant->site()->externalStylesheets();
 $urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
 
 // Page-specific stylesheets
-if ($action->isSite()) {
+if ($template->isSite()) {
 	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->tree());
 }
 
@@ -121,7 +121,7 @@ $urls = $servant->site()->externalScripts();
 $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
 
 // Page-specific scripts
-if ($action->isSite()) {
+if ($template->isSite()) {
 	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->tree());
 }
 
@@ -143,7 +143,7 @@ foreach ($tree as $value) {
 	$temp[] = 'page-'.implode('-', array_slice($tree, 0, $i));
 	$i++;
 }
-$bodyClasses = 'action-'.$action->id().' depth-'.$page->depth().' index-'.$page->index().' '.implode(' ', $temp).' template-'.$page->template();
+$bodyClasses = 'depth-'.$page->depth().' index-'.$page->index().' '.implode(' ', $temp).' template-'.$page->template();
 unset($temp, $tree, $i, $value);
 
 ?>

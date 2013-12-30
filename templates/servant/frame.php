@@ -23,7 +23,7 @@ $output = '
 	';
 
 		// Submenus
-		if ($action->isSite() and $submenu) {
+		if ($template->isSite() and $submenu) {
 
 			$output .= '
 			<div class="submenu clear-after">

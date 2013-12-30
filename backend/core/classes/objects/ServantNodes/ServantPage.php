@@ -181,11 +181,14 @@ class ServantPage extends ServantNode {
 	// Template content as a string
 	protected function setOutput () {
 
-		// Read content from source file
-		$fileContent = $this->servant()->files()->read($this->path('server'), array(
+		// Variables passed to page scripts
+		$scriptVariables = array(
 			'servant' => $this->servant(),
 			'page' => $this,
-		));
+		);
+
+		// Read content from source file
+		$fileContent = $this->servant()->files()->read($this->path('server'), $scriptVariables);
 
 		// Save file content
 		return $this->set('output', $fileContent);

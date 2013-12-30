@@ -58,7 +58,7 @@ class ServantAction extends ServantObject {
 	*/
 	public function run () {
 
-		// Variables to pass to action's scripts
+		// Variables to pass to action scripts
 		$scriptVariables = array(
 			'servant' => $this->servant(),
 			'input' => $this->input(),
