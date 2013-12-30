@@ -63,7 +63,7 @@ class ServantNode extends ServantObject {
 	}
 
 	// Tree as string
-	public function pointer ($includeRoot = false) {
+	public function stringPointer ($includeRoot = false) {
 		return implode('/', $this->tree($includeRoot));
 	}
 
@@ -223,7 +223,7 @@ class ServantNode extends ServantObject {
 
 			// Name given in settings
 			$replacements = $this->servant()->site()->pageNames();
-			$key = $this->pointer();
+			$key = $this->stringPointer();
 			if (array_key_exists($key, $replacements)) {
 				$name = $replacements[$key];
 
@@ -258,7 +258,7 @@ class ServantNode extends ServantObject {
 
 		// Template defined in settings
 		$pageTemplates = $this->servant()->site()->pageTemplates();
-		$pointer = $this->pointer();
+		$pointer = $this->stringPointer();
 
 		if (array_key_exists($pointer, $pageTemplates)) {
 

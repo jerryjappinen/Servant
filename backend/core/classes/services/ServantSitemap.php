@@ -161,7 +161,7 @@ class ServantSitemap extends ServantObject {
 
 		// Order of children
 		$order = array();
-		$pointer = $parent->pointer(true);
+		$pointer = $parent->stringPointer(true);
 		if (array_key_exists($pointer, $pageOrder)) {
 			$order = $pageOrder[$pointer];
 		}

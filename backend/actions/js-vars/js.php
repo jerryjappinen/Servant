@@ -28,9 +28,9 @@ $js['site'] = array(
 
 // Page
 $js['page'] = array(
-	'name' => $page->name(),
 	'id' => $page->id(),
-	'pointer' => $page->pointer(),
+	'name' => $page->name(),
+	'endpoint' => $page->endpoint(),
 	'template' => $page->template(),
 );
 
