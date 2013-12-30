@@ -115,7 +115,7 @@ $urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
 
 // Page-specific stylesheets
 if ($usePageAssets) {
-	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->tree());
+	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->pointer());
 }
 
 // Generate HTML
@@ -139,7 +139,7 @@ $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
 
 // Page-specific scripts
 if ($usePageAssets) {
-	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->tree());
+	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->pointer());
 }
 
 // Generate HTML
@@ -155,13 +155,13 @@ unset($urls, $url);
 */
 $i = 1;
 $temp = array();
-$tree = $page->tree();
-foreach ($tree as $value) {
-	$temp[] = 'page-'.implode('-', array_slice($tree, 0, $i));
+$pointer = $page->pointer();
+foreach ($pointer as $value) {
+	$temp[] = 'page-'.implode('-', array_slice($pointer, 0, $i));
 	$i++;
 }
 $bodyClasses = 'depth-'.$page->depth().' index-'.$page->index().' '.implode(' ', $temp).' template-'.$page->template();
-unset($temp, $tree, $i, $value);
+unset($temp, $pointer, $i, $value);
 
 ?>
 

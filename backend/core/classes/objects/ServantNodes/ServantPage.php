@@ -157,7 +157,7 @@ class ServantPage extends ServantNode {
 	// Path to this page in the site action
 	protected function setEndpoint () {
 		$action = $this->servant()->constants()->actions('site');
-		return $this->set('endpoint', $this->servant()->paths()->endpoint($action, 'plain', $this->tree()));
+		return $this->set('endpoint', $this->servant()->paths()->endpoint($action, 'plain', $this->pointer()));
 	}
 
 	protected function setId ($input = null) {

@@ -24,9 +24,9 @@ if (!empty($relativeSrcUrl)) {
 }
 
 // Relative location for HREF urls
-$tree = $page->tree();
-array_pop($tree);
-$relativeHrefUrl = implode('/', $tree);
+$pointer = $page->pointer();
+array_pop($pointer);
+$relativeHrefUrl = implode('/', $pointer);
 if (!empty($relativeHrefUrl)) {
 	$relativeHrefUrl .= '/';
 }

@@ -21,7 +21,7 @@ if (!empty($nodes)) {
 		$link = '<a href="'.$node->endpoint('domain').'">'.htmlspecialchars($node->name()).'</a>';
 
 		// List item, possibly selected
-		echo '<li>'.($node->tree(1) === $page->tree(1) ? '<strong>'.$link.'</strong>' : $link).'</li>';
+		echo '<li>'.($node->pointer(1) === $page->pointer(1) ? '<strong>'.$link.'</strong>' : $link).'</li>';
 
 	}
 

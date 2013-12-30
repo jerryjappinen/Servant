@@ -16,8 +16,8 @@ class ServantNode extends ServantObject {
 	protected $propertyIndex 		= null;
 	protected $propertyName 		= null;
 	protected $propertyParent 		= null;
+	protected $propertyPointer 		= null;
 	protected $propertyTemplate 	= null;
-	protected $propertyTree 		= null;
 
 
 
@@ -62,9 +62,9 @@ class ServantNode extends ServantObject {
 		return array_traverse($parents, $arguments);
 	}
 
-	// Tree as string
+	// Pointer as string
 	public function stringPointer ($includeRoot = false) {
-		return implode('/', $this->tree($includeRoot));
+		return implode('/', $this->pointer($includeRoot));
 	}
 
 	// Previous sibling
@@ -142,19 +142,19 @@ class ServantNode extends ServantObject {
 		return $template;
 	}
 
-	public function tree ($includeRoot = false) {
+	public function pointer ($includeRoot = false) {
 		$arguments = func_get_args();
-		$tree = $this->getAndSet('tree');
+		$pointer = $this->getAndSet('pointer');
 
 		// FLAG this behavior is a bit odd, it's a hacky solution
 		if (is_bool($includeRoot)) {
 			array_shift($arguments);
 		}
 		if ($includeRoot === false) {
-			array_shift($tree);
+			array_shift($pointer);
 		}
 
-		return array_traverse($tree, $arguments);
+		return array_traverse($pointer, $arguments);
 	}
 
 
@@ -238,7 +238,9 @@ class ServantNode extends ServantObject {
 		return $this->set('name', $name);
 	}
 
-	// Parent node
+	/**
+	* Parent node
+	*/
 	protected function setParent ($category) {
 
 		// Make sure the parent is a category
@@ -252,7 +254,21 @@ class ServantNode extends ServantObject {
 		return $this->set('parent', $category);
 	}
 
-	// Template
+	/**
+	* List of parent IDs + own ID
+	*/
+	protected function setPointer () {
+		$results = array();
+		foreach ($this->parents(true) as $parent) {
+			$results[] = $parent->id();
+		}
+		$results[] = $this->id();
+		return $this->set('pointer', $results);
+	}
+
+	/**
+	* Template
+	*/
 	protected function setTemplate () {
 		$template = '';
 
@@ -274,16 +290,6 @@ class ServantNode extends ServantObject {
 		}
 
 		return $this->set('template', $template);
-	}
-
-	// List of parent IDs + own ID, without root
-	protected function setTree () {
-		$results = array();
-		foreach ($this->parents(true) as $parent) {
-			$results[] = $parent->id();
-		}
-		$results[] = $this->id();
-		return $this->set('tree', $results);
 	}
 
 }

@@ -13,7 +13,7 @@ $output = '
 			$level1 = $servant->pages()->map();
 			if (!empty($level1)) {
 				foreach ($level1 as $key => $tempPage) {
-					$output .= '<li class="reset'.($page->tree(0) === $key ? ' selected': '').'"><a href="'.$tempPage->readPath('domain').'">'.$tempPage->name().'</a></li>';
+					$output .= '<li class="reset'.($page->pointer(0) === $key ? ' selected': '').'"><a href="'.$tempPage->readPath('domain').'">'.$tempPage->name().'</a></li>';
 				}
 			}
 			unset($level1, $key, $tempPage);
@@ -36,10 +36,10 @@ $output = '
 			';
 
 			// Level 2 menu
-			$level2 = $servant->pages()->map($page->tree(0));
+			$level2 = $servant->pages()->map($page->pointer(0));
 			if (!empty($level2) and is_array($level2)) {
 				foreach ($level2 as $key => $tempPage) {
-					$output .= '<li class="reset'.($page->tree(1) === $key ? ' selected': '').'"><a href="'.$tempPage->readPath('domain').'/">'.$tempPage->name().'</a></li>';
+					$output .= '<li class="reset'.($page->pointer(1) === $key ? ' selected': '').'"><a href="'.$tempPage->readPath('domain').'/">'.$tempPage->name().'</a></li>';
 				}
 			}
 			unset($level2, $key, $tempPage);
@@ -91,7 +91,7 @@ $output .= '
 		';
 
 		// One-column layout
-		$current = count($page->tree())-1;
+		$current = count($page->pointer())-1;
 		if ($current < 2) {
 			$output .= $template->content();
 
@@ -108,10 +108,10 @@ $output .= '
 					';
 
 					// Level 3 menu
-					$level3 = $servant->pages()->templates($page->tree(0), $page->tree(1));
+					$level3 = $servant->pages()->templates($page->pointer(0), $page->pointer(1));
 					if (!empty($level3) and is_array($level3)) {
 						foreach ($level3 as $key => $value) {
-							$output .= '<li class="reset'.($page->tree(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$action->id().'/'.$page->tree(0).'/'.$page->tree(1).'/'.$key.'/">'.$key.'</a></li>';
+							$output .= '<li class="reset'.($page->pointer(2) === $key ? ' selected': '').'"><a href="'.$servant->paths()->root('domain').$servant->site()->id().'/'.$action->id().'/'.$page->pointer(0).'/'.$page->pointer(1).'/'.$key.'/">'.$key.'</a></li>';
 						}
 					}
 					unset($level3, $key, $value);
