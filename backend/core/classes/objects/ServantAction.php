@@ -233,7 +233,7 @@ class ServantAction extends ServantObject {
 	*/
 	protected function setInput () {
 		$arguments = func_get_args();
-		$input = $arguments[0];
+		$input = isset($arguments[0]) ? $arguments[0] : '';
 
 		// Input objects needed
 		if ($this->getServantClass($input) !== 'input') {
