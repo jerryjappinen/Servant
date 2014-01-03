@@ -32,11 +32,14 @@ class ServantAction extends ServantObject {
 	*
 	* Defaults are set here, and can be overridden by action's code.
 	*/
-	public function initialize ($id, $input) {
+	public function initialize ($id, $input = null) {
 
 		// Set ID and input upon initialization
 		$this->setId($id);
-		$this->setInput($input);
+
+		if ($input) {
+			$this->setInput($input);
+		}
 
 		// Defaults
 		$contentType = $this->servant()->constants()->defaults('contentType');
@@ -238,16 +241,17 @@ class ServantAction extends ServantObject {
 	/**
 	* Input
 	*/
-	protected function setInput ($input) {
+	protected function setInput ($input = null) {
 
-		if ($this->getServantClass($input) !== 'input') {
+		// Empty input, generate dummy object
+		if (!$input) {
+			$input = $this->servant()->create()->input();
+
+		} else if ($this->getServantClass($input) !== 'input') {
 			$this->fail('Invalid input passed to action.');
-
-		// Input is acceptable
-		} else {
-			return $this->set('input', $input);
 		}
 
+		return $this->set('input', $input);
 	}
 
 	/**
