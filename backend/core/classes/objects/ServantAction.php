@@ -37,8 +37,11 @@ class ServantAction extends ServantObject {
 		// Set ID and input upon initialization
 		$this->setId($id);
 
+		// Set input
 		if ($input) {
-			$this->setInput($input);
+			$arguments = func_get_args();
+			array_shift($arguments);
+			call_user_func_array(array($this, 'setInput'), $arguments);
 		}
 
 		// Defaults
@@ -79,26 +82,13 @@ class ServantAction extends ServantObject {
 	*/
 	public function nest ($id) {
 
-		// No new input, use parent action's
-		if (func_num_args() < 2) {
-			$input = $this->input();
-
-		} else {
-			$arguments = func_get_args();
-			array_shift($arguments);
-
-			// Input object passed
-			if ($this->getServantClass($arguments[0]) === 'input') {
-				$input = $arguments[0];
-
-			// New input
-			} else {
-				$input = call_user_func_array(array($this->servant()->create(), 'input'), $arguments);
-			}
-
+		// Inherit input by default
+		$arguments = func_get_args();
+		if (count($arguments) <= 1) {
+			$arguments[] = $this->input();
 		}
 
-		return $this->servant()->create()->action($id, $input)->run();
+		return call_user_func_array(array($this->servant()->create(), 'action'), $arguments)->run();
 	}
 
 
@@ -241,14 +231,13 @@ class ServantAction extends ServantObject {
 	/**
 	* Input
 	*/
-	protected function setInput ($input = null) {
+	protected function setInput () {
+		$arguments = func_get_args();
+		$input = $arguments[0];
 
-		// Empty input, generate dummy object
-		if (!$input) {
-			$input = $this->servant()->create()->input();
-
-		} else if ($this->getServantClass($input) !== 'input') {
-			$this->fail('Invalid input passed to action.');
+		// Input objects needed
+		if ($this->getServantClass($input) !== 'input') {
+			$input = call_user_func_array(array($this->servant()->create(), 'input'), $arguments);
 		}
 
 		return $this->set('input', $input);

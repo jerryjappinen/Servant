@@ -123,6 +123,9 @@ class ServantInput extends ServantObject {
 
 	/**
 	* Getters
+	*
+	* FLAG
+	*   - includeAction is weirdly
 	*/
 
 	public function pointer ($index = null, $includeAction = null) {
