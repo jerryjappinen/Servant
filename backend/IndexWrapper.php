@@ -27,7 +27,7 @@ class IndexWrapper {
 
 			// Get rid of hazardous globals
 			// unset($_SERVER);
-			unset($_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES, $_SESSION);
+			unset($_COOKIE, $_POST, $_GET, $_REQUEST, $_FILES);
 
 			// Run program
 			call_user_func(array($this, 'run'));

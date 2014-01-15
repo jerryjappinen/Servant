@@ -17,6 +17,7 @@ date_default_timezone_set('UTC');
 * After that, Servant is ready to be used to serve responses for requests.
 */
 require_once 'IndexWrapper.php';
+session_start();
 new IndexWrapper(
 	'core/debug.php',
 	'core/errors.php',

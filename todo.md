@@ -13,6 +13,15 @@
 
 ## Core
 
+- `ServantPath` object?
+	- Returned by all path properties
+	- `__toString`
+	- `->plain()`
+	- `->domain()`
+	- `->url()`
+	- `->server()`
+	- `->split()`
+	- `->foo('more', 'url', 'parameters')`
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
 	- `servant://` (root)
 	- `assets://`
