@@ -112,9 +112,10 @@ $urls = $servant->site()->externalStylesheets();
 
 // Assets
 $urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
+$urls[] = $servant->paths()->endpoint('templatestyles', 'domain', $page->template());
 
 // Page-specific stylesheets
-if ($usePageAssets) {
+if ($usePageAssets and $page->stylesheets()) {
 	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->pointer());
 }
 
@@ -136,9 +137,10 @@ $urls = $servant->site()->externalScripts();
 
 // Assets
 $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
+$urls[] = $servant->paths()->endpoint('templatescripts', 'domain', $page->template());
 
 // Page-specific scripts
-if ($usePageAssets) {
+if ($usePageAssets and $page->scripts()) {
 	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->pointer());
 }
 
