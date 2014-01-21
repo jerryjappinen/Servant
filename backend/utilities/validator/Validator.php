@@ -54,6 +54,15 @@ class Validator {
 
 
 	/**
+	* Constructor
+	*/
+	public function __construct () {
+		return $this;
+	}
+
+
+
+	/**
 	* Interface
 	*
 	* We expect users to call a validation routine by default
