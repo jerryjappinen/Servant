@@ -13,6 +13,8 @@
 
 ## Core
 
+- Allow explicitly declaring external stylesheet or script assets
+- Allow declaring external assets per page/section
 - `ServantPath` object?
 	- Returned by all path properties
 	- `__toString`
