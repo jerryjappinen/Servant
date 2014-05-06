@@ -30,9 +30,9 @@ h5. settings.json
 	"docs/basics"
 	"docs/template-formats"
 ]
-"pageTemplates": [
+"pageTemplates": {
 	"about": "blog"
-]
+}
 </code></pre>
 
 

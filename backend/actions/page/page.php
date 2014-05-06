@@ -41,7 +41,7 @@ $parameters = $input->pointer();
 $tree = $page->pointer();
 $i = 0;
 for ($i = 0; $i < count($tree); $i++) { 
-	if ($tree[$i] !== $parameters[$i]) {
+	if (!isset($parameters[$i]) !== $parameters[$i]) {
 		break;
 	}	
 }
