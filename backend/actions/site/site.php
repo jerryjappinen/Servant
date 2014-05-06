@@ -7,7 +7,7 @@ $page = $servant->sitemap()->select($input->pointer())->page();
 $pageAction = $action->nest('page');
 
 // FLAG I can't know what content the template wants - I'm just assuming this
-$template = $servant->create()->template($servant->site()->template(), $pageAction->output(), $page, true);
+$template = $servant->create()->template($page->template(), $pageAction->output(), $page, true);
 
 // Output page content
 $action->contentType($pageAction->contentType())->output($template->output());
