@@ -1,0 +1,88 @@
+
+
+
+/**
+* Generic styles
+*/
+
+body {
+	color: @333;
+	background-color: @fff;
+	font-family: "Helvetica Neue", "Helvetica", "Segoe UI", "Segoe WP", "Arial", sans-serif;
+	line-height: 1.8;
+	-webkit-font-smoothing: antialiased;
+
+	::selection {
+		background: rgba(0, 0, 0, 0.5);
+		}
+	::-moz-selection {
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+}
+
+a {
+	color: #418dd9;
+}
+
+.discreet {
+	color: #ccc;
+}
+
+.row-content {
+	max-width: 55em;
+}
+
+
+
+/*Typography*/
+
+h1, h2, h3 {
+	line-height: 1.2;
+	font-weight: inherit;
+
+	word-break: break-word;
+	-webkit-hyphens: manual;
+	-moz-hyphens: manual;
+	-epub-hyphens: manual;
+	hyphens: manual;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2 {
+	font-size: 1.2em;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+h3, big {
+	font-size: 1.4em;
+}
+
+h4 {
+	margin-top: 3.32em;
+	line-height: 1.2;
+}
+
+
+
+a, input, .transition {
+	.transition-duration(150ms);
+	.transition-property(~'height, padding-top, padding-bottom, color, background, border-color, box-shadow, opacity');
+}
+
+
+
+// Links & buttons
+a {
+	position: relative;
+	display: inline-block;
+	text-decoration: none;
+}
+
+img {
+	display: inline-block;
+}

@@ -1,0 +1,24 @@
+{
+
+	"language": 	"en",
+	"name": 		"My site",
+	"description": 	"A slick description for my site - not too short, not too long",
+
+	"icon": 		"icon.png",
+	"splashImage": 	"splash.jpg",
+	"template": 	"html",
+
+	"assets": [
+		"http://code.jquery.com/jquery-2.0.3.min.js",
+	],
+
+	"pageNames": {
+	},
+
+	"pageOrder": [
+	],
+
+	"pageTemplates": {
+	}
+
+}

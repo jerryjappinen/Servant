@@ -1,0 +1,28 @@
+
+body {
+	max-width: 40em;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 3% 10% 15% 10%;
+
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	color: #333;
+	line-height: 1.6;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2 {
+	margin-top: 2.68em;
+}
+
+a {
+	color: #00bfe5;
+}
+
+pre {
+	background-color: #eee;
+	padding: 5%;
+}
