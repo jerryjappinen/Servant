@@ -12,6 +12,7 @@ class ServantNode extends ServantObject {
 	* Properties
 	*/
 	protected $propertyDepth 		= null;
+	protected $propertyDescription 	= null;
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
 	protected $propertyName 		= null;
@@ -113,6 +114,26 @@ class ServantNode extends ServantObject {
 		return $includeRoot ? $depth : $depth-1;
 	}
 
+	public function description () {
+		$description = $this->getAndSet('description');
+
+		// Bubble
+		if (empty($description)) {
+
+			// Parent
+			if ($this->parent()) {
+				$description = $this->parent()->description();
+
+			// Global
+			} else {
+				$description = $this->servant()->site()->description();
+			}
+
+		}
+
+		return $description;
+	}
+
 	public function id () {
 		$arguments = func_get_args();
 		return $this->getOrSet('id', $arguments);
@@ -132,7 +153,6 @@ class ServantNode extends ServantObject {
 	}
 
 	public function template () {
-
 		$template = $this->getAndSet('template');
 
 		// Bubble
@@ -178,6 +198,24 @@ class ServantNode extends ServantObject {
 	*/
 	protected function setDepth () {
 		return $this->set('depth', count($this->parents(true)));
+	}
+
+	/**
+	* Description text
+	*/
+	protected function setDescription () {
+		$description = '';
+
+		// Get settings
+		$pageDescriptions = $this->servant()->site()->pageDescriptions();
+		$pointer = $this->stringPointer();
+
+		// Description defined in settings
+		if (array_key_exists($pointer, $pageDescriptions)) {
+			$description = trim_text($pageDescriptions[$pointer]);
+		}
+
+		return $this->set('description', $description);
 	}
 
 	/**
@@ -282,12 +320,12 @@ class ServantNode extends ServantObject {
 	protected function setTemplate () {
 		$template = '';
 
-		// Template defined in settings
+		// Get settings
 		$pageTemplates = $this->servant()->site()->pageTemplates();
 		$pointer = $this->stringPointer();
 
+		// Template defined in settings
 		if (array_key_exists($pointer, $pageTemplates)) {
-
 			if ($this->servant()->available()->template($pageTemplates[$pointer])) {
 				$template = $pageTemplates[$pointer];
 

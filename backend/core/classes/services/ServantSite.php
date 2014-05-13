@@ -19,6 +19,7 @@ class ServantSite extends ServantObject {
 	protected $propertyIcon 				= null;
 	protected $propertyLanguage 			= null;
 	protected $propertyName 				= null;
+	protected $propertyPageDescriptions 	= null;
 	protected $propertyPageNames 			= null;
 	protected $propertyPageOrder 			= null;
 	protected $propertyPageTemplates 		= null;
@@ -47,6 +48,7 @@ class ServantSite extends ServantObject {
 				'icon',
 				'language',
 				'name',
+				'pageDescriptions',
 				'pageNames',
 				'pageOrder',
 				'pageTemplates',
@@ -114,6 +116,11 @@ class ServantSite extends ServantObject {
 	// Site name
 	public function name () {
 		return $this->getAndSet('name');
+	}
+
+	public function pageDescriptions () {
+		$arguments = func_get_args();
+		return $this->getAndSet('pageDescriptions', $arguments);
 	}
 
 	public function pageNames () {
@@ -315,6 +322,20 @@ class ServantSite extends ServantObject {
 		}
 
 		return $this->set('name', trim_text($result, true));
+	}
+
+	/**
+	* Overrides for page naming
+	*/
+	protected function setPageDescriptions ($input = null) {
+		$descriptions = array();
+
+		// A flat array will do
+		if ($input and is_array($input)) {
+			$descriptions = $this->normalizePageTreeHash($input);
+		}
+
+		return $this->set('pageDescriptions', $descriptions);
 	}
 
 	/**

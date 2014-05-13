@@ -16,6 +16,11 @@
 		"guides/actions": "Backend actions"
 	},
 
+	"pageDescriptions": {
+		"guides": "Servant Documentation - Effortless publishing for the web",
+		"docs": "Servant Documentation - Effortless publishing for the web"
+	},
+
 	"pageOrder": [
 		"home",
 		"guides",

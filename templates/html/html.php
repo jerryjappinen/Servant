@@ -45,7 +45,7 @@ $meta .= '<meta name="application-name" content="'.htmlspecialchars($servant->si
 /**
 * Description
 */
-$description = htmlspecialchars(trim_text($servant->site()->description(), true));
+$description = htmlspecialchars(trim_text($page->description(), true));
 if ($description) {
 	$meta .= '<meta name="description" content="'.$description.'">'
 	        .'<meta property="og:description" content="'.$description.'">';
