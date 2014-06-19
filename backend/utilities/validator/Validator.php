@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-12-23 10:16 UTC
+* Compiled from source on 2014-06-11 13:39 UTC
 *
 * DEPENDENCIES
 *
@@ -22,6 +22,8 @@
 * Main object for accessing validators
 */
 class Validator {
+
+
 
 	/**
 	* Available items
@@ -42,22 +44,27 @@ class Validator {
 				'ids',
 	);
 
-	// List available routines, or check if a specific one is available
+
+
+	/**
+	* Constructor
+	*/
+
+	public function __construct () {
+		return $this;
+	}
+
+
+
+	/**
+	* List available routines, or check if a specific one is available
+	*/
 	public function available ($routine = null) {
 		$list = $this->availableList;
 		if ($routine) {
 			return in_array($routine, $list);
 		}
 		return $list;
-	}
-
-
-
-	/**
-	* Constructor
-	*/
-	public function __construct () {
-		return $this;
 	}
 
 
