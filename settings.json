@@ -9,7 +9,7 @@
 
 	"template": "servant",
 
-	"assets": "http://code.jquery.com/jquery-2.0.3.min.js",
+	"assets": "http://code.jquery.com/jquery-2.1.0.min.js",
 
 	"pageNames": {
 		"home": "Servant",
