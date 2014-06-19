@@ -147,15 +147,16 @@
 
 
 
-				<h2>Constants</h2>
-
 				<?php
-				$files = rglob_files('../../backend/core/constants/', 'json');
+				$files = rglob_files('../backend/constants/', 'json');
 				$jsons = array();
 				foreach ($files as $file) {
 					$jsons[] = suffix(prefix(trim(file_get_contents($file)), '{'), '}');
 				}
 				?>
+
+				<h2><?php echo count($jsons) ?> files for constants</h2>
+
 				<pre class="buffer"><code><?php echo implode(','."\n", $jsons) ?></code></pre>
 
 
