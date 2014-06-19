@@ -185,7 +185,7 @@ unset($temp, $pointer, $i, $value);
 			@-ms-viewport{width: device-width;}
 			@-o-viewport{width: device-width;}
 			@viewport{width: device-width;}
-			body{-webkit-tap-highlight-color: transparent;}
+			body{-webkit-tap-highlight-color: transparent;-webkit-text-size-adjust: none;-moz-text-size-adjust: none;-ms-text-size-adjust: none;}
 		</style>
 
 		<?php echo $links ?>
@@ -196,13 +196,13 @@ unset($temp, $pointer, $i, $value);
 
 	<body class="<?php echo $bodyClasses ?>">
 
-		<?php echo $template->content() ?>
-
 		<?php
 		if ($servant->debug()) {
 			echo $template->nest('debug');
 		}
 		?>
+
+		<?php echo $template->content() ?>
 
 		<?php echo $scriptLinks ?>
 
