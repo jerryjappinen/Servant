@@ -13,8 +13,12 @@
 
 ## Core
 
-- Allow explicitly declaring external stylesheet or script assets
-- Allow declaring external assets per page/section
+- Manifest improvements
+	- Support internal URLs in assets
+	- Allow separately declaring external stylesheet or script assets
+	- Allow declaring all settings per page/category
+	- Allow external icons/splash images
+	-> Separate manifest class from settings
 - `ServantPath` object?
 	- Returned by all path properties
 	- `__toString`
@@ -24,6 +28,9 @@
 	- `->server()`
 	- `->split()`
 	- `->foo('more', 'url', 'parameters')`
+- Support multiple locations for templates, actions etc. (defined in `paths.php`)
+	- Allows keeping custom templates and actions under one directory
+	- Makes updating Servant easier
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
 	- `servant://` (root)
 	- `assets://`
@@ -37,14 +44,11 @@
 - `ServantTemplate` improvements
 	- Support selecting category node (pick page in template if necessary)
 	- Support running Servant without template files (rendering content directly)
-- Save cache files for all serialized raw input?
+- Save cache files for all serialized raw input
 - Action-specific user settings
 	- JSON (must stay secure on server)? Allow users to declare action-specific configs in site settings?
-	- User-facing action names via `constants()->actionNames()`
+	- User-facing action names via settings
 	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
-- Support multiple locations for templates, actions etc. (defined in `paths.php`)
-	- Allows keeping site-specific templates under one directory
-	- Makes updating Servant easier
 - Better data/storage/working directory services for actions
 - Search action (investigate full text search in HTML files)
 - Twig parser of `ServantFiles` should pass on treated variables
