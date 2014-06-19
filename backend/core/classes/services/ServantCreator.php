@@ -29,6 +29,18 @@ class ServantCreator extends ServantObject {
 		return call_user_func_array(array($this, 'generate'), $arguments);
 	}
 
+	public function manifest () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'manifest');
+		return call_user_func_array(array($this, 'generate'), $arguments);
+	}
+
+	public function path () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'path');
+		return call_user_func_array(array($this, 'generate'), $arguments);
+	}
+
 	public function page () {
 		$arguments = func_get_args();
 		array_unshift($arguments, 'page');
