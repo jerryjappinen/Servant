@@ -11,22 +11,24 @@ class ServantManifest extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyManifest 	= null;
-	protected $propertyPath 		= null;
+	protected $propertyJsonMapping 		= null;
+	protected $propertyRaw 				= null;
+	protected $propertyPath 			= null;
 
 	// Manifest items
-	protected $propertyBrowserCache = null;
-	protected $propertyDescriptions = null;
-	protected $propertyIcons 		= null;
-	protected $propertyLanguages 	= null;
-	protected $propertyPageNames 	= null;
-	protected $propertyScripts 		= null;
-	protected $propertyServerCache 	= null;
-	protected $propertySiteNames 	= null;
-	protected $propertySitemap 		= null;
-	protected $propertySplashImages = null;
-	protected $propertyStylesheets 	= null;
-	protected $propertyTemplates 	= null;
+	protected $propertyBrowserCaches 	= null;
+	protected $propertyDescriptions 	= null;
+	protected $propertyIcons 			= null;
+	protected $propertyLanguages 		= null;
+	protected $propertyPageNames 		= null;
+	protected $propertyScripts 			= null;
+	protected $propertyServerCaches 	= null;
+	protected $propertySiteNames 		= null;
+	protected $propertySitemap 			= null;
+	protected $propertySplashImages 	= null;
+	protected $propertyStylesheets 		= null;
+	protected $propertyTemplates 		= null;
+
 
 
 	/**
@@ -42,10 +44,10 @@ class ServantManifest extends ServantObject {
 	* Getters
 	*/
 
-	// Original settings
-	protected function manifest () {
+	// JSON key mapping
+	protected function jsonMapping () {
 		$arguments = func_get_args();
-		return $this->getAndSet('manifest', $arguments);
+		return $this->getAndSet('jsonMapping', $arguments);
 	}
 
 	// Path in any format
@@ -57,56 +59,114 @@ class ServantManifest extends ServantObject {
 		return $path;
 	}
 
+	// Original settings
+	protected function raw () {
+		$arguments = func_get_args();
+		return $this->getAndSet('raw', $arguments);
+	}
 
 
-	// Manifest items
-	public function browserCache () {
-		$arguments = func_get_args();
-		return $this->getAndSet('browserCache', $arguments);
-	}
-	public function descriptions () {
-		$arguments = func_get_args();
-		return $this->getAndSet('descriptions', $arguments);
-	}
-	public function icons () {
-		$arguments = func_get_args();
-		return $this->getAndSet('icons', $arguments);
-	}
-	public function languages () {
-		$arguments = func_get_args();
-		return $this->getAndSet('languages', $arguments);
-	}
-	public function pageNames () {
-		$arguments = func_get_args();
-		return $this->getAndSet('pageNames', $arguments);
-	}
-	public function scripts () {
-		$arguments = func_get_args();
-		return $this->getAndSet('scripts', $arguments);
-	}
-	public function serverCache () {
-		$arguments = func_get_args();
-		return $this->getAndSet('serverCache', $arguments);
-	}
-	public function siteNames () {
-		$arguments = func_get_args();
-		return $this->getAndSet('siteNames', $arguments);
-	}
+
+	// Misc manifest items
 	public function sitemap () {
 		$arguments = func_get_args();
 		return $this->getAndSet('sitemap', $arguments);
 	}
+
+
+
+	// A default for each manifest node hashes items
+	public function browserCache () {
+		return $this->browserCaches('', true);
+	}
+	public function description () {
+		return $this->descriptions('', true);
+	}
+	public function icon () {
+		return $this->icons('', true);
+	}
+	public function language () {
+		return $this->languages('', true);
+	}
+	public function pageName () {
+		return $this->pageNames('', true);
+	}
+	public function serverCache () {
+		return $this->serverCaches('', true);
+	}
+	public function siteName () {
+		return $this->siteNames('', true);
+	}
+	public function splashImage () {
+		return $this->splashImages('', true);
+	}
+	public function template () {
+		return $this->templates('', true);
+	}
+
+	// When one default value doesn't make sense
+	public function script () {
+		return $this->scripts('');
+	}
+	public function stylesheet () {
+		return $this->stylesheets('');
+	}
+
+	// Manifest node hashes items
+	public function browserCaches () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'browserCaches');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
+	public function descriptions () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'descriptions');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
+	public function icons () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'icons');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
+	public function languages () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'languages');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
+	public function pageNames () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'pageNames');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
+	public function scripts () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'scripts');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
+	public function serverCaches () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'serverCaches');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
+	public function siteNames () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'siteNames');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
+	}
 	public function splashImages () {
 		$arguments = func_get_args();
-		return $this->getAndSet('splashImages', $arguments);
+		array_unshift($arguments, 'splashImages');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
 	}
 	public function stylesheets () {
 		$arguments = func_get_args();
-		return $this->getAndSet('stylesheets', $arguments);
+		array_unshift($arguments, 'stylesheets');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
 	}
 	public function templates () {
 		$arguments = func_get_args();
-		return $this->getAndSet('templates', $arguments);
+		array_unshift($arguments, 'templates');
+		return call_user_func_array(array($this, 'getSomeHash'), $arguments);
 	}
 
 
@@ -116,82 +176,47 @@ class ServantManifest extends ServantObject {
 	*/
 
 	/**
-	* Manifest items (only these are public)
+	* JSON key mapping
 	*/
-	public function setBrowserCache () {
-		return $this->setAnyHash('browserCache', 'numeric');
-	}
-	public function setDescriptions () {
-		return $this->setAnyHash('descriptions', 'oneliner');
-	}
-	public function setIcons () {
-		return $this->setAnyHash('icons', 'path');
-	}
-	public function setLanguages () {
-		return $this->setAnyHash('languages', 'oneliner');
-	}
-	public function setPageNames () {
-		return $this->setAnyHash('pageNames', 'oneliner');
-	}
-	public function setScripts () {
-		return $this->setAnyHash('scripts', 'path');
-	}
-	public function setServerCache () {
-		return $this->setAnyHash('serverCache', 'numeric');
-	}
-	public function setSiteNames () {
-		return $this->setAnyHash('siteNames', 'oneliner');
-	}
-	public function setSitemap () {
-		$results = array();
+	protected function setJsonMapping () {
+		$mapping = array(
+			'browsercaches' => 'browserCaches',
+			'browsercache' 	=> 'browserCaches',
 
-		// Find original values
-		$manifest = $this->manifest('sitemap');
-		if (isset($manifest)) {
-			$results = $this->normalizeNodePaths($manifest);
-		}
+			'descriptions' 	=> 'descriptions',
+			'description' 	=> 'descriptions',
 
-		return $this->set('sitemap', $results);
-	}
-	public function setSplashImages () {
-		return $this->setAnyHash('splashImages', 'path');
-	}
-	public function setStylesheets () {
-		return $this->setAnyHash('stylesheets', 'oneliner');
-	}
-	public function setTemplates () {
-		return $this->setAnyHash('templates', 'trimmed');
-	}
+			'icons' 		=> 'icons',
+			'icon' 			=> 'icons',
 
-	/**
-	* Original, unfiltered settings
-	*/
-	protected function setManifest () {
-		$result = array();
-		$path = $this->path('server');
+			'languages' 	=> 'languages',
+			'language' 		=> 'languages',
 
-		// Look for a settings file
-		if (is_file($path)) {
+			'pagenames' 	=> 'pageNames',
+			'pagename' 		=> 'pageNames',
 
-			// Normalize JSON
-			$json = trim(file_get_contents($path));
-			if (substr($json, 0, 1) !== '{') {
-				$json = suffix(prefix($json, '{'), '}');
-			}
-			$json = json_decode($json, true);
+			'scripts' 		=> 'scripts',
+			'script' 		=> 'scripts',
 
-			// Decode JSON file, turn into an array
-			if (is_array($json)) {
-				$result = $json;
-			} else {
-				$this->warn('Site settings file ("'.$this->servant()->paths()->format($path, false, 'server').'") is malformed.');
-			}
+			'servercaches' 	=> 'serverCaches',
+			'servercache' 	=> 'serverCaches',
 
-			unset($json);
+			'sitemaps' 		=> 'siteMaps',
+			'sitemap' 		=> 'siteMaps',
+			'sitenames' 	=> 'siteNames',
+			'sitename' 		=> 'siteNames',
 
-		}
+			'splashimages' 	=> 'splashImages',
+			'splashimage' 	=> 'splashImages',
 
-		return $this->set('manifest', $result);
+			'stylesheets' 	=> 'stylesheets',
+			'stylesheet' 	=> 'stylesheets',
+
+			'templates' 	=> 'templates',
+			'template' 		=> 'templates',
+
+		);
+		return $this->set('jsonMapping', $mapping);
 	}
 
 	/**
@@ -216,20 +241,168 @@ class ServantManifest extends ServantObject {
 		return $this->set('path', $result);
 	}
 
+	/**
+	* Original, unfiltered settings
+	*/
+	protected function setRaw () {
+		$result = array();
+		$path = $this->path('server');
+
+		// Look for a settings file
+		if (is_file($path)) {
+
+			// Normalize JSON
+			$json = trim(file_get_contents($path));
+			if (substr($json, 0, 1) !== '{') {
+				$json = suffix(prefix($json, '{'), '}');
+			}
+			$json = json_decode($json, true);
+
+			// Decode JSON file, turn into an array
+			if (is_array($json)) {
+				$result = array();
+				$jsonMapping = $this->jsonMapping();
+
+				foreach ($json as $jsonKey => $value) {
+
+					// Normalize keys
+					$jsonKey = mb_strtolower(trim_whitespace($jsonKey));
+
+					// Key valid
+					if (isset($jsonMapping[$jsonKey])) {
+						$result[$jsonMapping[$jsonKey]] = $value;
+					}
+
+				}
+
+				// // Only accept valid items
+				// foreach ($this->jsonMapping() as $jsonKey => $realKey) {
+
+				// 	// Already set
+				// 	if (!isset($result[$realKey])) {
+
+				// 		// Treat JSON keys as trimmed and case-insensitive
+				// 		$jsonKey = mb_strtolower(trim_whitespace($jsonKey));
+
+				// 		// Value set in JSON
+				// 		if (isset($json[$jsonKey])) {
+				// 			$result[$realKey] = $json[$jsonKey];
+				// 		}
+
+				// 	}
+
+				// }
+
+			} else {
+				$this->warn('Site settings file ("'.$this->servant()->paths()->format($path, false, 'server').'") is malformed.');
+			}
+
+		}
+
+		return $this->set('raw', $result);
+	}
+
+
+
+	/**
+	* Manifest items (only these are public)
+	*/
+	public function setBrowserCaches () {
+		return $this->setSomeHash('browserCaches', 'numeric');
+	}
+	public function setDescriptions () {
+		return $this->setSomeHash('descriptions', 'oneliner');
+	}
+	public function setIcons () {
+		return $this->setSomeHash('icons', 'path');
+	}
+	public function setLanguages () {
+		return $this->setSomeHash('languages', 'oneliner');
+	}
+	public function setPageNames () {
+		return $this->setSomeHash('pageNames', 'oneliner');
+	}
+	public function setScripts () {
+		return $this->setSomeHash('scripts', 'path');
+	}
+	public function setServerCaches () {
+		return $this->setSomeHash('serverCaches', 'numeric');
+	}
+	public function setSiteNames () {
+		return $this->setSomeHash('siteNames', 'oneliner');
+	}
+	public function setSitemap () {
+		$results = array();
+
+		// Find original values
+		$raw = $this->raw('sitemap');
+		if (isset($raw)) {
+			$results = $this->normalizeNodePaths($raw);
+		}
+
+		return $this->set('sitemap', $results);
+	}
+	public function setSplashImages () {
+		return $this->setSomeHash('splashImages', 'path');
+	}
+	public function setStylesheets () {
+		return $this->setSomeHash('stylesheets', 'oneliner');
+	}
+	public function setTemplates () {
+		return $this->setSomeHash('templates', 'trimmed');
+	}
+
 
 
 	/**
 	* Private helpers
 	*/
 
+	private function getSomeHash ($nodeKey, $key = null, $firstValueOnly = false) {
+		$arguments = func_get_args();
+		array_shift($arguments);
+
+		// Get actual values
+		$raw = $this->getAndSet($nodeKey);
+		$result = $raw;
+
+		// Sanitize key
+		if (is_string($key)) {
+			$key = $this->sanitizeNodeKey($arguments[0]);
+		}
+
+		// Always get default reliably
+		$defaultKey = '';
+		if ($key === $defaultKey) {
+			$result = array();
+
+			// Values available
+			if (count($raw)) {
+				if (isset($raw[$defaultKey])) {
+					$result = $raw[$defaultKey];
+				} else {
+					$result = reset($raw);
+				}
+			}
+
+			// Single value only
+			if ($firstValueOnly) {
+				$result = count($result) ? reset($result) : null;
+			}
+
+		}
+
+		return $result;
+	}
+
 	// Setting any manifest item that can be targeted on a node-by-node basis
-	private function setAnyHash ($key, $type) {
+	private function setSomeHash ($key, $type) {
 		$results = array();
 
 		// Find original values
-		$manifest = $this->manifest($key);
-		if (isset($manifest)) {
-			$results = $this->normalizeNodeHash($manifest, $type);
+		$raw = $this->raw($key);
+		if (isset($raw)) {
+			$results = $this->normalizeNodeHash($raw, $type);
 		}
 
 		// Use first value as default/master if it's missing
@@ -265,7 +438,7 @@ class ServantManifest extends ServantObject {
 			$keys = $this->normalizeNodeKeys($keys);
 			foreach ($keys as $key) {
 
-				$realKey = $prefix.unsuffix(unprefix($key, '/'), '/');
+				$realKey = $prefix.$this->sanitizeNodeKey($key);
 
 				// Children
 				if (is_array($value)) {
@@ -304,7 +477,7 @@ class ServantManifest extends ServantObject {
 		foreach (preg_split('/(,|;)/', trim_whitespace($input)) as $value) {
 
 			// Normalize each
-			$value = $prefix.unsuffix(unprefix($value, '/'), '/');
+			$value = $prefix.$this->sanitizeNodeKey($value);
 
 			// Add a unique item to results
 			if (!in_array($value, $results)) {
@@ -366,7 +539,7 @@ class ServantManifest extends ServantObject {
 
 					// String values go to results directly
 					if (is_string($value)) {
-						$results[] = $prefix.unsuffix(unprefix(trim_whitespace($value), '/'), '/');
+						$results[] = $prefix.$this->sanitizeNodeKey($value);
 
 					// Children
 					} else if (is_array($value)) {
@@ -379,6 +552,10 @@ class ServantManifest extends ServantObject {
 		}
 
 		return $results;
+	}
+
+	private function sanitizeNodeKey ($string) {
+		return is_string($string) ? unsuffix(unprefix(trim_whitespace($string), '/'), '/') : $string;
 	}
 
 }
