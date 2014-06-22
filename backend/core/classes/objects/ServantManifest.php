@@ -52,6 +52,49 @@ class ServantManifest extends ServantObject {
 		return $values;
 	}
 
+	public function resolveFilePath ($input, $acceptedFormats = array()) {
+		$result = '';
+
+		// A string will do
+		if (isset($input) and is_string($input) and !empty($input)) {
+
+			// URL is absolute
+			$url = parse_url($input);
+			if (isset($url['scheme']) and !empty($url['scheme'])) {
+				$result = $input;
+
+			// Internal
+			} else {
+
+				// Sanitize input
+				$path = unprefix(unsuffix($input, '/'), '/');
+
+				// File must exist
+				if (!empty($acceptedFormats)) {
+
+					$extension = pathinfo($path, PATHINFO_EXTENSION);
+					// Non-existing fil
+					if (!is_file($this->servant()->paths()->format($path, 'server'))) {
+						$this->warn('Attempting to use non-existing file "'.$path.'" in site settings.');
+
+					// File format must be acceptable
+					} else if (in_array($extension, $acceptedFormats)) {
+						$this->warn('File "'.$path.'" in site settings should be '.limplode(', ', $acceptedFormats, ' or ').'.');
+
+					// OK
+					} else {
+						$result = $path;
+					}
+
+				}
+
+			}
+
+		}
+
+		return $result;
+	}
+
 
 
 	/**

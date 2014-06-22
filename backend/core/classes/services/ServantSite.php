@@ -2,6 +2,9 @@
 
 /**
 * A web site, available as service
+*
+* FLAG
+*   - resolveFilePath should be handled by manifest reader
 */
 class ServantSite_ extends ServantObject {
 
@@ -12,8 +15,11 @@ class ServantSite_ extends ServantObject {
 	// Inidividual values, user-defined (in manifest)
 	protected $propertyBrowserCache 		= null;
 	protected $propertyDescription 			= null;
+	protected $propertyIcon 				= null;
+	protected $propertyLanguage 			= null;
 	protected $propertyName 				= null;
 	protected $propertyServerCache 			= null;
+	protected $propertySplashImage 			= null;
 	protected $propertyTemplate 			= null;
 
 	// Arrays, user-defined (in manifest)
@@ -26,6 +32,9 @@ class ServantSite_ extends ServantObject {
 	// Not user-defined
 	protected $propertyScripts 				= null;
 	protected $propertyStylesheets 			= null;
+
+	// Sitemap
+	protected $propertyPageOrder 			= null;
 
 	// protected $propertyDescription 			= null;
 	// protected $propertyExternalScripts 		= null;
@@ -63,6 +72,18 @@ class ServantSite_ extends ServantObject {
 		return $this->getAndSet('externalStylesheets', $arguments);
 	}
 
+	public function icon ($format = null) {
+		$path = $this->getAndSet('icon');
+		if ($format and !empty($path)) {
+			$path = $this->servant()->paths()->format($path, $format);
+		}
+		return $path;
+	}
+
+	public function language () {
+		return $this->getAndSet('language');
+	}
+
 	public function name () {
 		return $this->getAndSet('name');
 	}
@@ -75,6 +96,11 @@ class ServantSite_ extends ServantObject {
 	public function pageNames () {
 		$arguments = func_get_args();
 		return $this->getAndSet('pageNames', $arguments);
+	}
+
+	public function pageOrder () {
+		$arguments = func_get_args();
+		return $this->getAndSet('pageOrder', $arguments);
 	}
 
 	public function pageTemplates () {
@@ -94,6 +120,14 @@ class ServantSite_ extends ServantObject {
 
 	public function serverCache () {
 		return $this->getAndSet('serverCache');
+	}
+
+	public function splashImage ($format = null) {
+		$path = $this->getAndSet('splashImage');
+		if ($format and !empty($path)) {
+			$path = $this->servant()->paths()->format($path, $format);
+		}
+		return $path;
 	}
 
 	public function stylesheets ($format = false) {
@@ -116,6 +150,7 @@ class ServantSite_ extends ServantObject {
 	* Setters
 	*/
 
+	// Default browser cache
 	protected function setBrowserCache () {
 		return
 			$this->set('browserCache',
@@ -126,43 +161,42 @@ class ServantSite_ extends ServantObject {
 			);
 	}
 
-	protected function setServerCache () {
-		return
-			$this->set('serverCache',
-				$this->resolveCacheTime(
-					$this->servant()->manifest()->defaultServerCache(),
-					$this->servant()->constants()->defaults('serverCache')
-				)
-			);
-	}
-
-	/**
-	* Default description
-	*/
+	// Default description
 	protected function setDescription () {
 		$input = $this->servant()->manifest()->defaultDescription();
 		return $this->set('description', (!empty($input) ? $input : ''));
 	}
 
-	/**
-	* Page-specific scripts
-	*/
+	// Page-specific scripts
 	protected function setExternalScripts () {
 		$input = $this->servant()->manifest()->defaultScripts();
 		return $this->set('externalScripts', (!empty($input) ? $input : array()));
 	}
 
-	/**
-	* Page-specific stylesheets
-	*/
+	// Page-specific stylesheets
 	protected function setExternalStylesheets () {
 		$input = $this->servant()->manifest()->defaultStylesheets();
 		return $this->set('externalStylesheets', (!empty($input) ? $input : array()));
 	}
 
-	/**
-	* Default site name
-	*/
+	// Path to site icon comes from settings or remains an empty string
+	protected function setIcon () {
+		$input = $this->servant()->manifest()->defaultIcon();
+		return
+			$this->set('icon',
+				$this->servant()->manifest()->resolveFilePath(
+					$input, $this->servant()->constants()->formats('iconImages')
+				)
+			);
+	}
+
+	// Default language
+	protected function setLanguage () {
+		$input = $this->servant()->manifest()->defaultLanguage();
+		return $this->set('language', (!empty($input) ? $input : ''));
+	}
+
+	// Default site name
 	protected function setName () {
 
 		// Name set in manifest
@@ -189,40 +223,58 @@ class ServantSite_ extends ServantObject {
 		return $this->set('name', $result);
 	}
 
-	/**
-	* Page-specific descriptions
-	*/
+	// Page-specific descriptions
 	protected function setPageDescriptions () {
 		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->descriptions());
 		return $this->set('pageDescriptions', (!empty($input) ? $input : array()));
 	}
 
-	/**
-	* Page-specific names
-	*/
+	// Page-specific names
 	protected function setPageNames () {
 		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->pageNames());
 		return $this->set('pageNames', (!empty($input) ? $input : array()));
 	}
 
-	/**
-	* Page-specific templates
-	*/
+	// Manual page order configuration - page ordering and page properties
+	protected function setPageOrder () {
+		$input = $this->servant()->manifest()->sitemap();
+		return $this->set('pageOrder', !empty($input) ? $input : array());
+	}
+
+	// Page-specific templates
 	protected function setPageTemplates () {
 		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->templates());
 		return $this->set('pageTemplates', (!empty($input) ? $input : array()));
 	}
 
-	/**
-	* Script assets
-	*/
+	// Script assets
 	protected function setScripts () {
 		return $this->set('scripts', $this->findAssetFiles($this->servant()->constants()->formats('scripts')));
 	}
 
-	/**
-	* Stylesheet assets
-	*/
+	// Default server cache
+	protected function setServerCache () {
+		return
+			$this->set('serverCache',
+				$this->resolveCacheTime(
+					$this->servant()->manifest()->defaultServerCache(),
+					$this->servant()->constants()->defaults('serverCache')
+				)
+			);
+	}
+
+	// Path to site splash image comes from settings or remains an empty string
+	protected function setSplashImage () {
+		$input = $this->servant()->manifest()->defaultSplashImage();
+		return
+			$this->set('splashImage',
+				$this->servant()->manifest()->resolveFilePath(
+					$input, $this->servant()->constants()->formats('iconImages')
+				)
+			);
+	}
+
+	// Stylesheet assets
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->findAssetFiles($this->servant()->constants()->formats('stylesheets')));
 	}
@@ -316,31 +368,6 @@ class ServantSite_ extends ServantObject {
 
 
 		return max(0, intval($result));
-	}
-
-	private function resolveImageFile ($input) {
-		$result = '';
-
-		// A string will do
-		if ($input and is_string($input)) {
-
-			// Sanitize input
-			$path = unprefix(unsuffix(trim_text($input, true), '/'), '/');
-
-			// File format must be acceptable
-			$extension = pathinfo($path, PATHINFO_EXTENSION);
-			if (in_array($extension, $this->servant()->constants()->formats('iconImages'))) {
-
-				// File must exist
-				if (is_file($this->servant()->paths()->format($path, 'server'))) {
-					$result = $path;
-				}
-
-			}
-
-		}
-
-		return $result;
 	}
 
 }
