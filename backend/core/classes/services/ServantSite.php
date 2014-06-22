@@ -2,74 +2,39 @@
 
 /**
 * A web site, available as service
-*
-* FLAG
-*   - Remove direct dependency between user-facing setting names and class properties
-* 
 */
-class ServantSite extends ServantObject {
+class ServantSite_ extends ServantObject {
 
 	/**
 	* Properties
 	*/
+
+	// Inidividual values, user-defined (in manifest)
 	protected $propertyBrowserCache 		= null;
-	protected $propertyDescription 			= null;
-	protected $propertyExternalScripts 		= null;
-	protected $propertyExternalStylesheets 	= null;
-	protected $propertyIcon 				= null;
-	protected $propertyLanguage 			= null;
-	protected $propertyName 				= null;
-	protected $propertyPageDescriptions 	= null;
-	protected $propertyPageNames 			= null;
-	protected $propertyPageOrder 			= null;
-	protected $propertyPageTemplates 		= null;
-	protected $propertyScripts 				= null;
 	protected $propertyServerCache 			= null;
-	protected $propertySplashImage 			= null;
-	protected $propertyStylesheets 			= null;
 	protected $propertyTemplate 			= null;
 
+	// Arrays, user-defined (in manifest)
+	protected $propertyExternalScripts 		= null;
+	protected $propertyExternalStylesheets 	= null;
+	protected $propertyPageNames 			= null;
+	protected $propertyPageTemplates 		= null;
 
+	// Not user-defined
+	protected $propertyScripts 				= null;
+	protected $propertyStylesheets 			= null;
 
-	/**
-	* Take original settings in during initialization (all are optional)
-	*/
-	public function initialize () {
-
-		// Read settings from JSON
-		$manifest = $this->readJsonFile($this->servant()->paths()->manifest('server'));
-		if ($manifest) {
-
-			// This is what we can set
-			$properties = array(
-				'assets',
-				'browserCache',
-				'description',
-				'icon',
-				'language',
-				'name',
-				'pageDescriptions',
-				'pageNames',
-				'pageOrder',
-				'pageTemplates',
-				'serverCache',
-				'splashImage',
-				'template',
-			);
-
-			// Run setters if values are given
-			foreach ($properties as $key) {
-				$parameters = array();
-				if (isset($manifest[$key])) {
-					$parameters[] = $manifest[$key];
-					$this->callSetter($key, $parameters);
-				}
-			}
-
-		}
-
-		return $this;
-	}
+	// protected $propertyDescription 			= null;
+	// protected $propertyExternalScripts 		= null;
+	// protected $propertyExternalStylesheets 	= null;
+	// protected $propertyIcon 				= null;
+	// protected $propertyLanguage 			= null;
+	// protected $propertyName 				= null;
+	// protected $propertyPageDescriptions 	= null;
+	// protected $propertyPageNames 			= null;
+	// protected $propertyPageOrder 			= null;
+	// protected $propertyPageTemplates 		= null;
+	// protected $propertySplashImage 			= null;
 
 
 
@@ -77,60 +42,31 @@ class ServantSite extends ServantObject {
 	* Getters
 	*/
 
-	// Browser cache time
 	public function browserCache () {
 		return $this->getAndSet('browserCache');
 	}
 
-	// Description as string
-	public function description () {
-		return $this->getAndSet('description');
+	public function serverCache () {
+		return $this->getAndSet('serverCache');
 	}
 
-	// External scripts
+	public function template () {
+		return $this->getAndSet('template');
+	}
+
 	public function externalScripts () {
 		$arguments = func_get_args();
 		return $this->getAndSet('externalScripts', $arguments);
 	}
 
-	// External stylesheets
 	public function externalStylesheets () {
 		$arguments = func_get_args();
 		return $this->getAndSet('externalStylesheets', $arguments);
 	}
 
-	// Icon file
-	public function icon ($format = null) {
-		$path = $this->getAndSet('icon');
-		if ($format and !empty($path)) {
-			$path = $this->servant()->paths()->format($path, $format);
-		}
-		return $path;
-	}
-
-	// Language code
-	public function language () {
-		return $this->getAndSet('language');
-	}
-
-	// Site name
-	public function name () {
-		return $this->getAndSet('name');
-	}
-
-	public function pageDescriptions () {
-		$arguments = func_get_args();
-		return $this->getAndSet('pageDescriptions', $arguments);
-	}
-
 	public function pageNames () {
 		$arguments = func_get_args();
 		return $this->getAndSet('pageNames', $arguments);
-	}
-
-	public function pageOrder () {
-		$arguments = func_get_args();
-		return $this->getAndSet('pageOrder', $arguments);
 	}
 
 	public function pageTemplates () {
@@ -148,18 +84,6 @@ class ServantSite extends ServantObject {
 		return $files;
 	}
 
-	public function serverCache () {
-		return $this->getAndSet('serverCache');
-	}
-
-	public function splashImage ($format = null) {
-		$path = $this->getAndSet('splashImage');
-		if ($format and !empty($path)) {
-			$path = $this->servant()->paths()->format($path, $format);
-		}
-		return $path;
-	}
-
 	public function stylesheets ($format = false) {
 		$files = $this->getAndSet('stylesheets');
 		if ($format) {
@@ -170,239 +94,73 @@ class ServantSite extends ServantObject {
 		return $files;
 	}
 
-	public function template () {
-		return $this->getAndSet('template');
-	}
-
-
-
-	/**
-	* Manifest setters
-	*
-	* These call class property setters. Manifest can include anything that we map to class properties with these.
-	*/
-
-	// protected function setManifestAssets
-	protected function setAssets ($input = null) {
-		$scripts = array();
-		$stylesheets = array();
-
-		$formats = $this->servant()->constants()->formats();
-		$scriptFormats = $formats['scripts']['js'];
-		$stylesheetFormats = $formats['stylesheets']['css'];
-
-		// Pick and sort URLs based on file extension
-		$input = array_flatten(to_array($input));
-		if (!empty($input)) {
-			foreach ($input as $url) {
-
-				$url = trim($url);
-				$extension = pathinfo($url, PATHINFO_EXTENSION);
-
-				// JavaScript
-				if (in_array($extension, $scriptFormats)) {
-					$scripts[] = $url;
-
-				// Stylesheet
-				} else if (in_array($extension, $stylesheetFormats)) {
-					$stylesheets[] = $url;
-				}
-
-			}
-		}
-
-		// Call property setters
-		if (!empty($scripts)) {
-			call_user_func(array($this, 'setExternalScripts'), $scripts);
-		}
-		if (!empty($stylesheets)) {
-			call_user_func(array($this, 'setExternalStylesheets'), $stylesheets);
-		}
-
-		return $this;
-	}
-
 
 
 	/**
 	* Setters
 	*/
 
-	/**
-	* Browser cache time (used in cache headers)
-	*/
-	protected function setBrowserCache ($input = null) {
-		return $this->set('browserCache', $this->resolveCacheTime($input, $this->servant()->constants()->defaults('browserCache')));
+	protected function setBrowserCache () {
+		return
+			$this->set('browserCache',
+				$this->resolveCacheTime(
+					$this->servant()->manifest()->defaultBrowserCache(),
+					$this->servant()->constants()->defaults('browserCache')
+				)
+			);
+	}
+
+	protected function setServerCache () {
+		return
+			$this->set('serverCache',
+				$this->resolveCacheTime(
+					$this->servant()->manifest()->defaultServerCache(),
+					$this->servant()->constants()->defaults('serverCache')
+				)
+			);
 	}
 
 	/**
-	* Description string
-	*/
-	protected function setDescription ($input = null) {
-		$result = '';
-
-		// A string will do
-		if ($input and is_string($input)) {
-			$result = $input;
-		}
-
-		return $this->set('description', trim_text($result));
-	}
-
-	/**
-	* External scripts
+	* Page-specific scripts
 	*/
 	protected function setExternalScripts () {
-		$result = array();
-		$arguments = func_get_args();
-		if (!empty($arguments)) {
-			$result = array_flatten(to_array($arguments));
-		}
-		return $this->set('externalScripts', $result);
+		$input = $this->servant()->manifest()->defaultScripts();
+		return $this->set('externalScripts', (!empty($input) ? $input : array()));
 	}
 
 	/**
-	* External stylesheets
+	* Page-specific stylesheets
 	*/
 	protected function setExternalStylesheets () {
-		$result = array();
-		$arguments = func_get_args();
-		if (!empty($arguments)) {
-			$result = array_flatten(to_array($arguments));
-		}
-		return $this->set('externalStylesheets', $result);
+		$input = $this->servant()->manifest()->defaultStylesheets();
+		return $this->set('externalStylesheets', (!empty($input) ? $input : array()));
 	}
 
 	/**
-	* Path to site icon comes from settings or remains an empty string
+	* Page-specific names
 	*/
-	protected function setIcon ($input = null) {
-		return $this->set('icon', $this->resolveImageFile($input));
-	}
-
-	/**
-	* Language
-	*
-	* FLAG
-	*   - Hardcoded default
-	*   - Should this be a list of supported languages in order of preference?
-	*/
-	protected function setLanguage ($input = null) {
-		$result = '';
-
-		// Language from site settings
-		if ($input and is_string($input)) {
-			$result = $input;
-
-		// Global default
-		} else {
-			$globalDefault = $this->servant()->constants()->defaults('language');
-			if ($globalDefault and is_string($globalDefault)) {
-				$result = $globalDefault;
-			}
-		}
-
-		return $this->set('language', trim_text($result, true));
-	}
-
-	/**
-	* Name comes from settings or is created from ID
-	*
-	* FLAG
-	*   - Attempt to generate name from path
-	*/
-	protected function setName ($input = null) {
-		$result = '';
-
-		// A string will do
-		if ($input and is_string($input)) {
-			$result = $input;
-		} else {
-			$result = $this->servant()->constants()->defaults('siteName');
-		}
-
-		return $this->set('name', trim_text($result, true));
-	}
-
-	/**
-	* Overrides for page naming
-	*/
-	protected function setPageDescriptions ($input = null) {
-		$descriptions = array();
-
-		// A flat array will do
-		if ($input and is_array($input)) {
-			$descriptions = $this->normalizePageTreeHash($input);
-		}
-
-		return $this->set('pageDescriptions', $descriptions);
-	}
-
-	/**
-	* Overrides for page naming
-	*/
-	protected function setPageNames ($input = null) {
-		$names = array();
-
-		// A flat array will do
-		if ($input and is_array($input)) {
-			$names = $this->normalizePageTreeHash($input);
-		}
-
-		return $this->set('pageNames', $names);
+	protected function setPageNames () {
+		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->pageNames());
+		return $this->set('pageNames', (!empty($input) ? $input : array()));
 	}
 
 	/**
 	* Page-specific templates
 	*/
-	protected function setPageTemplates ($input = null) {
-		$templates = array();
-
-		// A flat array will do
-		if ($input and is_array($input)) {
-			$templates = $this->normalizePageTreeHash($input);
-		}
-
-		return $this->set('pageTemplates', $templates);
+	protected function setPageTemplates () {
+		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->templates());
+		return $this->set('pageTemplates', (!empty($input) ? $input : array()));
 	}
 
 	/**
-	* Manual page order configuration - page ordering and page properties
-	*/
-	protected function setPageOrder ($input = null) {
-		$results = array();
-
-		// Normalize user input
-		if (is_array($input) and !empty($input)) {
-			$results = $this->normalizePageTreeStrings($input);
-		}
-
-		return $this->set('pageOrder', $results);
-	}
-
-	/**
-	* Script files
+	* Script assets
 	*/
 	protected function setScripts () {
 		return $this->set('scripts', $this->findAssetFiles($this->servant()->constants()->formats('scripts')));
 	}
 
 	/**
-	* Server cache time (how old can a stored response be to be valid)
-	*/
-	protected function setServerCache ($input = null) {
-		return $this->set('serverCache', $this->resolveCacheTime($input, $this->servant()->constants()->defaults('serverCache')));
-	}
-
-	/**
-	* Path to site splash image from settings or remains an empty string
-	*/
-	protected function setSplashImage ($input = null) {
-		return $this->set('splashImage', $this->resolveImageFile($input));
-	}
-
-	/**
-	* Stylesheet files
+	* Stylesheet assets
 	*/
 	protected function setStylesheets () {
 		return $this->set('stylesheets', $this->findAssetFiles($this->servant()->constants()->formats('stylesheets')));
@@ -418,8 +176,8 @@ class ServantSite extends ServantObject {
 	* FLAG
 	*   - Template should be page-specific
 	*/
-	protected function setTemplate ($input = null) {
-		$input = trim(''.$input);
+	protected function setTemplate () {
+		$input = $this->servant()->manifest()->defaultTemplate();
 		$template = '';
 
 		// Site settings
@@ -460,6 +218,7 @@ class ServantSite extends ServantObject {
 	* Private helpers
 	*/
 
+	// Find site-wide asset files
 	private function findAssetFiles ($formats) {
 		$files = array();
 
@@ -469,56 +228,6 @@ class ServantSite extends ServantObject {
 		}
 
 		return $files;
-	}
-
-	private function normalizePageTreeHash ($input, $prefix = '') {
-		$results = array();
-
-		if (!empty($prefix)) {
-			$prefix = suffix($prefix.'/');
-		}
-
-		foreach ($input as $key => $value) {
-			$realKey = $prefix.unsuffix(unprefix($key, '/'), '/');
-
-			// Acceptable value
-			if (is_string($value) or is_numeric($value)) {
-				$results[$realKey] = ''.$value;
-
-			// Children
-			} else if (is_array($value)) {
-				$results = array_merge($results, $this->normalizePageTreeHash($value, $prefix.$realKey));
-			}
-
-		}
-
-		return $results;
-	}
-
-	private function normalizePageTreeStrings ($strings, $prefix = '') {
-		$results = array();
-
-		if (!empty($prefix)) {
-			$prefix = suffix($prefix.'/');
-		}
-
-		if (is_array($strings) and !empty($strings)) {
-			foreach ($strings as $key => $value) {
-
-				// String values go to results directly
-				if (is_string($value)) {
-					$results[] = $prefix.unsuffix(unprefix($value, '/'), '/');
-
-				// Children
-				} else if (is_array($value)) {
-					$results[] = $prefix.$key;
-					$results = array_merge($results, $this->normalizePageTreeStrings($value, is_string($key) ? $prefix.$key : $prefix));
-				}
-
-			}
-		}
-
-		return $results;
 	}
 
 	// Resolve valid cache time from user input, in minutes
@@ -567,33 +276,6 @@ class ServantSite extends ServantObject {
 				}
 
 			}
-
-		}
-
-		return $result;
-	}
-
-	private function readJsonFile ($path) {
-		$result = array();
-
-		// Look for a settings file
-		if (is_file($path)) {
-
-			// Normalize JSON
-			$json = trim(file_get_contents($path));
-			if (substr($json, 0, 1) !== '{') {
-				$json = suffix(prefix($json, '{'), '}');
-			}
-			$json = json_decode($json, true);
-
-			// Decode JSON file, turn into an array
-			if (is_array($json)) {
-				$result = $json;
-			} else {
-				$this->warn('Site settings file ("'.$this->servant()->paths()->format($path, false, 'server').'") is malformed.');
-			}
-
-			unset($json);
 
 		}
 
