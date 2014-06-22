@@ -11,12 +11,15 @@ class ServantSite_ extends ServantObject {
 
 	// Inidividual values, user-defined (in manifest)
 	protected $propertyBrowserCache 		= null;
+	protected $propertyDescription 			= null;
+	protected $propertyName 				= null;
 	protected $propertyServerCache 			= null;
 	protected $propertyTemplate 			= null;
 
 	// Arrays, user-defined (in manifest)
 	protected $propertyExternalScripts 		= null;
 	protected $propertyExternalStylesheets 	= null;
+	protected $propertyPageDescriptions 	= null;
 	protected $propertyPageNames 			= null;
 	protected $propertyPageTemplates 		= null;
 
@@ -46,12 +49,8 @@ class ServantSite_ extends ServantObject {
 		return $this->getAndSet('browserCache');
 	}
 
-	public function serverCache () {
-		return $this->getAndSet('serverCache');
-	}
-
-	public function template () {
-		return $this->getAndSet('template');
+	public function description () {
+		return $this->getAndSet('description');
 	}
 
 	public function externalScripts () {
@@ -62,6 +61,15 @@ class ServantSite_ extends ServantObject {
 	public function externalStylesheets () {
 		$arguments = func_get_args();
 		return $this->getAndSet('externalStylesheets', $arguments);
+	}
+
+	public function name () {
+		return $this->getAndSet('name');
+	}
+
+	public function pageDescriptions () {
+		$arguments = func_get_args();
+		return $this->getAndSet('pageDescriptions', $arguments);
 	}
 
 	public function pageNames () {
@@ -84,6 +92,10 @@ class ServantSite_ extends ServantObject {
 		return $files;
 	}
 
+	public function serverCache () {
+		return $this->getAndSet('serverCache');
+	}
+
 	public function stylesheets ($format = false) {
 		$files = $this->getAndSet('stylesheets');
 		if ($format) {
@@ -92,6 +104,10 @@ class ServantSite_ extends ServantObject {
 			}
 		}
 		return $files;
+	}
+
+	public function template () {
+		return $this->getAndSet('template');
 	}
 
 
@@ -121,6 +137,14 @@ class ServantSite_ extends ServantObject {
 	}
 
 	/**
+	* Default description
+	*/
+	protected function setDescription () {
+		$input = $this->servant()->manifest()->defaultDescription();
+		return $this->set('description', (!empty($input) ? $input : ''));
+	}
+
+	/**
 	* Page-specific scripts
 	*/
 	protected function setExternalScripts () {
@@ -134,6 +158,43 @@ class ServantSite_ extends ServantObject {
 	protected function setExternalStylesheets () {
 		$input = $this->servant()->manifest()->defaultStylesheets();
 		return $this->set('externalStylesheets', (!empty($input) ? $input : array()));
+	}
+
+	/**
+	* Default site name
+	*/
+	protected function setName () {
+
+		// Name set in manifest
+		$input = $this->servant()->manifest()->defaultSiteName();
+		if (isset($input)) {
+			$result = $input;
+
+		// Fallback
+		} else {
+
+			// Generate from folder name
+			$folderName = basename(unprefix(unsuffix($this->servant()->paths()->root(), '/'), '/'));
+			$conversions = $this->servant()->constants()->namingConvention();
+			$folderName = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $folderName)));
+			if (!empty($folderName)) {
+				$result = $folderName;
+
+			// From constants
+			} else {
+				$result = $this->servant()->constants()->defaults('siteName');
+			}
+		}
+
+		return $this->set('name', $result);
+	}
+
+	/**
+	* Page-specific descriptions
+	*/
+	protected function setPageDescriptions () {
+		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->descriptions());
+		return $this->set('pageDescriptions', (!empty($input) ? $input : array()));
 	}
 
 	/**
