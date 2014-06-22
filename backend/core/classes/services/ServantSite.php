@@ -2,11 +2,8 @@
 
 /**
 * A web site, available as service
-*
-* FLAG
-*   - resolveFilePath should be handled by manifest reader
 */
-class ServantSite_ extends ServantObject {
+class ServantSite extends ServantObject {
 
 	/**
 	* Properties
@@ -182,12 +179,7 @@ class ServantSite_ extends ServantObject {
 	// Path to site icon comes from settings or remains an empty string
 	protected function setIcon () {
 		$input = $this->servant()->manifest()->defaultIcon();
-		return
-			$this->set('icon',
-				$this->servant()->manifest()->resolveFilePath(
-					$input, $this->servant()->constants()->formats('iconImages')
-				)
-			);
+		return $this->set('icon', (!empty($input) ? $input : ''));
 	}
 
 	// Default language
@@ -266,12 +258,7 @@ class ServantSite_ extends ServantObject {
 	// Path to site splash image comes from settings or remains an empty string
 	protected function setSplashImage () {
 		$input = $this->servant()->manifest()->defaultSplashImage();
-		return
-			$this->set('splashImage',
-				$this->servant()->manifest()->resolveFilePath(
-					$input, $this->servant()->constants()->formats('iconImages')
-				)
-			);
+		return $this->set('splashImage', (!empty($input) ? $input : ''));
 	}
 
 	// Stylesheet assets

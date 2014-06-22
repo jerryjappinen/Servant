@@ -4,26 +4,24 @@
 
 	"name": "Servant",
 	"description": "Effortless publishing for the web",
-	"icon": "icon.png",
+
 	"splashImage": "splash.jpg",
 
 	"template": "servant",
 
-	"scripts": {
-		"": "http://code.jquery.com/jquery-2.1.0.min.js"
-	},
+	"scripts": "http://code.jquery.com/jquery-2.1.0.min.js",
 
 	"pageNames": {
 		"home": "Servant",
 		"guides/actions": "Backend actions"
 	},
 
-	"pageDescriptions": {
-		"guides": "Servant Documentation - Effortless publishing for the web",
-		"docs": "Servant Documentation - Effortless publishing for the web"
+	"descriptions": {
+		"": "Effortless publishing for the web",
+		"docs, guides": "Servant Documentation - Effortless publishing for the web"
 	},
 
-	"pageOrder": [
+	"sitemap": [
 		"home",
 		"guides",
 
@@ -42,9 +40,6 @@
 
 		"docs/components/main"
 
-	],
-
-	"pageTemplates": {
-	}
+	]
 
 }

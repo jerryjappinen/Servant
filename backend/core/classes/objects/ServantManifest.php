@@ -52,49 +52,6 @@ class ServantManifest extends ServantObject {
 		return $values;
 	}
 
-	public function resolveFilePath ($input, $acceptedFormats = array()) {
-		$result = '';
-
-		// A string will do
-		if (isset($input) and is_string($input) and !empty($input)) {
-
-			// URL is absolute
-			$url = parse_url($input);
-			if (isset($url['scheme']) and !empty($url['scheme'])) {
-				$result = $input;
-
-			// Internal
-			} else {
-
-				// Sanitize input
-				$path = unprefix(unsuffix($input, '/'), '/');
-
-				// File must exist
-				if (!empty($acceptedFormats)) {
-
-					$extension = pathinfo($path, PATHINFO_EXTENSION);
-					// Non-existing fil
-					if (!is_file($this->servant()->paths()->format($path, 'server'))) {
-						$this->warn('Attempting to use non-existing file "'.$path.'" in site settings.');
-
-					// File format must be acceptable
-					} else if (in_array($extension, $acceptedFormats)) {
-						$this->warn('File "'.$path.'" in site settings should be '.limplode(', ', $acceptedFormats, ' or ').'.');
-
-					// OK
-					} else {
-						$result = $path;
-					}
-
-				}
-
-			}
-
-		}
-
-		return $result;
-	}
-
 
 
 	/**
@@ -366,7 +323,7 @@ class ServantManifest extends ServantObject {
 		return $this->setSomeHash('splashImages', 'path');
 	}
 	public function setStylesheets () {
-		return $this->setSomeHash('stylesheets', 'oneliner');
+		return $this->setSomeHash('stylesheets', 'path');
 	}
 	public function setTemplates () {
 		return $this->setSomeHash('templates', 'trimmed');
@@ -436,13 +393,6 @@ class ServantManifest extends ServantObject {
 		if (isset($raw)) {
 			$results = $this->normalizeNodeHash($raw, $type);
 		}
-
-		// Use first value as default/master if it's missing
-		// if (count($results) and !isset($results[''])) {
-		// 	$keys = array_keys($results);
-		// 	$first = reset($keys);
-		// 	$results[''] = $results[$first];
-		// }
 
 		return $this->set($key, $results);
 	}
@@ -539,7 +489,7 @@ class ServantManifest extends ServantObject {
 
 			// Paths
 			} else if ($type === 'path') {
-				$value = trim_text($value, true);
+				$value = $this->resolveFilePath($value);
 
 			// One-line string
 			} else {
@@ -584,6 +534,27 @@ class ServantManifest extends ServantObject {
 		}
 
 		return $results;
+	}
+
+	private function resolveFilePath ($input) {
+		$path = '';
+
+		// A string will do
+		if (isset($input) and is_string($input) and !empty($input)) {
+
+			// URL is absolute
+			$url = parse_url($input);
+			if (isset($url['scheme']) and !empty($url['scheme'])) {
+				$path = trim_text($input, true);
+
+			// Sanitize input of internal path
+			} else {
+				$path = unprefix(unsuffix(trim_text($input, true), '/'), '/');
+			}
+
+		}
+
+		return $path;
 	}
 
 	private function sanitizeNodeKey ($string) {
