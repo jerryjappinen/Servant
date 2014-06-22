@@ -22,6 +22,7 @@ class ServantMain extends ServantObject {
 	protected $propertyCreate 		= null;
 	protected $propertyDebug 		= null;
 	protected $propertyFiles 		= null;
+	protected $propertyManifest 	= null;
 	protected $propertyPaths 		= null;
 	protected $propertySite 		= null;
 	protected $propertySitemap 		= null;
@@ -48,6 +49,9 @@ class ServantMain extends ServantObject {
 	}
 	public function files () {
 		return $this->getAndSet('files');
+	}
+	public function manifest () {
+		return $this->getAndSet('manifest');
 	}
 	public function paths () {
 		return $this->getAndSet('paths');
@@ -86,6 +90,9 @@ class ServantMain extends ServantObject {
 	protected function setFiles () {
 		return $this->set('files', $this->generate('files'));
 	}
+	protected function setManifest ($path = null) {
+		return $this->set('manifest', $this->generate('manifest', $path));
+	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));
 	}
@@ -111,7 +118,7 @@ class ServantMain extends ServantObject {
 		if ($debug) {
 			$this->enableDebug();
 		}
-		return $this->setPaths($paths)->setConstants($constants);
+		return $this->setPaths($paths)->setConstants($constants)->setManifest($this->paths()->manifest());
 	}
 
 

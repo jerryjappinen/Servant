@@ -1,5 +1,5 @@
 
-# Servant
+# Servant 0.2.0
 
 Servant is a practical and approachable micro framework for web developers, designed for us humans who prefer understandable environments and frequently whip up new web sites.
 

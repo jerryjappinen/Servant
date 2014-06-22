@@ -41,6 +41,20 @@ class ServantManifest extends ServantObject {
 
 
 	/**
+	* Convenience
+	*/
+
+	// Remove excess values in manifest hash
+	public function removeRootNodeValue ($values) {
+		if (is_array($values) and isset($values[''])) {
+			unset($values['']);
+		}
+		return $values;
+	}
+
+
+
+	/**
 	* Getters
 	*/
 
@@ -181,8 +195,9 @@ class ServantManifest extends ServantObject {
 			'servercaches' 	=> 'serverCaches',
 			'servercache' 	=> 'serverCaches',
 
-			'sitemaps' 		=> 'siteMaps',
-			'sitemap' 		=> 'siteMaps',
+			'sitemaps' 		=> 'sitemap',
+			'sitemap' 		=> 'sitemap',
+
 			'sitenames' 	=> 'siteNames',
 			'sitename' 		=> 'siteNames',
 

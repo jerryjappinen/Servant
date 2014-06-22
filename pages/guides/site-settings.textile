@@ -3,37 +3,59 @@ h1. Site settings
 
 To manually define things like the name of your site, page order and favicon, it's possible to use _site settings_. Add @settings.json@ in your site's folder and use the simple syntax.
 
-Site settings are **completely optional**.
+Site settings are **completely optional**. Keys are treated case-insensitive, with both singular and plural forms accepted.
 
 
 
 h5. settings.json
 
-<pre><code>"browserCache":   "3*60",
-"serverCache":    "7*24*7*60",
-"template":       "html",
-"language":       "en",
-"name":           "My Site Name",
-"description":    "Effortless publishing for the web",
-"assets":          [
-	"http://code.jquery.com/jquery-2.0.3.min.js"
-],
-"icon":           "favicon.ico",
-"splashImage":    "splash.png",
+<pre><code>"languages": "en",
+"icons": "icon.png",
+"splashImages": "splash.jpg",
+"browserCache": "12*60",
+"serverCache": "1*60",
+"siteNames": {
+	"/": "Servant",
+	"guides": "Servant Guides",
+	"docs": "Servant Docs"
+},
 "pageNames": {
-	"docs/basics/markdown": "Text & Markdown",
-	"docs/basics/url-manipulation": "URL manipulation"
-}
-"pageOrder": [
+	"home": "Servant",
+	"guides/actions": "Backend actions"
+},
+"descriptions": {
+	"/": "Servant - Effortless publishing for the web",
+	"docs, guides": "Documentation, guides and tutorials for the Servant web framework"
+},
+"stylesheets": {
+	"": [
+		"https://bitbucket.org/Eiskis/layers-css/raw/default/release/layers.min.css",
+		"https://bitbucket.org/Eiskis/layers-css/raw/default/release/responsive.min.css"
+	],
+	"docs, guides": "http://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.css"
+},
+"scripts": {
+	"/": "http://code.jquery.com/jquery-2.1.0.min.js",
+	"docs, guides": "http://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"
+},
+"templates": {
+	"": "servant",
+	"docs": "html"
+},
+"sitemap": [
+	"home",
 	"guides",
-	"docs",
-	"docs/basics"
-	"docs/template-formats"
-]
-"pageTemplates": {
-	"about": "blog"
-}
-</code></pre>
+	"guides/get-started",
+	"guides/pages",
+	"guides/assets",
+	"guides/site-settings",
+	"guides/templates",
+	"guides/actions",
+	"docs/basics/about/",
+	"docs/basics/asset-pipeline",
+	"docs/basics/template-scripting",
+	"docs/components/main"
+]</code></pre>
 
 
 
@@ -42,7 +64,7 @@ h2. Name & icons
 Your site's name will be generated from its folder name, but you can also choose another name in your site's settings. Templates usually put this name in the site's header and browser's title bar. You can also do the same for page names.
 
 |_. Supported setting|_. Example values|
-|*name*||
+|*siteName*||
 |*description*||
 |*icon*<br>Path (relative to Servant root) to an icon image file.<br>Use @.png@, @.jpg@ or @.ico@ files.|@"favicon.png"@|
 |*splashImage*<br>Path (relative to Servant root) to an splash image file.|@"splash.png"@|
@@ -51,20 +73,22 @@ Your site's name will be generated from its folder name, but you can also choose
 
 h2. Sitemap manipulation
 
-You can use the @pageNames@, @pageOrder@ and @pageTemplates@ settings to customize the sitemap automatically generated for your site. Point to any page with its full ID.
+You can use the @sitemap@ setting to explicitly set the order of your pages. @pageNames@ can be used to override the automatically generated page names.
+
+Point to any page with its full ID.
 
 |_. Supported setting|_. Example values|
 |*pageNames*<br>Custom names to use for your pages.||
-|*pageOrder*<br>Pages to be prioritized when ordering pages in each category.||
-|*pageTemplates*<br>Page-specific template to be used instead of the site default.||
+|*sitemap*<br>Pages to be prioritized when ordering pages in each category.||
 
 
 
 h2. Misc.
 
 |_. Supported setting|_. Example values|
-|*assets*<br>URLs of external assets (i.e. _CSS_ or _JS_) to load.||
 |*browserCache*<br>Suggested caching time for browsers, in minutes.| @"3*60"@, @60@ |
 |*serverCache*<br>Caching time used by Servant, in minutes.| @"2*24*60"@, @180@ |
+|*scripts*<br>URLs of external _JS_ assets to load.||
+|*stylesheets*<br>URLs of external _CSS_ assets to load.||
 |*language*<br>Two-letter language code, the main language of your site.|@"en"@, @"fr"@|
 |*template*<br>The template under "templates/" to pick for your site.|@"default"@, @"mytemplate"@|
