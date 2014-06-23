@@ -162,6 +162,21 @@ class ServantNode extends ServantObject {
 		return $this->getAndSet('parent');
 	}
 
+	public function pointer ($includeRoot = false) {
+		$arguments = func_get_args();
+		$pointer = $this->getAndSet('pointer');
+
+		// FLAG this behavior is a bit odd, it's a hacky solution
+		if (is_bool($includeRoot)) {
+			array_shift($arguments);
+		}
+		if ($includeRoot === false) {
+			array_shift($pointer);
+		}
+
+		return array_traverse($pointer, $arguments);
+	}
+
 	public function template () {
 		$template = $this->getAndSet('template');
 
@@ -180,21 +195,6 @@ class ServantNode extends ServantObject {
 		}
 
 		return $template;
-	}
-
-	public function pointer ($includeRoot = false) {
-		$arguments = func_get_args();
-		$pointer = $this->getAndSet('pointer');
-
-		// FLAG this behavior is a bit odd, it's a hacky solution
-		if (is_bool($includeRoot)) {
-			array_shift($arguments);
-		}
-		if ($includeRoot === false) {
-			array_shift($pointer);
-		}
-
-		return array_traverse($pointer, $arguments);
 	}
 
 
@@ -217,12 +217,12 @@ class ServantNode extends ServantObject {
 		$description = '';
 
 		// Get settings
-		$pageDescriptions = $this->servant()->site()->pageDescriptions();
+		$descriptions = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->descriptions());
 		$pointer = $this->stringPointer();
 
 		// Description defined in settings
-		if (array_key_exists($pointer, $pageDescriptions)) {
-			$description = trim_text($pageDescriptions[$pointer]);
+		if (array_key_exists($pointer, $descriptions)) {
+			$description = trim_text($descriptions[$pointer]);
 		}
 
 		return $this->set('description', $description);
@@ -280,7 +280,7 @@ class ServantNode extends ServantObject {
 		if (!isset($name)) {
 
 			// Name given in settings
-			$replacements = $this->servant()->site()->pageNames();
+			$replacements = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->pageNames());
 			$key = $this->stringPointer();
 			if (array_key_exists($key, $replacements)) {
 				$name = $replacements[$key];
@@ -331,13 +331,13 @@ class ServantNode extends ServantObject {
 		$template = '';
 
 		// Get settings
-		$pageTemplates = $this->servant()->site()->pageTemplates();
+		$templates = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->templates());
 		$pointer = $this->stringPointer();
 
 		// Template defined in settings
-		if (array_key_exists($pointer, $pageTemplates)) {
-			if ($this->servant()->available()->template($pageTemplates[$pointer])) {
-				$template = $pageTemplates[$pointer];
+		if (array_key_exists($pointer, $templates)) {
+			if ($this->servant()->available()->template($templates[$pointer])) {
+				$template = $templates[$pointer];
 
 			// Template not available
 			} else {

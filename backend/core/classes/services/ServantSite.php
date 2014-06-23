@@ -5,6 +5,8 @@
 */
 class ServantSite extends ServantObject {
 
+
+
 	/**
 	* Properties
 	*/
@@ -22,9 +24,6 @@ class ServantSite extends ServantObject {
 	// Arrays, user-defined (in manifest)
 	protected $propertyExternalScripts 		= null;
 	protected $propertyExternalStylesheets 	= null;
-	protected $propertyPageDescriptions 	= null;		// FLAG legacy, ServantNode should use manifest
-	protected $propertyPageNames 			= null;		// FLAG legacy, ServantNode should use manifest
-	protected $propertyPageTemplates 		= null;		// FLAG legacy, ServantNode should use manifest
 
 	// Not user-defined
 	protected $propertyScripts 				= null;
@@ -68,21 +67,6 @@ class ServantSite extends ServantObject {
 
 	public function name () {
 		return $this->getAndSet('name');
-	}
-
-	public function pageDescriptions () {
-		$arguments = func_get_args();
-		return $this->getAndSet('pageDescriptions', $arguments);
-	}
-
-	public function pageNames () {
-		$arguments = func_get_args();
-		return $this->getAndSet('pageNames', $arguments);
-	}
-
-	public function pageTemplates () {
-		$arguments = func_get_args();
-		return $this->getAndSet('pageTemplates', $arguments);
 	}
 
 	public function scripts ($format = false) {
@@ -193,24 +177,6 @@ class ServantSite extends ServantObject {
 		}
 
 		return $this->set('name', $result);
-	}
-
-	// Page-specific descriptions
-	protected function setPageDescriptions () {
-		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->descriptions());
-		return $this->set('pageDescriptions', (!empty($input) ? $input : array()));
-	}
-
-	// Page-specific names
-	protected function setPageNames () {
-		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->pageNames());
-		return $this->set('pageNames', (!empty($input) ? $input : array()));
-	}
-
-	// Page-specific templates
-	protected function setPageTemplates () {
-		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->templates());
-		return $this->set('pageTemplates', (!empty($input) ? $input : array()));
 	}
 
 	// Script assets

@@ -83,9 +83,6 @@ class ServantSitemap extends ServantObject {
 
 		// Get user input form manifest
 		$manifest = $this->servant()->manifest()->sitemap();
-		if (empty($manifest)) {
-			$manifest = array();
-		}
 
 		// Generate page order
 		$pageOrder = array();

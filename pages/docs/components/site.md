@@ -10,7 +10,6 @@ Property name   | Description | Return values
 `icon()`			|  |
 `language()`		|  |
 `name()`			|  |
-`pageNames()`		|  |
 `serverCache()`		|  |
 `splashImage()`		|  |
 `template()`		|  |

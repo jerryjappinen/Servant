@@ -14,12 +14,12 @@
 ## Core
 
 - Manifest improvements
-	- Support internal URLs in assets (fix in templates)
+	- Support internal URLs in scripts/assets (fix in templates)
 	- Handle external URLs properly when using icons/splash images in templates
 	- Introduce node-specific settings in page/category objects
 		- `pageNames` etc not needed in `ServantSite`, for example
 	- Refactor `ServantSite` property/method names
-- `ServantPath` object?
+- `ServantPath`
 	- Returned by all path properties
 	- `__toString`
 	- `->plain()`
@@ -28,9 +28,6 @@
 	- `->server()`
 	- `->split()`
 	- `->foo('more', 'url', 'parameters')`
-- Support multiple locations for templates, actions etc. (defined in `paths.php`)
-	- Allows keeping custom templates and actions under one directory
-	- Makes updating Servant easier
 - Better (internal) URL scheme: use pseudo protocols to point to different locations
 	- `servant://` (root)
 	- `assets://`
@@ -41,6 +38,9 @@
 	- Have one PHP method that handles these conversions (so you can write something like `pointer('assets://foo')`)
 	- Apply URL parsing to HTML form's action tag
 	- Treat `../` as expected when parsing URLs
+- Support multiple locations for templates, actions etc. (defined in `paths.php`)
+	- Allows keeping custom templates and actions under one directory
+	- Makes updating Servant easier
 - `ServantTemplate` improvements
 	- Support selecting category node (pick page in template if necessary)
 	- Support running Servant without template files (rendering content directly)

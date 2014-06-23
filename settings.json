@@ -19,7 +19,9 @@
 		"docs, guides": "Documentation, guides and tutorials for the Servant web framework"
 	},
 
-	"template": "servant",
+	"template": {
+		"": "servant"
+	},
 
 	"scripts": {
 		"/": [
@@ -32,13 +34,12 @@
 	"stylesheets": {},
 
 	"pageNames": {
-		"home": "Servant",
-		"guides/actions": "Backend actions"
+		"home": "Servant"
 	},
 
 	"descriptions": {
 		"": "Effortless publishing for the web",
-		"docs, guides": "Servant Documentation - Effortless publishing for the web"
+		"docs, guides, reference": "Tutorials, guides and full documentation for the Servant web framework"
 	},
 
 	"sitemap": [

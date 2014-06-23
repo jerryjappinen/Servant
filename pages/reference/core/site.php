@@ -40,21 +40,6 @@ try {
 				'$servant->site()->name()',
 				$servant->site()->name(),
 			),
-			'pageDescriptions' => array(
-				'',
-				'$servant->site()->pageDescriptions()',
-				$servant->site()->pageDescriptions(),
-			),
-			'pageNames' => array(
-				'',
-				'$servant->site()->pageNames()',
-				$servant->site()->pageNames(),
-			),
-			'pageTemplates' => array(
-				'',
-				'$servant->site()->pageTemplates()',
-				$servant->site()->pageTemplates(),
-			),
 			'scripts' => array(
 				'$format = false',
 				'$servant->site()->scripts()',
@@ -94,7 +79,7 @@ foreach ($reference as $section => $methods) {
 	echo '<tr><th colspan="4"><h3 class="reset">'.ucfirst($section).'</h3></tr>';
 	foreach ($methods as $methodName => $methodDetails) {
 		echo '
-		<tr><td><code>'.$methodName.'('.(is_array($methodDetails[0]) ? implode(', ', $methodDetails[0]) : $methodDetails[0]).')</code>'.(isset($methodDetails[1]) ? '<br><em><code>'.$methodDetails[1].'</code></em>' : '').'</td>
+		<tr><td><code>'.$methodName.'('.(isset($methodDetails[0]) ? (is_array($methodDetails[0]) ? implode(', ', $methodDetails[0]) : $methodDetails[0]) : '').')</code>'.(isset($methodDetails[1]) ? '<br><em><code>'.$methodDetails[1].'</code></em>' : '').'</td>
 		<td>'.(count($methodDetails) >= 3 ? html_dump($methodDetails[2]) : '<em>&ndash;</em>').'</td>';
 	}
 }
