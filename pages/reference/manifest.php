@@ -12,8 +12,8 @@ try {
 		'convenience' => array(
 			'removeRootNodeValue' => array(
 				'$values',
-				'$servant->manifest()->removeRootNodeValue(array(\'/\' => \'A\', \'docs\' => \'B\'))',
-				$servant->manifest()->removeRootNodeValue(array('/' => 'A', 'docs' => 'B')),
+				'$servant->manifest()->removeRootNodeValue(array(\'\' => \'A\', \'docs\' => \'B\'))',
+				$servant->manifest()->removeRootNodeValue(array('' => 'A', 'docs' => 'B')),
 			),
 		),
 
@@ -142,20 +142,14 @@ try {
 }
 
 // Printout
-echo '<h1>'.$page->name().'</h1>';
+echo '<table>';
 foreach ($reference as $section => $methods) {
-
-	// Header
-	echo '<h2>'.ucfirst($section).'</h2>';
-
-	// Each method
+	echo '<tr><th colspan="4"><h3 class="reset">'.ucfirst($section).'</h3></tr>';
 	foreach ($methods as $methodName => $methodDetails) {
 		echo '
-		<h3><code>'.$methodName.'('.(is_array($methodDetails[0]) ? implode(', ', $methodDetails[0]) : $methodDetails[0]).')</code></h3>
-		'.(isset($methodDetails[1]) ? '<p><code>'.$methodDetails[1].'</code></p>' : '').'
-		'.(count($methodDetails) >= 3 ? html_dump($methodDetails[2]) : '');
+		<tr><td><code>'.$methodName.'('.(is_array($methodDetails[0]) ? implode(', ', $methodDetails[0]) : $methodDetails[0]).')</code>'.(isset($methodDetails[1]) ? '<br><em><code>'.$methodDetails[1].'</code></em>' : '').'</td>
+		<td>'.(count($methodDetails) >= 3 ? html_dump($methodDetails[2]) : '<em>&ndash;</em>').'</td>';
 	}
-
 }
-
+echo '</table>';
 ?>

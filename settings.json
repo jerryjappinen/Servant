@@ -2,14 +2,34 @@
 
 	"language": "en",
 
-	"name": "Servant",
-	"description": "Effortless publishing for the web",
+	"icons": "icon.png",
+	"splashImages": "splash.jpg",
 
-	"splashImage": "splash.jpg",
+	"browserCache": "12*60",
+	"serverCache": "6*60",
+
+	"siteName": {
+		"/": "Servant",
+		"guides": "Servant Guides",
+		"docs": "Servant Docs"
+	},
+
+	"descriptions": {
+		"/": "Servant - Effortless publishing for the web",
+		"docs, guides": "Documentation, guides and tutorials for the Servant web framework"
+	},
 
 	"template": "servant",
 
-	"scripts": "http://code.jquery.com/jquery-2.1.0.min.js",
+	"scripts": {
+		"/": [
+			"js-vars",
+			"http://code.jquery.com/jquery-2.1.0.min.js"
+		],
+		"docs, guides, reference": "http://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"
+	},
+
+	"stylesheets": {},
 
 	"pageNames": {
 		"home": "Servant",

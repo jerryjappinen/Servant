@@ -74,4 +74,7 @@ doc.ready(function () {
     FastClick.attach(document.body);
 	treatScroll();
 
+	// Use Javascript syntax highlighting with Prism
+	body.addClass('language-javascript');
+
 }, false);

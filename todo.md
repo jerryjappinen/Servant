@@ -14,11 +14,12 @@
 ## Core
 
 - Manifest improvements
-	- Support internal URLs in assets
-	- Allow separately declaring external stylesheet or script assets
-	- Allow declaring all settings per page/category
-	- Allow external icons/splash images
-	-> Separate manifest class from settings
+	- Support internal URLs in assets (fix in templates)
+	- Handle external URLs properly when using icons/splash images in templates
+	- Make sure `paths->format()` handles format changes reliably with external URLs
+	- Refactor `ServantSite` property/method names
+	- Introduce node-specific settings in page/category objects
+		- `pageNames` etc not needed in `ServantSite`, for example
 - `ServantPath` object?
 	- Returned by all path properties
 	- `__toString`

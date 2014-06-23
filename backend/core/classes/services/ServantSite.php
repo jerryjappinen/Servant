@@ -33,18 +33,6 @@ class ServantSite extends ServantObject {
 	// Sitemap
 	protected $propertyPageOrder 			= null;
 
-	// protected $propertyDescription 			= null;
-	// protected $propertyExternalScripts 		= null;
-	// protected $propertyExternalStylesheets 	= null;
-	// protected $propertyIcon 				= null;
-	// protected $propertyLanguage 			= null;
-	// protected $propertyName 				= null;
-	// protected $propertyPageDescriptions 	= null;
-	// protected $propertyPageNames 			= null;
-	// protected $propertyPageOrder 			= null;
-	// protected $propertyPageTemplates 		= null;
-	// protected $propertySplashImage 			= null;
-
 
 
 	/**
