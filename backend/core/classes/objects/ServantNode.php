@@ -4,13 +4,11 @@
 * A traversable node with potential for parents or children
 *
 * FLAG
-*
+*	- scripts and stylesheets should be under node
 *   - Could be made looser (no template needed, no parent needed)
 *	- node, page and category could probably be fused into one node class
 *
-*   - Add site name, get it from manifest
-*   - Add external scripts, get it from manifest
-*   - Add external stylesheets, get it from manifest
+*   - Could we replace ServantSite stuff with root node's values?
 *
 * DEPENDENCIES
 *   ???
@@ -20,18 +18,21 @@ class ServantNode extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyDepth 		= null;
-	protected $propertyDescription 	= null;
-	protected $propertyIcon 		= null;
-	protected $propertyId 			= null;
-	protected $propertyIndex 		= null;
-	protected $propertyLanguage 	= null;
-	protected $propertyName 		= null;
-	protected $propertyParent 		= null;
-	protected $propertyPointer 		= null;
-	protected $propertySiteName 	= null;
-	protected $propertySplashImage 	= null;
-	protected $propertyTemplate 	= null;
+	protected $propertyDepth 				= null;
+	protected $propertyDescription 			= null;
+	protected $propertyIcon 				= null;
+	protected $propertyId 					= null;
+	protected $propertyIndex 				= null;
+	protected $propertyLanguage 			= null;
+	protected $propertyName 				= null;
+	protected $propertyParent 				= null;
+	protected $propertyPointer 				= null;
+	protected $propertySiteName 			= null;
+	protected $propertySplashImage 			= null;
+	protected $propertyTemplate 			= null;
+
+	protected $propertyExternalScripts 		= null;
+	protected $propertyExternalStylesheets 	= null;
 
 
 
@@ -145,6 +146,44 @@ class ServantNode extends ServantObject {
 		}
 
 		return $description;
+	}
+
+	public function externalScripts ($format = false) {
+
+		// Format these paths correctly
+		$paths = $this->getAndSet('externalScripts');
+		if ($format) {
+			foreach ($paths as $key => $path) {
+				$paths[$key] = $this->servant()->paths()->format($path, $format);
+			}
+		}
+
+		// Include paths from parent node
+		if ($this->parent()) {
+			$parentPaths = $this->parent()->externalScripts($format);
+			$paths = array_merge($parentPaths, $paths);
+		}
+
+		return $paths;
+	}
+
+	public function externalStylesheets ($format = false) {
+
+		// Format these paths correctly
+		$paths = $this->getAndSet('externalStylesheets');
+		if ($format) {
+			foreach ($paths as $key => $path) {
+				$paths[$key] = $this->servant()->paths()->format($path, $format);
+			}
+		}
+
+		// Include paths from parent node
+		if ($this->parent()) {
+			$parentPaths = $this->parent()->externalStylesheets($format);
+			$paths = array_merge($parentPaths, $paths);
+		}
+
+		return $paths;
 	}
 
 	public function icon ($format = false) {
@@ -317,6 +356,38 @@ class ServantNode extends ServantObject {
 		}
 
 		return $this->set('description', $description);
+	}
+
+	/**
+	* Node-specific external scripts
+	*/
+	protected function setExternalScripts () {
+		$result = array();
+		$paths = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->scripts());
+		$stringPointer = $this->stringPointer();
+
+		// Items defined in settings
+		if (array_key_exists($stringPointer, $paths)) {
+			$result = $paths[$stringPointer];
+		}
+
+		return $this->set('externalScripts', $result);
+	}
+
+	/**
+	* Node-specific external stylesheets
+	*/
+	protected function setExternalStylesheets () {
+		$result = array();
+		$paths = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->stylesheets());
+		$stringPointer = $this->stringPointer();
+
+		// Items defined in settings
+		if (array_key_exists($stringPointer, $paths)) {
+			$result = $paths[$stringPointer];
+		}
+
+		return $this->set('externalStylesheets', $result);
 	}
 
 	/**

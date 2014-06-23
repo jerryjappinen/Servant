@@ -13,12 +13,8 @@
 
 ## Core
 
-- Manifest improvements
-	- Support internal URLs in scripts/assets (fix in templates)
-	- Handle external URLs properly when using icons/splash images in templates
-	- Introduce node-specific settings in page/category objects
-		- `pageNames` etc not needed in `ServantSite`, for example
-	- Refactor `ServantSite` property/method names
+- Refactor `ServantSite` property/method names
+- Send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions
 - `ServantPath`
 	- Returned by all path properties
 	- `__toString`

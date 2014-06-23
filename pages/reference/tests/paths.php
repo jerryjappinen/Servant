@@ -3,6 +3,35 @@
 try {
 
 	$reference = array(
+
+		'Path getters' => array(
+
+			'endpoints' => array(
+				'',
+				'$servant->paths()->endpoints()',
+				$servant->paths()->endpoints(),
+			),
+
+			'endpoints domain' => array(
+				'',
+				'$servant->paths()->endpoints("domain")',
+				$servant->paths()->endpoints('domain'),
+			),
+
+			'endpoints server' => array(
+				'',
+				'$servant->paths()->endpoints("server")',
+				$servant->paths()->endpoints('server'),
+			),
+
+			'endpoints url' => array(
+				'',
+				'$servant->paths()->endpoints("url")',
+				$servant->paths()->endpoints('url'),
+			),
+
+		),
+
 		'Internal paths' => array(
 
 			'relative to url' => array(

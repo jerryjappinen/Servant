@@ -285,28 +285,39 @@ class ServantManifest extends ServantObject {
 	* Manifest items (only these are public)
 	*/
 	public function setBrowserCaches () {
-		return $this->setSomeHash('browserCaches', 'numeric');
+		return $this->set('browserCaches', $this->treatSomeHash('browserCaches', 'numeric'));
 	}
 	public function setDescriptions () {
-		return $this->setSomeHash('descriptions', 'oneliner');
+		return $this->set('descriptions', $this->treatSomeHash('descriptions', 'oneliner'));
 	}
 	public function setIcons () {
-		return $this->setSomeHash('icons', 'path');
+		return $this->set('icons', $this->treatSomeHash('icons', 'path'));
 	}
 	public function setLanguages () {
-		return $this->setSomeHash('languages', 'oneliner');
+		return $this->set('languages', $this->treatSomeHash('languages', 'oneliner'));
 	}
 	public function setPageNames () {
-		return $this->setSomeHash('pageNames', 'oneliner');
+		return $this->set('pageNames', $this->treatSomeHash('pageNames', 'oneliner'));
 	}
 	public function setScripts () {
-		return $this->setSomeHash('scripts', 'path');
+		$manifest = $this->treatSomeHash('scripts', 'path');
+
+		// Internal paths are treated as links to actions
+		foreach ($manifest as $key => $paths) {
+			foreach ($paths as $i => $path) {
+				if (!$this->servant()->paths()->isExternal($path)) {
+					$manifest[$key][$i] = $this->servant()->paths()->endpoints().suffix(unprefix($path, '/'), '/');
+				}
+			}
+		}
+
+		return $this->set('scripts', $manifest);
 	}
 	public function setServerCaches () {
-		return $this->setSomeHash('serverCaches', 'numeric');
+		return $this->set('serverCaches', $this->treatSomeHash('serverCaches', 'numeric'));
 	}
 	public function setSiteNames () {
-		return $this->setSomeHash('siteNames', 'oneliner');
+		return $this->set('siteNames', $this->treatSomeHash('siteNames', 'oneliner'));
 	}
 	public function setSitemap () {
 		$results = array();
@@ -320,13 +331,24 @@ class ServantManifest extends ServantObject {
 		return $this->set('sitemap', $results);
 	}
 	public function setSplashImages () {
-		return $this->setSomeHash('splashImages', 'path');
+		return $this->set('splashImages', $this->treatSomeHash('splashImages', 'path'));
 	}
 	public function setStylesheets () {
-		return $this->setSomeHash('stylesheets', 'path');
+		$manifest = $this->treatSomeHash('stylesheets', 'path');
+
+		// Internal paths are treated as links to actions
+		foreach ($manifest as $key => $paths) {
+			foreach ($paths as $i => $path) {
+				if (!$this->servant()->paths()->isExternal($path)) {
+					$manifest[$key][$i] = $this->servant()->paths()->endpoints().suffix(unprefix($path, '/'), '/');
+				}
+			}
+		}
+
+		return $this->set('stylesheets', $manifest);
 	}
 	public function setTemplates () {
-		return $this->setSomeHash('templates', 'trimmed');
+		return $this->set('templates', $this->treatSomeHash('templates', 'trimmed'));
 	}
 
 
@@ -385,8 +407,8 @@ class ServantManifest extends ServantObject {
 		return $result;
 	}
 
-	// Setting any manifest item that can be targeted on a node-by-node basis
-	private function setSomeHash ($key, $type) {
+	// Normalize any manifest item that can be targeted on a node-by-node basis
+	private function treatSomeHash ($key, $type) {
 		$results = array();
 
 		// Find original values
@@ -395,7 +417,7 @@ class ServantManifest extends ServantObject {
 			$results = $this->normalizeNodeHash($raw, $type);
 		}
 
-		return $this->set($key, $results);
+		return $results;
 	}
 
 	// Subarrays with keys are bubbled up. All our manifest arrays are flat, with keys representing nodes

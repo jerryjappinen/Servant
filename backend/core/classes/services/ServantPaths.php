@@ -103,7 +103,7 @@ class ServantPaths extends ServantObject {
 	}
 
 	public function endpoints ($format = null) {
-		return $this->root($format);
+		return $format ? $this->root($format) : '';
 	}
 
 	public function template ($template, $format = null) {

@@ -110,6 +110,9 @@ $stylesheetsLinks = '';
 
 // External stylesheets
 $urls = $servant->site()->externalStylesheets();
+if ($usePageAssets) {
+	$urls[] = $page->externalStylesheets('domain');
+}
 
 // Assets
 $urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
@@ -121,7 +124,7 @@ if ($usePageAssets and $page->stylesheets()) {
 }
 
 // Generate HTML
-foreach ($urls as $url) {
+foreach (array_flatten($urls) as $url) {
 	$stylesheetsLinks .= '<link rel="stylesheet" type="text/css" href="'.$url.'" media="screen">';
 }
 unset($urls, $url);
@@ -135,6 +138,9 @@ $scriptLinks = '';
 
 // External scripts
 $urls = $servant->site()->externalScripts();
+if ($usePageAssets) {
+	$urls[] = $page->externalScripts('domain');
+}
 
 // Assets
 $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
@@ -146,7 +152,7 @@ if ($usePageAssets and $page->scripts()) {
 }
 
 // Generate HTML
-foreach ($urls as $url) {
+foreach (array_flatten($urls) as $url) {
 	$scriptLinks .= '<script type="text/javascript" src="'.$url.'"></script>';
 }
 unset($urls, $url);

@@ -244,7 +244,7 @@ class ServantObject {
 	protected function set ($id, $value) {
 		$propertyName = $this->propertyName($id);
 		if ($value === null) {
-			return $this->fail('Properties cannot be null');
+			return $this->fail('Properties cannot be null (attempting to set "'.$id.'" of "'.$this->__toString().'")');
 		} else {
 			$this->$propertyName = $value;
 		}

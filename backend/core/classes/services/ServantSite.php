@@ -128,13 +128,13 @@ class ServantSite extends ServantObject {
 		return $this->set('description', (!empty($input) ? $input : ''));
 	}
 
-	// Page-specific scripts
+	// Site-wide external scripts
 	protected function setExternalScripts () {
 		$input = $this->servant()->manifest()->defaultScripts();
 		return $this->set('externalScripts', (!empty($input) ? $input : array()));
 	}
 
-	// Page-specific stylesheets
+	// Site-wide external stylesheets
 	protected function setExternalStylesheets () {
 		$input = $this->servant()->manifest()->defaultStylesheets();
 		return $this->set('externalStylesheets', (!empty($input) ? $input : array()));

@@ -43,6 +43,16 @@ try {
 				'$page->description()',
 				$page->description(),
 			),
+			'externalScripts' => array(
+				'',
+				'$page->externalScripts("url")',
+				$page->externalScripts('url'),
+			),
+			'externalStylesheets' => array(
+				'',
+				'$page->externalStylesheets("url")',
+				$page->externalStylesheets('url'),
+			),
 			'icon' => array(
 				'$format = false',
 				'$page->icon()',
