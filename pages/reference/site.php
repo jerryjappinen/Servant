@@ -50,11 +50,6 @@ try {
 				'$servant->site()->pageNames()',
 				$servant->site()->pageNames(),
 			),
-			'pageOrder' => array(
-				'',
-				'$servant->site()->pageOrder()',
-				$servant->site()->pageOrder(),
-			),
 			'pageTemplates' => array(
 				'',
 				'$servant->site()->pageTemplates()',

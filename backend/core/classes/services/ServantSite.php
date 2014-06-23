@@ -22,16 +22,13 @@ class ServantSite extends ServantObject {
 	// Arrays, user-defined (in manifest)
 	protected $propertyExternalScripts 		= null;
 	protected $propertyExternalStylesheets 	= null;
-	protected $propertyPageDescriptions 	= null;
-	protected $propertyPageNames 			= null;
-	protected $propertyPageTemplates 		= null;
+	protected $propertyPageDescriptions 	= null;		// FLAG legacy, ServantNode should use manifest
+	protected $propertyPageNames 			= null;		// FLAG legacy, ServantNode should use manifest
+	protected $propertyPageTemplates 		= null;		// FLAG legacy, ServantNode should use manifest
 
 	// Not user-defined
 	protected $propertyScripts 				= null;
 	protected $propertyStylesheets 			= null;
-
-	// Sitemap
-	protected $propertyPageOrder 			= null;
 
 
 
@@ -81,11 +78,6 @@ class ServantSite extends ServantObject {
 	public function pageNames () {
 		$arguments = func_get_args();
 		return $this->getAndSet('pageNames', $arguments);
-	}
-
-	public function pageOrder () {
-		$arguments = func_get_args();
-		return $this->getAndSet('pageOrder', $arguments);
 	}
 
 	public function pageTemplates () {
@@ -213,12 +205,6 @@ class ServantSite extends ServantObject {
 	protected function setPageNames () {
 		$input = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->pageNames());
 		return $this->set('pageNames', (!empty($input) ? $input : array()));
-	}
-
-	// Manual page order configuration - page ordering and page properties
-	protected function setPageOrder () {
-		$input = $this->servant()->manifest()->sitemap();
-		return $this->set('pageOrder', !empty($input) ? $input : array());
 	}
 
 	// Page-specific templates

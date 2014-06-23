@@ -16,10 +16,9 @@
 - Manifest improvements
 	- Support internal URLs in assets (fix in templates)
 	- Handle external URLs properly when using icons/splash images in templates
-	- Make sure `paths->format()` handles format changes reliably with external URLs
-	- Refactor `ServantSite` property/method names
 	- Introduce node-specific settings in page/category objects
 		- `pageNames` etc not needed in `ServantSite`, for example
+	- Refactor `ServantSite` property/method names
 - `ServantPath` object?
 	- Returned by all path properties
 	- `__toString`

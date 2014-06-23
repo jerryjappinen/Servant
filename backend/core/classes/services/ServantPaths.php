@@ -197,17 +197,32 @@ class ServantPaths extends ServantObject {
 	*/
 
 	/**
+	* Detect absolute URL
+	*/
+	public function isAbsolute ($path) {
+		$path = trim_text($path, true);
+		$parsed = parse_url($path);
+		return isset($parsed['scheme']) and !empty($parsed['scheme']);
+	}
+
+	/**
+	* Detect external absolute URL
+	*/
+	public function isExternal ($path) {
+		$path = trim_text($path, true);
+		$trimmed = unprefix(unprefix($path, $this->host()), $this->root());
+		return $this->isAbsolute($path) and ($path === $trimmed);
+	}
+
+	/**
 	* Convert a path from one format to another
 	*/
 	public function format ($path, $resultFormat = null, $originalFormat = null) {
+		$path = trim_text($path, true);
 
 		// Auto-detect absolute URLs
-		if (!isset($originalFormat)) {
-			$parsed = parse_url($path);
-			if (isset($parsed['scheme']) and !empty($parsed['scheme'])) {
-				$originalFormat = 'url';
-			}
-			unset($parsed);
+		if (!isset($originalFormat) and $this->isAbsolute($path)) {
+			$originalFormat = 'url';
 		}
 
 		// Don't do anything if it doesn't make sense
@@ -225,20 +240,11 @@ class ServantPaths extends ServantObject {
 			} else if ($originalFormat === 'domain') {
 				$path = unprefix($path, $root);
 			} else if ($originalFormat === 'url') {
-
-				// Absolute URLs get special handling
-				$trimmed = unprefix(unprefix($path, $host), $root);
-
-				// External URL
-				if ($path === $trimmed) {
+				if ($this->isExternal($path)) {
 					$isInternal = false;
-
-				// Internal URL
 				} else {
-					$path = $trimmed;
+					$path = unprefix(unprefix($path, $host), $root);
 				}
-				unset($trimmed);
-
 			}
 
 			// Add prefixes if needed

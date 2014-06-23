@@ -1,9 +1,7 @@
 <?php
+
 /**
 * Sitemap with a root category node
-*
-* FLAG
-*   - This should not be a global service, actions should generate a sitemap if needed
 */
 class ServantSitemap extends ServantObject {
 
@@ -83,11 +81,17 @@ class ServantSitemap extends ServantObject {
 	*/
 	public function initialize () {
 
-		// Page order
+		// Get user input form manifest
+		$manifest = $this->servant()->manifest()->sitemap();
+		if (empty($manifest)) {
+			$manifest = array();
+		}
+
+		// Generate page order
 		$pageOrder = array();
-		foreach ($this->servant()->site()->pageOrder() as $key => $value) {
-			$section = substr($value, 0, strrpos($value, '/'));
-			$pageOrder['root'.($section ? '/'.$section : '')][] = unprefix($value, $section.'/');
+		foreach ($manifest as $stringPointer) {
+			$section = substr($stringPointer, 0, strrpos($stringPointer, '/'));
+			$pageOrder['root'.($section ? '/'.$section : '')][] = unprefix($stringPointer, $section.'/');
 		}
 
 		// Nodes

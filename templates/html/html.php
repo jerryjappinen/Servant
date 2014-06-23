@@ -102,6 +102,7 @@ unset($splashImage, $icon);
 //         .'<meta name="apple-mobile-web-app-capable" content="yes">';
 
 
+
 /**
 * Links to stylesheets (external from settings + internal from stylesheets action)
 */

@@ -3,12 +3,24 @@
 try {
 
 	$reference = array(
-		'path tests' => array(
+		'Internal paths' => array(
 
 			'relative to url' => array(
 				'',
 				'$servant->paths()->format("foo", "url")',
 				$servant->paths()->format('foo', 'url'),
+			),
+
+			'relative to server' => array(
+				'',
+				'$servant->paths()->format("foo", "server")',
+				$servant->paths()->format('foo', 'server'),
+			),
+
+			'relative to domain' => array(
+				'',
+				'$servant->paths()->format("foo", "domain")',
+				$servant->paths()->format('foo', 'domain'),
 			),
 
 			'root-relative to url' => array(
@@ -28,41 +40,57 @@ try {
 				'$servant->paths()->format("/foo", "domain")',
 				$servant->paths()->format('/foo', 'domain'),
 			),
+		),
 
-			'internal absolute to url' => array(
+		'internal absolute paths' => array(
+			'to url' => array(
 				'',
 				'$servant->paths()->format("http://localhost/servant/foo", "url")',
 				$servant->paths()->format('http://localhost/servant/foo', 'url'),
 			),
 
-			'external absolute to url' => array(
+			'to domain' => array(
+				'',
+				'$servant->paths()->format("http://localhost/servant/foo", "domain")',
+				$servant->paths()->format('http://localhost/servant/foo', 'domain'),
+			),
+			'to server' => array(
+				'',
+				'$servant->paths()->format("http://localhost/servant/foo", "server")',
+				$servant->paths()->format('http://localhost/servant/foo', 'server'),
+			),
+		),
+
+		'external paths' => array(
+
+			'to url' => array(
 				'',
 				'$servant->paths()->format("http://eiskis.net/foo", "url")',
 				$servant->paths()->format('http://eiskis.net/foo', 'url'),
 			),
 
-			'internal absolute to domain' => array(
-				'',
-				'$servant->paths()->format("http://localhost/servant/foo", "domain")',
-				$servant->paths()->format('http://localhost/servant/foo', 'domain'),
-			),
-
-			'external absolute to domain' => array(
+			'to domain' => array(
 				'',
 				'$servant->paths()->format("http://eiskis.net/foo", "domain")',
 				$servant->paths()->format('http://eiskis.net/foo', 'domain'),
 			),
 
-			'internal absolute to server' => array(
-				'',
-				'$servant->paths()->format("http://localhost/servant/foo", "server")',
-				$servant->paths()->format('http://localhost/servant/foo', 'server'),
-			),
-
-			'external absolute to server' => array(
+			'to server' => array(
 				'',
 				'$servant->paths()->format("http://eiskis.net/foo", "server")',
 				$servant->paths()->format('http://eiskis.net/foo', 'server'),
+			),
+
+			'force external from server to domain' => array(
+				'',
+				'$servant->paths()->format("http://eiskis.net/foo", "domain", "server")',
+				$servant->paths()->format('http://eiskis.net/foo', 'domain', 'server'),
+			),
+
+			'force external from domain to server' => array(
+				'',
+				'$servant->paths()->format("http://eiskis.net/foo", "server", "domain")',
+				$servant->paths()->format('http://eiskis.net/foo', 'server', 'domain'),
 			),
 
 		),

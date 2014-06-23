@@ -3,6 +3,16 @@
 /**
 * A traversable node with potential for parents or children
 *
+* FLAG
+*   - Get templates from manifest
+*   - Get page name from manifest
+*
+*   - Add site name, get it from manifest
+*   - Add icon, get it from manifest
+*   - Add splash image, get it from manifest
+*   - Add external scripts, get it from manifest
+*   - Add external stylesheets, get it from manifest
+*
 * DEPENDENCIES
 *   ???
 */
