@@ -335,7 +335,7 @@ class ServantManifest extends ServantObject {
 	* Private helpers
 	*/
 
-	private function getSomeHash ($hashKey, $nodeKey = null, $firstValueOnly = false) {
+	private function getSomeHash ($hashKey, $nodeKey = null, $firstValueOnly = false, $fallbackToFirstValue = false) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
@@ -353,11 +353,12 @@ class ServantManifest extends ServantObject {
 		if ($nodeKey === $defaultKey) {
 
 			// Values available
-			if (count($raw) and !isset($raw[$defaultKey])) {
+			if (count($raw) and !isset($raw[$defaultKey]) and $fallbackToFirstValue) {
 				$nodeKeys = array_keys($raw);
 				$nodeKey = reset($nodeKeys);
 				unset($nodeKeys);
 			}
+
 		}
 
 		// Find individual item
