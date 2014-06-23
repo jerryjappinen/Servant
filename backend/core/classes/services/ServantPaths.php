@@ -201,8 +201,18 @@ class ServantPaths extends ServantObject {
 	*/
 	public function format ($path, $resultFormat = null, $originalFormat = null) {
 
+		// Auto-detect absolute URLs
+		if (!isset($originalFormat)) {
+			$parsed = parse_url($path);
+			if (isset($parsed['scheme']) and !empty($parsed['scheme'])) {
+				$originalFormat = 'url';
+			}
+			unset($parsed);
+		}
+
 		// Don't do anything if it doesn't make sense
 		if ($resultFormat != $originalFormat) {
+			$isInternal = true;
 
 			// Prefixes
 			$documentRoot = $this->documentRoot();
@@ -215,16 +225,31 @@ class ServantPaths extends ServantObject {
 			} else if ($originalFormat === 'domain') {
 				$path = unprefix($path, $root);
 			} else if ($originalFormat === 'url') {
-				$path = unprefix(unprefix($path, $host), $root);
+
+				// Absolute URLs get special handling
+				$trimmed = unprefix(unprefix($path, $host), $root);
+
+				// External URL
+				if ($path === $trimmed) {
+					$isInternal = false;
+
+				// Internal URL
+				} else {
+					$path = $trimmed;
+				}
+				unset($trimmed);
+
 			}
 
 			// Add prefixes if needed
-			if ($resultFormat === 'server') {
-				$path = $documentRoot.$root.$path;
-			} else if ($resultFormat === 'domain') {
-				$path = prefix($root.$path, '/');
-			} else if ($resultFormat === 'url') {
-				$path = $host.$root.$path;
+			if ($isInternal) {
+				if ($resultFormat === 'server') {
+					$path = $documentRoot.$root.unprefix($path, '/');
+				} else if ($resultFormat === 'domain') {
+					$path = prefix($root.unprefix($path, '/'), '/');
+				} else if ($resultFormat === 'url') {
+					$path = $host.$root.unprefix($path, '/');
+				}
 			}
 
 		}
