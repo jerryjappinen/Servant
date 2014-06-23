@@ -171,7 +171,7 @@ unset($temp, $pointer, $i, $value);
 
 
 <!DOCTYPE html>
-<html<?php echo $servant->site()->language() ? ' lang="'.$servant->site()->language().'"' : '' ?>>
+<html<?php echo $page->language() ? ' lang="'.$page->language().'"' : '' ?>>
 	<head>
 
 		<meta charset="utf-8">

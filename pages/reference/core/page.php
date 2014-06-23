@@ -44,7 +44,7 @@ try {
 				$page->description(),
 			),
 			'icon' => array(
-				'',
+				'$format = false',
 				'$page->icon()',
 				$page->icon(),
 			),
@@ -58,6 +58,11 @@ try {
 				'$page->index()',
 				$page->index(),
 			),
+			'language' => array(
+				'',
+				'$page->language()',
+				$page->language(),
+			),
 			'name' => array(
 				'',
 				'$page->name()',
@@ -69,7 +74,7 @@ try {
 				$page->pointer(),
 			),
 			'splashImage' => array(
-				'',
+				'$format = false',
 				'$page->splashImage()',
 				$page->splashImage(),
 			),

@@ -25,6 +25,7 @@ class ServantNode extends ServantObject {
 	protected $propertyIcon 		= null;
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
+	protected $propertyLanguage 	= null;
 	protected $propertyName 		= null;
 	protected $propertyParent 		= null;
 	protected $propertyPointer 		= null;
@@ -178,6 +179,26 @@ class ServantNode extends ServantObject {
 		return $this->getAndSet('index');
 	}
 
+	public function language () {
+		$language = $this->getAndSet('language');
+
+		// Bubble
+		if (empty($language)) {
+
+			// Parent
+			if ($this->parent()) {
+				$language = $this->parent()->language();
+
+			// Global
+			} else {
+				$language = $this->servant()->site()->language();
+			}
+
+		}
+
+		return $language;
+	}
+
 	public function name () {
 		$arguments = func_get_args();
 		return $this->getOrSet('name', $arguments);
@@ -328,6 +349,24 @@ class ServantNode extends ServantObject {
 			}
 		}
 		return $this->set('index', $result);
+	}
+
+	/**
+	* Language
+	*/
+	protected function setLanguage () {
+		$language = '';
+
+		// Get from manifest
+		$languages = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->languages());
+		$pointer = $this->stringPointer();
+
+		// Description defined in settings
+		if (array_key_exists($pointer, $languages)) {
+			$language = trim_text($languages[$pointer]);
+		}
+
+		return $this->set('language', $language);
 	}
 
 	/**
