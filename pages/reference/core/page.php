@@ -68,6 +68,11 @@ try {
 				'$page->pointer()',
 				$page->pointer(),
 			),
+			'splashImage' => array(
+				'',
+				'$page->splashImage()',
+				$page->splashImage(),
+			),
 			'stringPointer' => array(
 				'$includeRoot = false',
 				'$page->stringPointer()',

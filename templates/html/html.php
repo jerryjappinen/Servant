@@ -65,7 +65,7 @@ $meta .= '<meta property="og:type" content="'.($page->isHome() ? 'website' : 'ar
 /**
 * Splash image
 */
-$splashImage = $servant->site()->splashImage('url');
+$splashImage = $page->splashImage('url');
 if ($splashImage) {
 	$links .= '<meta property="og:image" content="'.$splashImage.'">'
 	         .'<meta name="msapplication-TileImage" content="'.$splashImage.'"/>'

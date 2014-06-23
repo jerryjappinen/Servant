@@ -9,7 +9,6 @@
 *	- node, page and category could probably be fused into one node class
 *
 *   - Add site name, get it from manifest
-*   - Add splash image, get it from manifest
 *   - Add external scripts, get it from manifest
 *   - Add external stylesheets, get it from manifest
 *
@@ -29,12 +28,13 @@ class ServantNode extends ServantObject {
 	protected $propertyName 		= null;
 	protected $propertyParent 		= null;
 	protected $propertyPointer 		= null;
+	protected $propertySplashImage 	= null;
 	protected $propertyTemplate 	= null;
 
 
 
 	/**
-	* Convenience
+	* Traversal
 	*/
 
 	public function isRoot () {
@@ -202,6 +202,30 @@ class ServantNode extends ServantObject {
 		return array_traverse($pointer, $arguments);
 	}
 
+	public function splashImage ($format = false) {
+		$splashImage = $this->getAndSet('splashImage');
+
+		// Bubble
+		if (empty($splashImage)) {
+
+			// Parent
+			if ($this->parent()) {
+				$splashImage = $this->parent()->splashImage();
+
+			// Global
+			} else {
+				$splashImage = $this->servant()->site()->splashImage();
+			}
+
+		}
+
+		if (!empty($splashImage) and $format) {
+			$splashImage = $this->servant()->paths()->format($splashImage, $format);
+		}
+
+		return $splashImage;
+	}
+
 	public function template () {
 		$template = $this->getAndSet('template');
 
@@ -365,6 +389,24 @@ class ServantNode extends ServantObject {
 		}
 		$results[] = $this->id();
 		return $this->set('pointer', $results);
+	}
+
+	/**
+	* SplashImage
+	*/
+	protected function setSplashImage () {
+		$splashImage = '';
+
+		// Get from manifest
+		$splashImages = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->splashImages());
+		$pointer = $this->stringPointer();
+
+		// Description defined in settings
+		if (array_key_exists($pointer, $splashImages)) {
+			$splashImage = trim_text($splashImages[$pointer]);
+		}
+
+		return $this->set('splashImage', $splashImage);
 	}
 
 	/**
