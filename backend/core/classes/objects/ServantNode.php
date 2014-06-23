@@ -29,6 +29,7 @@ class ServantNode extends ServantObject {
 	protected $propertyName 		= null;
 	protected $propertyParent 		= null;
 	protected $propertyPointer 		= null;
+	protected $propertySiteName 	= null;
 	protected $propertySplashImage 	= null;
 	protected $propertyTemplate 	= null;
 
@@ -223,6 +224,26 @@ class ServantNode extends ServantObject {
 		return array_traverse($pointer, $arguments);
 	}
 
+	public function siteName () {
+		$siteName = $this->getAndSet('siteName');
+
+		// Bubble
+		if (empty($siteName)) {
+
+			// Parent
+			if ($this->parent()) {
+				$siteName = $this->parent()->siteName();
+
+			// Global
+			} else {
+				$siteName = $this->servant()->site()->name();
+			}
+
+		}
+
+		return $siteName;
+	}
+
 	public function splashImage ($format = false) {
 		$splashImage = $this->getAndSet('splashImage');
 
@@ -290,9 +311,9 @@ class ServantNode extends ServantObject {
 		$descriptions = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->descriptions());
 		$pointer = $this->stringPointer();
 
-		// Description defined in settings
+		// Value defined in settings
 		if (array_key_exists($pointer, $descriptions)) {
-			$description = trim_text($descriptions[$pointer]);
+			$description = $descriptions[$pointer];
 		}
 
 		return $this->set('description', $description);
@@ -308,9 +329,9 @@ class ServantNode extends ServantObject {
 		$icons = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->icons());
 		$pointer = $this->stringPointer();
 
-		// Description defined in settings
+		// Value defined in settings
 		if (array_key_exists($pointer, $icons)) {
-			$icon = trim_text($icons[$pointer]);
+			$icon = $icons[$pointer];
 		}
 
 		return $this->set('icon', $icon);
@@ -361,9 +382,9 @@ class ServantNode extends ServantObject {
 		$languages = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->languages());
 		$pointer = $this->stringPointer();
 
-		// Description defined in settings
+		// Value defined in settings
 		if (array_key_exists($pointer, $languages)) {
-			$language = trim_text($languages[$pointer]);
+			$language = $languages[$pointer];
 		}
 
 		return $this->set('language', $language);
@@ -431,6 +452,29 @@ class ServantNode extends ServantObject {
 	}
 
 	/**
+	* Site name
+	*
+	* NOTE
+	*	- Servant supports setting a specific site name for any sitemap node and its children.
+	*	- Site name should always be accessed via a node object
+	*	- ServantSite's name property is only a default.
+	*/
+	protected function setSiteName () {
+		$siteName = '';
+
+		// Get from manifest
+		$siteNames = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->siteNames());
+		$pointer = $this->stringPointer();
+
+		// Value defined in settings
+		if (array_key_exists($pointer, $siteNames)) {
+			$siteName = $siteNames[$pointer];
+		}
+
+		return $this->set('siteName', $siteName);
+	}
+
+	/**
 	* SplashImage
 	*/
 	protected function setSplashImage () {
@@ -440,9 +484,9 @@ class ServantNode extends ServantObject {
 		$splashImages = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->splashImages());
 		$pointer = $this->stringPointer();
 
-		// Description defined in settings
+		// Value defined in settings
 		if (array_key_exists($pointer, $splashImages)) {
-			$splashImage = trim_text($splashImages[$pointer]);
+			$splashImage = $splashImages[$pointer];
 		}
 
 		return $this->set('splashImage', $splashImage);

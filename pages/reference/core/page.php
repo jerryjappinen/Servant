@@ -73,6 +73,11 @@ try {
 				'$page->pointer()',
 				$page->pointer(),
 			),
+			'siteName' => array(
+				'',
+				'$page->siteName()',
+				$page->siteName(),
+			),
 			'splashImage' => array(
 				'$format = false',
 				'$page->splashImage()',

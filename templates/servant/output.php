@@ -8,7 +8,7 @@ $output = '
 <div class="row row-menu">
 	<div class="row-content buffer-left buffer-right">
 
-		<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>
+		<h1><a href="'.$servant->paths()->root('domain').'">'.$page->siteName().'</a></h1>
 		<ul class="reset plain collapse right">
 			'.$mainmenu.'
 		</ul>

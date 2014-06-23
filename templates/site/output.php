@@ -2,7 +2,7 @@
 
 $output = '
 <div class="header">
-	<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->site()->name().'</a></h1>
+	<h1><a href="'.$servant->paths()->root('domain').'">'.$servant->siteName().'</a></h1>
 	<ul>
 		'.$mainmenu.'
 	</ul>
@@ -33,7 +33,7 @@ $output = '
 </div>
 
 <div class="footer">
-	<h1><a href="'.$servant->paths()->root('domain').'">'.htmlspecialchars($servant->site()->name()).'</a></h1>
+	<h1><a href="'.$servant->paths()->root('domain').'">'.htmlspecialchars($servant->siteName()).'</a></h1>
 </div>
 ';
 

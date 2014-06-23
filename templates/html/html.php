@@ -28,7 +28,7 @@ $links = '';
 /**
 * Page title
 */
-$title = (!$page->isHome() ? htmlspecialchars($page->name()).' &ndash; ' : '').htmlspecialchars($servant->site()->name());
+$title = (!$page->isHome() ? htmlspecialchars($page->name()).' &ndash; ' : '').htmlspecialchars($page->siteName());
 $meta .= '<title>'.$title.'</title><meta property="og:title" content="'.$title.'">';
 unset($title);
 
@@ -37,8 +37,8 @@ unset($title);
 /**
 * Site name
 */
-$meta .= '<meta name="application-name" content="'.htmlspecialchars($servant->site()->name()).'">'
-        .'<meta property="og:site_name" content="'.htmlspecialchars($servant->site()->name()).'">';
+$meta .= '<meta name="application-name" content="'.htmlspecialchars($page->siteName()).'">'
+        .'<meta property="og:site_name" content="'.htmlspecialchars($page->siteName()).'">';
 
 
 

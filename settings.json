@@ -8,11 +8,7 @@
 	"browserCache": "12*60",
 	"serverCache": "6*60",
 
-	"siteName": {
-		"/": "Servant",
-		"guides": "Servant Guides",
-		"docs": "Servant Docs"
-	},
+	"siteName": "Servant",
 
 	"descriptions": {
 		"/": "Servant - Effortless publishing for the web",
