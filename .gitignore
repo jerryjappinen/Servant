@@ -3,6 +3,7 @@
 *.log
 .idea/
 *.orig
+doc/
 
 # Servant-specific
 cache/
