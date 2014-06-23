@@ -6,10 +6,6 @@
 * NOTE
 *   - User does not usually know if she has a category or page node
 *
-* FLAG
-*   - Could be made looser (no template needed, no parent needed)
-*	- node, page and category could probably be fused into one node class
-*
 * DEPENDENCIES
 *   ???
 */

@@ -43,6 +43,11 @@ try {
 				'$page->description()',
 				$page->description(),
 			),
+			'icon' => array(
+				'',
+				'$page->icon()',
+				$page->icon(),
+			),
 			'id' => array(
 				'',
 				'$page->id()',

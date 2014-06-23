@@ -4,11 +4,11 @@
 * A traversable node with potential for parents or children
 *
 * FLAG
-*   - Get templates from manifest
-*   - Get page name from manifest
+*
+*   - Could be made looser (no template needed, no parent needed)
+*	- node, page and category could probably be fused into one node class
 *
 *   - Add site name, get it from manifest
-*   - Add icon, get it from manifest
 *   - Add splash image, get it from manifest
 *   - Add external scripts, get it from manifest
 *   - Add external stylesheets, get it from manifest
@@ -23,6 +23,7 @@ class ServantNode extends ServantObject {
 	*/
 	protected $propertyDepth 		= null;
 	protected $propertyDescription 	= null;
+	protected $propertyIcon 		= null;
 	protected $propertyId 			= null;
 	protected $propertyIndex 		= null;
 	protected $propertyName 		= null;
@@ -144,6 +145,30 @@ class ServantNode extends ServantObject {
 		return $description;
 	}
 
+	public function icon ($format = false) {
+		$icon = $this->getAndSet('icon');
+
+		// Bubble
+		if (empty($icon)) {
+
+			// Parent
+			if ($this->parent()) {
+				$icon = $this->parent()->icon();
+
+			// Global
+			} else {
+				$icon = $this->servant()->site()->icon();
+			}
+
+		}
+
+		if (!empty($icon) and $format) {
+			$icon = $this->servant()->paths()->format($icon, $format);
+		}
+
+		return $icon;
+	}
+
 	public function id () {
 		$arguments = func_get_args();
 		return $this->getOrSet('id', $arguments);
@@ -216,7 +241,7 @@ class ServantNode extends ServantObject {
 	protected function setDescription () {
 		$description = '';
 
-		// Get settings
+		// Get from manifest
 		$descriptions = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->descriptions());
 		$pointer = $this->stringPointer();
 
@@ -226,6 +251,24 @@ class ServantNode extends ServantObject {
 		}
 
 		return $this->set('description', $description);
+	}
+
+	/**
+	* Icon
+	*/
+	protected function setIcon () {
+		$icon = '';
+
+		// Get from manifest
+		$icons = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->icons());
+		$pointer = $this->stringPointer();
+
+		// Description defined in settings
+		if (array_key_exists($pointer, $icons)) {
+			$icon = trim_text($icons[$pointer]);
+		}
+
+		return $this->set('icon', $icon);
 	}
 
 	/**
@@ -330,7 +373,7 @@ class ServantNode extends ServantObject {
 	protected function setTemplate () {
 		$template = '';
 
-		// Get settings
+		// Get from manifest
 		$templates = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->templates());
 		$pointer = $this->stringPointer();
 

@@ -75,7 +75,7 @@ if ($splashImage) {
 /**
 * Icon
 */
-$icon = $servant->site()->icon('domain');
+$icon = $page->icon('domain');
 if ($icon) {
 	$extension = pathinfo($icon, PATHINFO_EXTENSION);
 
