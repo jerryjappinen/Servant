@@ -110,6 +110,10 @@ class ServantPaths extends ServantObject {
 		return $this->templates($format).suffix($template, '/');
 	}
 
+	public function utility ($utility, $format = null) {
+		return $this->utilities($format).suffix($utility, '/');
+	}
+
 
 
 	/**

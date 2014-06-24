@@ -449,11 +449,6 @@ class ServantNode extends ServantObject {
 
 	/**
 	* Site name
-	*
-	* NOTE
-	*	- Servant supports setting a specific site name for any sitemap node and its children.
-	*	- Site name should always be accessed via a node object
-	*	- ServantSite's name property is only a default.
 	*/
 	protected function setSiteName () {
 		$result = '';

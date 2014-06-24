@@ -21,7 +21,6 @@
 - Set scripts and stylesheets in `ServantNode`, bubble them like `externalStylesheets`
 - Use node-specific cache times
 	- only site-wide browser and server cache times are supported in `ServantResponse` now
-- Refactor `ServantSite` property/method names
 - Send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions
 - `ServantPath`
 	- Returned by all path properties

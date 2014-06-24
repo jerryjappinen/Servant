@@ -1,15 +1,16 @@
 <?php
 
 /**
-* A web site, available as service
+* Public assets, available as a service
 */
-class ServantSite extends ServantObject {
+class ServantAssets extends ServantObject {
+
+
 
 	/**
 	* Properties
 	*/
 
-	// Site-wide assets
 	protected $propertyScripts 				= null;
 	protected $propertyStylesheets 			= null;
 
@@ -47,12 +48,26 @@ class ServantSite extends ServantObject {
 
 	// Script assets
 	protected function setScripts () {
-		return $this->set('scripts', $this->findAssetFiles($this->servant()->constants()->formats('scripts')));
+		return
+			$this->set(
+				'scripts',
+				$this->findAssetFiles(
+					$this->servant()->paths()->assets('server'),
+					$this->servant()->constants()->formats('scripts')
+			)
+		);
 	}
 
 	// Stylesheet assets
 	protected function setStylesheets () {
-		return $this->set('stylesheets', $this->findAssetFiles($this->servant()->constants()->formats('stylesheets')));
+		return
+			$this->set(
+				'stylesheets',
+				$this->findAssetFiles(
+					$this->servant()->paths()->assets('server'),
+					$this->servant()->constants()->formats('stylesheets')
+			)
+		);
 	}
 
 
@@ -62,11 +77,11 @@ class ServantSite extends ServantObject {
 	*/
 
 	// Find site-wide asset files
-	private function findAssetFiles ($formats) {
+	private function findAssetFiles ($path, $formats) {
 		$files = array();
 
 		// All files of this type in site's assets directory
-		foreach (rglob_files($this->servant()->paths()->assets('server'), $formats) as $file) {
+		foreach (rglob_files($path, $formats) as $file) {
 			$files[] = $this->servant()->paths()->format($file, false, 'server');
 		}
 

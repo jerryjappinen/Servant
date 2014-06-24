@@ -15,17 +15,6 @@ $js['paths'] = array(
 
 
 
-// Settings
-$js['site'] = array(
-	// 'name' => $servant->site()->name(),
-	// 'description' => $servant->site()->description(),
-	// 'icon' => $servant->site()->icon(),
-	// 'splashImage' => $servant->site()->splashImage(),
-	// 'template' => $servant->site()->template(),
-);
-
-
-
 // Page
 $js['page'] = array(
 	'id' => $page->id(),

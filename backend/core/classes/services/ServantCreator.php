@@ -5,6 +5,12 @@
 */
 class ServantCreator extends ServantObject {
 
+	public function assets () {
+		$arguments = func_get_args();
+		array_unshift($arguments, 'assets');
+		return call_user_func_array(array($this, 'generate'), $arguments);
+	}
+
 	public function action () {
 		$arguments = func_get_args();
 		array_unshift($arguments, 'action');

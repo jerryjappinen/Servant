@@ -45,7 +45,7 @@ if ($template and $servant->available()->template($template)) {
 	* NOTE
 	*   - We don't output site-wide styles, we just need to have it there to preprocess page styles
 	*/
-	foreach ($servant->site()->stylesheets('plain') as $path) {
+	foreach ($servant->assets()->stylesheets('plain') as $path) {
 
 		// Special format is used
 		$extension = pathinfo($path, PATHINFO_EXTENSION);

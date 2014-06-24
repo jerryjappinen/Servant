@@ -30,7 +30,7 @@ $urlManipulator = new UrlManipulator();
 * Go through files
 */
 $styles = array('format' => false, 'content' => '',);
-foreach ($servant->site()->stylesheets('plain') as $path) {
+foreach ($servant->assets()->stylesheets('plain') as $path) {
 
 	// Special format is used
 	$extension = pathinfo($path, PATHINFO_EXTENSION);

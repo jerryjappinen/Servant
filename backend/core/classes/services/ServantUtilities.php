@@ -69,7 +69,7 @@ class ServantUtilities extends ServantObject {
 	* List of utilities that have been loaded
 	*/
 	private function loadUtility ($id) {
-		$path = suffix($this->servant()->paths()->utilities('server').$id, '/');
+		$path = $this->servant()->paths()->utility($id, 'server');
 
 		// Utility could already be loaded
 		if (!$this->loaded($id)) {

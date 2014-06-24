@@ -17,6 +17,7 @@ class ServantMain extends ServantObject {
 	* Properties
 	*/
 
+	protected $propertyAssets 		= null;
 	protected $propertyAvailable 	= null;
 	protected $propertyConstants 	= null;
 	protected $propertyCreate 		= null;
@@ -24,7 +25,6 @@ class ServantMain extends ServantObject {
 	protected $propertyFiles 		= null;
 	protected $propertyManifest 	= null;
 	protected $propertyPaths 		= null;
-	protected $propertySite 		= null;
 	protected $propertySitemap 		= null;
 	protected $propertyUtilities 	= null;
 	protected $propertyWarnings 	= null;
@@ -35,6 +35,9 @@ class ServantMain extends ServantObject {
 	* Getters
 	*/
 
+	public function assets () {
+		return $this->getAndSet('assets');
+	}
 	public function available () {
 		return $this->getAndSet('available');
 	}
@@ -56,9 +59,6 @@ class ServantMain extends ServantObject {
 	public function paths () {
 		return $this->getAndSet('paths');
 	}
-	public function site () {
-		return $this->getAndSet('site');
-	}
 	public function sitemap () {
 		return $this->getAndSet('sitemap');
 	}
@@ -75,6 +75,9 @@ class ServantMain extends ServantObject {
 	* Setters
 	*/
 
+	protected function setAssets () {
+		return $this->set('assets', $this->generate('assets'));
+	}
 	protected function setAvailable () {
 		return $this->set('available', $this->generate('available'));
 	}
@@ -95,9 +98,6 @@ class ServantMain extends ServantObject {
 	}
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));
-	}
-	protected function setSite () {
-		return $this->set('site', $this->generate('site'));
 	}
 	protected function setSitemap () {
 		return $this->set('sitemap', $this->generate('sitemap'));

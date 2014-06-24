@@ -7,13 +7,13 @@ try {
 		'getters' => array(
 			'scripts' => array(
 				'$format = false',
-				'$servant->site()->scripts()',
-				$servant->site()->scripts(),
+				'$servant->assets()->scripts()',
+				$servant->assets()->scripts(),
 			),
 			'stylesheets' => array(
 				'$format = false',
-				'$servant->site()->stylesheets()',
-				$servant->site()->stylesheets(),
+				'$servant->assets()->stylesheets()',
+				$servant->assets()->stylesheets(),
 			),
 		),
 
