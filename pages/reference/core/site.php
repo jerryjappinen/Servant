@@ -5,65 +5,15 @@ try {
 	$reference = array(
 
 		'getters' => array(
-			'browserCache' => array(
-				'',
-				'$servant->site()->browserCache()',
-				$servant->site()->browserCache(),
-			),
-			'description' => array(
-				'',
-				'$servant->site()->description()',
-				$servant->site()->description(),
-			),
-			'externalScripts' => array(
-				'',
-				'$servant->site()->externalScripts()',
-				$servant->site()->externalScripts(),
-			),
-			'externalStylesheets' => array(
-				'',
-				'$servant->site()->externalStylesheets()',
-				$servant->site()->externalStylesheets(),
-			),
-			'icon' => array(
-				'$format = null',
-				'$servant->site()->icon()',
-				$servant->site()->icon(),
-			),
-			'language' => array(
-				'',
-				'$servant->site()->language()',
-				$servant->site()->language(),
-			),
-			'name' => array(
-				'',
-				'$servant->site()->name()',
-				$servant->site()->name(),
-			),
 			'scripts' => array(
 				'$format = false',
 				'$servant->site()->scripts()',
 				$servant->site()->scripts(),
 			),
-			'serverCache' => array(
-				'',
-				'$servant->site()->serverCache()',
-				$servant->site()->serverCache(),
-			),
-			'splashImage' => array(
-				'$format = null',
-				'$servant->site()->splashImage()',
-				$servant->site()->splashImage(),
-			),
 			'stylesheets' => array(
 				'$format = false',
 				'$servant->site()->stylesheets()',
 				$servant->site()->stylesheets(),
-			),
-			'template' => array(
-				'',
-				'$servant->site()->template()',
-				$servant->site()->template(),
 			),
 		),
 

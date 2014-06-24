@@ -20,6 +20,7 @@ class ServantResponse extends ServantObject {
 	protected $propertyHeaders 			= null;
 	protected $propertyInput 			= null;
 	protected $propertyPath 			= null;
+	protected $propertyServerCacheTime 	= null;
 	protected $propertyStatus 			= null;
 
 
@@ -96,6 +97,10 @@ class ServantResponse extends ServantObject {
 		return $path;
 	}
 
+	public function serverCacheTime () {
+		return $this->getAndSet('serverCacheTime');
+	}
+
 	public function status () {
 		return $this->getAndSet('status');
 	}
@@ -127,7 +132,7 @@ class ServantResponse extends ServantObject {
 	*   - This is where we run the action if needed
 	*/
 	protected function setBody () {
-		$cacheEnabled = ($this->servant()->site()->serverCache() > 0 and !$this->servant()->debug());
+		$cacheEnabled = ($this->serverCacheTime() > 0 and !$this->servant()->debug());
 		$output = '';
 
 		// Response has been saved
@@ -167,7 +172,32 @@ class ServantResponse extends ServantObject {
 	* Max browser cache time in seconds
 	*/
 	protected function setBrowserCacheTime () {
-		return $this->set('browserCacheTime', $this->servant()->debug() ? 0 : $this->servant()->site()->browserCache()*60);
+		$cacheTime = 0;
+
+		// Find real cache time in production
+		if (!$this->servant()->debug()) {		
+			$default = $this->servant()->constants()->defaults('browserCache');
+			$cacheTime = $this->resolveCacheTime($this->servant()->siteMap()->root()->browserCache(), $default);
+		}
+
+		return $this->set('browserCacheTime', $cacheTime * 60);
+	}
+
+
+
+	/**
+	* Max server cache time in seconds
+	*/
+	protected function setServerCacheTime () {
+		$cacheTime = 0;
+
+		// Find real cache time in production
+		if (!$this->servant()->debug()) {		
+			$default = $this->servant()->constants()->defaults('serverCache');
+			$cacheTime = $this->resolveCacheTime($this->servant()->siteMap()->root()->serverCache(), $default);
+		}
+
+		return $this->set('serverCacheTime', $cacheTime * 60);
 	}
 
 
@@ -232,7 +262,7 @@ class ServantResponse extends ServantObject {
 		}
 
 		// File exists and is not too old
-		if (is_file($path) and filemtime($path) < time()+($this->servant()->site()->serverCache()*60)) {
+		if (is_file($path) and filemtime($path) < time()+($this->serverCacheTime())) {
 			$result = $this->servant()->paths()->format($path, 'plain', 'server');
 		}
 
@@ -359,6 +389,34 @@ class ServantResponse extends ServantObject {
 		$path .= implode('/', $this->input()->pointer());
 
 		return suffix($path, '/');
+	}
+
+	/**
+	* Resolve valid cache time from multiple possibilities, in minutes
+	*/
+	private function resolveCacheTime ($input, $default) {
+		$result = calculate($default);
+
+		// No explicit value given
+		if ($input !== null and $input !== true) {
+
+			// Cache disabled
+			if (!$input) {
+				$input = 0;
+
+			// Formula as a string
+			} elseif (is_string($input)) {
+				$input = calculate($input, true);
+			}
+
+			// Numerical value available
+			if (is_numeric($input)) {
+				$result = $input;
+			}
+
+		}
+
+		return max(0, intval($result));
 	}
 
 	/**

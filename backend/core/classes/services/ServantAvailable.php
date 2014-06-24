@@ -27,7 +27,7 @@ class ServantAvailable extends ServantObject {
 	}
 
 	public function utility ($id) {
-		return in_array($id, $this->templates());
+		return in_array($id, $this->utilities());
 	}
 
 

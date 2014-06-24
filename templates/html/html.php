@@ -12,6 +12,7 @@
 *	2: usePageAssets (truy or falsy)		// FLAG this is true if $page is not available?
 */
 
+$root = $servant->sitemap()->root();
 $page = $template->content(1);
 $usePageAssets = $template->content(2) ? true : false;
 
@@ -112,6 +113,8 @@ $stylesheetsLinks = '';
 $urls = array();
 if ($usePageAssets) {
 	$urls[] = $page->externalStylesheets('domain');
+} else {
+	$urls[] = $root->externalStylesheets('domain');
 }
 
 // Assets
@@ -138,8 +141,10 @@ $scriptLinks = '';
 
 // External scripts
 $urls = array();
-if ($usePageAssets and $page->externalScripts()) {
+if ($usePageAssets) {
 	$urls[] = $page->externalScripts('domain');
+} else {
+	$urls[] = $root->externalScripts('domain');
 }
 
 // Assets

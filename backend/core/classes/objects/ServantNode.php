@@ -6,6 +6,7 @@
 * FLAG
 *   - Could be made looser (no template needed, no parent needed)
 *	- node, page and category could probably be fused into one node class
+*	- root node should not default to everything
 *
 * DEPENDENCIES
 *   ???
@@ -135,17 +136,8 @@ class ServantNode extends ServantObject {
 		$description = $this->getAndSet('description');
 
 		// Bubble
-		if (empty($description)) {
-
-			// Parent
-			if ($this->parent()) {
-				$description = $this->parent()->description();
-
-			// Global
-			} else {
-				$description = $this->servant()->site()->description();
-			}
-
+		if (empty($description) and $this->parent()) {
+			$description = $this->parent()->description();
 		}
 
 		return $description;
@@ -193,19 +185,11 @@ class ServantNode extends ServantObject {
 		$icon = $this->getAndSet('icon');
 
 		// Bubble
-		if (empty($icon)) {
-
-			// Parent
-			if ($this->parent()) {
-				$icon = $this->parent()->icon();
-
-			// Global
-			} else {
-				$icon = $this->servant()->site()->icon();
-			}
-
+		if (empty($icon) and $this->parent()) {
+			$icon = $this->parent()->icon();
 		}
 
+		// Format path if requested
 		if (!empty($icon) and $format) {
 			$icon = $this->servant()->paths()->format($icon, $format);
 		}
@@ -226,17 +210,8 @@ class ServantNode extends ServantObject {
 		$language = $this->getAndSet('language');
 
 		// Bubble
-		if (empty($language)) {
-
-			// Parent
-			if ($this->parent()) {
-				$language = $this->parent()->language();
-
-			// Global
-			} else {
-				$language = $this->servant()->site()->language();
-			}
-
+		if (empty($language) and $this->parent()) {
+			$language = $this->parent()->language();
 		}
 
 		return $language;
@@ -274,17 +249,8 @@ class ServantNode extends ServantObject {
 		$siteName = $this->getAndSet('siteName');
 
 		// Bubble
-		if (empty($siteName)) {
-
-			// Parent
-			if ($this->parent()) {
-				$siteName = $this->parent()->siteName();
-
-			// Global
-			} else {
-				$siteName = $this->servant()->site()->name();
-			}
-
+		if (empty($siteName) and $this->parent()) {
+			$siteName = $this->parent()->siteName();
 		}
 
 		return $siteName;
@@ -294,19 +260,11 @@ class ServantNode extends ServantObject {
 		$splashImage = $this->getAndSet('splashImage');
 
 		// Bubble
-		if (empty($splashImage)) {
-
-			// Parent
-			if ($this->parent()) {
-				$splashImage = $this->parent()->splashImage();
-
-			// Global
-			} else {
-				$splashImage = $this->servant()->site()->splashImage();
-			}
-
+		if (empty($splashImage) and $this->parent()) {
+			$splashImage = $this->parent()->splashImage();
 		}
 
+		// Format path if requested
 		if (!empty($splashImage) and $format) {
 			$splashImage = $this->servant()->paths()->format($splashImage, $format);
 		}
@@ -318,17 +276,8 @@ class ServantNode extends ServantObject {
 		$template = $this->getAndSet('template');
 
 		// Bubble
-		if (empty($template)) {
-
-			// Parent
-			if ($this->parent()) {
-				$template = $this->parent()->template();
-
-			// Global
-			} else {
-				$template = $this->servant()->site()->template();
-			}
-
+		if (empty($template) and $this->parent()) {
+			$template = $this->parent()->template();
 		}
 
 		return $template;
@@ -507,8 +456,32 @@ class ServantNode extends ServantObject {
 	*	- ServantSite's name property is only a default.
 	*/
 	protected function setSiteName () {
+		$result = '';
 		$input = $this->servant()->manifest()->siteNames($this->stringPointer());
-		return $this->set('siteName', $input ? $input : '');
+
+		// Root gets site default if user hasn't set one
+		if (!$input and $this->isRoot()) {
+
+			// Generate from folder name
+			$folderName = basename(unprefix(unsuffix($this->servant()->paths()->root(), '/'), '/'));
+			$conversions = $this->servant()->constants()->namingConvention();
+			$folderName = ucfirst(trim(str_ireplace(array_keys($conversions), array_values($conversions), $folderName)));
+			if (!empty($folderName)) {
+				$input = $folderName;
+
+			// Final fallback to constants
+			} else {
+				$input = $this->servant()->constants()->defaults('siteName');
+			}
+
+		}
+
+		// Validate input
+		if (is_string($input)) {
+			$result = trim_text($input, true);
+		}
+
+		return $this->set('siteName', $result);
 	}
 
 	/**
@@ -521,13 +494,32 @@ class ServantNode extends ServantObject {
 
 	/**
 	* Template
+	*
+	* FLAG
+	*	- Streamlining needed
 	*/
 	protected function setTemplate () {
 		$template = '';
+		$input = $this->servant()->manifest()->templates($this->stringPointer());
+
+		// Root gets site default if user hasn't set one in
+		if (!$input and $this->isRoot()) {
+			$input = $this->servant()->constants()->defaults('template');
+
+			// Default set in constants unavailable, get any template
+			if (!$this->servant()->available()->template($input)) {
+				$templates = $this->servant()->available()->templates();
+				if (!empty($templates)) {
+					$template = $templates[0];
+				} else {
+					$this->fail('No templates available.');
+				}
+			}
+
+		}
 
 		// Template defined in settings
-		$input = $this->servant()->manifest()->templates($this->stringPointer());
-		if ($input) {
+		if (!$template and $input) {
 			if ($this->servant()->available()->template($input)) {
 				$template = $input;
 
@@ -536,7 +528,6 @@ class ServantNode extends ServantObject {
 				$this->warn('Missing template "'.$template.'" for '.$this->stringPointer().'.');
 
 			}
-
 		}
 
 		return $this->set('template', $template);

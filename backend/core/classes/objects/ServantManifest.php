@@ -285,7 +285,7 @@ class ServantManifest extends ServantObject {
 	* Manifest items (only these are public)
 	*/
 	public function setBrowserCaches () {
-		return $this->set('browserCaches', $this->treatSomeHash('browserCaches', 'numeric'));
+		return $this->set('browserCaches', $this->treatSomeHash('browserCaches', 'numericOrBoolean'));
 	}
 	public function setDescriptions () {
 		return $this->set('descriptions', $this->treatSomeHash('descriptions', 'oneliner'));
@@ -314,7 +314,7 @@ class ServantManifest extends ServantObject {
 		return $this->set('scripts', $manifest);
 	}
 	public function setServerCaches () {
-		return $this->set('serverCaches', $this->treatSomeHash('serverCaches', 'numeric'));
+		return $this->set('serverCaches', $this->treatSomeHash('serverCaches', 'numericOrBoolean'));
 	}
 	public function setSiteNames () {
 		return $this->set('siteNames', $this->treatSomeHash('siteNames', 'oneliner'));
@@ -499,24 +499,29 @@ class ServantManifest extends ServantObject {
 		$result = '';
 
 		// Normalize, only accept numeric and string values
-		if (is_string($value) or is_numeric($value)) {
-			$value = ''.$value;
+		if (is_string($value) or is_numeric($value) or is_bool($value)) {
 
 			// Normalize by selected type
 			if ($type === 'numeric') {
 				$value = calculate($value);
 
+			// Numeric or boolean
+			} else if ($type === 'numericOrBoolean') {
+				if (!is_bool($value)) {
+					$value = calculate($value);
+				}
+
 			// No whitespace
 			} else if ($type === 'trimmed') {
-				$value = trim_whitespace($value);
+				$value = trim_whitespace(''.$value);
 
 			// Paths
 			} else if ($type === 'path') {
-				$value = $this->resolveFilePath($value);
+				$value = $this->resolveFilePath(''.$value);
 
 			// One-line string
 			} else {
-				$value = trim_text($value, true);
+				$value = trim_text(''.$value, true);
 			}
 
 			// Accept string
