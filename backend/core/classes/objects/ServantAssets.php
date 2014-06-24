@@ -11,14 +11,33 @@ class ServantAssets extends ServantObject {
 	* Properties
 	*/
 
+	protected $propertyPath 				= null;
 	protected $propertyScripts 				= null;
 	protected $propertyStylesheets 			= null;
 
 
 
 	/**
+	* Take original settings path in during initialization (all are optional)
+	*/
+	public function initialize ($path = null) {
+		return $this->setPath($path);
+	}
+
+
+
+	/**
 	* Getters
 	*/
+
+	// Path in any format
+	protected function path ($format = false) {
+		$path = $this->getAndSet('path');
+		if ($format) {
+			$path = $this->servant()->paths()->format($path, $format);
+		}
+		return $path;
+	}
 
 	public function scripts ($format = false) {
 		$files = $this->getAndSet('scripts');
@@ -46,16 +65,35 @@ class ServantAssets extends ServantObject {
 	* Setters
 	*/
 
+	// Path
+	protected function setPath ($path = null) {
+		$result = '';
+
+		// Input given
+		if ($path and is_string($path)) {
+
+			// Dir missing
+			if (!is_dir($this->servant()->paths()->format($path, 'server'))) {
+				$this->warn('Site assets directory '.(!empty($path) ? ' ("'.$path.'")' : '').'missing.');
+			} else {
+				$result = $this->servant()->paths()->format($path);
+			}
+
+		}
+
+		return $this->set('path', $result);
+	}
+
 	// Script assets
 	protected function setScripts () {
 		return
 			$this->set(
 				'scripts',
 				$this->findAssetFiles(
-					$this->servant()->paths()->assets('server'),
+					$this->path('server'),
 					$this->servant()->constants()->formats('scripts')
-			)
-		);
+				)
+			);
 	}
 
 	// Stylesheet assets
@@ -64,10 +102,10 @@ class ServantAssets extends ServantObject {
 			$this->set(
 				'stylesheets',
 				$this->findAssetFiles(
-					$this->servant()->paths()->assets('server'),
+					$this->path('server'),
 					$this->servant()->constants()->formats('stylesheets')
-			)
-		);
+				)
+			);
 	}
 
 

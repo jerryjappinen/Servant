@@ -32,7 +32,7 @@ class ServantManifest extends ServantObject {
 
 
 	/**
-	* Take original settings in during initialization (all are optional)
+	* Take original settings path in during initialization (all are optional)
 	*/
 	public function initialize ($path = null) {
 		return $this->setPath($path);

@@ -75,8 +75,8 @@ class ServantMain extends ServantObject {
 	* Setters
 	*/
 
-	protected function setAssets () {
-		return $this->set('assets', $this->generate('assets'));
+	protected function setAssets ($path = null) {
+		return $this->set('assets', $this->generate('assets', $path));
 	}
 	protected function setAvailable () {
 		return $this->set('available', $this->generate('available'));
@@ -118,7 +118,11 @@ class ServantMain extends ServantObject {
 		if ($debug) {
 			$this->enableDebug();
 		}
-		return $this->setPaths($paths)->setConstants($constants)->setManifest($this->paths()->manifest());
+		return $this->setPaths($paths)
+			->setConstants($constants)
+			->setManifest($this->paths()->manifest())
+			->setAssets($this->paths()->assets())
+		;
 	}
 
 
