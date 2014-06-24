@@ -109,7 +109,7 @@ unset($splashImage, $icon);
 $stylesheetsLinks = '';
 
 // External stylesheets
-$urls = $servant->site()->externalStylesheets();
+$urls = array();
 if ($usePageAssets) {
 	$urls[] = $page->externalStylesheets('domain');
 }
@@ -137,8 +137,8 @@ unset($urls, $url);
 $scriptLinks = '';
 
 // External scripts
-$urls = $servant->site()->externalScripts();
-if ($usePageAssets) {
+$urls = array();
+if ($usePageAssets and $page->externalScripts()) {
 	$urls[] = $page->externalScripts('domain');
 }
 

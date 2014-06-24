@@ -3,8 +3,8 @@
 
 ## ???
 
-? Sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
-? Add-on admin section
+- Sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
+- Add-on admin section
 	- Settings file generation + maintenance
 	- Status board
 	- Online page editor
@@ -13,6 +13,13 @@
 
 ## Core
 
+- Use sitemap root node instead of `ServantSite`
+	- Sitemap and Manifest already handle the previous duties of `ServantSite`
+	- Bubble values up to root in all nodes
+	- Convert `ServantSite` methods to point to root node
+	- Possibly offer `->root()` convenience getter in `ServantMain`
+- Set scripts and stylesheets in `ServantNode`, bubble them like `externalStylesheets`
+- Use node-specific cache times
 - Refactor `ServantSite` property/method names
 - Send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions
 - `ServantPath`

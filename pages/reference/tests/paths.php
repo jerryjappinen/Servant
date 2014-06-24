@@ -5,6 +5,11 @@ try {
 	$reference = array(
 
 		'Path getters' => array(
+			'endpoint' => array(
+				'',
+				'$servant->paths()->endpoint("site", "domain")',
+				$servant->paths()->endpoint("site", "domain"),
+			),
 
 			'endpoints' => array(
 				'',
@@ -130,14 +135,14 @@ try {
 }
 
 // Printout
-echo '<table>';
 foreach ($reference as $section => $methods) {
-	echo '<tr><th colspan="4"><h3 class="reset">'.ucfirst($section).'</h3></tr>';
+	echo '<h3>'.ucfirst($section).'</h3>';
+	echo '<table>';
 	foreach ($methods as $methodName => $methodDetails) {
 		echo '
-		<tr><td><code>'.$methodName.'('.(is_array($methodDetails[0]) ? implode(', ', $methodDetails[0]) : $methodDetails[0]).')</code>'.(isset($methodDetails[1]) ? '<br><em><code>'.$methodDetails[1].'</code></em>' : '').'</td>
+		<tr><td><code>'.$methodName.(isset($methodDetails[0]) ? '('.(is_array($methodDetails[0]) ? implode(', ', $methodDetails[0]) : $methodDetails[0]).')' : '').'</code>'.(isset($methodDetails[1]) ? '<br><em><code>'.$methodDetails[1].'</code></em>' : '').'</td>
 		<td>'.(count($methodDetails) >= 3 ? html_dump($methodDetails[2]) : '<em>&ndash;</em>').'</td>';
 	}
+	echo '</table>';
 }
-echo '</table>';
 ?>

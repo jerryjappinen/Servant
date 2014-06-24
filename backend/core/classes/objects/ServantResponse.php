@@ -36,7 +36,10 @@ class ServantResponse extends ServantObject {
 		}
 
 		// Generate response
-		// FLAG this is a hack, body should just be auto set (now it's set here so that it fails ASAP because there's no proper error handling)
+		// FLAG
+		//   This is a hack, body should be auto-set.
+		//   Now it's set here so that the action fails
+		//   ASAP, since we dont' have proper error handling.
 		$this->setBody();
 
 		return $this;

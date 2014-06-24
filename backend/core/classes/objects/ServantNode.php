@@ -4,11 +4,8 @@
 * A traversable node with potential for parents or children
 *
 * FLAG
-*	- scripts and stylesheets should be under node
 *   - Could be made looser (no template needed, no parent needed)
 *	- node, page and category could probably be fused into one node class
-*
-*   - Could we replace ServantSite stuff with root node's values?
 *
 * DEPENDENCIES
 *   ???
@@ -18,6 +15,7 @@ class ServantNode extends ServantObject {
 	/**
 	* Properties
 	*/
+	protected $propertyBrowserCache 		= null;
 	protected $propertyDepth 				= null;
 	protected $propertyDescription 			= null;
 	protected $propertyIcon 				= null;
@@ -27,6 +25,7 @@ class ServantNode extends ServantObject {
 	protected $propertyName 				= null;
 	protected $propertyParent 				= null;
 	protected $propertyPointer 				= null;
+	protected $propertyServerCache 			= null;
 	protected $propertySiteName 			= null;
 	protected $propertySplashImage 			= null;
 	protected $propertyTemplate 			= null;
@@ -102,7 +101,7 @@ class ServantNode extends ServantObject {
 	// All siblings, including self
 	public function siblings () {
 		$arguments = func_get_args();
-		return call_user_func_array(array($this->parent(), 'children'), $arguments);
+		return $this->parent() ? call_user_func_array(array($this->parent(), 'children'), $arguments) : array();
 	}
 
 	// Pointer as string
@@ -122,6 +121,10 @@ class ServantNode extends ServantObject {
 	/**
 	* Getters
 	*/
+
+	public function browserCache () {
+		return $this->getAndSet('browserCache');
+	}
 
 	public function depth ($includeRoot = false) {
 		$depth = $this->getAndSet('depth');
@@ -263,6 +266,10 @@ class ServantNode extends ServantObject {
 		return array_traverse($pointer, $arguments);
 	}
 
+	public function serverCache () {
+		return $this->getAndSet('serverCache');
+	}
+
 	public function siteName () {
 		$siteName = $this->getAndSet('siteName');
 
@@ -334,6 +341,14 @@ class ServantNode extends ServantObject {
 	*/
 
 	/**
+	* Browser cache in minutes
+	*/
+	protected function setBrowserCache () {
+		$input = $this->servant()->manifest()->browserCaches($this->stringPointer());
+		return $this->set('browserCache', $input ? $input : 0);
+	}
+
+	/**
 	* Depth
 	*/
 	protected function setDepth () {
@@ -344,68 +359,32 @@ class ServantNode extends ServantObject {
 	* Description text
 	*/
 	protected function setDescription () {
-		$description = '';
-
-		// Get from manifest
-		$descriptions = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->descriptions());
-		$pointer = $this->stringPointer();
-
-		// Value defined in settings
-		if (array_key_exists($pointer, $descriptions)) {
-			$description = $descriptions[$pointer];
-		}
-
-		return $this->set('description', $description);
+		$input = $this->servant()->manifest()->descriptions($this->stringPointer());
+		return $this->set('description', $input ? $input : '');
 	}
 
 	/**
 	* Node-specific external scripts
 	*/
 	protected function setExternalScripts () {
-		$result = array();
-		$paths = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->scripts());
-		$stringPointer = $this->stringPointer();
-
-		// Items defined in settings
-		if (array_key_exists($stringPointer, $paths)) {
-			$result = $paths[$stringPointer];
-		}
-
-		return $this->set('externalScripts', $result);
+		$input = $this->servant()->manifest()->scripts($this->stringPointer());
+		return $this->set('externalScripts', $input ? $input : array());
 	}
 
 	/**
 	* Node-specific external stylesheets
 	*/
 	protected function setExternalStylesheets () {
-		$result = array();
-		$paths = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->stylesheets());
-		$stringPointer = $this->stringPointer();
-
-		// Items defined in settings
-		if (array_key_exists($stringPointer, $paths)) {
-			$result = $paths[$stringPointer];
-		}
-
-		return $this->set('externalStylesheets', $result);
+		$input = $this->servant()->manifest()->stylesheets($this->stringPointer());
+		return $this->set('externalStylesheets', $input ? $input : array());
 	}
 
 	/**
 	* Icon
 	*/
 	protected function setIcon () {
-		$icon = '';
-
-		// Get from manifest
-		$icons = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->icons());
-		$pointer = $this->stringPointer();
-
-		// Value defined in settings
-		if (array_key_exists($pointer, $icons)) {
-			$icon = $icons[$pointer];
-		}
-
-		return $this->set('icon', $icon);
+		$input = $this->servant()->manifest()->icons($this->stringPointer());
+		return $this->set('icon', $input ? $input : '');
 	}
 
 	/**
@@ -447,18 +426,8 @@ class ServantNode extends ServantObject {
 	* Language
 	*/
 	protected function setLanguage () {
-		$language = '';
-
-		// Get from manifest
-		$languages = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->languages());
-		$pointer = $this->stringPointer();
-
-		// Value defined in settings
-		if (array_key_exists($pointer, $languages)) {
-			$language = $languages[$pointer];
-		}
-
-		return $this->set('language', $language);
+		$input = $this->servant()->manifest()->languages($this->stringPointer());
+		return $this->set('language', $input ? $input : '');
 	}
 
 	/**
@@ -478,10 +447,9 @@ class ServantNode extends ServantObject {
 		if (!isset($name)) {
 
 			// Name given in settings
-			$replacements = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->pageNames());
-			$key = $this->stringPointer();
-			if (array_key_exists($key, $replacements)) {
-				$name = $replacements[$key];
+			$input = $this->servant()->manifest()->pageNames($this->stringPointer());
+			if ($input) {
+				$name = $input;
 
 			// Generate
 			} else {
@@ -523,6 +491,14 @@ class ServantNode extends ServantObject {
 	}
 
 	/**
+	* Server cache in minutes
+	*/
+	protected function setServerCache () {
+		$input = $this->servant()->manifest()->serverCaches($this->stringPointer());
+		return $this->set('serverCache', $input ? $input : 0);
+	}
+
+	/**
 	* Site name
 	*
 	* NOTE
@@ -531,36 +507,16 @@ class ServantNode extends ServantObject {
 	*	- ServantSite's name property is only a default.
 	*/
 	protected function setSiteName () {
-		$siteName = '';
-
-		// Get from manifest
-		$siteNames = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->siteNames());
-		$pointer = $this->stringPointer();
-
-		// Value defined in settings
-		if (array_key_exists($pointer, $siteNames)) {
-			$siteName = $siteNames[$pointer];
-		}
-
-		return $this->set('siteName', $siteName);
+		$input = $this->servant()->manifest()->siteNames($this->stringPointer());
+		return $this->set('siteName', $input ? $input : '');
 	}
 
 	/**
 	* SplashImage
 	*/
 	protected function setSplashImage () {
-		$splashImage = '';
-
-		// Get from manifest
-		$splashImages = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->splashImages());
-		$pointer = $this->stringPointer();
-
-		// Value defined in settings
-		if (array_key_exists($pointer, $splashImages)) {
-			$splashImage = $splashImages[$pointer];
-		}
-
-		return $this->set('splashImage', $splashImage);
+		$input = $this->servant()->manifest()->splashImages($this->stringPointer());
+		return $this->set('splashImage', $input ? $input : '');
 	}
 
 	/**
@@ -569,18 +525,15 @@ class ServantNode extends ServantObject {
 	protected function setTemplate () {
 		$template = '';
 
-		// Get from manifest
-		$templates = $this->servant()->manifest()->removeRootNodeValue($this->servant()->manifest()->templates());
-		$pointer = $this->stringPointer();
-
 		// Template defined in settings
-		if (array_key_exists($pointer, $templates)) {
-			if ($this->servant()->available()->template($templates[$pointer])) {
-				$template = $templates[$pointer];
+		$input = $this->servant()->manifest()->templates($this->stringPointer());
+		if ($input) {
+			if ($this->servant()->available()->template($input)) {
+				$template = $input;
 
 			// Template not available
 			} else {
-				$this->warn('Missing template "'.$template.'" for '.$pointer.'.');
+				$this->warn('Missing template "'.$template.'" for '.$this->stringPointer().'.');
 
 			}
 

@@ -13,8 +13,7 @@ $page = $servant->sitemap()->select($input->pointer())->page();
 $srcUrl = $servant->paths()->pages('domain');
 
 // Root path for hrefs
-// FLAG use servant->paths->action
-$hrefUrl = $servant->paths()->root('domain').$servant->constants()->actions('site').'/';
+$hrefUrl = $servant->paths()->endpoint('site', 'domain');
 
 // Relative location for SRC urls
 $dirname = suffix(dirname($page->path('plain')), '/');

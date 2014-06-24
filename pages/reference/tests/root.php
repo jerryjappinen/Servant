@@ -2,29 +2,32 @@
 
 try {
 
+	$root = $servant->sitemap()->root();
+
 	$reference = array(
 
-		'initialization' => array(
-			'initialize' => array(
-				array('$path', '$parent', '$id = null'),
+		'Sitemap' => array(
+			'select root' => array(
+				'',
+				'$servant->sitemap()->root()',
 			),
 		),
 
 		'node traversal' => array(
 			'isRoot' => array(
 				'',
-				'$page->isRoot()',
-				$page->isRoot(),
+				'$root->isRoot()',
+				$root->isRoot(),
 			),
 			'isPage' => array(
 				'',
-				'$page->isPage()',
-				$page->isPage(),
+				'$root->isPage()',
+				$root->isPage(),
 			),
 			'isCategory' => array(
 				'',
-				'$page->isCategory()',
-				$page->isCategory(),
+				'$root->isCategory()',
+				$root->isCategory(),
 			),
 			'next' => array(''),
 			'parent' => array(''),
@@ -43,83 +46,83 @@ try {
 		'node getters' => array(
 			'browserCache' => array(
 				'',
-				'$page->browserCache()',
-				$page->browserCache(),
+				'$root->browserCache()',
+				$root->browserCache(),
 			),
 			'depth' => array(
 				'$includeRoot = false',
-				'$page->depth()',
-				$page->depth(),
+				'$root->depth()',
+				$root->depth(),
 			),
 			'description' => array(
 				'',
-				'$page->description()',
-				$page->description(),
+				'$root->description()',
+				$root->description(),
 			),
 			'externalScripts' => array(
 				'',
-				'$page->externalScripts("url")',
-				$page->externalScripts('url'),
+				'$root->externalScripts("url")',
+				$root->externalScripts('url'),
 			),
 			'externalStylesheets' => array(
 				'',
-				'$page->externalStylesheets("url")',
-				$page->externalStylesheets('url'),
+				'$root->externalStylesheets("url")',
+				$root->externalStylesheets('url'),
 			),
 			'icon' => array(
 				'$format = false',
-				'$page->icon()',
-				$page->icon(),
+				'$root->icon()',
+				$root->icon(),
 			),
 			'id' => array(
 				'',
-				'$page->id()',
-				$page->id(),
+				'$root->id()',
+				$root->id(),
 			),
 			'index' => array(
 				'',
-				'$page->index()',
-				$page->index(),
+				'$root->index()',
+				$root->index(),
 			),
 			'language' => array(
 				'',
-				'$page->language()',
-				$page->language(),
+				'$root->language()',
+				$root->language(),
 			),
 			'name' => array(
 				'',
-				'$page->name()',
-				$page->name(),
+				'$root->name()',
+				$root->name(),
 			),
 			'pointer' => array(
 				'$includeRoot = false',
-				'$page->pointer()',
-				$page->pointer(),
+				'$root->pointer()',
+				$root->pointer(),
 			),
 			'serverCache' => array(
 				'',
-				'$page->serverCache()',
-				$page->serverCache(),
+				'$root->serverCache()',
+				$root->serverCache(),
 			),
 			'siteName' => array(
 				'',
-				'$page->siteName()',
-				$page->siteName(),
+				'$root->siteName()',
+				$root->siteName(),
 			),
 			'splashImage' => array(
 				'$format = false',
-				'$page->splashImage()',
-				$page->splashImage(),
+				'$root->splashImage()',
+				$root->splashImage(),
 			),
 			'stringPointer' => array(
 				'$includeRoot = false',
-				'$page->stringPointer()',
-				$page->stringPointer(),
+				'$root->stringPointer()',
+				$root->stringPointer(),
 			),
 			'template' => array(
 				'',
-				'$page->template()',
-				$page->template(),
+				'$root->template()',
+				$root->template(),
 			),
 		),
 
@@ -135,49 +138,26 @@ try {
 			),
 			'isCategory' => array(
 				'',
-				'$page->isCategory()',
-				$page->isCategory(),
+				'$root->isCategory()',
+				$root->isCategory(),
 			),
 			'isHome' => array(
 				'',
-				'$page->isHome()',
-				$page->isHome(),
+				'$root->isHome()',
+				$root->isHome(),
 			),
 			'isPage' => array(
 				'',
-				'$page->isPage()',
-				$page->isPage(),
+				'$root->isPage()',
+				$root->isPage(),
 			),
 		),
 
 		'page getters' => array(
 			'endpoint' => array(
 				'$format = false',
-				'$page->endpoint()',
-				$page->endpoint(),
-			),
-			'output' => array(
-				'',
-			),
-			'path' => array(
-				'$format = false',
-				'$page->path()',
-				$page->path(),
-			),
-			'scripts' => array(
-				'$format = false',
-				'$page->scripts()',
-				$page->scripts(),
-			),
-			'stylesheets' => array(
-				'$format = false',
-				'$page->stylesheets()',
-				$page->stylesheets(),
-			),
-			'type' => array(
-				'',
-				'$page->type()',
-				$page->type(),
+				'$root->endpoint()',
+				$root->endpoint(),
 			),
 		),
 
