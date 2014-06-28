@@ -18,51 +18,6 @@ try {
 		),
 
 		'getters' => array(
-			'defaultBrowserCache' => array(
-				'',
-				'$servant->manifest()->defaultBrowserCache()',
-				$servant->manifest()->defaultBrowserCache(),
-			),
-			'defaultDescription' => array(
-				'',
-				'$servant->manifest()->defaultDescription()',
-				$servant->manifest()->defaultDescription(),
-			),
-			'defaultIcon' => array(
-				'',
-				'$servant->manifest()->defaultIcon()',
-				$servant->manifest()->defaultIcon(),
-			),
-			'defaultLanguage' => array(
-				'',
-				'$servant->manifest()->defaultLanguage()',
-				$servant->manifest()->defaultLanguage(),
-			),
-			'defaultPageName' => array(
-				'',
-				'$servant->manifest()->defaultPageName()',
-				$servant->manifest()->defaultPageName(),
-			),
-			'defaultServerCache' => array(
-				'',
-				'$servant->manifest()->defaultServerCache()',
-				$servant->manifest()->defaultServerCache(),
-			),
-			'defaultSiteName' => array(
-				'',
-				'$servant->manifest()->defaultSiteName()',
-				$servant->manifest()->defaultSiteName(),
-			),
-			'defaultSplashImage' => array(
-				'',
-				'$servant->manifest()->defaultSplashImage()',
-				$servant->manifest()->defaultSplashImage(),
-			),
-			'defaultTemplate' => array(
-				'',
-				'$servant->manifest()->defaultTemplate()',
-				$servant->manifest()->defaultTemplate(),
-			),
 			'browserCaches' => array(
 				'$key = null',
 				'$servant->manifest()->browserCaches()',
@@ -107,16 +62,6 @@ try {
 				'$key = null',
 				'$servant->manifest()->templates()',
 				$servant->manifest()->templates(),
-			),
-			'defaultScripts' => array(
-				'',
-				'$servant->manifest()->defaultScripts()',
-				$servant->manifest()->defaultScripts(),
-			),
-			'defaultStylesheets' => array(
-				'',
-				'$servant->manifest()->defaultStylesheets()',
-				$servant->manifest()->defaultStylesheets(),
 			),
 			'scripts' => array(
 				'$key = null',

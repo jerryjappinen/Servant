@@ -85,35 +85,6 @@ class ServantManifest extends ServantObject {
 	* Manifest item getters
 	*/
 
-	// Defaults
-	public function defaultBrowserCache () {
-		return $this->getSomeHash('browserCaches', '', true);
-	}
-	public function defaultDescription () {
-		return $this->getSomeHash('descriptions', '', true);
-	}
-	public function defaultIcon () {
-		return $this->getSomeHash('icons', '', true);
-	}
-	public function defaultLanguage () {
-		return $this->getSomeHash('languages', '', true);
-	}
-	public function defaultPageName () {
-		return $this->getSomeHash('pageNames', '', true);
-	}
-	public function defaultServerCache () {
-		return $this->getSomeHash('serverCaches', '', true);
-	}
-	public function defaultSiteName () {
-		return $this->getSomeHash('siteNames', '', true);
-	}
-	public function defaultSplashImage () {
-		return $this->getSomeHash('splashImages', '', true);
-	}
-	public function defaultTemplate () {
-		return $this->getSomeHash('templates', '', true);
-	}
-
 	// All
 	public function browserCaches ($key = null) {
 		return $this->getSomeHash('browserCaches', $key, true);
@@ -144,12 +115,6 @@ class ServantManifest extends ServantObject {
 	}
 
 	// Manifest node hash items with array values
-	public function defaultScripts () {
-		return $this->getSomeHash('scripts', '', false);
-	}
-	public function defaultStylesheets () {
-		return $this->getSomeHash('stylesheets', '', false);
-	}
 	public function scripts ($key = null) {
 		return $this->getSomeHash('scripts', $key, false);
 	}
