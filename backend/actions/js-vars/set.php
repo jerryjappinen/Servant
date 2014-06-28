@@ -3,9 +3,9 @@
 // Compress
 if (!$servant->debug()) {
 	$servant->utilities()->load('jshrink');
-	$js = Minifier::minify($js, array('flaggedComments' => false));
+	$output = Minifier::minify($output, array('flaggedComments' => false));
 }
 
-$action->status(200)->contentType('js')->output($js);
+$action->status(200)->contentType('js')->output($output);
 
 ?>
