@@ -6,11 +6,13 @@ $page = $servant->sitemap()->select()->page();
 // Pointers
 $code = 500;
 try {
-	$pointer = $input->pointer(0);
-	$pointer = intval($pointer);
-	if ($pointer >= 400 and $pointer < 600) {
-		if ($servant->constants()->statuses($pointer)) {
-			$code = $pointer;
+	if (isset($input)) {
+		$pointer = $input->pointer(0);
+		$pointer = intval($pointer);
+		if ($pointer >= 400 and $pointer < 600) {
+			if ($servant->constants()->statuses($pointer)) {
+				$code = $pointer;
+			}
 		}
 	}
 } catch (Exception $e) {

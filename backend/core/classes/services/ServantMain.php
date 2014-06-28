@@ -99,8 +99,8 @@ class ServantMain extends ServantObject {
 	protected function setPaths ($paths) {
 		return $this->set('paths', $this->generate('paths', $paths));
 	}
-	protected function setSitemap () {
-		return $this->set('sitemap', $this->generate('sitemap'));
+	protected function setSitemap ($path = null) {
+		return $this->set('sitemap', $this->generate('sitemap', $path));
 	}
 	protected function setUtilities () {
 		return $this->set('utilities', $this->generate('utilities'));
@@ -112,15 +112,24 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Wake-up
+	* Birth
 	*/
 	public function initialize ($paths, $constants = null, $debug = false) {
 		if ($debug) {
 			$this->enableDebug();
 		}
-		return $this->setPaths($paths)
-			->setConstants($constants)
+		return $this->setPaths($paths)->setConstants($constants);
+	}
+
+
+
+	/**
+	* Get ready (access manifest and assets)
+	*/
+	public function setup () {
+		return $this
 			->setManifest($this->paths()->manifest())
+			->setSitemap($this->paths()->pages())
 			->setAssets($this->paths()->assets())
 		;
 	}
@@ -128,7 +137,7 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Flow
+	* Go
 	*/
 
 	/**
@@ -165,6 +174,8 @@ class ServantMain extends ServantObject {
 		return $response;
 	}
 
+
+
 	/**
 	* Serve the response that was created based on input
 	*/
@@ -187,13 +198,12 @@ class ServantMain extends ServantObject {
 	* Private helpers
 	*/
 
+	// Enable debug mode, which is off by default
 	protected function enableDebug () {
 		return $this->set('debug', true);
 	}
 
-	/**
-	* Purge and remove the temp directory
-	*/
+	// Purge and remove the temp directory
 	private function purgeTemp () {
 		remove_dir($this->paths()->temp('server'));
 		return $this;

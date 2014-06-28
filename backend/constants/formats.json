@@ -53,6 +53,10 @@
 
 		"scripts": {
 			"js": "js"
+		},
+
+		"settings": {
+			"json": "json"
 		}
 
 	}

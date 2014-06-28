@@ -375,9 +375,13 @@ class ServantResponse extends ServantObject {
 	*/
 
 	/**
-	* Base path of saved response.
+	* Base path of saved response. Used by path() and existing().
 	*
-	* Includes cache folder path, site ID, action ID and page tree. Used by path() and existing().
+	* Includes:
+	*	- cache folder path
+	*	- site ID
+	*	- action ID
+	*	- input pointer
 	*/
 	private function basePath ($format = null) {
 

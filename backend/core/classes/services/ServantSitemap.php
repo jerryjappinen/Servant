@@ -79,7 +79,7 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize () {
+	public function initialize ($path = null) {
 
 		// Get user input form manifest
 		$manifest = $this->servant()->manifest()->sitemap();
@@ -92,7 +92,12 @@ class ServantSitemap extends ServantObject {
 		}
 
 		// Nodes
-		$this->generateNodes($this->findPageTemplates($this->servant()->paths()->pages('server')), $this->root(), $pageOrder);
+		$this->generateNodes(
+			$this->findPageTemplates($this->servant()->paths()->format($path, 'server')),
+			$this->root(),
+			$pageOrder
+		);
+
 		return $this;
 	}
 
@@ -125,44 +130,60 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Find template files in file system
 	*/
-	private function findPageTemplates ($path) {
-		$formats = $this->servant()->constants()->formats('templates');
+	private function findPageTemplates ($path = null) {
 		$results = array();
 
-		// Files on this level
-		$files = glob_files($path, $formats);
-		foreach ($files as $file) {
-			$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->paths()->format($file, false, 'server');
-		}
+		if ($path and is_dir($path)) {
+			$formats = $this->servant()->constants()->formats('templates');
 
-		// Files in child directories
-		foreach (glob_dir($path) as $dir) {
-			$children = $this->findPageTemplates($dir, $formats);
-
-			// Include non-empty sets of child pages
-			if (!empty($children)) {
-				if (count($children) < 2) {
-					$keys = array_keys($children);
-					$children = $children[$keys[0]];
-				}
-				$results[pathinfo($dir, PATHINFO_FILENAME)] = $children;
+			// Files on this level
+			$files = glob_files($path, $formats);
+			foreach ($files as $file) {
+				$results[pathinfo($file, PATHINFO_FILENAME)] = $this->servant()->paths()->format($file, false, 'server');
 			}
 
-		}
-		unset($children);
+			// Files in child directories
+			foreach (glob_dir($path) as $dir) {
+				$children = $this->findPageTemplates($dir, $formats);
 
-		// Sort based on file or directory name, then lose the indexes
-		uksort($results, 'strcasecmp');
+				// Include non-empty sets of child pages
+				if (!empty($children)) {
+					if (count($children) < 2) {
+						$keys = array_keys($children);
+						$children = $children[$keys[0]];
+					}
+					$results[pathinfo($dir, PATHINFO_FILENAME)] = $children;
+				}
+
+			}
+			unset($children);
+
+			// Sort based on file or directory name, then lose the indexes
+			uksort($results, 'strcasecmp');
+
+		}
 
 		return $results;
 	}
 
-	// FLAG a little bloated
-	private function generateNodes ($pages, $parent = null, $pageOrder = array()) {
+	/**
+	* Generate page/category nodes based on page files in a directory structure
+	*
+	* FLAG
+	* * A little bloated
+	*
+	* @param array $pages A set of files available in the file system, as structured by $this->findPageTemplates()
+	* @param ServantCategory $parent ServantCategory object to act as the parent of generated nodes, or null if not available
+	* @param array $pageOrder Preferred order of the nodes to override the default order
+	*
+	* @return ServantCategory Parent node
+	*
+	*/
+	private function generateNodes ($pages, $parentNode, $pageOrder = array()) {
 
 		// Order of children
 		$order = array();
-		$pointer = $parent->stringPointer(true);
+		$pointer = $parentNode->stringPointer(true);
 		if (array_key_exists($pointer, $pageOrder)) {
 			$order = $pageOrder[$pointer];
 		}
@@ -195,17 +216,17 @@ class ServantSitemap extends ServantObject {
 
 			// Category
 			if (is_array($value)) {
-				$category = $this->servant()->create()->category($id, $parent);
+				$category = $this->servant()->create()->category($id, $parentNode);
 				$this->generateNodes($value, $category, $pageOrder);
 
 			// Page
 			} else {
-				$page = $this->servant()->create()->page($value, $parent, $id);
+				$page = $this->servant()->create()->page($value, $parentNode, $id);
 			}
 
 		}
 
-		return $parent;
+		return $parentNode;
 	}
 
 }

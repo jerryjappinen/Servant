@@ -14,9 +14,11 @@
 ## Core
 
 - Possibly offer `->root()` convenience getter in `ServantMain`
-- Use node-specific cache times
-	- only site-wide browser and server cache times are supported in `ServantResponse` now
-- Send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions
+- action-specific cache times, respect node-specific cache settings in site action
+	0. only site-wide browser and server cache times are supported in `ServantResponse` now
+	1. Actions can set browser **and** server cache times
+	2. node-specific actions respect node-specific cache settings
+- In `html` template, send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions?
 - `ServantPath`
 	- Returned by all path properties
 	- `__toString`

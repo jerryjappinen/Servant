@@ -173,6 +173,7 @@ class ServantConstants extends ServantObject {
 			'templates' => array(),
 			'stylesheets' => array(),
 			'scripts' => array(),
+			'settings' => array(),
 		);
 
 		// Pick format arrays

@@ -93,13 +93,16 @@ class IndexWrapper {
 	private function run () {
 
 		// Start and run the main program
-		$servant = create_object('ServantMain')->init($this->paths, $this->constantsJson, ($this->debug ? true : false));
+		$servant = create_object('ServantMain');
+		$servant->init($this->paths, $this->constantsJson, ($this->debug ? true : false));
+		$servant->setup();
 
-		// Input
+		// Input and response
 		$i = $this->input;
+		$response = $servant->response($i['get'], $i['post'], $i['put'], $i['delete'], $i['files']);
 
-		// Serve response
-		return $servant->serve($servant->response($i['get'], $i['post'], $i['put'], $i['delete'], $i['files']));
+		// Answer request
+		return $servant->serve($response);
 
 	}
 
