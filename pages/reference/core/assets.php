@@ -10,6 +10,11 @@ try {
 				'$servant->assets()->scripts()',
 				$servant->assets()->scripts(),
 			),
+			'settings' => array(
+				'$format = false',
+				'$servant->assets()->settings()',
+				$servant->assets()->settings(),
+			),
 			'stylesheets' => array(
 				'$format = false',
 				'$servant->assets()->stylesheets()',

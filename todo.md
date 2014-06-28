@@ -19,6 +19,10 @@
 	1. Actions can set browser **and** server cache times
 	2. node-specific actions respect node-specific cache settings
 - In `html` template, send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions?
+- Support `json` settings files in site assets, node-specific paths and templates
+	- JSON file contents outputted as JS hashes
+	- Available like scripts and stylesheets
+	- `json` reader and parser available globally (now in `ServantManifest` only)
 - `ServantPath`
 	- Returned by all path properties
 	- `__toString`

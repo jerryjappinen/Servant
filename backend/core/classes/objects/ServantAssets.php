@@ -13,6 +13,7 @@ class ServantAssets extends ServantObject {
 
 	protected $propertyPath 				= null;
 	protected $propertyScripts 				= null;
+	protected $propertySettings 			= null;
 	protected $propertyStylesheets 			= null;
 
 
@@ -41,6 +42,16 @@ class ServantAssets extends ServantObject {
 
 	public function scripts ($format = false) {
 		$files = $this->getAndSet('scripts');
+		if ($format) {
+			foreach ($files as $key => $filepath) {
+				$files[$key] = $this->servant()->paths()->format($filepath, $format);
+			}
+		}
+		return $files;
+	}
+
+	public function settings ($format = false) {
+		$files = $this->getAndSet('settings');
 		if ($format) {
 			foreach ($files as $key => $filepath) {
 				$files[$key] = $this->servant()->paths()->format($filepath, $format);
@@ -92,6 +103,18 @@ class ServantAssets extends ServantObject {
 				$this->findAssetFiles(
 					$this->path('server'),
 					$this->servant()->constants()->formats('scripts')
+				)
+			);
+	}
+
+	// Settings files
+	protected function setSettings () {
+		return
+			$this->set(
+				'settings',
+				$this->findAssetFiles(
+					$this->path('server'),
+					$this->servant()->constants()->formats('settings')
 				)
 			);
 	}
