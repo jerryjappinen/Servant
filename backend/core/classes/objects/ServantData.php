@@ -76,7 +76,7 @@ class ServantData extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize () {
+	protected function initialize () {
 		$arguments = func_get_args();
 		return $this->setPath($arguments);
 	}

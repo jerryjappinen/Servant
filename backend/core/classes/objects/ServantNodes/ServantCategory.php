@@ -67,7 +67,7 @@ class ServantCategory extends ServantNode {
 	* Initialization
 	*/
 
-	public function initialize ($id, $parent = null) {
+	protected function initialize ($id, $parent = null) {
 		$this->setId($id)->setChildren();
 
 		if ($parent) {

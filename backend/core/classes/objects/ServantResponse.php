@@ -28,7 +28,7 @@ class ServantResponse extends ServantObject {
 	/**
 	* Take input upon initialization
 	*/
-	public function initialize () {
+	protected function initialize () {
 
 		// Set input
 		$arguments = func_get_args();

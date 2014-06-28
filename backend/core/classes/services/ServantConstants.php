@@ -21,7 +21,7 @@ class ServantConstants extends ServantObject {
 	/**
 	* Take original settings in during initialization (all are optional)
 	*/
-	public function initialize ($json = null) {
+	protected function initialize ($json = null) {
 		$input = array();
 
 		// Read input JSON, turn into an array

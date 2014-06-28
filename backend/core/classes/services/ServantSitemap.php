@@ -79,7 +79,7 @@ class ServantSitemap extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize ($path = null) {
+	protected function initialize ($path = null) {
 
 		// Get user input form manifest
 		$manifest = $this->servant()->manifest()->sitemap();

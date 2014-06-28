@@ -63,7 +63,7 @@ class ServantTemplate extends ServantObject {
 	* Initialization
 	*/
 
-	public function initialize ($id) {
+	protected function initialize ($id) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 

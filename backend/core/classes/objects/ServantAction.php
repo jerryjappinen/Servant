@@ -32,7 +32,7 @@ class ServantAction extends ServantObject {
 	*
 	* Defaults are set here, and can be overridden by action's code.
 	*/
-	public function initialize ($id, $input = null) {
+	protected function initialize ($id, $input = null) {
 
 		// Set ID and input upon initialization
 		$this->setId($id);

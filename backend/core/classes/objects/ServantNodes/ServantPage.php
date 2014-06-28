@@ -77,7 +77,7 @@ class ServantPage extends ServantNode {
 	/**
 	* Template path is needed upon initialization
 	*/
-	public function initialize ($path, $parent, $id = null) {
+	protected function initialize ($path, $parent, $id = null) {
 		$this->setParent($parent)->setPath($path);
 
 		// Custom ID

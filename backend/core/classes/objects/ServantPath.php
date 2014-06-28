@@ -20,7 +20,7 @@ class ServantPath extends ServantObject {
 	/**
 	* Initialization, support setting path straight up
 	*/
-	public function initialize () {
+	protected function initialize () {
 		$arguments = func_get_args();
 		call_user_func_array(array($this, 'add'), $arguments);
 		return $this;

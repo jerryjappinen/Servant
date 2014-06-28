@@ -22,7 +22,7 @@ class ServantInput extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize () {
+	protected function initialize () {
 
 		// Merge inputs, first one is treated as most important
 		$arguments = func_get_args();

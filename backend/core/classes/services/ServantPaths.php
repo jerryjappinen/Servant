@@ -28,7 +28,7 @@ class ServantPaths extends ServantObject {
 	/**
 	* Initialization
 	*/
-	public function initialize ($paths) {
+	protected function initialize ($paths) {
 
 		// These paths are needed
 		$pathKeys = array(

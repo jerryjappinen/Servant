@@ -114,7 +114,7 @@ class ServantMain extends ServantObject {
 	/**
 	* Birth
 	*/
-	public function initialize ($paths, $constants = null, $debug = false) {
+	protected function initialize ($paths, $constants = null, $debug = false) {
 		if ($debug) {
 			$this->enableDebug();
 		}
