@@ -181,13 +181,22 @@ class ServantMain extends ServantObject {
 	*/
 	public function serve ($response) {
 
-		// Send headers
-		foreach ($response->headers() as $value) {
-			header($value);
-		}
+		// Redirection
+		if ($response->redirect()) {
+			header('Location: '.$response->redirect(), true, 301);
 
-		// Print body (assuming string)
-		echo $response->body();
+		// Response
+		} else {
+
+			// Send headers
+			foreach ($response->headers() as $value) {
+				header($value);
+			}
+
+			// Print body (assuming string)
+			echo $response->body();
+
+		}
 
 		return $this;
 	}

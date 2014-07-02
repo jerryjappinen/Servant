@@ -3,7 +3,11 @@
 /**
 * IndexWrapper
 *
-* This is a generic wrapper that clears dangerous globals before running the main program to serve a response for the user.
+* This is a generic wrapper that
+* 	- takes in the request details provided by PHP
+* 	- clears dangerous globals
+* 	- runs Servant (the main program)
+* 	- uses Servant to serve a response to or redirect the request.
 */
 class IndexWrapper {
 

@@ -20,6 +20,7 @@ class ServantResponse extends ServantObject {
 	protected $propertyHeaders 			= null;
 	protected $propertyInput 			= null;
 	protected $propertyPath 			= null;
+	protected $propertyRedirect 		= null;
 	protected $propertyServerCacheTime 	= null;
 	protected $propertyStatus 			= null;
 
@@ -95,6 +96,10 @@ class ServantResponse extends ServantObject {
 			$path = $this->servant()->paths()->format($path, $format);
 		}
 		return $path;
+	}
+
+	public function redirect () {
+		return $this->getAndSet('redirect');
 	}
 
 	public function serverCacheTime () {
@@ -336,6 +341,31 @@ class ServantResponse extends ServantObject {
 		}
 
 		return $this->set('path', $path);
+	}
+
+
+
+	/**
+	* Redirect resource
+	*/
+	protected function setRedirect ($url = null) {
+		$result = false;
+
+		// Redirect to the set URL
+		if ($url and is_string($url)) {
+			$url = trim_text($url, true);
+			if (!empty($url)) {
+
+				// Format URL
+				if (!$this->servant()->paths()->isAbsolute($url)) {
+					$url = $this->servant()->paths()->format($url, 'url');
+				}
+
+				$result = $url;
+			}
+		}
+
+		return $this->set('redirect', $result);
 	}
 
 
