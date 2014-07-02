@@ -158,14 +158,19 @@ unset($urls, $url);
 * Create classes for body
 */
 $i = 1;
-$temp = array();
+$nodeClasses = array();
 $pointer = $page->pointer();
 foreach ($pointer as $value) {
-	$temp[] = 'page-'.implode('-', array_slice($pointer, 0, $i));
+	$nodeClasses[] = 'page-'.implode('-', array_slice($pointer, 0, $i));
 	$i++;
 }
-$bodyClasses = 'depth-'.$page->depth().' index-'.$page->index().' '.implode(' ', $temp).' template-'.$page->template();
-unset($temp, $pointer, $i, $value);
+$bodyClasses = 
+	'depth-'.$page->depth().
+	' index-'.$page->index().
+	' template-'.$page->template().
+	($page->language() ? ' language-'.$page->language() : '').
+	' '.implode(' ', $nodeClasses);
+unset($nodeClasses, $pointer, $i, $value);
 
 ?>
 

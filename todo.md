@@ -14,10 +14,12 @@
 ## Core
 
 - Possibly offer `->root()` convenience getter in `ServantMain`
-- Input's init overwrite behavior leads to weird things
-	- And by extension, so is action's
-	- creating action is very unintuitive
-	- input should take pointer and other input separately
+- Action's init behavior is weird and not very handy
+	- Take in pointer and other input separately
+- Redirects
+	- Set redirects paths in `settings.json`
+	- 301 redirect to the address provided
+	- Overrides action and page selection etc.
 - action-specific cache times, respect node-specific cache settings in site action
 	0. only site-wide browser and server cache times are supported in `ServantResponse` now
 	1. Actions can set browser **and** server cache times

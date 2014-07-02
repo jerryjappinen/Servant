@@ -19,9 +19,21 @@ Generally, an action does what it does based on user input, and then responds wi
 
 ## What they're not for
 
-Actions are not a full-fledged solution for your apps business logic. They're created to support the frontend, and meant to be accessible for developers.
+Actions are not a full-fledged solution for your app's business logic. They're created to support the frontend, and meant to be accessible for developers.
 
 If you're creating a complex web app, consider creating the business logic from the frontend as a separate program and communicating to clients via APIs.
+
+
+
+## Variables available for scripting
+
+The following variables provide access to Servant's internals:
+
+Variable      | Description                                | Read more                                    |
+------------- | ------------------------------------------ | -------------------------------------------- |
+`$servant`    | Main services provided by Servant.         | [ServantMain](/docs/components/main)         |
+`$input`      | Access to *pointer* and *validated input*. | [ServantInput](/docs/components/input)       |
+`$action`     | The current action.                        | [ServantAction](/docs/components/action)     |
 
 
 
@@ -48,10 +60,10 @@ If you're creating a complex web app, consider creating the business logic from 
 	// Variables are available in all files
 	$action->output($myvar);
 	
-	// Set content type, status and output
+	// Chainable methods to set content type, status and output
 	$action->output($myvar)->contentType('html')->status(200);
 
 	// Show error if output is empty
 	if (!$action->output()) {
-		$action->contentType('text')->status(500);
+		$action->contentType('text')->status(500)->output('Something went wrong.');
 	}

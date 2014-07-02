@@ -46,3 +46,15 @@ Here are some examples in [Markdown](/docs/template-formats/markdown).
 	[Back to home page](/)
 	[Welcome page on the root level](/welcome)
 	[See where we are](/contact-us/map)
+
+
+
+## Variables available for scripting
+
+For dynamic templating languages (`php` and derivatives), the following variables are available:
+
+Variable      | Description                            | Read more                                    |
+------------- | -------------------------------------- | -------------------------------------------- |
+`$servant`    | Main services provided by Servant.     | [ServantMain](/docs/components/main)         |
+`$parameters` | Additional parameters provided in URL. |                                              |
+`$page`       | The current page.                      | [ServantPage](/docs/components/page)         |
