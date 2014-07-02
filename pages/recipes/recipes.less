@@ -3,14 +3,17 @@
 	max-width: 85em;
 }
 
-.row-body .submenu {
-	width: 15%;
-	margin-right: 5%;
-}
+@media handheld, only screen and (min-width: @bb-accommodate) {
 
-.row-body .article {
-	max-width: none;
-	width: 80%;
+	.row-body .submenu {
+		width: 15%;
+		margin-right: 5%;
+	}
+
+	.row-body .article {
+		max-width: none;
+		width: 80%;
+	}
 }
 
 tr td:first-of-type {
