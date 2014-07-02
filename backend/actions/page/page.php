@@ -46,13 +46,15 @@ for ($i = 0; $i < count($tree); $i++) {
 }
 $parameters = array_slice($parameters, $i);
 
-$output = $page->output($parameters);
-
 
 
 // Set manipulated output
 $servant->utilities()->load('urlmanipulator');
 $manipulate = new UrlManipulator();
-$action->contentType('html')->output($manipulate->htmlUrls($output, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl));
+
+$output = $page->output($parameters);
+$output = $manipulate->htmlUrls($output, $srcUrl, $relativeSrcUrl, $hrefUrl, $relativeHrefUrl, $actionsUrl);
+
+$action->contentType('html')->output($output);
 
 ?>

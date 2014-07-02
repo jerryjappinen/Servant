@@ -16,6 +16,8 @@
 - Possibly offer `->root()` convenience getter in `ServantMain`
 - Action's init behavior is weird and not very handy
 	- Take in pointer and other input separately
+- Add simpletest action to run automated tests and run test results
+	- Needs a functioning system, but is an easy way to get started
 - Redirects
 	- Set redirects paths in `settings.json`
 	- 301 redirect to the address provided

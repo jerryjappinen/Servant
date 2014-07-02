@@ -25,7 +25,7 @@ $message = '
 ';
 
 // FLAG I can't know what content the template wants - I'm assuming the same as site action
-$template = $servant->create()->template($servant->sitemap()->root()->template(), $message, $servant->sitemap()->root());
+$template = $servant->create()->template($servant->sitemap()->root()->template(), $message);
 
 
 

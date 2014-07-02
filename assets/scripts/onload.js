@@ -75,6 +75,6 @@ doc.ready(function () {
 	treatScroll();
 
 	// Use Javascript syntax highlighting with Prism
-	body.addClass('language-javascript');
+	body.find('#body').addClass('language-javascript');
 
 }, false);

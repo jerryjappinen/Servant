@@ -14,5 +14,8 @@
 */
 
 $page = $template->content(1);
+if (!$page) {
+	$page = $servant->sitemap()->root();
+}
 
 ?>
