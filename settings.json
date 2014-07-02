@@ -24,7 +24,7 @@
 			"js-vars",
 			"http://code.jquery.com/jquery-2.1.0.min.js"
 		],
-		"docs, guides, reference": "http://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"
+		"docs, guides, recipes": "http://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"
 	},
 
 	"stylesheets": {},
@@ -35,7 +35,7 @@
 
 	"descriptions": {
 		"": "Effortless publishing for the web",
-		"docs, guides, reference": "Tutorials, guides and full documentation for the Servant web framework"
+		"docs, guides, recipes": "Tutorials, guides and full documentation for the Servant web framework"
 	},
 
 	"sitemap": [
