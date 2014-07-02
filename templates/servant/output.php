@@ -23,7 +23,7 @@ $output = '
 	';
 
 		// Submenus
-		if ($usePageAssets and $submenu) {
+		if (!$page->isRoot() and $submenu) {
 
 			$output .= '
 			<div class="submenu clear-after">
@@ -59,5 +59,5 @@ $output .= '
 </div>
 ';
 
-echo $template->nest('html', $output, $page, $usePageAssets);
+echo $template->nest('html', $output, $page);
 ?>

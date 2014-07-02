@@ -54,6 +54,7 @@
 	- Support running Servant without template files (rendering content directly)
 - Save cache files for all serialized raw input
 - Set scripts and stylesheets in `ServantNode`, bubble them like `externalStylesheets`
+	- Actions should output nodestyles and nodestylesheets
 - Action-specific user settings
 	- JSON (must stay secure on server)? Allow users to declare action-specific configs in site settings?
 	- User-facing action names via settings

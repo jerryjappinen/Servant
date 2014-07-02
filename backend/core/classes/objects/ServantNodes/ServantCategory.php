@@ -61,6 +61,14 @@ class ServantCategory extends ServantNode {
 		return call_user_func_array(array($this->page(), 'output'), $arguments);
 	}
 
+	public function scripts () {
+		return array();
+	}
+
+	public function stylesheets () {
+		return array();
+	}
+
 
 
 	/**

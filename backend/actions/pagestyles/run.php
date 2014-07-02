@@ -69,8 +69,11 @@ foreach ($servant->assets()->stylesheets('plain') as $path) {
 * Page-specific style files
 */
 
-// Select page
-$page = $servant->sitemap()->select($input->pointer())->page();
+// Select root by default, page node if pointer given
+$page = $servant->sitemap()->root();
+if (count($input->pointer())) {
+	$page = $servant->sitemap()->select($input->pointer())->page();
+}
 
 foreach ($page->stylesheets('plain') as $path) {
 

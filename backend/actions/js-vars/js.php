@@ -12,11 +12,14 @@ $constants['paths'] = array(
 );
 
 // Page
-$constants['page'] = array(
-	'id' => $page->id(),
-	'name' => $page->name(),
-	'endpoint' => $page->endpoint(),
-	'template' => $page->template(),
-);
+$constants['page'] = array();
+if (!$page->isRoot()) {
+	$constants['page'] = array(
+		'id' => $page->id(),
+		'name' => $page->name(),
+		'endpoint' => $page->endpoint(),
+		'template' => $page->template(),
+	);
+}
 
 ?>

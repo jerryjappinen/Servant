@@ -9,12 +9,10 @@
 * CONTENT PARAMETERS
 *	0: Body content (string)
 *	1: Current page (ServantPage)
-*	2: usePageAssets (truy or falsy)		// FLAG this is true if $page is not available?
 */
 
 $root = $servant->sitemap()->root();
 $page = $template->content(1);
-$usePageAssets = $template->content(2) ? true : false;
 
 
 
@@ -111,18 +109,14 @@ $stylesheetsLinks = '';
 
 // External stylesheets
 $urls = array();
-if ($usePageAssets) {
-	$urls[] = $page->externalStylesheets('domain');
-} else {
-	$urls[] = $root->externalStylesheets('domain');
-}
+$urls[] = $page->externalStylesheets('domain');
 
 // Assets
 $urls[] = $servant->paths()->endpoint('sitestyles', 'domain');
 $urls[] = $servant->paths()->endpoint('templatestyles', 'domain', $page->template());
 
 // Page-specific stylesheets
-if ($usePageAssets and $page->stylesheets()) {
+if (!$page->isRoot() and $page->stylesheets()) {
 	$urls[] = $servant->paths()->endpoint('pagestyles', 'domain', $page->pointer());
 }
 
@@ -141,18 +135,14 @@ $scriptLinks = '';
 
 // External scripts
 $urls = array();
-if ($usePageAssets) {
-	$urls[] = $page->externalScripts('domain');
-} else {
-	$urls[] = $root->externalScripts('domain');
-}
+$urls[] = $page->externalScripts('domain');
 
 // Assets
 $urls[] = $servant->paths()->endpoint('sitescripts', 'domain');
 $urls[] = $servant->paths()->endpoint('templatescripts', 'domain', $page->template());
 
 // Page-specific scripts
-if ($usePageAssets and $page->scripts()) {
+if (!$page->isRoot() and $page->scripts()) {
 	$urls[] = $servant->paths()->endpoint('pagescripts', 'domain', $page->pointer());
 }
 

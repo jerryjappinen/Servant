@@ -1,6 +1,6 @@
 <?php
 
-// Select page
+// Always select a page
 $page = $servant->sitemap()->select($input->pointer())->page();
 
 // Get page content via page action
