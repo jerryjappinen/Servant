@@ -97,9 +97,15 @@ class IndexWrapper {
 		$servant->init($this->paths, $this->constantsJson, ($this->debug ? true : false));
 		$servant->setup();
 
-		// Input and response
+		// Input and response (last input item overrides preceding ones)
 		$i = $this->input;
-		$response = $servant->response($i['get'], $i['post'], $i['put'], $i['delete'], $i['files']);
+		$response = $servant->response(
+			$i['files'],
+			$i['delete'],
+			$i['put'],
+			$i['post'],
+			$i['get']
+		);
 
 		// Answer request
 		return $servant->serve($response);

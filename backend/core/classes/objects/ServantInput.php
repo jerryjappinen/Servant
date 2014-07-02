@@ -24,10 +24,10 @@ class ServantInput extends ServantObject {
 	*/
 	protected function initialize () {
 
-		// Merge inputs, first one is treated as most important
+		// Merge inputs, later ones override previous ones
 		$arguments = func_get_args();
 		$input = array();
-		foreach (array_reverse($arguments) as $value) {
+		foreach ($arguments as $value) {
 
 			// Normalize input
 			if (empty($value)) {
