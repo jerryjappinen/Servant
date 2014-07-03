@@ -45,8 +45,10 @@ class ServantResponse extends ServantObject {
 	}
 
 	protected function run () {
-		$pointer = $this->input()->stringPointer(null, true);
-		$redirectUrl = $this->servant()->manifest()->redirects($pointer);
+		$redirectUrl = $this->findRedirectUrl(
+			$this->input()->pointer(null, true),
+			$this->servant()->manifest()->redirects()
+		);
 
 		// Redirect URL defined in manifest
 		// FLAG requires URL to match exactly
@@ -443,6 +445,32 @@ class ServantResponse extends ServantObject {
 		$path .= implode('/', $this->input()->pointer());
 
 		return suffix($path, '/');
+	}
+
+	/**
+	* Find a redirect url that matches the pointer given, if one exists
+	*/
+	private function findRedirectUrl ($pointer, $urls) {
+		$result = null;
+
+		// Pointer that can be used
+		if (count($pointer)) {
+
+			// Slash pointer parameters off one by one, starting from the end, see if a URL matches
+			for ($i = count($pointer); $i > 0; $i--) { 
+				$stringPointer = implode('/', array_slice($pointer, 0, $i));
+
+				// URL found
+				if (array_key_exists($stringPointer, $urls)) {
+					$result = $urls[$stringPointer];
+					break;
+				}
+
+				unset($stringPointer);
+			}
+		}
+
+		return $result;
 	}
 
 	/**
