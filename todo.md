@@ -134,13 +134,37 @@
 
 
 
+## Project skeleton generator
+
+- Remove
+	- `.git/`
+	- `changelog.md`
+	- `todo.md`
+	- `readme.md`
+	- `samples/`
+	- `status/`
+	- All templates except for `html` and `debug`
+- Tutorial content
+	- `settings.json`
+	- `site` template that nests `html`
+	- Two sample pages
+		- Intro, tutorial
+		- Environment reference
+	- Assets
+		- `splash.jpg`
+		- `icon.png`
+		- One `.less` file
+		- One `.js` file
+
+
+
 ## Security
 
-- What can I allow users to see?
-- What do I allow users to see?
-- `.htaccess` usage is error-prone
-	- Too much separate files
-	- Easy to omit when moving files via GUI
+- Using multiple `.htaccess` files is bad
+	- Easy to omit when transferring files
+	- Hard to keep track of
+- `settings.json` should be hidden
+- All script files except `backend/index.php` should be hidden
 
 
 

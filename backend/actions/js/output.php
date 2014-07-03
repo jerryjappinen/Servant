@@ -6,7 +6,7 @@ $output = '
 (function (root) {
 	var id = "servant";
 	if (typeof root[id] === undefined) {
-		var s = '.str_replace('\\/', '/', json_encode($constants)).';
+		var s = '.str_replace('\\/', '/', json_encode($constants, JSON_PRETTY_PRINT)).';
 		root[id] = s;
 	}
 })(window);

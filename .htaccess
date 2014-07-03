@@ -21,7 +21,7 @@ AddOutputFilterByType DEFLATE text/plain text/html text/css text/javascript appl
 RewriteEngine on
 
 # Disable directory listings
-# Options -Indexes
+Options -Indexes
 
 # Might be required for CORS (uncomment if needed on your server)
 # Header set Access-Control-Allow-Origin *
