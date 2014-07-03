@@ -2,23 +2,22 @@
 
 try {
 
+	$action1 = $servant->create()->action('js-vars');
+	$action2 = $servant->create()->action('page', array('pointer' => array('page', 'foo', 'bar')));
+
 	$reference = array(
 
-		'getters' => array(
-			'scripts' => array(
-				'$format = false',
-				'$servant->assets()->scripts()',
-				$servant->assets()->scripts(),
+		'Sample 1: Actions with no pointer' => array(
+			'initialization' => array(
+				'',
+				'$action1 = $servant->create()->action("js-vars")',
 			),
-			'settings' => array(
-				'$format = false',
-				'$servant->assets()->settings()',
-				$servant->assets()->settings(),
-			),
-			'stylesheets' => array(
-				'$format = false',
-				'$servant->assets()->stylesheets()',
-				$servant->assets()->stylesheets(),
+		),
+
+		'Sample 2: Pass pointer to action' => array(
+			'initialization' => array(
+				'',
+				'$action2 = $servant->create()->action("page", array("pointer" => array("page", "foo", "bar")))',
 			),
 		),
 

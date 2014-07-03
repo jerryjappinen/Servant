@@ -3,22 +3,28 @@
 
 ## Backlog
 
-- Possibly offer `->root()` convenience getter in `ServantMain`
-- Action's init behavior is weird and not very handy
-	[ ] Take in pointer and other input separately
-- **Redirect URLs**: Include excess pointer parameters in redirect URLs
+- JS
+	[ ]Some kind of `API`/`about`/`json-vars` action
+	[ ]Proper paths in `js-vars`
+	[ ]Settings (from assets, templates, nodes)
+- Initing inputs and creating actions is laborous
+	- `ServantInput` shouldn't throws errors when fetching
+	- Action's init behavior is weird and not very handy
+	- Take in pointer and other input separately
+- **Redirect URLs**
+	- Include excess pointer parameters in redirect URLs
 - Add an action that runs simple unit tests
 	- Requires a not-completely-broken system
 	- ... But is an easy way to get started
 	- TODO
-		[ ] Write test runner utility
-		[ ] Write some unit tests
-		[ ] Write action that inits test suites and passes them `$servant`
-		[ ] Show test results in JSON and/or HTML
-- action-specific cache times, respect node-specific cache settings in site action
-	[ ] Only site-wide browser and server cache times are supported in `ServantResponse` now
-	[ ] ACTIONS can set browser **and** server cache times
-	[ ] Node-specific actions respect node-specific cache settings
+		- Write test runner utility
+		- Write some unit tests
+		- Write action that inits test suites and passes them `$servant`
+		- Show test results in JSON and/or HTML
+- Action-specific cache times, respect node-specific cache settings in site action
+	- Only site-wide browser and server cache times are supported in `ServantResponse` now
+	- ACTIONS can set browser **and** server cache times
+	- Node-specific actions respect node-specific cache settings
 - In `html` template, send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions?
 - Support `json` settings files in site assets, node-specific paths and templates
 	- JSON file contents outputted as JS hashes
@@ -73,8 +79,12 @@
 
 ## Sample projects / project templates
 
-- Tutorias
-	- Tutorial pages that provide info on environment variables, locations and how to get started editing a new site
+- Getting started site
+	- Tutorial pages that provide info on
+		- environment variables,
+		- paths and locations,
+		- how to get started editing a new site,
+		- site settings items
 - Core
 	- Absolutely nothing but the core release
 - Barebones
