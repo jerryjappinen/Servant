@@ -41,7 +41,7 @@
 	"redirects": {
 		"/foo": "http://eiskis.net/",
 		"bar": "sitestyles",
-		"bar/esa": "sitestyles/esa"
+		"bar/foo": "sitestyles/foo"
 	},
 
 	"sitemap": [
