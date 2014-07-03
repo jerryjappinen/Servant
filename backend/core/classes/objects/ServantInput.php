@@ -42,7 +42,7 @@ class ServantInput extends ServantObject {
 		}
 
 		// Store raw input
-		$this->setRaw(array_reverse($input));
+		$this->setRaw($input);
 
 		return $this;
 	}
@@ -91,17 +91,17 @@ class ServantInput extends ServantObject {
 
 	// Create a string representation of this input
 	// FLAG should be somewhere else
-	public function serialize () {
-		$result = '';
-		$raw = $this->raw();
+	// public function serialize () {
+	// 	$result = '';
+	// 	$raw = $this->raw();
 
-		// Serialize & encode raw input
-		if (!empty($raw)) {
-			$result = base64_encode(serialize($raw));
-		}
+	// 	// Serialize & encode raw input
+	// 	if (!empty($raw)) {
+	// 		$result = base64_encode(serialize($raw));
+	// 	}
 
-		return $result;
-	}
+	// 	return $result;
+	// }
 
 	// Pointer as string
 	public function stringPointer () {
@@ -112,16 +112,16 @@ class ServantInput extends ServantObject {
 
 	// Undo a serialization a string back
 	// FLAG should be somewhere else
-	public function unserialize ($string = '') {
-		$result = array();
+	// public function unserialize ($string = '') {
+	// 	$result = array();
 
-		// Exploding serialized data
-		if (!empty($string)) {
-			$result = unserialize(base64_decode($string));
-		}
+	// 	// Exploding serialized data
+	// 	if (!empty($string)) {
+	// 		$result = unserialize(base64_decode($string));
+	// 	}
 
-		return $result;
-	}
+	// 	return $result;
+	// }
 
 
 
@@ -173,7 +173,7 @@ class ServantInput extends ServantObject {
 		return $this->getAndSet('raw', $arguments);
 	}
 
-	public function validate () {
+	protected function validate () {
 		return $this->getAndSet('validate');
 	}
 

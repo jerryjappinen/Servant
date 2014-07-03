@@ -2,8 +2,8 @@
 
 try {
 
-	$action1 = $servant->create()->action('js-vars');
-	$action2 = $servant->create()->action('page', array('pointer' => array('page', 'foo', 'bar')));
+	$action1 = $servant->create()->action('js-vars')->run();
+	$action2 = $servant->create()->action('page', array('pointer' => array('page', 'foo', 'bar')))->run();
 
 	$reference = array(
 
@@ -12,12 +12,44 @@ try {
 				'',
 				'$action1 = $servant->create()->action("js-vars")',
 			),
+			'run' => array(
+				'',
+				'$action1->run()',
+			),
+			'cache' => array(
+				'',
+				'$action1->cache()',
+				$action1->cache(),
+			),
+			'contentType' => array(
+				'',
+				'$action1->contentType()',
+				$action1->contentType(),
+			),
+			'data' => array(
+				'',
+				'$action1->data()',
+			),
+			'files' => array(
+				'',
+				'$action1->files()',
+				$action1->files(),
+			),
+			'id' => array(
+				'',
+				'$action1->id()',
+				$action1->id(),
+			),
 		),
 
 		'Sample 2: Pass pointer to action' => array(
 			'initialization' => array(
 				'',
 				'$action2 = $servant->create()->action("page", array("pointer" => array("page", "foo", "bar")))',
+			),
+			'run' => array(
+				'',
+				'$action2->run()',
 			),
 		),
 

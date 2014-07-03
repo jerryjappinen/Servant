@@ -3,70 +3,99 @@
 
 ## Backlog
 
-- JS
-	[ ]Some kind of `API`/`about`/`json-vars` action
-	[ ]Proper paths in `js-vars`
-	[ ]Settings (from assets, templates, nodes)
-- Initing inputs and creating actions is laborous
-	- `ServantInput` shouldn't throws errors when fetching
+- **Initing inputs and actions**
+	- Very laborous and weird
 	- Action's init behavior is weird and not very handy
-	- Take in pointer and other input separately
+	- TODO
+		- Make `ServantInput->fetch()` return `null` if validation fails
+		- Take in pointer and other input separately
+		- Improve documentation
+- **`js-vars` action**
+	- Outputs critical environment variables
+		- Loaded by default
+		- Rename to simply `js/`
+		- Generate `servant` object with `paths`
+	- Separate `API`/`about`/`json-vars` action for requesting info with AJAX
+		- Setting `json` files scraped from assets, templates, nodes
 - **Redirect URLs**
 	- Include excess pointer parameters in redirect URLs
-- Add an action that runs simple unit tests
-	- Requires a not-completely-broken system
-	- ... But is an easy way to get started
+- **Unit test action**
+	- Easy way to get unit tests started, even if requires a not-completely-broken system
 	- TODO
 		- Write test runner utility
 		- Write some unit tests
 		- Write action that inits test suites and passes them `$servant`
-		- Show test results in JSON and/or HTML
-- Action-specific cache times, respect node-specific cache settings in site action
-	- Only site-wide browser and server cache times are supported in `ServantResponse` now
-	- ACTIONS can set browser **and** server cache times
-	- Node-specific actions respect node-specific cache settings
-- In `html` template, send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions?
-- Support `json` settings files in site assets, node-specific paths and templates
+		- Show test results in JSON
+		- Separate HTML outputter
+- **`json` settings files**
+	- Supported in site assets, templates and nodes
 	- JSON file contents outputted as JS hashes
 	- Available like scripts and stylesheets
 	- `json` reader and parser available globally (now in `ServantManifest` only)
-- `ServantPath`
-	- Returned by all path properties
-	- `__toString`
-	- `->plain()`
-	- `->domain()`
-	- `->url()`
-	- `->server()`
-	- `->split()`
-	- `->foo('more', 'url', 'parameters')`
-- Better (internal) URL scheme: use pseudo protocols to point to different locations
-	- `servant://` (root)
-	- `assets://`
-	- `actions://`
-	- `pages://`
-	- `templates://`
+- **`ServantPath`**
+	- Use in all path properties
+	- Provide formatting, manipulation and sanitization
+		- `__toString`
+		- `->plain()`
+		- `->domain()`
+		- `->url()`
+		- `->server()`
+		- `->split()`
+		- `->foo('more', 'url', 'parameters')`
+- **Internal URL scheme**
+	- Use pseudo protocols to point to different locations:
+		- `servant://` (root)
+		- `assets://`
+		- `actions://`
+		- `pages://`
+		- `templates://`
 	- In different contexts, one of these serves as the default root
 	- Have one PHP method that handles these conversions (so you can write something like `pointer('assets://foo')`)
 	- Apply URL parsing to HTML form's action tag
 	- Treat `../` as expected when parsing URLs
-- Support multiple locations for templates, actions etc. (defined in `paths.php`)
-	- Allows keeping custom templates and actions under one directory
-	- Makes updating Servant easier
-- `ServantTemplate` improvements
-	- Support selecting category node (pick page in template if necessary)
-	- Support running Servant without template files (rendering content directly)
-- Save cache files for all serialized raw input
-- Set scripts and stylesheets in `ServantNode`, bubble them like `externalStylesheets`
-	- Actions should output nodestyles and nodestylesheets
-- Action-specific user settings
-	- JSON (must stay secure on server)? Allow users to declare action-specific configs in site settings?
-	- User-facing action names via settings
-	-> Private actions (not accessible via HTTP, only other scripts). E.g. database connection
-- Better data/storage/working directory services for actions
-- Search action (investigate full text search in HTML files)
-- Twig parser of `ServantFiles` should pass on treated variables
-- Case-insensitive pointers (`ServantNode` and `ServantInput`)?
-- Sanitize common JSON failures (e.g. trailing commas in lists) when reading setting files
+- **Directory structure**
+	- Support multiple locations for templates, actions etc.
+		- Defined in `paths.php`
+		- Custom templates and actions are easily distinguished from those provided by default
+		- Makes updating Servant easier
+- **Templates**
+	- Support passing category node to stock templates
+	- Support running Servant without template files (`ServantTemplate` working without files should render content directly)
+- **Cache**
+	- Action-specific cache times, respect node-specific cache settings in site action
+		- Only site-wide browser and server cache times are supported in `ServantResponse` now
+		- ACTIONS can set browser **and** server cache times
+		- Node-specific actions respect node-specific cache settings
+	- Save cache files for all serialized raw input
+- **`ServantNode`**
+	- Set scripts and stylesheets in `ServantNode`, bubble them like `externalStylesheets`
+		- Actions should output nodestyles and nodestylesheets
+- **`ServantData`**
+	- Chart out use cases
+	- Provide better services for managing files
+- **`ServantManifest`**
+	- Custom user settings
+	- Private actions
+		- Not accessible via HTTP
+		- Other scripts can use the action as usual
+		- Use case: handling database connection via one action which doesn't respond to HTTP
+		- Should not be visible in public responses (might be tricky)
+	- Action-specific user settings
+		- Allow users to declare action-specific config items
+- **Search action**
+	- Scan available pages, action names etc.
+	- Should scan result HTML instead of 
+	- Doesn't have to be very fast
+	- Needs investigating full text search in HTML
+	- JSON search for AJAX, separate HTML outputter
+- **Sanitize JSON formatting**
+	- Trailing commas in lists
+- **Case-insensitive pointers**
+	- Support in `ServantNode`, `ServantInput` etc.
+	- Leads to case-insensitive URLs
+	- Files in a case-sensitive file system might create confusion
+- **`html` template**
+	- Send pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions?
 
 
 
@@ -74,6 +103,7 @@
 
 - Page pointers are weird if there is only one directory under subfolder
 - Sometimes `ServantInput` might fail on `Validator` class not being available despite attempting to load it via `ServantUtilities`.
+- Twig parser of `ServantFiles` does not pass on treated variables to script files running in queue
 
 
 
