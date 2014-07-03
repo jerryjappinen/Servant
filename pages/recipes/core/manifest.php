@@ -9,14 +9,6 @@ try {
 			),
 		),
 
-		'convenience' => array(
-			'removeRootNodeValue' => array(
-				'$values',
-				'$servant->manifest()->removeRootNodeValue(array(\'\' => \'A\', \'docs\' => \'B\'))',
-				$servant->manifest()->removeRootNodeValue(array('' => 'A', 'docs' => 'B')),
-			),
-		),
-
 		'getters' => array(
 			'browserCaches' => array(
 				'$key = null',
@@ -42,6 +34,11 @@ try {
 				'$key = null',
 				'$servant->manifest()->pageNames()',
 				$servant->manifest()->pageNames(),
+			),
+			'redirects' => array(
+				'$key = null',
+				'$servant->manifest()->redirects()',
+				$servant->manifest()->redirects(),
 			),
 			'serverCaches' => array(
 				'$key = null',

@@ -38,6 +38,12 @@
 		"docs, guides, recipes": "Tutorials, guides and full documentation for the Servant web framework"
 	},
 
+	"redirects": {
+		"/foo": "http://eiskis.net/",
+		"bar": "sitestyles",
+		"bar/esa": "sitestyles/esa"
+	},
+
 	"sitemap": [
 		"home",
 		"guides",

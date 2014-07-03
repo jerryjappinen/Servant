@@ -103,6 +103,13 @@ class ServantInput extends ServantObject {
 		return $result;
 	}
 
+	// Pointer as string
+	public function stringPointer () {
+		$arguments = func_get_args();
+		$pointer = call_user_func_array(array($this, 'pointer'), $arguments);
+		return implode('/', $pointer);
+	}
+
 	// Undo a serialization a string back
 	// FLAG should be somewhere else
 	public function unserialize ($string = '') {
@@ -125,7 +132,7 @@ class ServantInput extends ServantObject {
 	* Getters
 	*
 	* FLAG
-	*   - includeAction is weirdly
+	*   - includeAction is weird
 	*/
 
 	public function pointer ($index = null, $includeAction = null) {

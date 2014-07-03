@@ -11,23 +11,24 @@ class ServantManifest extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyJsonMapping 		= null;
-	protected $propertyRaw 				= null;
-	protected $propertyPath 			= null;
+	protected $propertyJsonMapping   = null;
+	protected $propertyRaw           = null;
+	protected $propertyPath          = null;
 
 	// Manifest items
-	protected $propertyBrowserCaches 	= null;
-	protected $propertyDescriptions 	= null;
-	protected $propertyIcons 			= null;
-	protected $propertyLanguages 		= null;
-	protected $propertyPageNames 		= null;
-	protected $propertyScripts 			= null;
-	protected $propertyServerCaches 	= null;
-	protected $propertySiteNames 		= null;
-	protected $propertySitemap 			= null;
-	protected $propertySplashImages 	= null;
-	protected $propertyStylesheets 		= null;
-	protected $propertyTemplates 		= null;
+	protected $propertyBrowserCaches = null;
+	protected $propertyDescriptions  = null;
+	protected $propertyIcons         = null;
+	protected $propertyLanguages     = null;
+	protected $propertyPageNames     = null;
+	protected $propertyRedirects     = null;
+	protected $propertyScripts       = null;
+	protected $propertyServerCaches  = null;
+	protected $propertySiteNames     = null;
+	protected $propertySitemap       = null;
+	protected $propertySplashImages  = null;
+	protected $propertyStylesheets   = null;
+	protected $propertyTemplates     = null;
 
 
 
@@ -43,14 +44,6 @@ class ServantManifest extends ServantObject {
 	/**
 	* Convenience
 	*/
-
-	// Remove excess values in manifest hash
-	public function removeRootNodeValue ($values) {
-		if (is_array($values) and isset($values[''])) {
-			unset($values['']);
-		}
-		return $values;
-	}
 
 
 
@@ -100,6 +93,9 @@ class ServantManifest extends ServantObject {
 	}
 	public function pageNames ($key = null) {
 		return $this->getSomeHash('pageNames', $key, true);
+	}
+	public function redirects ($key = null) {
+		return $this->getSomeHash('redirects', $key, true);
 	}
 	public function serverCaches ($key = null) {
 		return $this->getSomeHash('serverCaches', $key, true);
@@ -153,6 +149,9 @@ class ServantManifest extends ServantObject {
 
 			'pagenames' 	=> 'pageNames',
 			'pagename' 		=> 'pageNames',
+
+			'redirects' 	=> 'redirects',
+			'redirect' 		=> 'redirects',
 
 			'scripts' 		=> 'scripts',
 			'script' 		=> 'scripts',
@@ -264,6 +263,26 @@ class ServantManifest extends ServantObject {
 	public function setPageNames () {
 		return $this->set('pageNames', $this->treatSomeHash('pageNames', 'oneliner'));
 	}
+	public function setRedirects () {
+		return $this->set('redirects', $this->treatSomeHash('redirects', 'path'));
+	}
+	public function setServerCaches () {
+		return $this->set('serverCaches', $this->treatSomeHash('serverCaches', 'numericOrBoolean'));
+	}
+	public function setSiteNames () {
+		return $this->set('siteNames', $this->treatSomeHash('siteNames', 'oneliner'));
+	}
+	public function setSplashImages () {
+		return $this->set('splashImages', $this->treatSomeHash('splashImages', 'path'));
+	}
+	public function setTemplates () {
+		return $this->set('templates', $this->treatSomeHash('templates', 'trimmed'));
+	}
+
+
+
+	// Others
+
 	public function setScripts () {
 		$manifest = $this->treatSomeHash('scripts', 'path');
 
@@ -278,26 +297,19 @@ class ServantManifest extends ServantObject {
 
 		return $this->set('scripts', $manifest);
 	}
-	public function setServerCaches () {
-		return $this->set('serverCaches', $this->treatSomeHash('serverCaches', 'numericOrBoolean'));
-	}
-	public function setSiteNames () {
-		return $this->set('siteNames', $this->treatSomeHash('siteNames', 'oneliner'));
-	}
+
 	public function setSitemap () {
 		$results = array();
 
 		// Find original values
 		$raw = $this->raw('sitemap');
 		if (isset($raw)) {
-			$results = $this->normalizeNodePaths($raw);
+			$results = $this->normalizePointerKeys($raw);
 		}
 
 		return $this->set('sitemap', $results);
 	}
-	public function setSplashImages () {
-		return $this->set('splashImages', $this->treatSomeHash('splashImages', 'path'));
-	}
+
 	public function setStylesheets () {
 		$manifest = $this->treatSomeHash('stylesheets', 'path');
 
@@ -311,9 +323,6 @@ class ServantManifest extends ServantObject {
 		}
 
 		return $this->set('stylesheets', $manifest);
-	}
-	public function setTemplates () {
-		return $this->set('templates', $this->treatSomeHash('templates', 'trimmed'));
 	}
 
 
@@ -497,7 +506,7 @@ class ServantManifest extends ServantObject {
 	}
 
 	// Page nodes as values (for sitemap)
-	private function normalizeNodePaths ($input, $prefix = '') {
+	private function normalizePointerKeys ($input, $prefix = '') {
 		$results = array();
 
 		// Track prefix on each level
@@ -519,7 +528,7 @@ class ServantManifest extends ServantObject {
 					// Children
 					} else if (is_array($value)) {
 						$results[] = $prefix.$key;
-						$results = array_merge($results, $this->normalizeNodePaths($value, $prefix.$key));
+						$results = array_merge($results, $this->normalizePointerKeys($value, $prefix.$key));
 					}
 
 				}

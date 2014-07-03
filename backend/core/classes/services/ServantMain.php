@@ -137,11 +137,7 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Go
-	*/
-
-	/**
-	* Run actions, generate response
+	* Generate a response based on input
 	*/
 	public function response ($get = array(), $post = array(), $put = array(), $delete = array(), $files = array()) {
 		$this->purgeTemp();
@@ -177,7 +173,7 @@ class ServantMain extends ServantObject {
 
 
 	/**
-	* Serve the response that was created based on input
+	* Serve the response that was created
 	*/
 	public function serve ($response) {
 

@@ -15,17 +15,26 @@
 
 - Possibly offer `->root()` convenience getter in `ServantMain`
 - Action's init behavior is weird and not very handy
-	- Take in pointer and other input separately
-- Add simpletest action to run automated tests and run test results
-	- Needs a functioning system, but is an easy way to get started
+	[ ] Take in pointer and other input separately
 - Redirects
-	- Set redirects paths in `settings.json`
-	- 301 redirect to the address provided
-	- Overrides action and page selection etc.
+	[ ] 
+	[x] Take in redirects paths in `ServantManifest`
+	[x] Response can be set to redirect
+	[x] 301 redirect to the address provided
+	[ ] Overrides action and page selection etc.
+	[ ] Augment redirect url with excess pointer parameters
+- Add an action that runs simple unit tests
+	- Requires a not-completely-broken system
+	- ... But is an easy way to get started
+	- TODO
+		[ ] Write test runner utility
+		[ ] Write some unit tests
+		[ ] Write action that inits test suites and passes them `$servant`
+		[ ] Show test results in JSON and/or HTML
 - action-specific cache times, respect node-specific cache settings in site action
-	0. only site-wide browser and server cache times are supported in `ServantResponse` now
-	1. Actions can set browser **and** server cache times
-	2. node-specific actions respect node-specific cache settings
+	[ ] Only site-wide browser and server cache times are supported in `ServantResponse` now
+	[ ] ACTIONS can set browser **and** server cache times
+	[ ] Node-specific actions respect node-specific cache settings
 - In `html` template, send page pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions?
 - Support `json` settings files in site assets, node-specific paths and templates
 	- JSON file contents outputted as JS hashes
