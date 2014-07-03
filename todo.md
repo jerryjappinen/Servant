@@ -10,13 +10,11 @@
 		- Make `ServantInput->fetch()` return `null` if validation fails
 		- Take in pointer and other input separately
 		- Improve documentation
-- **`js-vars` action**
-	- Outputs critical environment variables
-		- Loaded by default
-		- Rename to simply `js/`
-		- Generate `servant` object with `paths`
-	- Separate `API`/`about`/`json-vars` action for requesting info with AJAX
-		- Setting `json` files scraped from assets, templates, nodes
+- **`API`/`about`/`json-vars` action**
+	- For requesting info with AJAX
+	- Setting `json` files scraped from assets, templates, nodes
+	- Handles existing and missing `servant` objects in JS
+	- Outputs error in console in debug mode
 - **Redirect URLs**
 	- Include excess pointer parameters in redirect URLs
 - **Unit test action**
@@ -107,9 +105,34 @@
 
 
 
-## Sample projects / project templates
+## Sample projects, tutorials and help
 
-- Getting started site
+- 2 min of Servant (video)
+	- General
+		- Everything's automated
+		- Sitemap
+		- Multiple template formats
+			- `HTML`
+			- `Markdown`
+			- `Textile`
+			- `PHP`
+			- `Jade`
+			- `HAML`
+			- `Twig`
+		- Asset minification
+		- HTML header boilerplate
+		- `LESS` and `SCSS` compilers
+		- Automatic fancy URLs
+			- Augmented by manual redirects
+		- Use cases
+	- What you see first
+	- Pages
+	- Assets
+	- Settings
+	- Templates
+	- Actions
+- Getting started tutorial site
+	- Default content in Servant releases
 	- Tutorial pages that provide info on
 		- environment variables,
 		- paths and locations,

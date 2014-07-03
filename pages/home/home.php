@@ -134,7 +134,7 @@
 
 			</div>
 
-			<p><a href="https://github.com/Eiskis/Servant/archive/master.zip" class="button push-right">Download .zip, 1.9 MB</a> <input type="text" class="plain pull-left cloneurl" value="git clone https://github.com/Eiskis/Servant.git" readonly="readonly"></p>
+			<p><a href="https://github.com/Eiskis/Servant/archive/master.zip" class="button push-right">Download Servant <?php echo $servant->version(); ?></a> <input type="text" class="plain pull-left cloneurl" value="git clone https://github.com/Eiskis/Servant.git" readonly="readonly"></p>
 
 		</div>
 
@@ -147,6 +147,10 @@
 			<p class="reset-bottom">license</p>
 
 			<p class="reset-top"><a href="http://www.gnu.org/copyleft/lesser.html">LGPL</a></p>
+
+			<p class="reset-bottom">latest version</p>
+
+			<p class="reset-top discreet"><?php echo $servant->version(); ?></p>
 
 			<p class="reset-bottom">requirements</p>
 

@@ -14,6 +14,16 @@ class ServantMain extends ServantObject {
 
 
 	/**
+	* Meta
+	*/
+
+	public function version () {
+		return $this->constants()->versions('current');
+	}
+
+
+
+	/**
 	* Properties
 	*/
 

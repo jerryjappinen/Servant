@@ -8,13 +8,14 @@ class ServantConstants extends ServantObject {
 	/**
 	* Properties
 	*/
-	protected $propertyActions 			= null;
-	protected $propertyContentTypes 	= null;
-	protected $propertyDefaults 		= null;
-	protected $propertyFormats 			= null;
+	protected $propertyActions          = null;
+	protected $propertyContentTypes     = null;
+	protected $propertyDefaults         = null;
+	protected $propertyFormats        	= null;
 	protected $propertyNamingConvention = null;
-	protected $propertyPatterns 		= null;
-	protected $propertyStatuses 		= null;
+	protected $propertyPatterns         = null;
+	protected $propertyStatuses         = null;
+	protected $propertyVersions         = null;
 
 
 
@@ -42,6 +43,7 @@ class ServantConstants extends ServantObject {
 			'namingConvention',
 			'patterns',
 			'statuses',
+			'versions',
 		);
 
 		// Run setters if values are given
@@ -91,6 +93,10 @@ class ServantConstants extends ServantObject {
 	public function statuses () {
 		$arguments = func_get_args();
 		return $this->getAndSet('statuses', $arguments);
+	}
+	public function versions () {
+		$arguments = func_get_args();
+		return $this->getAndSet('versions', $arguments);
 	}
 
 
@@ -210,6 +216,10 @@ class ServantConstants extends ServantObject {
 
 	protected function setStatuses ($input = null) {
 		return $this->set('statuses', $this->takeInFlattenedArray($input, true));
+	}
+
+	protected function setVersions ($input = null) {
+		return $this->set('Versions', $this->takeInFlattenedArray($input));
 	}
 
 

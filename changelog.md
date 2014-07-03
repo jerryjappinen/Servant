@@ -3,6 +3,12 @@
 
 ## 0.2.0 June 22, 2014
 
+In addition to large refactoring and bug fixing efforts:
+
+### External scripts and stylesheets
+
+Define external libraries to be loaded automatically always or on specific pages. Scripts and stylesheets are defined separately in `settings.json`.
+
 ### Redirects
 
 Redirects are now supported. Servant can be instructed to redirect requests to specific endpoints. Define these in `settings.json` like so:
@@ -16,7 +22,6 @@ Redirects are now supported. Servant can be instructed to redirect requests to s
 		"recipe": "recipes"
 	},
 	...
-
 
 ### Manifest
 
@@ -32,7 +37,6 @@ Some changes to keys used in manifest:
 
 All keys are treated as case-insensitive, and both plural and singular forms are accepted.
 
-
 ### Upgrade guide
 
 - Update `settings.json` to use the new keys and shared setting items
@@ -40,3 +44,9 @@ All keys are treated as case-insensitive, and both plural and singular forms are
 - If you're using `js-vars`, some variables have changed
 
 As always, import your custom assets, pages, templates and actions.
+
+
+
+## 0.1.0
+
+First public release.
