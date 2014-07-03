@@ -39,9 +39,10 @@
 	},
 
 	"redirects": {
-		"/foo": "http://eiskis.net/",
-		"bar": "sitestyles",
-		"bar/foo": "sitestyles/foo"
+		"author": "http://eiskis.net/",
+		"doc": "docs",
+		"guide": "guides",
+		"recipe": "recipes"
 	},
 
 	"sitemap": [
