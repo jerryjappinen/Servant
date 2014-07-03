@@ -58,6 +58,8 @@
 		"guides/templates",
 		"guides/actions",
 
+		"docs/basics/",
+
 		"docs/basics/about/",
 		"docs/basics/asset-pipeline",
 		"docs/basics/template-scripting",
