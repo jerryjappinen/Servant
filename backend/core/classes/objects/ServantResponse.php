@@ -28,6 +28,9 @@ class ServantResponse extends ServantObject {
 
 	/**
 	* Take input upon initialization
+	*
+	* FLAG
+	*   - Should not run upon init
 	*/
 	protected function initialize () {
 
@@ -37,12 +40,29 @@ class ServantResponse extends ServantObject {
 			call_user_func_array(array($this, 'setInput'), $arguments);
 		}
 
+		// Run upon init
+		return $this->run();
+	}
+
+	protected function run () {
+		$pointer = $this->input()->stringPointer(null, true);
+		$redirectUrl = $this->servant()->manifest()->redirects($pointer);
+
+		// Redirect URL defined in manifest
+		// FLAG requires URL to match exactly
+		if ($redirectUrl) {
+			$this->setRedirect($redirectUrl);
+
 		// Generate response
-		// FLAG
-		//   This is a hack, body should be auto-set.
-		//   Now it's set here so that the action fails
-		//   ASAP, since we dont' have proper error handling.
-		$this->setBody();
+		} else {
+
+			// FLAG
+			//   This is a hack, body should be auto-set.
+			//   Now it's set here so that the action fails
+			//   ASAP, since we dont' have proper error handling.
+			$this->setBody();
+			
+		}
 
 		return $this;
 	}

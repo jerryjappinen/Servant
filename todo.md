@@ -17,11 +17,11 @@
 - Action's init behavior is weird and not very handy
 	[ ] Take in pointer and other input separately
 - Redirects
-	[ ] 
 	[x] Take in redirects paths in `ServantManifest`
 	[x] Response can be set to redirect
 	[x] 301 redirect to the address provided
-	[ ] Overrides action and page selection etc.
+	[x] Overrides action and page selection etc.
+	[ ] Detect redirect trigger when URL has excess parameters
 	[ ] Augment redirect url with excess pointer parameters
 - Add an action that runs simple unit tests
 	- Requires a not-completely-broken system
