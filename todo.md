@@ -102,6 +102,7 @@
 - Page pointers are weird if there is only one directory under subfolder
 - Sometimes `ServantInput` might fail on `Validator` class not being available despite attempting to load it via `ServantUtilities`.
 - Twig parser of `ServantFiles` does not pass on treated variables to script files running in queue
+- Cache files are sometimes created in debug mode
 
 
 

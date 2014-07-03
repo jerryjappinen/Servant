@@ -1,6 +1,10 @@
 
 # Troubles?
 
+<big>Oh no! Servant tries to automate as much and intelligently as possible so you'd never have to visit this page. Technology doesn't always work, though, so here's a detailed guide on troubleshooting.</big>
+
+## Setup process
+
 These are detailed instructions on how to set up Servant. You'll have it running in minutes.
 
 ### 1. Access a server
@@ -25,7 +29,24 @@ If this isn't the case, continue to troubleshooting.
 
 
 
-## Troubleshooting
+## Common issues
+
+#### File permissions
+
+Sometimes file or directory permissions aren't copied over as expected. This is what you should have:
+
+- `cache/` and `data/` folders
+	- Servant generates, edits, reads and removes directories and files inside these folders.
+	- Both should be **writable**.
+- All folders
+	- Servant reads script files under `backend/`, `templates/` and `pages/`. All of these contain arbitrary subfolders.
+	-`backend/`, `templates/` and `pages/`
+- The only *PHP* script that is executed directly is `backend/index.php`.
+	- Apache with *mod_php*, however, will still read this file so it should be enough to keep this **readable** like everything else.
+
+These apply to both the **web server user** and the **command line user**. These can either be the same or two different users, depending on your system.
+
+
 
 #### I don't know where to copy Servant's files
 
