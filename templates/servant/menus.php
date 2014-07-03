@@ -10,7 +10,7 @@ $mainCategory = $page->parents(false, 0);
 if ($mainCategory) {
 	$sectionmenus[] = '';
 	foreach ($mainCategory->children() as $node) {
-		$listItem = '<a href="'.$node->endpoint('domain').'">'.htmlspecialchars($node->name()).'</a>';
+		$listItem = '<a href="'.$node->endpoint('domain').'"><em>&#x25BE;</em>'.htmlspecialchars($node->name()).'</a>';
 		if ($page->parents(false, 1) === $node or $page === $node) {
 			$listItem = '<li class="selected"><strong>'.$listItem.'</strong></li>';
 		} else {
@@ -26,7 +26,7 @@ $subCategory = $page->parents(false, 1);
 if ($subCategory) {
 	$sectionmenus[] = '';
 	foreach ($subCategory->children() as $node) {
-		$listItem = '<a href="'.$node->endpoint('domain').'">'.htmlspecialchars($node->name()).'</a>';
+		$listItem = '<a href="'.$node->endpoint('domain').'"><em>&#x25BE;</em>'.htmlspecialchars($node->name()).'</a>';
 		if ($page->parents(false, 1) === $node or $page === $node) {
 			$listItem = '<li class="selected"><strong>'.$listItem.'</strong></li>';
 		} else {
