@@ -1,17 +1,7 @@
 
 # Servant development
 
-## ???
-
-- Sanitizing common JSON failures (e.g. trailing commas in lists) in setting files
-- Add-on admin section
-	- Settings file generation + maintenance
-	- Status board
-	- Online page editor
-
-
-
-## Core
+## Backlog
 
 - Possibly offer `->root()` convenience getter in `ServantMain`
 - Action's init behavior is weird and not very handy
@@ -70,17 +60,21 @@
 - Search action (investigate full text search in HTML files)
 - Twig parser of `ServantFiles` should pass on treated variables
 - Case-insensitive pointers (`ServantNode` and `ServantInput`)?
+- Sanitize common JSON failures (e.g. trailing commas in lists) when reading setting files
 
 
 
 ## Bugs
 
 - Page pointers are weird if there is only one directory under subfolder
+- Sometimes `ServantInput` might fail on `Validator` class not being available despite attempting to load it via `ServantUtilities`.
 
 
 
 ## Sample projects / project templates
 
+- Tutorias
+	- Tutorial pages that provide info on environment variables, locations and how to get started editing a new site
 - Core
 	- Absolutely nothing but the core release
 - Barebones
@@ -110,12 +104,16 @@
 
 
 
-## Status board
+## Add-on status board / admin section
 
 Some kind of status page that indicates if things like paths are in order, what settings are active etc. Helps during installation and warns about common pitfalls.
 
 - Report cards structure
 - Test routines separated from main thingy
+- Settings file generation + maintenance
+- Status board
+- Online page editor
+
 
 
 

@@ -40,7 +40,7 @@
 
 	"redirects": {
 		"author": "http://eiskis.net/",
-		"doc": "docs",
+		"doc, documentation": "docs",
 		"guide": "guides",
 		"recipe": "recipes"
 	},
