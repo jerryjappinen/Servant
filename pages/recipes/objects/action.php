@@ -2,7 +2,7 @@
 
 try {
 
-	$action1 = $servant->create()->action('js-vars')->run();
+	$action1 = $servant->create()->action('js')->run();
 	$action2 = $servant->create()->action('page', array('pointer' => array('page', 'foo', 'bar')))->run();
 
 	$reference = array(
@@ -10,7 +10,7 @@ try {
 		'Sample 1: Actions with no pointer' => array(
 			'initialization' => array(
 				'',
-				'$action1 = $servant->create()->action("js-vars")',
+				'$action1 = $servant->create()->action("js")',
 			),
 			'run' => array(
 				'',
