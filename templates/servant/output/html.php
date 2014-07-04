@@ -1,16 +1,13 @@
 <?php
 
-/**
-* Full printout
-*/
-
-$output = '
+// Compose HTML to output
+$output .= '
 <div class="row row-menu">
 	<div class="row-content buffer-left buffer-right">
 
 		<h1><a href="'.$servant->paths()->root('domain').'">'.$page->siteName().'</a></h1>
 		<ul class="reset plain collapse right">
-			'.$mainmenu.'
+			'.implode($mainmenu).'
 		</ul>
 
 		<div class="clear"></div>
@@ -28,7 +25,7 @@ $output = '
 			$output .= '
 			<div class="submenu clear-after">
 				<div class="hide-over-break">
-					'.implode_wrap('<ul class="reset plain">', '</ul>', $sectionmenus).'
+					'.implode_wrap('<ul class="reset plain">', '</ul>', $sectionMenus).'
 				</div>
 				<div class="hide-under-break">
 					'.$submenu.'
@@ -54,10 +51,9 @@ $output = '
 $output .= '
 <div class="row row-footer">
 	<div class="row-content buffer clear-after">
-		'.$footer.'
+		<h1><a href="'.$servant->paths()->root('domain').'" data-target="body" class="plain scroll">This is Servant<span class="inline-block pull-right">.</span></a></h1>
 	</div>
 </div>
 ';
 
-echo $template->nest('html', $output, $page);
 ?>

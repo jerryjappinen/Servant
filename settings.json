@@ -15,7 +15,7 @@
 		"docs, guides, recipes": "Tutorials, guides and full documentation for the Servant web framework"
 	},
 
-	"template": "site",
+	"template": "servant",
 
 	"scripts": {
 		"/": [

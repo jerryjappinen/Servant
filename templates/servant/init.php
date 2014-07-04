@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Servant's home site main frame
+* Main template for a site with menus, pushed into HTML body
 *
 * NESTED TEMPLATES
 *	html
@@ -13,9 +13,17 @@
 *	1: Current page (ServantPage)
 */
 
+// Select a page or root node
 $page = $template->content(1);
 if (!$page) {
 	$page = $servant->sitemap()->root();
 }
+
+// Variables used in this template
+$mainmenu = array();
+$prevnext = '';
+$submenu = '';
+$sectionMenus = array();
+$output = '';
 
 ?>
