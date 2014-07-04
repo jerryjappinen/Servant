@@ -11,13 +11,11 @@
 	"siteName": "Servant",
 
 	"descriptions": {
-		"/": "Servant - Effortless publishing for the web",
-		"docs, guides": "Documentation, guides and tutorials for the Servant web framework"
+		"": "Effortless publishing for the web",
+		"docs, guides, recipes": "Tutorials, guides and full documentation for the Servant web framework"
 	},
 
-	"template": {
-		"": "servant"
-	},
+	"template": "site",
 
 	"scripts": {
 		"/": [
@@ -31,11 +29,6 @@
 
 	"pageNames": {
 		"home": "Servant"
-	},
-
-	"descriptions": {
-		"": "Effortless publishing for the web",
-		"docs, guides, recipes": "Tutorials, guides and full documentation for the Servant web framework"
 	},
 
 	"redirects": {

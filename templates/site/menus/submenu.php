@@ -1,6 +1,9 @@
 <?php
 
-$output = '';
+/**
+* Generates a submenu for this main category
+*/
+
 $mainCategory = $page->parents(false, 0);
 if ($mainCategory) {
 
@@ -11,7 +14,7 @@ if ($mainCategory) {
 		$name = $node->name();
 
 		// Children
-		$submenu = '';
+		$submenuItems = '';
 		$subItems = array();
 		if ($node->children()) {
 
@@ -40,7 +43,7 @@ if ($mainCategory) {
 				unset($listItem);
 			}
 
-			$submenu = '<ul>'.implode($subItems).'</ul>';
+			$submenuItems = '<ul>'.implode($subItems).'</ul>';
 		}
 
 		// Link HTML
@@ -55,7 +58,7 @@ if ($mainCategory) {
 		}
 
 		// Close HTML
-		$listItem .= ($submenu ? $submenu : '').'</li>';
+		$listItem .= ($submenuItems ? $submenuItems : '').'</li>';
 
 		// Add item to menu
 		$items[] = $listItem;
@@ -64,9 +67,8 @@ if ($mainCategory) {
 	}
 
 	// Menu structure
-	$output = '<ul>'.implode($items).'</ul>';
+	$submenu = '<ul>'.implode($items).'</ul>';
 
 }
 
-echo $output;
 ?>

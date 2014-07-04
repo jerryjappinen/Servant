@@ -13,9 +13,16 @@
 *	1: Current page (ServantPage)
 */
 
+// Select a page or root node
 $page = $template->content(1);
 if (!$page) {
 	$page = $servant->sitemap()->root();
 }
+
+// Variables used in this template
+$mainmenu = array();
+$submenu = '';
+$sectionMenus = array();
+$output = '';
 
 ?>

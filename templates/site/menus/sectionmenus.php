@@ -1,14 +1,9 @@
 <?php
 
-// Menus
-$mainmenu = $template->nest('list-toplevelpages', $page);
-$submenu = $template->nest('list-submenu', $page);
-$sectionmenus = array();
-
 // Level 2
 $mainCategory = $page->parents(false, 0);
 if ($mainCategory) {
-	$sectionmenus[] = '';
+	$sectionMenus[] = '';
 	foreach ($mainCategory->children() as $node) {
 		$listItem = '<a href="'.$node->endpoint('domain').'">'.htmlspecialchars($node->name()).'</a>';
 		if ($page->parents(false, 1) === $node or $page === $node) {
@@ -16,7 +11,7 @@ if ($mainCategory) {
 		} else {
 			$listItem = '<li>'.$listItem.'</li>';
 		}
-		$sectionmenus[0] .= $listItem;
+		$sectionMenus[0] .= $listItem;
 		unset($listItem);
 	}
 }
@@ -24,7 +19,7 @@ if ($mainCategory) {
 // Level 3
 $subCategory = $page->parents(false, 1);
 if ($subCategory) {
-	$sectionmenus[] = '';
+	$sectionMenus[] = '';
 	foreach ($subCategory->children() as $node) {
 		$listItem = '<a href="'.$node->endpoint('domain').'">'.htmlspecialchars($node->name()).'</a>';
 		if ($page->parents(false, 1) === $node or $page === $node) {
@@ -32,7 +27,7 @@ if ($subCategory) {
 		} else {
 			$listItem = '<li>'.$listItem.'</li>';
 		}
-		$sectionmenus[1] .= $listItem;
+		$sectionMenus[1] .= $listItem;
 		unset($listItem);
 	}
 }
