@@ -3,6 +3,11 @@
 
 ## Backlog
 
+- **Template parsers**
+	- Update MtHaml
+	- Update Twig
+	- Remove non-supported parsers
+	- Investigate MtHaml/Twig
 - **Initing inputs and actions**
 	- Very laborous and weird
 	- Action's init behavior is weird and not very handy
