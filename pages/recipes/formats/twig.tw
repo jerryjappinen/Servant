@@ -1,0 +1,22 @@
+
+<h1>Twig example</h1>
+
+<p><a href="http://twig.sensiolabs.org/" class="button">Read more about Twig</a></p>
+
+<h3>Print top-level nodes</h3>
+
+<pre><code>{{ '<ul>
+{% for node in servant.sitemap.pages %}
+	<li>{{ node.name }}</li>
+{% else %}
+	<li class="discreet">No pages found.</li>
+{% endfor %}
+</ul>'|e('html_attr') }}</code></pre>
+
+<ul>
+{% for node in servant.sitemap.pages %}
+	<li>{{ node.name }}</li>
+{% else %}
+	<li class="discreet">No pages found.</li>
+{% endfor %}
+</ul>
