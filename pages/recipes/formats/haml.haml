@@ -1,0 +1,12 @@
+
+%h1
+	Haml
+%p
+	Sample paragraph.
+
+%ul
+	- foreach($servant->sitemap()->pages() as $node)
+		%li
+			= $node->name()
+			URL:
+			%a(href=$node->endpoint('domain')) #{$node->endpoint()}

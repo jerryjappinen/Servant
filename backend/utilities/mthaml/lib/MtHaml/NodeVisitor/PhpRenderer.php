@@ -11,6 +11,7 @@ use MtHaml\Node\NodeAbstract;
 use MtHaml\Node\ObjectRefId;
 use MtHaml\Node\TagAttributeInterpolation;
 use MtHaml\Node\TagAttributeList;
+use MtHaml\Node\Filter;
 
 class PhpRenderer extends RendererAbstract
 {
@@ -21,7 +22,7 @@ class PhpRenderer extends RendererAbstract
 
     protected function stringLiteral($string)
     {
-        return var_export((string)$string, true);
+        return var_export((string) $string, true);
     }
 
     public function enterInterpolatedString(InterpolatedString $node)
@@ -150,13 +151,50 @@ class PhpRenderer extends RendererAbstract
         $this->raw(', ');
     }
 
+    public function enterFilter(Filter $node)
+    {
+        $filter = $this->env->getFilter($node->getFilter());
+
+        if (!$filter->isOptimizable($this, $node, $this->env->getOptions())) {
+            $this->pushEchoMode(false);
+            $this->write('<?php echo MtHaml\Runtime::filter('.$this->env->getOption('mthaml_variable').', '.var_export($node->getFilter(), true).', get_defined_vars(),');
+            $this->indent();
+
+            $first = true;
+            foreach ($node->getChilds() as $statement) {
+                if ($first) {
+                    $first = false;
+                } else {
+                    $this->raw(" .\n");
+                }
+
+                $this->writeIndentation();
+                $statement->getContent()->accept($this);
+                $this->raw('. "\n"');
+            }
+            $this->raw("\n");
+
+            return false;
+        }
+    }
+
+    public function leaveFilter(Filter $node)
+    {
+        $filter = $this->env->getFilter($node->getFilter());
+
+        if (!$filter->isOptimizable($this, $node, $this->env->getOptions())) {
+            $this->undent();
+            $this->write(') ?>');
+            $this->popEchoMode();
+        }
+    }
+
     protected function writeDebugInfos($lineno)
     {
     }
 
     protected function renderDynamicAttributes(Tag $tag)
     {
-        $list = array();
         $n = 0;
 
         $this->raw(' <?php echo MtHaml\Runtime::renderAttributes(array(');
@@ -173,7 +211,7 @@ class PhpRenderer extends RendererAbstract
                 $this->raw('MtHaml\Runtime\AttributeInterpolation::create(');
                 $attr->getValue()->accept($this);
                 $this->raw(')');
-            } else if ($attr instanceof TagAttributeList) {
+            } elseif ($attr instanceof TagAttributeList) {
                 $this->raw('MtHaml\Runtime\AttributeList::create(');
                 $attr->getValue()->accept($this);
                 $this->raw(')');
@@ -181,7 +219,7 @@ class PhpRenderer extends RendererAbstract
                 $this->raw('array(');
                 $attr->getName()->accept($this);
                 $this->raw(', ');
-                if ($value = $attr->getValue()) {
+                if ($attr->getValue()) {
                     $attr->getValue()->accept($this);
                 } else {
                     $this->raw('TRUE');
@@ -200,6 +238,8 @@ class PhpRenderer extends RendererAbstract
         $this->raw($this->stringLiteral($this->env->getOption('format')));
         $this->raw(', ');
         $this->raw($this->stringLiteral($this->charset));
+        $this->raw( ($this->env->getOption('enable_escaper') && $this->env->getOption('escape_attrs'))?
+                    '' : ', false');
 
         $this->raw('); ?>');
     }
@@ -231,4 +271,3 @@ class PhpRenderer extends RendererAbstract
         return preg_replace($re, '$1', $code);
     }
 }
-

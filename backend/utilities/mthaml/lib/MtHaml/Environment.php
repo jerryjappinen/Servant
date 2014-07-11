@@ -8,6 +8,7 @@ use MtHaml\NodeVisitor\Escaping as EscapingVisitor;
 use MtHaml\NodeVisitor\Autoclose;
 use MtHaml\NodeVisitor\Midblock;
 use MtHaml\NodeVisitor\MergeAttrs;
+use MtHaml\Filter\FilterInterface;
 
 class Environment
 {
@@ -16,16 +17,29 @@ class Environment
         'enable_escaper' => true,
         'escape_html' => true,
         'escape_attrs' => true,
+        'cdata' => true,
         'autoclose' => array('meta', 'img', 'link', 'br', 'hr', 'input', 'area', 'param', 'col', 'base'),
         'charset' => 'UTF-8',
     );
 
+    protected $filters = array(
+        'css' => 'MtHaml\\Filter\\Css',
+        'cdata' => 'MtHaml\\Filter\\Cdata',
+        'escaped' => 'MtHaml\\Filter\\Escaped',
+        'javascript' => 'MtHaml\\Filter\\Javascript',
+        'php' => 'MtHaml\\Filter\\Php',
+        'plain' => 'MtHaml\\Filter\\Plain',
+        'preserve' => 'MtHaml\\Filter\\Preserve',
+        'twig' => 'MtHaml\\Filter\\Twig',
+    );
+
     protected $target;
 
-    public function __construct($target, array $options = array())
+    public function __construct($target, array $options = array(), $filters = array())
     {
         $this->target = $target;
         $this->options = $options + $this->options;
+        $this->filters = $filters + $this->filters;
     }
 
     public function compileString($string, $filename)
@@ -34,7 +48,7 @@ class Environment
 
         $node = $target->parse($this, $string, $filename);
 
-        foreach($this->getVisitors() as $visitor) {
+        foreach ($this->getVisitors() as $visitor) {
             $node->accept($visitor);
         }
 
@@ -43,27 +57,74 @@ class Environment
         return $code;
     }
 
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
     public function getOption($name)
     {
         return $this->options[$name];
+    }
+
+    /**
+     * Returns a filter
+     *
+     * @param $name A name of filter
+     *
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     *
+     * @return FilterInterface
+     */
+    public function getFilter($name)
+    {
+        if (!isset($this->filters[$name])) {
+            throw new \InvalidArgumentException(sprintf('Unknown filter name "%s"', $name));
+        }
+
+        $filter = $this->filters[$name];
+
+        if (is_string($filter)) {
+            if (!class_exists($filter)) {
+                throw new \RuntimeException(sprintf('Class "%s" for filter "%s" does not exists', $filter, $name));
+            }
+
+            $filter = new $filter;
+            $this->addFilter($name, $filter);
+        }
+
+        return $filter;
+    }
+
+    public function addFilter($name, $filter)
+    {
+        if (!is_string($filter) && !(is_object($filter) && $filter instanceof FilterInterface)) {
+            throw new \InvalidArgumentException('Filter should be a class name or an instance of FilterInterface');
+        }
+
+        $this->filters[$name] = $filter;
+
+        return $this;
     }
 
     public function getTarget()
     {
         $target = $this->target;
         if (is_string($target)) {
-            switch($target) {
-            case 'php':
-                $target = new Php;
-                break;
-            case 'twig':
-                $target = new Twig;
-                break;
-            default:
-                throw new Exception(sprintf('Unknown target language: %s', $target));
+            switch ($target) {
+                case 'php':
+                    $target = new Php;
+                    break;
+                case 'twig':
+                    $target = new Twig;
+                    break;
+                default:
+                    throw new Exception(sprintf('Unknown target language: %s', $target));
             }
             $this->target = $target;
         }
+
         return $target;
     }
 
@@ -92,7 +153,7 @@ class Environment
         $attrs = EscapingVisitor::ESCAPE_TRUE;
         if ('once' === $this->getOption('escape_attrs')) {
             $attrs = EscapingVisitor::ESCAPE_ONCE;
-        } else if (!$this->getOption('escape_attrs')) {
+        } elseif (!$this->getOption('escape_attrs')) {
             $attrs = EscapingVisitor::ESCAPE_FALSE;
         }
 
@@ -114,4 +175,3 @@ class Environment
         return new MergeAttrs;
     }
 }
-

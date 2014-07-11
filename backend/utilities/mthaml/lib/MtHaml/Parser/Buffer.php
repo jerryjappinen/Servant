@@ -22,8 +22,10 @@ class Buffer
         if (null !== $this->line) {
             ++$this->lineno;
             $this->column = 1;
+
             return true;
         }
+
         return false;
     }
 
@@ -57,6 +59,7 @@ class Buffer
             $char = $this->line[0];
             $this->line = (string) substr($this->line, 1);
             ++$this->column;
+
             return $char;
         }
     }
@@ -66,16 +69,16 @@ class Buffer
         $chars = (string) substr($this->line, 0, $n);
         $this->line = (string) substr($this->line, $n);
         $this->column += strlen($chars);
+
         return $chars;
     }
 
     public function match($pattern, &$match = null, $eat = true)
     {
         if ($count = preg_match($pattern, $this->line, $match, PREG_OFFSET_CAPTURE)) {
-            $column = $match[0][1];
             $pos = array();
 
-            foreach($match as $key => &$capture) {
+            foreach ($match as $key => &$capture) {
                 $pos[$key] = array(
                     'lineno' => $this->lineno,
                     'column' => $capture[1],
@@ -90,6 +93,7 @@ class Buffer
                 $this->eat($match[0]);
             }
         }
+
         return $count > 0;
     }
 
@@ -127,4 +131,3 @@ class Buffer
         return $this->line;
     }
 }
-

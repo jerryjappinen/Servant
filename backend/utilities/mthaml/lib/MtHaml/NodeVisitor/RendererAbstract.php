@@ -11,7 +11,6 @@ use MtHaml\Node\Doctype;
 use MtHaml\Node\Comment;
 use MtHaml\Environment;
 use MtHaml\Node\Filter;
-use MtHaml\Exception;
 use MtHaml\Node\NodeAbstract;
 use MtHaml\Node\NestInterface;
 use MtHaml\Node\Run;
@@ -56,19 +55,45 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         return $this->output;
     }
 
-    protected function indent()
+    public function getIndent()
+    {
+        return $this->indent;
+    }
+
+    public function setIndent($indent)
+    {
+        $this->indent = (int) $indent;
+
+        return $this;
+    }
+
+    public function indent()
     {
         $this->indent += 1;
+
         return $this;
     }
 
-    protected function undent()
+    public function undent()
     {
         $this->indent -= 1;
+
         return $this;
     }
 
-    protected function write($string, $indent = true, $break = true)
+    public function pushSavedIndent($indent)
+    {
+        $this->savedIndent[] = (int) $indent;
+
+        return $this;
+    }
+
+    public function popSavedIndent()
+    {
+        return array_pop($this->savedIndent);
+    }
+
+    public function write($string, $indent = true, $break = true)
     {
         if ($indent) {
             $this->writeIndentation();
@@ -79,19 +104,22 @@ abstract class RendererAbstract extends NodeVisitorAbstract
             $this->output .= "\n";
             $this->lineno++;
         }
+
         return $this;
     }
 
-    protected function raw($string)
+    public function raw($string)
     {
         $this->output .= $string;
         $this->lineno += substr_count($string, "\n");
+
         return $this;
     }
 
     protected function writeIndentation()
     {
         $this->output .= str_repeat(' ', $this->indent * 2);
+
         return $this;
     }
 
@@ -160,7 +188,13 @@ abstract class RendererAbstract extends NodeVisitorAbstract
             $break = $this->shouldBreakAfterOpen($node);
         }
 
-        $this->write(($close ? ' /' : '') . '>', false, $break);
+        if ($close && 'xhtml' === $this->env->getOption('format')) {
+            $str = ' />';
+        } else {
+            $str = '>';
+        }
+
+        $this->write($str, false, $break);
 
         if (!$close && $break) {
             $this->indent();
@@ -270,7 +304,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
 
         if ($comment->hasContent()) {
             $this->write($open . ' ', $comment->hasParent(), false);
-        } else if ($comment->hasChilds()) {
+        } elseif ($comment->hasChilds()) {
             $this->write($open, true, true)->indent();
         }
     }
@@ -289,55 +323,19 @@ abstract class RendererAbstract extends NodeVisitorAbstract
 
         if ($comment->hasContent()) {
             $this->write(' ' . $close, false, $comment->hasParent());
-        } else if ($comment->hasChilds()) {
+        } elseif ($comment->hasChilds()) {
             $this->undent()->write($close, true, true);
         }
     }
 
-    public function enterFilter(Filter $node)
+    public function enterFilterChilds(Filter $node)
     {
-        // TODO: make filters modular
+        $filter = $this->env->getFilter($node->getFilter());
 
-        switch($node->getFilter()) {
-        case 'javascript':
-            $this->write('<script type="text/javascript">')
-                ->write('//<![CDATA[')
-                ->indent();
-            break;
-        case 'css':
-            $this->write('<style type="text/css">')
-                ->write('/*<![CDATA[*/')
-                ->indent();
-            break;
-        case 'plain':
-            break;
-        case 'preserve':
-            $this->savedIndent[] = $this->indent;
-            $this->indent = 0;
-            break;
-        default:
-            throw new Exception("unknown filter " . $node->getFilter());
-        }
-    }
+        if ($filter->isOptimizable($this, $node, $this->env->getOptions())) {
+            $filter->optimize($this, $node, $this->env->getOptions());
 
-    public function leaveFilter(Filter $node)
-    {
-        switch($node->getFilter()) {
-        case 'javascript':
-            $this->undent()
-                ->write('//]]>')
-                ->write('</script>');
-            break;
-        case 'css':
-            $this->undent()
-                ->write('/*]]>*/')
-                ->write('</style>');
-            break;
-        case 'plain':
-            break;
-        case 'preserve':
-            $this->indent = array_pop($this->savedIndent);
-            break;
+            return false;
         }
     }
 
@@ -402,6 +400,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         if (null !== $node->getPreviousSibling()) {
             return;
         }
+
         return $this->getParentTag($node);
     }
 
@@ -410,6 +409,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         if (null !== $node->getNextSibling()) {
             return;
         }
+
         return $this->getParentTag($node);
     }
 
@@ -433,6 +433,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         if (!($first instanceof Tag)) {
             return;
         }
+
         return $first;
     }
 
@@ -447,6 +448,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         if (!($last instanceof Tag)) {
             return;
         }
+
         return $last;
     }
 
@@ -458,6 +460,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         if (!($tag instanceof Tag)) {
             return;
         }
+
         return $tag;
     }
 
@@ -469,6 +472,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         if (!($tag instanceof Tag)) {
             return;
         }
+
         return $tag;
     }
 
@@ -489,6 +493,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -526,6 +531,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -546,6 +552,7 @@ abstract class RendererAbstract extends NodeVisitorAbstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -570,4 +577,3 @@ abstract class RendererAbstract extends NodeVisitorAbstract
         $this->echoMode = array_pop($this->echoModeStack);
     }
 }
-

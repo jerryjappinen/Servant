@@ -289,7 +289,7 @@ class ServantFiles extends ServantObject {
 	* PHP from HAML
 	*/
 	private function convertHamlToPhp ($haml, $scriptVariables = array()) {
-		$this->servant()->utilities()->load('mthaml');
+		$this->servant()->utilities()->load('twig', 'mthaml');
 		$parser = new MtHaml\Environment('php');
 		return $parser->compileString($haml, '');
 	}

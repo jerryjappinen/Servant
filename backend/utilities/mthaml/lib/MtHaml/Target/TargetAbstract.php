@@ -3,7 +3,6 @@
 namespace MtHaml\Target;
 
 use MtHaml\Environment;
-use MtHaml\NodeVisitor\RendererAbstract;
 use MtHaml\Node\NodeAbstract;
 use MtHaml\Parser;
 
@@ -20,7 +19,7 @@ abstract class TargetAbstract implements TargetInterface
 
     public function getDefaultParserFactory()
     {
-        return function(Environment $env, array $options) {
+        return function (Environment $env, array $options) {
             return new Parser;
         };
     }
@@ -30,12 +29,13 @@ abstract class TargetAbstract implements TargetInterface
         if (null === $this->parserFactory) {
             $this->parserFactory = $this->getDefaultParserFactory();
         }
+
         return $this->parserFactory;
     }
 
     public function setParserFactory($factory)
     {
-        $this->parserFactory = $parserFactory;
+        $this->parserFactory = $factory;
     }
 
     public function createParser(Environment $env, array $options)
@@ -50,6 +50,7 @@ abstract class TargetAbstract implements TargetInterface
         if (null === $this->rendererFactory) {
             $this->rendererFactory = $this->getDefaultRendererFactory();
         }
+
         return $this->rendererFactory;
     }
 
@@ -66,6 +67,7 @@ abstract class TargetAbstract implements TargetInterface
     public function parse(Environment $env, $string, $filename)
     {
         $parser = $this->createParser($env, $this->options);
+
         return $parser->parse($string, $filename);
     }
 
@@ -83,4 +85,3 @@ abstract class TargetAbstract implements TargetInterface
         return $this->options[$name];
     }
 }
-

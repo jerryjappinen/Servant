@@ -1,7 +1,7 @@
 
 # Markdown
 
-Sample test description.
+Sample description paragraph.
 
 ## Subtitle basic stuff
 

@@ -2,6 +2,7 @@
 
 namespace MtHaml\NodeVisitor;
 
+use MtHaml\Node\Filter;
 use MtHaml\Node\Insert;
 use MtHaml\Node\Run;
 use MtHaml\Node\InterpolatedString;
@@ -21,7 +22,7 @@ class TwigRenderer extends RendererAbstract
 
     protected function stringLiteral($string)
     {
-        return var_export((string)$string, true);
+        return var_export((string) $string, true);
     }
 
     public function enterInterpolatedString(InterpolatedString $node)
@@ -51,7 +52,7 @@ class TwigRenderer extends RendererAbstract
             $escaping = $node->getEscaping()->isEnabled();
             if (true === $escaping) {
                 $fmt = '{{ (%s)|escape }}';
-            } else if (false === $escaping) {
+            } elseif (false === $escaping) {
                 $fmt = '{{ (%s)|raw }}';
             } else {
                 $fmt = '{{ %s }}';
@@ -138,7 +139,26 @@ class TwigRenderer extends RendererAbstract
         $this->raw(', ');
     }
 
+    public function enterFilter(Filter $node)
+    {
+        $filter = $this->env->getFilter($node->getFilter());
 
+        if (!$filter->isOptimizable($this, $node, $this->env->getOptions())) {
+            $this->write('{% filter mthaml_'.$node->getFilter().' %}', true, false);
+            $this->savedIndent[] = $this->indent;
+            $this->indent = 0;
+        }
+    }
+
+    public function leaveFilter(Filter $node)
+    {
+        $filter = $this->env->getFilter($node->getFilter());
+
+        if (!$filter->isOptimizable($this, $node, $this->env->getOptions())) {
+            $this->write('{% endfilter %}');
+            $this->indent = $this->popSavedIndent();
+        }
+    }
 
     protected function renderTag($content)
     {
@@ -163,8 +183,6 @@ class TwigRenderer extends RendererAbstract
 
     protected function renderDynamicAttributes(Tag $tag)
     {
-        $list = array();
-
         $this->raw(' ');
 
         foreach ($tag->getAttributes() as $attr) {
@@ -186,7 +204,7 @@ class TwigRenderer extends RendererAbstract
                 $this->raw('mthaml_attribute_interpolation(');
                 $attr->getValue()->accept($this);
                 $this->raw(')');
-            } else if ($attr instanceof TagAttributeList) {
+            } elseif ($attr instanceof TagAttributeList) {
                 $this->raw('mthaml_attribute_list(');
                 $attr->getValue()->accept($this);
                 $this->raw(')');
@@ -194,7 +212,7 @@ class TwigRenderer extends RendererAbstract
                 $this->raw('[');
                 $attr->getName()->accept($this);
                 $this->raw(', ');
-                if ($value = $attr->getValue()) {
+                if ($attr->getValue()) {
                     $attr->getValue()->accept($this);
                 } else {
                     $this->raw('true');
@@ -211,8 +229,9 @@ class TwigRenderer extends RendererAbstract
         $this->raw($this->stringLiteral($this->env->getOption('format')));
         $this->raw(', ');
         $this->raw($this->stringLiteral($this->charset));
+        $this->raw( ($this->env->getOption('enable_escaper') && $this->env->getOption('escape_attrs'))?
+            '' : ', false');
 
         $this->raw(')|raw }}');
     }
 }
-
