@@ -33,6 +33,8 @@
 	- JSON file contents outputted as JS hashes
 	- Available like scripts and stylesheets
 	- `json` reader and parser available globally (now in `ServantManifest` only)
+- **Loading assets under `pages/`**
+	- Get node's assets in subfolders with no child pages
 - **`ServantPath`**
 	- Use in all path properties
 	- Provide formatting, manipulation and sanitization

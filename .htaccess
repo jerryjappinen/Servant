@@ -36,7 +36,7 @@ Options -Indexes
 # RewriteRule ^$ %{REQUEST_URI}site/ [R=301,L]
 
 # Load index.php at root
-DirectoryIndex backend/index.php
+DirectoryIndex index.html index.php backend/index.php
 
 # Respect natural paths
 RewriteCond %{REQUEST_FILENAME} !-f

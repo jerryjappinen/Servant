@@ -38,9 +38,7 @@ doc.ready(function () {
 	doc.on('scroll touchmove', function (event) {
 		treatScroll();
 	});
-	doc.ready(function (event) {
-		treatScroll();
-	});
+	treatScroll();
 
 
 
