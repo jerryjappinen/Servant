@@ -3,9 +3,6 @@
 
 ## Backlog
 
-- **Template parsers**
-	- Support MtHaml/Twig combo
-	- Remove unsupported parsers
 - **Initing inputs and actions**
 	- Very laborous and weird
 	- Action's init behavior is weird and not very handy
@@ -13,6 +10,38 @@
 		- Make `ServantInput->fetch()` return `null` if validation fails
 		- Take in pointer and other input separately
 		- Improve documentation
+- **`ServantManifest`**
+	- Viewport definitions
+	- Author name and/or email
+	- Custom user settings
+	- Private actions
+		- Not accessible via HTTP
+		- Other scripts can use the action as usual
+		- Use case: handling database connection via one action which doesn't respond to HTTP
+		- Should not be visible in public responses (might be tricky)
+	- Action-specific user settings
+		- Allow users to declare action-specific config items
+- **Directory structure**
+	- Support multiple locations for templates, actions etc.
+		- Defined in `paths.php`
+		- Custom templates and actions are easily distinguished from those provided by default
+		- Makes updating Servant easier
+- **Internal URL scheme**
+	- Use pseudo protocols to point to different locations:
+		- `servant://` (root)
+		- `assets://`
+		- `actions://`
+		- `pages://`
+		- `templates://`
+	- In different contexts, one of these serves as the default root
+	- Have one PHP method that handles these conversions (so you can write something like `pointer('assets://foo')`)
+	- Apply URL parsing to HTML form's action tag
+	- Treat `../` as expected when parsing URLs
+- **`json` settings files**
+	- Supported in site assets, templates and nodes
+	- JSON file contents outputted as JS hashes
+	- Available like scripts and stylesheets
+	- `json` reader and parser available globally (now in `ServantManifest` only)
 - **`API`/`about`/`json-vars` action**
 	- For requesting info with AJAX
 	- Setting `json` files scraped from assets, templates, nodes
@@ -20,7 +49,10 @@
 	- Outputs error in console in debug mode
 - **Redirect URLs**
 	- Include excess pointer parameters in redirect URLs
-- **Unit test action**
+- **Template parsers**
+	- Support MtHaml/Twig combo
+	- Remove unsupported parsers
+- **Unit tests (action)**
 	- Easy way to get unit tests started, even if requires a not-completely-broken system
 	- TODO
 		- Write test runner utility
@@ -28,11 +60,6 @@
 		- Write action that inits test suites and passes them `$servant`
 		- Show test results in JSON
 		- Separate HTML outputter
-- **`json` settings files**
-	- Supported in site assets, templates and nodes
-	- JSON file contents outputted as JS hashes
-	- Available like scripts and stylesheets
-	- `json` reader and parser available globally (now in `ServantManifest` only)
 - **Loading assets under `pages/`**
 	- Get node's assets in subfolders with no child pages
 - **`ServantPath`**
@@ -45,22 +72,6 @@
 		- `->server()`
 		- `->split()`
 		- `->foo('more', 'url', 'parameters')`
-- **Internal URL scheme**
-	- Use pseudo protocols to point to different locations:
-		- `servant://` (root)
-		- `assets://`
-		- `actions://`
-		- `pages://`
-		- `templates://`
-	- In different contexts, one of these serves as the default root
-	- Have one PHP method that handles these conversions (so you can write something like `pointer('assets://foo')`)
-	- Apply URL parsing to HTML form's action tag
-	- Treat `../` as expected when parsing URLs
-- **Directory structure**
-	- Support multiple locations for templates, actions etc.
-		- Defined in `paths.php`
-		- Custom templates and actions are easily distinguished from those provided by default
-		- Makes updating Servant easier
 - **Templates**
 	- Support passing category node to stock templates
 	- Support running Servant without template files (`ServantTemplate` working without files should render content directly)
@@ -76,15 +87,6 @@
 - **`ServantData`**
 	- Chart out use cases
 	- Provide better services for managing files
-- **`ServantManifest`**
-	- Custom user settings
-	- Private actions
-		- Not accessible via HTTP
-		- Other scripts can use the action as usual
-		- Use case: handling database connection via one action which doesn't respond to HTTP
-		- Should not be visible in public responses (might be tricky)
-	- Action-specific user settings
-		- Allow users to declare action-specific config items
 - **Search action**
 	- Scan available pages, action names etc.
 	- Should scan result HTML instead of 
