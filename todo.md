@@ -26,6 +26,8 @@
 		- Defined in `paths.php`
 		- Custom templates and actions are easily distinguished from those provided by default
 		- Makes updating Servant easier
+- **Auto-detecting debug mode**
+	- Add list of dev hosts/IPs to `settings.json`, maybe?
 - **Internal URL scheme**
 	- Use pseudo protocols to point to different locations:
 		- `servant://` (root)
@@ -109,7 +111,6 @@
 - Page pointers are weird if there is only one directory under subfolder
 - Sometimes `ServantInput` might fail on `Validator` class not being available despite attempting to load it via `ServantUtilities`.
 - Twig parser of `ServantFiles` does not pass on treated variables to script files running in queue
-- Cache files are sometimes created in debug mode
 
 
 
