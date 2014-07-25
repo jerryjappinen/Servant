@@ -30,16 +30,22 @@
 	- Add list of dev hosts/IPs to `settings.json`, maybe?
 - **Internal URL scheme**
 	- Use pseudo protocols to point to different locations:
-		- `servant://` (root)
-		- `assets://`
+		- `host://`
+		- `root://`
 		- `actions://`
+		- `assets://`
 		- `pages://`
 		- `templates://`
-	- In different contexts, one of these serves as the default root
+		- `data://`
+		- `this://` -> Page node, action path, template path, asset directory etc.
+		- `file://`, `dir://` -> The file/directory where the path itself is located
+	- In different contexts, one of these can serve as the default root
 	- Have one PHP method that handles these conversions (so you can write something like `pointer('assets://foo')`)
 	- Apply URL parsing to HTML form's action tag
 	- Treat `../` as expected when parsing URLs
+		- so even something like `dir://../foo/` could work
 - **`json` settings files**
+	- Rename as `ServantData`
 	- Supported in site assets, templates and nodes
 	- JSON file contents outputted as JS hashes
 	- Available like scripts and stylesheets
@@ -87,6 +93,7 @@
 	- Set scripts and stylesheets in `ServantNode`, bubble them like `externalStylesheets`
 		- Actions should output nodestyles and nodestylesheets
 - **`ServantData`**
+	- Rename as `ServantStorage`
 	- Chart out use cases
 	- Provide better services for managing files
 - **Search action**
@@ -103,6 +110,14 @@
 	- Files in a case-sensitive file system might create confusion
 - **`html` template**
 	- Send pointer parameters to page-specific external scripts/stylesheets that point to local Servant actions?
+
+
+
+## Documentation
+
+- Input handling in actions
+	- Pointers
+	- Validation
 
 
 
