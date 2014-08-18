@@ -44,6 +44,10 @@
 	- Apply URL parsing to HTML form's action tag
 	- Treat `../` as expected when parsing URLs
 		- so even something like `dir://../foo/` could work
+- ***Package* action and template**
+	- Prints out all assets, internal and external, as one HTML page
+	- All HTML tags (in template) point to static asset files
+	- Response can be saved as static HTML file and served as is
 - **`json` settings files**
 	- Rename as `ServantData`
 	- Supported in site assets, templates and nodes
