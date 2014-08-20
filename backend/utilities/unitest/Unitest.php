@@ -1,17 +1,15 @@
 <?php
 
 /**
-* Unitest
+* Unitest 0.1.0
 *
 * A one-class miniature unit testing framework for PHP.
 *
 * This class is a test suite that can contain test methods and child suites. It can also search for test files in the file system, generating suites automatically.
 *
-* Test results are reported as array data, which can then be converted into HTML, JSON or any other format easily.
+* Test results are reported as raw array data, which can then be converted into HTML, JSON or any other format easily.
 *
 *
-*
-* Version 0.1.0
 *
 * Released under MIT License
 * Authored by Jerry Jäppinen
@@ -34,16 +32,15 @@ class Unitest {
 
 	private $_baseClass = 'Unitest';
 	private $_testMethodPrefix = 'test';
+	private $_assertionMethodPrefix = 'should';
 
 
 
 	/**
 	* Initialization
-	*
-	* Parent suite and script variables can be passed
 	*/
 	final public function __construct () {
-		$this->_runInit();
+		$this->_runHook('init');
 		return $this;
 	}
 
@@ -54,6 +51,25 @@ class Unitest {
 	*/
 	final public function __toString () {
 		return get_class($this);
+	}
+
+
+
+	/**
+	* All assertion methods of this suite (methods beginning with should)
+	*/
+	final public function assertions () {
+		$assertions = array();
+		$ref = new ReflectionClass($this);
+
+		// All methods beginning with the prefix 'should'
+		foreach ($ref->getMethods() as $method) {
+			if (substr($method->name, 0, strlen($this->_assertionMethodPrefix)) === $this->_assertionMethodPrefix) {
+				$assertions[] = $method->name;
+			}
+		}
+
+		return $assertions;
 	}
 
 
@@ -91,7 +107,7 @@ class Unitest {
 		$suitesOrTests = $this->_flattenArray($arguments);
 
 		// Preparation before suite runs anything (possible exceptions are left uncaught)
-		$this->_runBeforeTests();
+		$this->_runHook('beforeTests');
 
 		// Run tests
 		foreach ($suitesOrTests as $suiteOrTest) {
@@ -121,7 +137,7 @@ class Unitest {
 		}
 
 		// Clean-up after suite has run everything (exceptions are left uncaught)
-		$this->_runAfterTests();
+		$this->_runHook('afterTests');
 
 		return $results;
 	}
@@ -177,14 +193,14 @@ class Unitest {
 		if (method_exists($this, $method)) {
 			$startTime = microtime(true);
 
+			// Take a snapshot of current injections
+			$allInjectionsCopy = $this->injections();
+
 			// Contain exceptions of test method
 			try {
 
-				// Take a snapshot of current injections
-				$allInjectionsCopy = $this->injections();
-
 				// Preparation method
-				$this->_runBeforeTest($method);
+				$this->_runHook('beforeTest');
 
 				// Get innjections to pass to test method
 				foreach ($this->_methodParameterNames($this, $method) as $parameterName) {
@@ -201,7 +217,7 @@ class Unitest {
 
 			// Contain exceptions of clean-up
 			try {
-				$this->_runAfterTest($method);
+				$this->_runHook('afterTest');
 			} catch (Exception $e) {
 				$result = $this->fail($this->_stringifyException($e));
 			}
@@ -514,14 +530,14 @@ class Unitest {
 	*
 	* Fails if passed non-objects or no objects.
 	*/
-	final protected function shouldBeOfClass ($testableObject, $targetClass) {
+	final protected function shouldBeOfClass ($object, $class) {
 
 		// Not an object
-		if (!is_object($testableObject)) {
+		if (!is_object($object)) {
 			return $this->fail();
 
 		// Wrong class
-		} else if (get_class($testableObject) !== $targetClass) {
+		} else if (get_class($object) !== $class) {
 			return $this->fail();
 		}
 
@@ -535,13 +551,13 @@ class Unitest {
 	*
 	* Can be passed multiple parent target classes.
 	*/
-	final protected function shouldExtendClass ($testableObjectOrClass, $targetClass) {
+	final protected function shouldExtendClass ($objectOrClass, $targetClass) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test for wrong class
 		foreach ($arguments as $argument) {
-			if (!is_subclass_of($testableObjectOrClass, $argument)) {
+			if (!is_subclass_of($objectOrClass, $argument)) {
 				return $this->fail();
 			}
 		}
@@ -597,6 +613,25 @@ class Unitest {
 
 
 	/**
+	* File(s) should have been included in current PHP script.
+	*/
+	final protected function shouldBeIncludedFile ($path) {
+		$arguments = func_get_args();
+		$arguments = $this->_flattenArray($arguments);
+		$loadedFiles = get_included_files();
+
+		foreach ($arguments as $argument) {
+			if (!is_string($argument) or !in_array(realpath($argument), $loadedFiles)) {
+				return $this->fail();
+			}
+		}
+
+		return $this->pass();
+	}
+
+
+
+	/**
 	* A file or directory should NOT exist in given location(s)
 	*/
 	final protected function shouldNotBeFileOrDirectory ($path) {
@@ -614,18 +649,18 @@ class Unitest {
 	/**
 	* An abstract method should exist in class or object.
 	*/
-	final protected function shouldHaveAbstractMethod ($testableObjectOrClass, $method) {
+	final protected function shouldHaveAbstractMethod ($objectOrClass, $method) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given methods
 		foreach ($arguments as $argument) {
-			if (!method_exists($testableObjectOrClass, $argument)) {
+			if (!method_exists($objectOrClass, $argument)) {
 				return $this->fail();
 			} else {
 
 				// Use reflection to check method
-				$ref = new ReflectionMethod($testableObjectOrClass, $argument);
+				$ref = new ReflectionMethod($objectOrClass, $argument);
 				if (!$ref->isAbstract()) {
 					return $this->fail();
 				}
@@ -641,18 +676,18 @@ class Unitest {
 	/**
 	* An unoverridable method should exist in class or object.
 	*/
-	final protected function shouldHaveFinalMethod ($testableObjectOrClass, $method) {
+	final protected function shouldHaveFinalMethod ($objectOrClass, $method) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given methods
 		foreach ($arguments as $argument) {
-			if (!method_exists($testableObjectOrClass, $argument)) {
+			if (!method_exists($objectOrClass, $argument)) {
 				return $this->fail();
 			} else {
 
 				// Use reflection to check method
-				$ref = new ReflectionMethod($testableObjectOrClass, $argument);
+				$ref = new ReflectionMethod($objectOrClass, $argument);
 				if (!$ref->isFinal()) {
 					return $this->fail();
 				}
@@ -668,13 +703,13 @@ class Unitest {
 	/**
 	* A method should exist in class or object.
 	*/
-	final protected function shouldHaveMethod ($testableObjectOrClass, $method) {
+	final protected function shouldHaveMethod ($objectOrClass, $method) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given methods
 		foreach ($arguments as $argument) {
-			if (!method_exists($testableObjectOrClass, $argument)) {
+			if (!method_exists($objectOrClass, $argument)) {
 				return $this->fail();
 			}
 		}
@@ -687,15 +722,15 @@ class Unitest {
 	/**
 	* A method with the visibility "private" should exist in class or object.
 	*/
-	final protected function shouldHavePrivateMethod ($testableObjectOrClass, $method) {
+	final protected function shouldHavePrivateMethod ($objectOrClass, $method) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given methods
 		foreach ($arguments as $argument) {
-			if (!method_exists($testableObjectOrClass, $argument)) {
+			if (!method_exists($objectOrClass, $argument)) {
 				return $this->fail();
-			} else if ($this->_methodVisibility($testableObjectOrClass, $argument) !== 'private') {
+			} else if ($this->_methodVisibility($objectOrClass, $argument) !== 'private') {
 				return $this->fail();
 			}
 		}
@@ -708,15 +743,15 @@ class Unitest {
 	/**
 	* A method with the visibility "protected" should exist in class or object.
 	*/
-	final protected function shouldHaveProtectedMethod ($testableObjectOrClass, $method) {
+	final protected function shouldHaveProtectedMethod ($objectOrClass, $method) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given methods
 		foreach ($arguments as $argument) {
-			if (!method_exists($testableObjectOrClass, $argument)) {
+			if (!method_exists($objectOrClass, $argument)) {
 				return $this->fail();
-			} else if ($this->_methodVisibility($testableObjectOrClass, $argument) !== 'protected') {
+			} else if ($this->_methodVisibility($objectOrClass, $argument) !== 'protected') {
 				return $this->fail();
 			}
 		}
@@ -729,15 +764,15 @@ class Unitest {
 	/**
 	* A method with the visibility "public" should exist in class or object.
 	*/
-	final protected function shouldHavePublicMethod ($testableObjectOrClass, $method) {
+	final protected function shouldHavePublicMethod ($objectOrClass, $method) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given methods
 		foreach ($arguments as $argument) {
-			if (!method_exists($testableObjectOrClass, $argument)) {
+			if (!method_exists($objectOrClass, $argument)) {
 				return $this->fail();
-			} else if ($this->_methodVisibility($testableObjectOrClass, $argument) !== 'public') {
+			} else if ($this->_methodVisibility($objectOrClass, $argument) !== 'public') {
 				return $this->fail();
 			}
 		}
@@ -750,18 +785,18 @@ class Unitest {
 	/**
 	* A static method should exist in class.
 	*/
-	final protected function shouldHaveStaticMethod ($testableClass, $method) {
+	final protected function shouldHaveStaticMethod ($objectOrClass, $method) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given methods
 		foreach ($arguments as $argument) {
-			if (!method_exists($testableClass, $argument)) {
+			if (!method_exists($objectOrClass, $argument)) {
 				return $this->fail();
 			} else {
 
 				// Use reflection to check method
-				$ref = new ReflectionMethod($testableClass, $argument);
+				$ref = new ReflectionMethod($objectOrClass, $argument);
 				if (!$ref->isStatic()) {
 					return $this->fail();
 				}
@@ -777,15 +812,15 @@ class Unitest {
 	/**
 	* A property with the visibility "private" should exist in class or object.
 	*/
-	final protected function shouldHavePrivateProperty ($testableObjectOrClass, $property) {
+	final protected function shouldHavePrivateProperty ($objectOrClass, $property) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given properties
 		foreach ($arguments as $argument) {
-			if (!property_exists($testableObjectOrClass, $argument)) {
+			if (!property_exists($objectOrClass, $argument)) {
 				return $this->fail();
-			} else if ($this->_propertyVisibility($testableObjectOrClass, $argument) !== 'private') {
+			} else if ($this->_propertyVisibility($objectOrClass, $argument) !== 'private') {
 				return $this->fail();
 			}
 		}
@@ -798,13 +833,13 @@ class Unitest {
 	/**
 	* A property should exist in class or object.
 	*/
-	final protected function shouldHaveProperty ($testableObjectOrClass, $property) {
+	final protected function shouldHaveProperty ($objectOrClass, $property) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given properties
 		foreach ($arguments as $argument) {
-			if (!property_exists($testableObjectOrClass, $argument)) {
+			if (!property_exists($objectOrClass, $argument)) {
 				return $this->fail();
 			}
 		}
@@ -817,15 +852,15 @@ class Unitest {
 	/**
 	* A property with the visibility "protected" should exist in class or object.
 	*/
-	final protected function shouldHaveProtectedProperty ($testableObjectOrClass, $property) {
+	final protected function shouldHaveProtectedProperty ($objectOrClass, $property) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given properties
 		foreach ($arguments as $argument) {
-			if (!property_exists($testableObjectOrClass, $argument)) {
+			if (!property_exists($objectOrClass, $argument)) {
 				return $this->fail();
-			} else if ($this->_propertyVisibility($testableObjectOrClass, $argument) !== 'protected') {
+			} else if ($this->_propertyVisibility($objectOrClass, $argument) !== 'protected') {
 				return $this->fail();
 			}
 		}
@@ -838,19 +873,309 @@ class Unitest {
 	/**
 	* A property with the visibility "public" should exist in class or object.
 	*/
-	final protected function shouldHavePublicProperty ($testableObjectOrClass, $property) {
+	final protected function shouldHavePublicProperty ($objectOrClass, $property) {
 		$arguments = func_get_args();
 		array_shift($arguments);
 
 		// Test all given properties
 		foreach ($arguments as $argument) {
-			if (!property_exists($testableObjectOrClass, $argument)) {
+			if (!property_exists($objectOrClass, $argument)) {
 				return $this->fail();
-			} else if ($this->_propertyVisibility($testableObjectOrClass, $argument) !== 'public') {
+			} else if ($this->_propertyVisibility($objectOrClass, $argument) !== 'public') {
 				return $this->fail();
 			}
 		}
 
+		return $this->pass();
+	}
+
+
+
+	/**
+	* A static property should exist in class.
+	*/
+	final protected function shouldHaveStaticProperty ($objectOrClass, $property) {
+		$arguments = func_get_args();
+		array_shift($arguments);
+
+		// Test all given properties
+		foreach ($arguments as $argument) {
+			if (!property_exists($objectOrClass, $argument)) {
+				return $this->fail();
+			} else {
+
+				// Use reflection to check property
+				$ref = new ReflectionProperty($objectOrClass, $argument);
+				if (!$ref->isStatic()) {
+					return $this->fail();
+				}
+
+				return $this->fail();
+			}
+		}
+
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Value's type should be array.
+	*/
+	final protected function shouldBeArray ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_array($argument)) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Value's type should be boolean
+	*/
+	final protected function shouldBeBoolean ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_bool($argument)) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Value's type should be float
+	*/
+	final protected function shouldBeFloat ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_float($argument)) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Value's type should be integer
+	*/
+	final protected function shouldBeInteger ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_int($argument)) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Value's type should be null
+	*/
+	final protected function shouldBeNull ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_null($argument)) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Value's type should be object
+	*/
+	final protected function shouldBeObject ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_object($argument)) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Value's type should be string
+	*/
+	final protected function shouldBeString ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_string($argument)) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Array value(s) should not contain subarrays
+	*/
+	final protected function shouldBeFlatArray ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_array($argument)) {
+				return $this->fail();
+			} else {
+
+				// Fail if child array key found
+				foreach ($argument as $child) {
+					if (is_array($child)) {
+						return $this->fail();
+					}
+				}
+
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Array value's keys should be sequential and numerical.
+	*/
+	final protected function shouldHaveIndexedKeys ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_array($argument)) {
+				return $this->fail();
+			} else {
+
+				// Fail if incorrect key found
+				$keys = array_keys($argument);
+				for ($i = 0; $i < count($array); $i++) { 
+					if ($keys[$i] !== $i) {
+						return $this->fail();
+					}
+				}
+
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Array value's keys should be numerical, potentially non-sequential.
+	*/
+	final protected function shouldHaveNumericalKeys ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_array($argument)) {
+				return $this->fail();
+			} else {
+
+				// Fail if incorrect key found
+				foreach (array_keys($argument) as $key) {
+					if (!is_int($key)) {
+						return $this->fail();
+					}
+				}
+
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Array value's keys should be strings.
+	*/
+	final protected function shouldHaveStringKeys ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_array($argument)) {
+				return $this->fail();
+			} else {
+
+				// Fail if incorrect key found
+				foreach (array_keys($argument) as $key) {
+					if (!is_string($key)) {
+						return $this->fail();
+					}
+				}
+
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Numeric value should be above zero
+	*/
+	final protected function shouldBeAboveZero ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_numeric($argument) or $argument <= 0) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Numeric value should be below zero
+	*/
+	final protected function shouldBeBelowZero ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_numeric($argument) or $argument >= 0) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* Numeric value should be exactly zero
+	*/
+	final protected function shouldBeZero ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_numeric($argument) or $argument < 0 or $argument > 0) {
+				return $this->fail();
+			}
+		}
+		return $this->pass();
+	}
+
+
+
+	/**
+	* String value's length should be zero
+	*/
+	final protected function shouldBeEmptyString ($value) {
+		$arguments = func_get_args();
+		foreach ($arguments as $argument) {
+			if (!is_string($argument) or strlen($argument)) {
+				return $this->fail();
+			}
+		}
 		return $this->pass();
 	}
 
@@ -1178,6 +1503,28 @@ class Unitest {
 
 
 	/**
+	* Run a suite's hook method, passing it injections
+	*/
+	final private function _runHook ($hookMethod) {
+		$injections = array();
+
+		if (method_exists($this, $hookMethod)) {
+
+			// Get innjections to pass to hook method
+			foreach ($this->_methodParameterNames($this, $hookMethod) as $parameterName) {
+				$injections[] = $this->injection($parameterName);
+			}
+
+			$this->_execute($hookMethod, $injections);
+
+		}
+
+		return $this;
+	}
+
+
+
+	/**
 	* Represent exception as string
 	*/
 	final private function _stringifyException ($e) {
@@ -1428,58 +1775,229 @@ class Unitest {
 
 
 	/**
-	* When a singe test has been run
+	* Aliases
 	*/
-	final private function _runAfterTest ($method) {
+
+
+	final  protected function shouldBeBool ($value) {
 		$arguments = func_get_args();
-		$this->_execute('afterTest', $arguments);
-		return $this;
+		return call_user_func_array(array($this, 'shouldBeBoolean'), $arguments);
 	}
 
-
-
-	/**
-	* When a suite has run tests
-	*/
-	final private function _runAfterTests () {
+	final  protected function shouldBeInt ($value) {
 		$arguments = func_get_args();
-		$this->_execute('afterTests', $arguments);
-		return $this;
+		return call_user_func_array(array($this, 'shouldBeInteger'), $arguments);
 	}
 
-
-
-	/**
-	* When a singe test is about to run
-	*/
-	final private function _runBeforeTest ($method) {
+	final  protected function shouldBeDouble ($value) {
 		$arguments = func_get_args();
-		$this->_execute('beforeTest', $arguments);
-		return $this;
+		return call_user_func_array(array($this, 'shouldBeFloat'), $arguments);
 	}
 
-
-
-	/**
-	* When a suite is about to run
-	*/
-	final private function _runBeforeTests () {
+	final  protected function should_be_bool ($value) {
 		$arguments = func_get_args();
-		$this->_execute('beforeTests', $arguments);
-		return $this;
+		return call_user_func_array(array($this, 'shouldBeBoolean'), $arguments);
 	}
 
-
-
-	/**
-	* When instance is created
-	*/
-	final private function _runInit () {
+	final  protected function should_be_int ($value) {
 		$arguments = func_get_args();
-		$this->_execute('init', $arguments);
-		return $this;
+		return call_user_func_array(array($this, 'shouldBeInteger'), $arguments);
 	}
 
+	final  protected function should_be_double ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeFloat'), $arguments);
+	}
+
+	final  protected function should_be_equal ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeEqual'), $arguments);
+	}
+
+	final  protected function should_not ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldNot'), $arguments);
+	}
+
+	final  protected function should_not_be_equal ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldNotBeEqual'), $arguments);
+	}
+
+	final  protected function should_be_available_class ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeAvailableClass'), $arguments);
+	}
+
+	final  protected function should_be_of_class ($object, $class) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeOfClass'), $arguments);
+	}
+
+	final  protected function should_extend_class ($objectOrClass, $targetClass) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldExtendClass'), $arguments);
+	}
+
+	final  protected function should_be_directory ($path) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeDirectory'), $arguments);
+	}
+
+	final  protected function should_be_file ($path) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeFile'), $arguments);
+	}
+
+	final  protected function should_be_file_or_directory ($path) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeFileOrDirectory'), $arguments);
+	}
+
+	final  protected function should_be_included_file ($path) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeIncludedFile'), $arguments);
+	}
+
+	final  protected function should_not_be_file_or_directory ($path) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldNotBeFileOrDirectory'), $arguments);
+	}
+
+	final  protected function should_have_abstract_method ($objectOrClass, $method) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveAbstractMethod'), $arguments);
+	}
+
+	final  protected function should_have_final_method ($objectOrClass, $method) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveFinalMethod'), $arguments);
+	}
+
+	final  protected function should_have_method ($objectOrClass, $method) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveMethod'), $arguments);
+	}
+
+	final  protected function should_have_private_method ($objectOrClass, $method) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHavePrivateMethod'), $arguments);
+	}
+
+	final  protected function should_have_protected_method ($objectOrClass, $method) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveProtectedMethod'), $arguments);
+	}
+
+	final  protected function should_have_public_method ($objectOrClass, $method) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHavePublicMethod'), $arguments);
+	}
+
+	final  protected function should_have_static_method ($objectOrClass, $method) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveStaticMethod'), $arguments);
+	}
+
+	final  protected function should_have_private_property ($objectOrClass, $property) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHavePrivateProperty'), $arguments);
+	}
+
+	final  protected function should_have_property ($objectOrClass, $property) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveProperty'), $arguments);
+	}
+
+	final  protected function should_have_protected_property ($objectOrClass, $property) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveProtectedProperty'), $arguments);
+	}
+
+	final  protected function should_have_public_property ($objectOrClass, $property) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHavePublicProperty'), $arguments);
+	}
+
+	final  protected function should_have_static_property ($objectOrClass, $property) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveStaticProperty'), $arguments);
+	}
+
+	final  protected function should_be_array ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeArray'), $arguments);
+	}
+
+	final  protected function should_be_boolean ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeBoolean'), $arguments);
+	}
+
+	final  protected function should_be_float ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeFloat'), $arguments);
+	}
+
+	final  protected function should_be_integer ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeInteger'), $arguments);
+	}
+
+	final  protected function should_be_null ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeNull'), $arguments);
+	}
+
+	final  protected function should_be_object ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeObject'), $arguments);
+	}
+
+	final  protected function should_be_string ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeString'), $arguments);
+	}
+
+	final  protected function should_be_flat_array ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeFlatArray'), $arguments);
+	}
+
+	final  protected function should_have_indexed_keys ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveIndexedKeys'), $arguments);
+	}
+
+	final  protected function should_have_numerical_keys ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveNumericalKeys'), $arguments);
+	}
+
+	final  protected function should_have_string_keys ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldHaveStringKeys'), $arguments);
+	}
+
+	final  protected function should_be_above_zero ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeAboveZero'), $arguments);
+	}
+
+	final  protected function should_be_below_zero ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeBelowZero'), $arguments);
+	}
+
+	final  protected function should_be_zero ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeZero'), $arguments);
+	}
+
+	final  protected function should_be_empty_string ($value) {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'shouldBeEmptyString'), $arguments);
+	}
 
 
 }

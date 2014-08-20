@@ -127,13 +127,18 @@ try {
 		),
 
 		'page traversal' => array(
+			'allPages' => array(
+				'',
+				'$page->allPages()'
+			),
+			'categories' => array(
+				'',
+				'$page->categories()'
+			),
 			'category' => array(
 				'',
 			),
 			'children' => array(
-				'',
-			),
-			'page' => array(
 				'',
 			),
 			'isCategory' => array(
@@ -150,6 +155,13 @@ try {
 				'',
 				'$root->isPage()',
 				$root->isPage(),
+			),
+			'page' => array(
+				'',
+			),
+			'pages' => array(
+				'',
+				'$page->pages()'
 			),
 		),
 

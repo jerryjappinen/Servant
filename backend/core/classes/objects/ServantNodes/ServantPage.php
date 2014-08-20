@@ -27,6 +27,16 @@ class ServantPage extends ServantNode {
 	* Convenience API for pages
 	*/
 
+	public function allPages () {
+		$arguments = func_get_args();
+		return call_user_func_array(array($this, 'pages'), $arguments);
+	}
+
+	public function categories () {
+		$arguments = func_get_args();
+		return array_traverse(array(), $arguments);
+	}
+
 	public function category () {
 		return $this->parent();
 	}
@@ -60,6 +70,11 @@ class ServantPage extends ServantNode {
 
 	public function page () {
 		return $this;
+	}
+
+	public function pages () {
+		$arguments = func_get_args();
+		return array_traverse(array($this), $arguments);
 	}
 
 

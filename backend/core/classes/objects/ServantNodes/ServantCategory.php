@@ -22,6 +22,34 @@ class ServantCategory extends ServantNode {
 	* Convenience API for categories
 	*/
 
+	// All child (recursive) pages as a flat array
+	public function allPages () {
+		$arguments = func_get_args();
+
+		// Find child nodes
+		$pages = $this->pages();
+		foreach ($this->categories() as $category) {
+			$pages = array_merge($pages, $category->allPages());
+		}
+
+		return array_traverse($pages, $arguments);
+	}
+
+	// Direct child categories
+	public function categories () {
+		$arguments = func_get_args();
+
+		// Find subcategories
+		$categories = array();
+		foreach ($this->children() as $node) {
+			if ($node->isCategory()) {
+				$categories[] = $node;
+			}
+		}
+
+		return array_traverse($categories, $arguments);
+	}
+
 	public function category () {
 		return $this;
 	}
@@ -44,6 +72,21 @@ class ServantCategory extends ServantNode {
 			$child = $child->page();
 		}
 		return $child;
+	}
+
+	// Direct child pages
+	public function pages () {
+		$arguments = func_get_args();
+
+		// Find child nodes
+		$pages = array();
+		foreach ($this->children() as $node) {
+			if ($node->isPage()) {
+				$pages[] = $node;
+			}
+		}
+
+		return array_traverse($pages, $arguments);
 	}
 
 

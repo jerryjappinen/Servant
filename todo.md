@@ -3,6 +3,14 @@
 
 ## Backlog
 
+- **Sitemap traversal**
+	- `->categories()`
+	- `->pages()`
+	- `->allCategories()`
+	- `->allPages()`
+	- etc.
+- **`$includeroot` in `ServantNodes`**
+	- See if we could get rid of it
 - **Initing inputs and actions**
 	- Very laborous and weird
 	- Action's init behavior is weird and not very handy
