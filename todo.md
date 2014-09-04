@@ -3,12 +3,9 @@
 
 ## Backlog
 
-- **Sitemap traversal**
-	- `->categories()`
-	- `->pages()`
-	- `->allCategories()`
-	- `->allPages()`
-	- etc.
+- **Frontend templates**
+	- Get HTML files from under assets and print them wrapped in `<script type="text/html" id="path-to-file"></script>`
+	- Figure out a suitable file type for these to separate them from Servant templates?
 - **`$includeroot` in `ServantNodes`**
 	- See if we could get rid of it
 - **Initing inputs and actions**
@@ -101,6 +98,7 @@
 		- ACTIONS can set browser **and** server cache times
 		- Node-specific actions respect node-specific cache settings
 	- Save cache files for all serialized raw input
+	- Avoid millions of weird cache files created for site action on arbitrary requests
 - **`ServantNode`**
 	- Set scripts and stylesheets in `ServantNode`, bubble them like `externalStylesheets`
 		- Actions should output nodestyles and nodestylesheets
